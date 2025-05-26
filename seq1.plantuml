@@ -14,10 +14,10 @@ participant ":Unit" as unit
 test -> board : calculatePlayerPoints(player: Player): int
 board -> side : calculateTotalPoints(): int
 
-loop "Para cada row en el side" 
+loop "For each row on the side" 
     side -> side : calculateTotalPointsForRow(row: RowType): int
 
-    loop "Para cada unit en el row"
+    loop "For each unit in the row"
         side -> unit : getPoints()
         unit --> side : points
     end
