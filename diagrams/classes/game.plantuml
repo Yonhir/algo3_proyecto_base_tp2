@@ -1,0 +1,74 @@
+@startuml
+
+
+' =====================
+' DECK & PLAYER
+' =====================
+class Deck {
+  -card:Card
+  {static} +Deck(units: List<Unit>, specials: List<Special>): Deck
+  +getCard(amount: int): List<Card>
+}
+
+class Player {
+  -hand: List<Card>
+  -discardPile: List<Card>
+  -name: String
+  -health: int
+  -hasPassed: boolean
+' -leader: LeaderCard
+  +playCard(card: Card, row: RowType)
+  +pass()
+'  +useLeaderAbility()
+}
+
+' =====================
+' GAME & BOARD
+' =====================
+class Game {
+  +start()
+  +playRound()
+  +isGameOver(): boolean
+}
+
+class Board {
+  -rowEffects: List<RowEffect>
+  +calculatePlayerPoints(player: Player): int
+  +applyRowEffects()
+  +calculateTotalPoints(player: Player): int
+}
+
+class Side {
+  -closeCombatRow: List<Card>
+  -rangedRow: List<Card>
+  -siegeRow: List<Card>
+  +placeCard(card: Card, row: RowType)
+  +calculateTotalPoints(): int
+  +calculateTotalPointsForRow(row: RowType): int
+}
+
+class Round {
+  -roundNumber: int
+  -player1Points: int
+  -player2Points: int
+  +getPlayerPoints(player: Player): int
+  +whoWon(): Player
+}
+
+' =====================
+' RELATIONSHIPS
+' =====================
+
+Game *-- "1..*" Round
+Game *-- "1" Board
+
+Round "1"-->"2" Player
+Round o-- Board
+
+Player --> Deck
+' Player --> LeaderCard
+
+Board "1" --> "2" Side
+
+
+@enduml
