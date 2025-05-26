@@ -11,3 +11,12 @@ buildNumber.properties
 .mvn/wrapper/maven-wrapper.jar
 *.iml
 *.~undo-tree~
+src/
+scripts/
+docs/
+docker/
+diagrams/
+README.md
+pom.xml
+LICENSE.md
+codecov.yml
