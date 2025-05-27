@@ -32,10 +32,9 @@ class Game {
 }
 
 class Board {
-  -rowEffects: List<RowEffect>
+  -rowEffects: List<Weather>
   +calculatePlayerPoints(player: Player): int
   +applyRowEffects()
-  +calculateTotalPoints(player: Player): int
 }
 
 class Side {
