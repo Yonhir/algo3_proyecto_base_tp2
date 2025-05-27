@@ -5,8 +5,8 @@
 ' DECK & PLAYER
 ' =====================
 class Deck {
-  -card:Card
-  {static} +Deck(units: List<Unit>, specials: List<Special>): Deck
+  -cards: List<Card>
+  +Deck(units: List<Unit>, specials: List<Special>): Deck
   +getCard(amount: int): List<Card>
 }
 
