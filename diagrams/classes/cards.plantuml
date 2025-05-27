@@ -1,0 +1,57 @@
+@startuml
+
+' =====================
+' INTERFACES
+' =====================
+interface SpecialEffect {
+  +apply(board: Board, owner: Player, opponent: Player)
+}
+
+' =====================
+' CARD HIERARCHY
+' =====================
+abstract class Card {
+  -name: String
+  -faction: Faction
+  
+}
+
+class Unit {
+  -basePoint: int
+  -rowType: RowType
+  -currentPoint: int
+  +getPoints(): int
+}
+
+abstract class Special {
+
+}
+
+abstract class Weather {
+  -affectedRow: RowType
+}
+
+abstract class Ability {
+}
+
+
+' =====================
+' RELATIONSHIPS
+' =====================
+
+Card <|-- Unit
+
+Card <|-- Special
+
+Unit --> "*" Ability
+
+Special <|-- Weather
+
+SpecialEffect <|.. Special
+
+SpecialEffect <|.. Ability
+
+
+
+
+@enduml
