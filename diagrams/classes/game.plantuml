@@ -1,46 +1,29 @@
 @startuml
 
-
+skinparam monochrome true
+hide circle
+skinparam classAttributeIconSize 0
 ' =====================
 ' DECK & PLAYER
 ' =====================
-class Deck {
-  -cards: List<Card>
-  +Deck(units: List<Unit>, specials: List<Special>): Deck
-  +getCard(amount: int): List<Card>
-}
-
-class Player {
-  -hand: List<Card>
-  -discardPile: List<Card>
-  -name: String
-  -health: int
-  -hasPassed: boolean
-' -leader: LeaderCard
-  +playCard(card: Card, row: RowType)
-  +pass()
-'  +useLeaderAbility()
-}
 
 ' =====================
 ' GAME & BOARD
 ' =====================
 class Game {
   +start()
-  +playRound()
-  +isGameOver(): boolean
+  +playerPlayCard(card: Card)
+  +playerPassRound()
 }
 
 class Board {
-  -rowEffects: List<Weather>
+  +Board(player1: Player, player2: Player): Board
   +calculatePlayerPoints(player: Player): int
-  +applyRowEffects()
 }
 
 class Side {
-  -closeCombatRow: List<Card>
-  -rangedRow: List<Card>
-  -siegeRow: List<Card>
+  -player: Player
+  +Side(player: Player): Side
   +placeCard(card: Card, row: RowType)
   +calculateTotalPoints(): int
   +calculateTotalPointsForRow(row: RowType): int
@@ -50,10 +33,38 @@ class Round {
   -roundNumber: int
   -player1Points: int
   -player2Points: int
-  +getPlayerPoints(player: Player): int
+  -currentPlayer: Player
+  -opponentPlayer: Player
+  +Round(player1: Player, player2: Player, titular: Player, roundNumber: int, board: Board): Round
+  +nextTurn(): Player
+  +currentPlayer(): Player
+  +opponentPlayer(): Player
+  +playerPassTurn()
   +whoWon(): Player
 }
 
+class Row {
+  -cards: List<Card>
+  -rowType: RowType
+  +placeCard(card: Card)
+  +calculateTotalPoints(): int
+}
+
+abstract class RowType <<abstract>> {
+  +placeCardInRow(row: Row, card: Unit)
+}
+
+class RangedRowType extends RowType {
+  +placeCardInRow(row: Row, card: Unit)
+}
+
+class CloseCombatRowType extends RowType {
+  +placeCardInRow(row: Row, card: Unit)
+}
+
+class SiegeRowType extends RowType {
+  +placeCardInRow(row: Row, card: Unit)
+}
 ' =====================
 ' RELATIONSHIPS
 ' =====================
@@ -61,11 +72,12 @@ class Round {
 Game *-- "1..*" Round
 Game *-- "1" Board
 
-Round "1"-->"2" Player
 Round o-- Board
 
-Player --> Deck
-' Player --> LeaderCard
+Side --> "3" Row
+
+Row *-- RowType
+
 
 Board "1" --> "2" Side
 
