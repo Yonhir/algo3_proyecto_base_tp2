@@ -25,15 +25,15 @@ abstract class RowType <<abstract>> {
   +placeCardInRow(row: Row, card: Unit)
 }
 
-class RangedRowType extends RowType {
+class RangedRowType {
   +placeCardInRow(row: Row, card: Unit)
 }
 
-class CloseCombatRowType extends RowType {
+class CloseCombatRowType {
   +placeCardInRow(row: Row, card: Unit)
 }
 
-class SiegeRowType extends RowType {
+class SiegeRowType {
   +placeCardInRow(row: Row, card: Unit)
 }
 
@@ -49,10 +49,14 @@ class Row {
 ' =====================
 
 
-Board --> "2" Side
+Side "2" <- Board
 
 Side --> "3" Row
 
 Row *-- RowType
+
+RowType <|- CloseCombatRowType
+RowType <|-- RangedRowType
+RowType <|-- SiegeRowType
 
 @enduml
