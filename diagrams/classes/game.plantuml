@@ -21,13 +21,6 @@ class Board {
   +calculatePlayerPoints(player: Player): int
 }
 
-class Side {
-  -player: Player
-  +Side(player: Player): Side
-  +placeCard(card: Card, row: RowType)
-  +calculateTotalPoints(): int
-  +calculateTotalPointsForRow(row: RowType): int
-}
 
 class Round {
   -roundNumber: int
@@ -43,27 +36,33 @@ class Round {
   +whoWon(): Player
 }
 
-class Row {
+class Player {
+  -name: String
+  -health: int
+  -hand: List<Card>
+  -discardPile: List<Card>
+  +Player(name: String, health: int): Player
+  +getHand(): List<Card>
+  +getRandomCardFromDiscardPile(): Card
+  +getCardFromHand(card: Card): Card
+  +discardCards(cards: List<Card>)
+  +addCardToHand(card: Card)
+}
+
+class Deck {
   -cards: List<Card>
-  -rowType: RowType
-  +placeCard(card: Card)
-  +calculateTotalPoints(): int
+  +Deck(cards: List<Card>): Deck
+  +getCards(amount: int): List<Card>
 }
 
-abstract class RowType <<abstract>> {
-  +placeCardInRow(row: Row, card: Unit)
-}
-
-class RangedRowType extends RowType {
-  +placeCardInRow(row: Row, card: Unit)
-}
-
-class CloseCombatRowType extends RowType {
-  +placeCardInRow(row: Row, card: Unit)
-}
-
-class SiegeRowType extends RowType {
-  +placeCardInRow(row: Row, card: Unit)
+class DeckBuilder {
+  -cards: List<Card>
+  -selectedCards: List<Card>
+  +getSelection(): List<Card>
+  +getCards(): List<Card>
+  +selectCard(card: Card)
+  +unselectCard(card: Card)
+  +buildDeck(): Deck
 }
 ' =====================
 ' RELATIONSHIPS
@@ -71,15 +70,13 @@ class SiegeRowType extends RowType {
 
 Game *-- "1..*" Round
 Game *-- "1" Board
-
-Round o-- Board
-
-Side --> "3" Row
-
-Row *-- RowType
+Game *-- "2" Player
+Game *-- DeckBuilder
+DeckBuilder --> Deck
+Player --> Deck
 
 
-Board "1" --> "2" Side
+
 
 
 @enduml
