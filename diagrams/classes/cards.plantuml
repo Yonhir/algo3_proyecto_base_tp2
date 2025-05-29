@@ -1,37 +1,38 @@
 @startuml
 
-' =====================
-' INTERFACES
-' =====================
-interface SpecialEffect {
-  +apply(board: Board, owner: Player, opponent: Player)
-}
+skinparam monochrome true
+hide circle
+skinparam classAttributeIconSize 0
 
 ' =====================
 ' CARD HIERARCHY
 ' =====================
-abstract class Card {
+interface SpecialEffect <<interface>> {
+  +apply(board: Board, owner: Player, opponent: Player)
+}
+
+abstract class Card <<abstract>> {
   -name: String
-  -faction: Faction
-  
+  -description: String
 }
 
 class Unit {
   -basePoint: int
   -rowType: RowType
   -currentPoint: int
+  +Unit(basePoint: int, rowType: RowType): Unit
   +getPoints(): int
 }
 
-abstract class Special {
-
+abstract class Special <<abstract>> {
 }
 
-abstract class Weather {
+abstract class Weather <<abstract>> {
   -affectedRow: RowType
 }
 
-abstract class Ability {
+abstract class Modifier <<abstract>> {
+  -description: String
 }
 
 
@@ -40,18 +41,11 @@ abstract class Ability {
 ' =====================
 
 Card <|-- Unit
-
 Card <|-- Special
-
-Unit --> "*" Ability
-
 Special <|-- Weather
 
-SpecialEffect <|.. Special
-
-SpecialEffect <|.. Ability
-
-
-
+Unit --> "*" Modifier
+Modifier ..|> SpecialEffect
+Special ..|> SpecialEffect
 
 @enduml
