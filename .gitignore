@@ -11,3 +11,13 @@ buildNumber.properties
 .mvn/wrapper/maven-wrapper.jar
 *.iml
 *.~undo-tree~
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# IntelliJ
+*.iml
+*.ipr
+*.iws
+
