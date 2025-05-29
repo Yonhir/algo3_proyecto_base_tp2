@@ -1,0 +1,51 @@
+@startuml
+
+skinparam monochrome true
+hide circle
+skinparam classAttributeIconSize 0
+
+' =====================
+' CARD HIERARCHY
+' =====================
+interface SpecialEffect <<interface>> {
+  +apply(board: Board, owner: Player, opponent: Player)
+}
+
+abstract class Card <<abstract>> {
+  -name: String
+  -description: String
+}
+
+class Unit {
+  -basePoint: int
+  -rowType: RowType
+  -currentPoint: int
+  +Unit(basePoint: int, rowType: RowType): Unit
+  +getPoints(): int
+}
+
+abstract class Special <<abstract>> {
+}
+
+abstract class Weather <<abstract>> {
+  -affectedRow: RowType
+}
+
+abstract class Modifier <<abstract>> {
+  -description: String
+}
+
+
+' =====================
+' RELATIONSHIPS
+' =====================
+
+Card <|-- Unit
+Card <|-- Special
+Special <|-- Weather
+
+Unit --> "*" Modifier
+Modifier ..|> SpecialEffect
+Special ..|> SpecialEffect
+
+@enduml
