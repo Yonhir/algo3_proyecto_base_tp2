@@ -8,31 +8,38 @@ skinparam classAttributeIconSize 0
 ' CARD HIERARCHY
 ' =====================
 interface SpecialEffect <<interface>> {
-  +apply(board: Board, owner: Player, opponent: Player)
+  +apply(owner: Player, opponent: Player)
 }
 
 abstract class Card <<abstract>> {
   -name: String
   -description: String
+  +Card(name: String, description: String): Card
+  +play(owner: Player, opponent: Player): void
 }
 
 class Unit {
   -basePoint: int
   -rowType: RowType
   -currentPoint: int
-  +Unit(basePoint: int, rowType: RowType): Unit
+  +Unit(name: String, description: String, basePoint: int, rowType: RowType): Unit
   +getPoints(): int
+  +play(owner: Player, opponent: Player): void
 }
 
 abstract class Special <<abstract>> {
+  +play(owner: Player, opponent: Player): void
 }
 
 abstract class Weather <<abstract>> {
   -affectedRow: RowType
+  +play(owner: Player, opponent: Player): void
 }
 
 abstract class Modifier <<abstract>> {
   -description: String
+  +Modifier(description: String): Modifier
+  +play(owner: Player, opponent: Player): void
 }
 
 
