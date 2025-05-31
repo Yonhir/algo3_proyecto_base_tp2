@@ -30,15 +30,15 @@ class Round {
 class Player {
   -name: String
   -health: int
+  -hand: Hand
+  -discardPile: DiscardPile
+  -deck: Deck
+  -side: Side
   +Player(name: String, health: int): Player
   +getHand(): List<Card>
   +putCardsInDiscardPile(cards: List<Card>): void
   +getNCardsFromDeck(n: int): List<Card>
   +playCard(card: Card, row: RowType): void
-}
-
-class Deck {
-  +getNRandomCard(n: int): List<Card>
 }
 
 class DeckBuilder {
@@ -51,61 +51,6 @@ class DeckBuilder {
   +buildDeck(): CardCollection
 }
 
-abstract class CardCollection <<abstract>> {
-  -cards: List<Card>
-  +CardCollection(cards: List<Card>): CardCollection
-  +getCards(): List<Card>
-  +addCard(card: Card)
-  +retrieveCard(card: Card): Card
-  +getCardCount(): int
-}
-
-class Hand {
-  +isEmpty(): boolean
-  +isNotEmpty(): boolean
-}
-
-class DiscardPile {
-  +getLastCard(): Card
-}
-
-abstract class Card <<abstract>> {
-  -name: String
-  -description: String
-  +Card(name: String, description: String): Card
-  +play(owner: Player, opponent: Player): void
-}
-
-class Side {
-  +placeCard(card: Card, row: RowType)
-  +calculateTotalPoints(): int
-  +calculateTotalPointsForRow(row: RowType): int
-}
-
-abstract class RowType <<abstract>> {
-  +placeCardInRow(row: Row, card: Card)
-}
-
-class RangedRowType extends RowType {
-  +placeCardInRow(row: Row, card: Card)
-}
-
-class CloseCombatRowType extends RowType {
-  +placeCardInRow(row: Row, card: Card)
-}
-
-class SiegeRowType extends RowType {
-  +placeCardInRow(row: Row, card: Card)
-}
-
-class Row {
-  -cards: List<Card>
-  -rowType: RowType
-  +placeCard(card: Card)
-  +calculateTotalPoints(): int
-  +clearRow(discardPile: DiscardPile): void
-}
-
 ' =====================
 ' RELATIONSHIPS
 ' =====================
@@ -113,23 +58,5 @@ class Row {
 Game *-- "1..*" Round
 Game *-- "2" Player
 Game *-- DeckBuilder
-
-DeckBuilder --> Card
-DeckBuilder --> CardCollection
-
-CardCollection --> "1..*" Card
-
-CardCollection <|-- Hand
-CardCollection <|-- DiscardPile
-CardCollection <|-- Deck
-
-Player --> "3" CardCollection
-
-Player --> "1" Side
-
-Side --> "3" Row
-
-Row *-- RowType
-Row --> "*" Card
 
 @enduml
