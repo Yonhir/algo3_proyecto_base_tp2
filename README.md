@@ -6,11 +6,11 @@ Trabajo Práctico número 2 de la materia Algoritmos y Programación III de FIUB
 
 ## Grupo 6
 
-* **Integrante 4** - [Ames Berrospi Andy Bruno](https://github.com/AndyAmes)
-* **Integrante 2** - [González Lago Mercedes](https://github.com/mercedesgonzalezlago)
-* **Integrante 3** - [Julian Hirak Jonathan](https://github.com/yonhir)
-* **Integrante 4** - [Moore Juan Ignacio](https://github.com/JuaniMoore)
-* **Integrante 1** - [Narvaez Yaguana Gabriel Alejandro](https://github.com/Gabosawn)
+* **Integrante 1** - [Ames Berrospi, Andy Bruno](https://github.com/AndyAmes)
+* **Integrante 2** - [González Lago, Mercedes](https://github.com/mercedesgonzalezlago)
+* **Integrante 3** - [Hirak, Jonathan Julian](https://github.com/yonhir)
+* **Integrante 4** - [Moore, Juan Ignacio](https://github.com/JuaniMoore)
+* **Integrante 5** - [Narváez Yaguana, Gabriel Alejandro](https://github.com/Gabosawn)
 
 Corrector: **Diego Sanchez**
 

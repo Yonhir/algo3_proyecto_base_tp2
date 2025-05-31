@@ -1,0 +1,81 @@
+@startuml
+
+skinparam monochrome true
+hide circle
+skinparam classAttributeIconSize 0
+' =====================
+' DECK & PLAYER
+' =====================
+
+' =====================
+' GAME & BOARD
+' =====================
+class Game {
+  +start()
+  +playerPlayCard(card: Card)
+  +playerPassRound()
+}
+
+class Board {
+  +Board(player1: Player, player2: Player): Board
+  +calculatePlayerPoints(player: Player): int
+}
+
+class Round {
+  -roundNumber: int
+  -player1Points: int
+  -player2Points: int
+  -currentPlayer: Player
+  -opponentPlayer: Player
+  +Round(player1: Player, player2: Player, titular: Player, roundNumber: int, board: Board): Round
+  +nextTurn(): Player
+  +currentPlayer(): Player
+  +opponentPlayer(): Player
+  +playerPassTurn()
+  +whoWon(): Player
+}
+
+class Player {
+  -name: String
+  -health: int
+  -hand: List<Card>
+  -discardPile: List<Card>
+  +Player(name: String, health: int): Player
+  +getHand(): List<Card>
+  +getRandomCardFromDiscardPile(): Card
+  +getCardFromHand(card: Card): Card
+  +discardCards(cards: List<Card>)
+  +addCardToHand(card: Card)
+}
+
+class Deck {
+  -cards: List<Card>
+  +Deck(cards: List<Card>): Deck
+  +getCards(amount: int): List<Card>
+}
+
+class DeckBuilder {
+  -cards: List<Card>
+  -selectedCards: List<Card>
+  +getSelection(): List<Card>
+  +getCards(): List<Card>
+  +selectCard(card: Card)
+  +unselectCard(card: Card)
+  +buildDeck(): Deck
+}
+' =====================
+' RELATIONSHIPS
+' =====================
+
+Round "1..*" ---* Game 
+Game *- "1" Board
+Game *- "2" Player
+Game *-- DeckBuilder
+DeckBuilder --> Deck
+Player --> Deck
+
+
+
+
+
+@enduml
