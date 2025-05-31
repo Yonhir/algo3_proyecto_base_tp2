@@ -1,8 +1,9 @@
 package edu.fiuba.algo3.entrega_1;
 
-import edu.fiuba.algo3.modelo.Message;
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+
+import edu.fiuba.algo3.modelo.Message;
 
 public class MessageTest {
     @Test
@@ -24,5 +25,7 @@ public class MessageTest {
         Message message = new Message("Hola Mundo!", "Hello world!");
 
         assertEquals("Hola Mundo!", message.greet());
+        // Assert that it will fail to tests github actions
+        assertEquals("Hello world pepe!", message.greet("us"));
     }
 }
