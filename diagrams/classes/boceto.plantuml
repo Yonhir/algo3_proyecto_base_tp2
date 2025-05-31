@@ -1,0 +1,161 @@
+@startuml
+
+skinparam monochrome true
+hide circle
+skinparam classAttributeIconSize 0
+
+' =====================
+' GAME
+' =====================
+class Game {
+  +start()
+  +playerPlayCard(card: Card)
+  +playerPassRound()
+}
+
+class DeckBuilder {
+  -cards: List<Card>
+  -selectedCards: List<Card>
+  +getSelection(): List<Card>
+  +getCards(): List<Card>
+  +selectCard(card: Card)
+  +unselectCard(card: Card)
+  +buildDeck(): Deck
+}
+
+class Deck {
+  -cards: List<Card>
+  +Deck(cards: List<Card>): Deck
+  +getCards(amount: int): List<Card>
+}
+
+class Player {
+  -name: String
+  -health: int
+  -hand: List<Card>
+  -discardPile: List<Card>
+  +Player(name: String, health: int): Player
+  +getHand(): List<Card>
+  +getRandomCardFromDiscardPile(): Card
+  +getCardFromHand(card: Card): Card
+  +discardCards(cards: List<Card>)
+  +addCardToHand(card: Card)
+}
+
+class Round {
+  -roundNumber: int
+  -player1Points: int
+  -player2Points: int
+  -currentPlayer: Player
+  -opponentPlayer: Player
+  +Round(player1: Player, player2: Player, titular: Player, roundNumber: int, board: Board): Round
+  +nextTurn(): Player
+  +currentPlayer(): Player
+  +opponentPlayer(): Player
+  +playerPassTurn()
+  +whoWon(): Player
+}
+
+class Board {
+  +Board(player1: Player, player2: Player): Board
+  +calculatePlayerPoints(player: Player): int
+}
+
+class Side {
+  -player: Player
+  +Side(player: Player): Side
+  +placeCard(card: Card, row: RowType)
+  +calculateTotalPoints(): int
+  +calculateTotalPointsForRow(row: RowType): int
+}
+
+abstract class RowType <<abstract>> {
+  +placeCardInRow(row: Row, card: Unit)
+}
+
+class RangedRowType extends RowType {
+  +placeCardInRow(row: Row, card: Unit)
+}
+
+class CloseCombatRowType extends RowType {
+  +placeCardInRow(row: Row, card: Unit)
+}
+
+class SiegeRowType extends RowType {
+  +placeCardInRow(row: Row, card: Unit)
+}
+
+class Row {
+  -cards: List<Card>
+  -rowType: RowType
+  +placeCard(card: Card)
+  +calculateTotalPoints(): int
+}
+
+
+' =====================
+' CARD
+' =====================
+interface SpecialEffect <<interface>> {
+  +apply(board: Board, owner: Player, opponent: Player)
+}
+
+abstract class Card <<abstract>> {
+  -name: String
+  -description: String
+}
+
+class Unit {
+  -basePoint: int
+  -rowType: RowType
+  -currentPoint: int
+  +Unit(basePoint: int, rowType: RowType): Unit
+  +getPoints(): int
+}
+
+abstract class Special <<abstract>> {
+}
+
+abstract class Weather <<abstract>> {
+  -affectedRow: RowType
+}
+
+abstract class Modifier <<abstract>> {
+  -description: String
+}
+
+
+' =====================
+' RELATIONSHIPS
+' =====================
+
+Game *-- Board
+Game *-- "1..*" Round
+Game *-- "2" Player
+Game *-- DeckBuilder
+
+DeckBuilder --> Card
+DeckBuilder --> Deck
+
+Deck --> "1..*" Card
+
+Player "hand" --> "*" Card
+Player "discardPile" --> "*" Card
+Player --> Deck
+
+Board --> "2" Side
+
+Side --> "3" Row
+
+Row *-- RowType
+Row --> "*" Unit
+
+Card <|-- Unit
+Card <|-- Special
+Special <|-- Weather
+
+Unit --> "*" Modifier
+Modifier ..|> SpecialEffect
+Special ..|> SpecialEffect
+
+@enduml

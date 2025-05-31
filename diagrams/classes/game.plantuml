@@ -21,7 +21,6 @@ class Board {
   +calculatePlayerPoints(player: Player): int
 }
 
-
 class Round {
   -roundNumber: int
   -player1Points: int
@@ -68,9 +67,9 @@ class DeckBuilder {
 ' RELATIONSHIPS
 ' =====================
 
-Game *-- "1..*" Round
-Game *-- "1" Board
-Game *-- "2" Player
+Round "1..*" ---* Game 
+Game *- "1" Board
+Game *- "2" Player
 Game *-- DeckBuilder
 DeckBuilder --> Deck
 Player --> Deck

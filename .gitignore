@@ -20,3 +20,16 @@ buildNumber.properties
 *.iml
 *.ipr
 *.iws
+
+# PlantUML Export
+out/*
+
+# Auxiliary files for LaTex
+docs/informe/resouces/main.aux
+docs/informe/resouces/main.fdb_latexmk
+docs/informe/resouces/main.fls
+docs/informe/resouces/main.log
+docs/informe/resouces/main.pdf
+docs/informe/resouces/main.synctex.gz
+docs/informe/resouces/main.toc
+
