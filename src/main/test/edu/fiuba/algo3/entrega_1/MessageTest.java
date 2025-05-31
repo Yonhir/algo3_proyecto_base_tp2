@@ -25,7 +25,5 @@ public class MessageTest {
         Message message = new Message("Hola Mundo!", "Hello world!");
 
         assertEquals("Hola Mundo!", message.greet());
-        // Assert that it will fail to tests github actions
-        assertEquals("Hello world pepe!", message.greet("us"));
     }
 }
