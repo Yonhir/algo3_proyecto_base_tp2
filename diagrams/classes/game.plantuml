@@ -39,6 +39,7 @@ class Player {
   +putCardsInDiscardPile(cards: List<Card>): void
   +getNCardsFromDeck(n: int): List<Card>
   +playCard(card: Card, row: RowType): void
+  +calculatePoints(): int
 }
 
 class DeckBuilder {
