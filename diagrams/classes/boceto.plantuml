@@ -20,26 +20,39 @@ class DeckBuilder {
   +getCards(): List<Card>
   +selectCard(card: Card)
   +unselectCard(card: Card)
-  +buildDeck(): Deck
+  +buildDeck(): CardCollection
+}
+
+abstract class CardCollection <<abstract>> {
+  -cards: List<Card>
+  +CardCollection(cards: List<Card>): CardCollection
+  +getCards(): List<Card>
+  +addCard(card: Card)
+  +retrieveCard(card: Card): Card
+  +getCardCount(): int
+}
+
+class Hand {
+  +isEmpty(): boolean
+  +isNotEmpty(): boolean
+}
+
+class DiscardPile {
+  +getLastCard(): Card
 }
 
 class Deck {
-  -cards: List<Card>
-  +Deck(cards: List<Card>): Deck
-  +getCards(amount: int): List<Card>
+  +getNRandomCard(n: int): List<Card>
 }
 
 class Player {
   -name: String
   -health: int
-  -hand: List<Card>
-  -discardPile: List<Card>
   +Player(name: String, health: int): Player
   +getHand(): List<Card>
-  +getRandomCardFromDiscardPile(): Card
-  +getCardFromHand(card: Card): Card
-  +discardCards(cards: List<Card>)
-  +addCardToHand(card: Card)
+  +putCardsInDiscardPile(cards: List<Card>): void
+  +getNCardsFromDeck(n: int): List<Card>
+  +playCard(card: Card, row: RowType): void
 }
 
 class Round {
@@ -56,33 +69,26 @@ class Round {
   +whoWon(): Player
 }
 
-class Board {
-  +Board(player1: Player, player2: Player): Board
-  +calculatePlayerPoints(player: Player): int
-}
-
 class Side {
-  -player: Player
-  +Side(player: Player): Side
   +placeCard(card: Card, row: RowType)
   +calculateTotalPoints(): int
   +calculateTotalPointsForRow(row: RowType): int
 }
 
 abstract class RowType <<abstract>> {
-  +placeCardInRow(row: Row, card: Unit)
+  +placeCardInRow(row: Row, card: Card)
 }
 
 class RangedRowType extends RowType {
-  +placeCardInRow(row: Row, card: Unit)
+  +placeCardInRow(row: Row, card: Card)
 }
 
 class CloseCombatRowType extends RowType {
-  +placeCardInRow(row: Row, card: Unit)
+  +placeCardInRow(row: Row, card: Card)
 }
 
 class SiegeRowType extends RowType {
-  +placeCardInRow(row: Row, card: Unit)
+  +placeCardInRow(row: Row, card: Card)
 }
 
 class Row {
@@ -90,65 +96,69 @@ class Row {
   -rowType: RowType
   +placeCard(card: Card)
   +calculateTotalPoints(): int
+  +clearRow(discardPile: DiscardPile): void
 }
-
 
 ' =====================
 ' CARD
 ' =====================
 interface SpecialEffect <<interface>> {
-  +apply(board: Board, owner: Player, opponent: Player)
+  +apply(owner: Player, opponent: Player)
 }
 
 abstract class Card <<abstract>> {
   -name: String
   -description: String
+  +Card(name: String, description: String): Card
+  +play(owner: Player, opponent: Player): void
 }
 
 class Unit {
   -basePoint: int
   -rowType: RowType
   -currentPoint: int
-  +Unit(basePoint: int, rowType: RowType): Unit
+  +Unit(name: String, description: String, basePoint: int, rowType: RowType): Unit
   +getPoints(): int
+  +play(owner: Player, opponent: Player): void
 }
 
 abstract class Special <<abstract>> {
+  +play(owner: Player, opponent: Player): void
 }
 
 abstract class Weather <<abstract>> {
   -affectedRow: RowType
+  +play(owner: Player, opponent: Player): void
 }
 
 abstract class Modifier <<abstract>> {
   -description: String
+  +Modifier(description: String): Modifier
+  +play(owner: Player, opponent: Player): void
 }
-
 
 ' =====================
 ' RELATIONSHIPS
 ' =====================
 
-Game *-- Board
 Game *-- "1..*" Round
 Game *-- "2" Player
 Game *-- DeckBuilder
 
 DeckBuilder --> Card
-DeckBuilder --> Deck
+DeckBuilder --> CardCollection
 
-Deck --> "1..*" Card
+CardCollection --> "1..*" Card
+CardCollection <|-- Hand
+CardCollection <|-- DiscardPile
+CardCollection <|-- Deck
 
-Player "hand" --> "*" Card
-Player "discardPile" --> "*" Card
-Player --> Deck
-
-Board --> "2" Side
+Player --> "3" CardCollection
+Player --> "1" Side
 
 Side --> "3" Row
-
 Row *-- RowType
-Row --> "*" Unit
+Row --> "*" Card
 
 Card <|-- Unit
 Card <|-- Special
