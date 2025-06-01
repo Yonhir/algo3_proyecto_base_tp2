@@ -37,9 +37,10 @@ class Player {
   +Player(name: String, health: int): Player
   +getHand(): List<Card>
   +putCardsInDiscardPile(cards: List<Card>): void
-  +getNCardsFromDeck(n: int): List<Card>
+  +retrieveNCardsFromDeck(n: int): List<Card>
   +playCard(card: Card, row: RowType): void
   +calculatePoints(): int
+  +clearCardsFromSide(): int
 }
 
 class DeckBuilder {
@@ -49,7 +50,7 @@ class DeckBuilder {
   +getCards(): List<Card>
   +selectCard(card: Card)
   +unselectCard(card: Card)
-  +buildDeck(): CardCollection
+  +buildDeck(): Deck
 }
 
 ' =====================
