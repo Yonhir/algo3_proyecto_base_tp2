@@ -19,7 +19,6 @@ abstract class CardCollection <<abstract>> {
 
 class Hand {
   +isEmpty(): boolean
-  +isNotEmpty(): boolean
 }
 
 class DiscardPile {
@@ -27,7 +26,7 @@ class DiscardPile {
 }
 
 class Deck {
-  +getNRandomCard(n: int): List<Card>
+  +retrieveNRandomCard(n: int): List<Card>
 }
 
 ' =====================
