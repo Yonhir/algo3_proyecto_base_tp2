@@ -14,10 +14,4 @@ public class Unit extends Card {
     public int getPoints() {
         return basePoint;
     }
-
-    @Override
-    public void play(Board board, Player owner, Player opponent) {
-
-    }
 }
-

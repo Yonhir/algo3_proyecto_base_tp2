@@ -4,10 +4,8 @@ public abstract class Card {
     private String name;
     private String description;
 
-public Card(String name, String description) {
-    this.name = name;
-    this.description = description;
-}
-
-public abstract void play(Board board, Player owner, Player opponent);
+    public Card(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
 }

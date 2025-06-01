@@ -1,10 +1,10 @@
 package edu.fiuba.algo3;
 
 public class Side {
-    private Player player;
-    private Row closeCombatRow;
-    private Row rangedRow;
-    private Row siegeRow;
+    private final Player player;
+    private final Row closeCombatRow;
+    private final Row rangedRow;
+    private final Row siegeRow;
 
     public Side(Player player) {
         this.player = player;
