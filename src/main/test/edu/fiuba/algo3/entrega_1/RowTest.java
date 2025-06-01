@@ -10,13 +10,22 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class RowTest {
     @Test
-    public void testUnRowGuardaCorrectamenteUnaUnit() {
+    public void testRowGuardaUnaUnidadCorrectamente() {
         Row row = new Row(new CloseCombatRowType());
         Unit card = new Unit(5, new CloseCombatRowType());
 
         row.placeCard(card);
 
         assertTrue(row.getCards().contains(card));
+    }
+
+    @Test
+    public void testRowCalculaCorrectamenteElPuntajeTotalConUnaUnidad() {
+        Row row = new Row(new CloseCombatRowType());
+        Unit card = new Unit(5, new CloseCombatRowType());
+
+        row.placeCard(card);
+
         assertEquals(5, row.calculateTotalPoints());
     }
 }
