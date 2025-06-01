@@ -1,0 +1,62 @@
+@startuml
+
+skinparam monochrome true
+hide circle
+skinparam classAttributeIconSize 0
+
+
+' =====================
+' BOARD
+' =====================
+class Board {
+  +Board(player1: Player, player2: Player): Board
+  +calculatePlayerPoints(player: Player): int
+}
+
+class Side {
+  -player: Player
+  +Side(player: Player): Side
+  +placeCard(card: Unit, row: RowType)
+  +calculateTotalPoints(): int
+  +calculateTotalPointsForRow(row: RowType): int
+}
+
+abstract class RowType <<abstract>> {
+  +placeCardInRow(row: Row, card: Unit)
+}
+
+class RangedRowType {
+  +placeCardInRow(row: Row, card: Unit)
+}
+
+class CloseCombatRowType {
+  +placeCardInRow(row: Row, card: Unit)
+}
+
+class SiegeRowType {
+  +placeCardInRow(row: Row, card: Unit)
+}
+
+class Row {
+  -cards: List<Unit>
+  -rowType: RowType
+  +placeCard(card: Unit)
+  +calculateTotalPoints(): int
+}
+
+' =====================
+' RELATIONSHIPS
+' =====================
+
+
+Side "2" <- Board
+
+Side --> "3" Row
+
+Row *-- RowType
+
+RowType <|- CloseCombatRowType
+RowType <|-- RangedRowType
+RowType <|-- SiegeRowType
+
+@enduml
