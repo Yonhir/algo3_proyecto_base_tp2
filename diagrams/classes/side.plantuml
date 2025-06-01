@@ -12,7 +12,7 @@ class Side {
   +placeCard(card: Card, row: RowType)
   +calculateTotalPoints(): int
   +calculateTotalPointsForRow(row: RowType): int
-  +clearCards(): void
+  +clear(): void
 }
 
 class Row {

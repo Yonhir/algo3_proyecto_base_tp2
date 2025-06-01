@@ -40,7 +40,7 @@ class Player {
   +retrieveNCardsFromDeck(n: int): List<Card>
   +playCard(card: Card, row: RowType): void
   +calculatePoints(): int
-  +clearCardsFromSide(): int
+  +clearBoard(): int
 }
 
 class DeckBuilder {
