@@ -9,10 +9,12 @@ public class DeckBuilderTest {
     public void testElJugadorPoseeCartasSuficientesEnSuMazoParaEmpezarElJuego() {
         DeckBuilder constructorMazo = new DeckBuilder();
         Deck mazo;
+        Player jugador;
 
-        constructorMazo.addSpecialCards(6);
-        constructorMazo.addUnitCards(15);
+        constructorMazo.addNSpecialCards(6);
+        constructorMazo.addNUnitCards(15);
         mazo = constructorMazo.builDeck();
+        jugador = new Player("Pepito", 3, mazo);
 
         assertTrue(mazo.getCardCount() >= 21)
         assertTrue(mazo.getSpecialCount() >= 6)
