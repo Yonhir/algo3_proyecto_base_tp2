@@ -26,15 +26,15 @@ abstract class RowType <<abstract>> {
   +placeCardInRow(row: Row, card: Card)
 }
 
-class RangedRowType extends RowType {
+class Ranged extends RowType {
   +placeCardInRow(row: Row, card: Card)
 }
 
-class CloseCombatRowType extends RowType {
+class CloseCombat extends RowType {
   +placeCardInRow(row: Row, card: Card)
 }
 
-class SiegeRowType extends RowType {
+class Siege extends RowType {
   +placeCardInRow(row: Row, card: Card)
 }
 
