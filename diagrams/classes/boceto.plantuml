@@ -20,7 +20,7 @@ class DeckBuilder {
   +getCards(): List<Card>
   +selectCard(card: Card)
   +unselectCard(card: Card)
-  +buildDeck(): CardCollection
+  +buildDeck(): Deck
 }
 
 abstract class CardCollection <<abstract>> {
@@ -34,7 +34,6 @@ abstract class CardCollection <<abstract>> {
 
 class Hand {
   +isEmpty(): boolean
-  +isNotEmpty(): boolean
 }
 
 class DiscardPile {
@@ -42,17 +41,23 @@ class DiscardPile {
 }
 
 class Deck {
-  +getNRandomCard(n: int): List<Card>
+  +retrieveNRandomCard(n: int): List<Card>
 }
 
 class Player {
   -name: String
   -health: int
+  -hand: Hand
+  -discardPile: DiscardPile
+  -deck: Deck
+  -side: Side
   +Player(name: String, health: int): Player
   +getHand(): List<Card>
   +putCardsInDiscardPile(cards: List<Card>): void
-  +getNCardsFromDeck(n: int): List<Card>
+  +retrieveNCardsFromDeck(n: int): List<Card>
   +playCard(card: Card, row: RowType): void
+  +calculatePoints(): int
+  +clearBoard(): int
 }
 
 class Round {
@@ -73,27 +78,27 @@ class Side {
   +placeCard(card: Card, row: RowType)
   +calculateTotalPoints(): int
   +calculateTotalPointsForRow(row: RowType): int
+  +clearSide(): void
 }
 
 abstract class RowType <<abstract>> {
   +placeCardInRow(row: Row, card: Card)
 }
 
-class RangedRowType extends RowType {
+class Ranged extends RowType {
   +placeCardInRow(row: Row, card: Card)
 }
 
-class CloseCombatRowType extends RowType {
+class CloseCombat extends RowType {
   +placeCardInRow(row: Row, card: Card)
 }
 
-class SiegeRowType extends RowType {
+class Siege extends RowType {
   +placeCardInRow(row: Row, card: Card)
 }
 
 class Row {
   -cards: List<Card>
-  -rowType: RowType
   +placeCard(card: Card)
   +calculateTotalPoints(): int
   +clearRow(discardPile: DiscardPile): void

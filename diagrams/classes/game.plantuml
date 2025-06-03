@@ -50,8 +50,6 @@ class DeckBuilder {
   +getCards(): List<Card>
   +selectCard(card: Card)
   +unselectCard(card: Card)
-  +addNUnitCards(n: int): void
-  +addNSpecialCards(n: int): void
   +buildDeck(): Deck
 }
 
