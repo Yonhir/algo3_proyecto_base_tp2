@@ -11,7 +11,7 @@ participant ":Row" as row
 participant ":Unit" as unit
 
 TestCase -> player : calculatePoints()
-player -> side : calculatePlayerPoints()
+player -> side : calculateTotalPoints()
 
 loop For each row on the side.
     side -> row : calculateTotalPoints()
