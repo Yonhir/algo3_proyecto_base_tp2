@@ -1,17 +1,25 @@
 package edu.fiuba.algo3;
 
 import java.util.List;
+import java.util.ArrayList;
 
 public class DeckBuilder {
     private List<Card> cards;
+    private List<Card> selectedCards;
 
-    public void addNSpecialCards(int cantidad) {
+    public DeckBuilder() {
+        this.cards = new ArrayList<>();
+        this.selectedCards = new ArrayList<>();
     }
-
-    public void addNUnitCards(int cantidad) {
-    }
-
     public Deck buildDeck() {
-        return new Deck(this.cards);
+        return new Deck(this.selectedCards);
+    }
+
+    public void selectCard(Card card) {
+        selectedCards.add(card);
+    }
+
+    public List<Card> getSelection() {
+        return selectedCards;
     }
 }

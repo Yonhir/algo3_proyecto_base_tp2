@@ -1,5 +1,6 @@
 package edu.fiuba.algo3;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class CardCollection {
@@ -10,6 +11,6 @@ public abstract class CardCollection {
     }
 
     public int getCardCount() {
-        return cards.size();
+        return this.cards.size();
     }
 }
