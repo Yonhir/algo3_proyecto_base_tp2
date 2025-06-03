@@ -10,6 +10,6 @@ public abstract class CardCollection {
     }
 
     public int getCardCount() {
-        return 21;
+        return cards.size();
     }
 }
