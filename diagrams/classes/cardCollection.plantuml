@@ -26,6 +26,8 @@ class DiscardPile {
 }
 
 class Deck {
+  +getSpecialCount(): int
+  +getUnitCount(): int
   +retrieveNRandomCard(n: int): List<Card>
 }
 
