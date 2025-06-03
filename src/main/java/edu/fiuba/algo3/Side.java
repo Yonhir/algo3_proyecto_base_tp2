@@ -1,16 +1,15 @@
 package edu.fiuba.algo3;
 
 public class Side {
-    private final Player player;
+
     private final Row closeCombatRow;
     private final Row rangedRow;
     private final Row siegeRow;
 
-    public Side(Player player) {
-        this.player = player;
-        this.closeCombatRow = new Row(new CloseCombatRowType());
-        this.rangedRow = new Row(new RangedRowType());
-        this.siegeRow = new Row(new SiegeRowType());
+    public Side() {
+        this.closeCombatRow = new Row(new CloseCombat());
+        this.rangedRow = new Row(new Ranged());
+        this.siegeRow = new Row(new Siege());
     }
 
     public void placeCard(Card card, RowType rowType) {
@@ -22,9 +21,9 @@ public class Side {
     }
 
     private Row getRow(RowType rowType) {
-        if (rowType instanceof CloseCombatRowType) return closeCombatRow;
-        if (rowType instanceof RangedRowType) return rangedRow;
-        if (rowType instanceof SiegeRowType) return siegeRow;
+        if (rowType instanceof CloseCombat) return closeCombatRow;
+        if (rowType instanceof Ranged) return rangedRow;
+        if (rowType instanceof Siege) return siegeRow;
         throw new IllegalArgumentException("RowType desconocido");
     }
 }

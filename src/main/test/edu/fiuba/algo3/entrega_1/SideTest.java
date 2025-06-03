@@ -9,47 +9,43 @@ public class SideTest {
 
     @Test
     public void testSideColocaCartaEnCloseCombatRowCorrectamente() {
-
-        Player jugador = new Player();
-        Side side = new Side(jugador);
-        Unit carta = new Unit(7, new CloseCombatRowType());
-
-
-        side.placeCard(carta, new CloseCombatRowType());
-        int puntos = side.calculateTotalPointsForRow(new CloseCombatRowType());
+        Side side = new Side();
+        int puntosCarta = 7;
+        Unit carta = new Unit(puntosCarta, new CloseCombat());
 
 
-        assertEquals(7, puntos);
+        side.placeCard(carta, new CloseCombat());
+        int puntos = side.calculateTotalPointsForRow(new CloseCombat());
+
+
+        assertEquals(puntosCarta, puntos);
     }
 
     @Test
     public void testSideColocaCartaEnRangedRowCorrectamente() {
-        Player jugador = new Player();
-        Side side = new Side(jugador);
-        Unit carta = new Unit(4, new RangedRowType());
+        Side side = new Side();
+        Unit carta = new Unit(4, new Ranged());
 
-        side.placeCard(carta, new RangedRowType());
+        side.placeCard(carta, new Ranged());
 
-        int puntos = side.calculateTotalPointsForRow(new RangedRowType());
+        int puntos = side.calculateTotalPointsForRow(new Ranged());
         assertEquals(4, puntos);
     }
 
     @Test
     public void testSideColocaCartaEnSiegeRowCorrectamente() {
-        Player jugador = new Player();
-        Side side = new Side(jugador);
-        Unit carta = new Unit(6, new SiegeRowType());
+        Side side = new Side();
+        Unit carta = new Unit(6, new Siege());
 
-        side.placeCard(carta, new SiegeRowType());
+        side.placeCard(carta, new Siege());
 
-        int puntos = side.calculateTotalPointsForRow(new SiegeRowType());
+        int puntos = side.calculateTotalPointsForRow(new Siege());
         assertEquals(6, puntos);
     }
 
     @Test
     public void testGetRowLanzaExcepcionConRowTypeDesconocido_UsandoMockito() {
-        Player jugador = new Player();
-        Side side = new Side(jugador);
+        Side side = new Side();
         RowType tipoDesconocido = mock(RowType.class);
 
         assertThrows(IllegalArgumentException.class, () -> {
