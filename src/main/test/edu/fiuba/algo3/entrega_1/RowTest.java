@@ -23,10 +23,11 @@ public class RowTest {
     @Test
     public void testRowCalculaCorrectamenteElPuntajeTotalConUnaUnidad() {
         Row row = new Row(new CloseCombat());
-        Unit card = new Unit(5, new CloseCombat());
+        int puntosBase = 5;
+        Unit card = new Unit(puntosBase, new CloseCombat());
 
         row.placeCard(card);
 
-        assertEquals(5, row.calculateTotalPoints());
+        assertEquals(puntosBase, row.calculateTotalPoints());
     }
 }

@@ -24,23 +24,25 @@ public class SideTest {
     @Test
     public void testSideColocaCartaEnRangedRowCorrectamente() {
         Side side = new Side();
-        Unit carta = new Unit(4, new Ranged());
+        int puntosCarta = 4;
+        Unit carta = new Unit(puntosCarta, new Ranged());
 
         side.placeCard(carta, new Ranged());
 
         int puntos = side.calculateTotalPointsForRow(new Ranged());
-        assertEquals(4, puntos);
+        assertEquals(puntosCarta, puntos);
     }
 
     @Test
     public void testSideColocaCartaEnSiegeRowCorrectamente() {
         Side side = new Side();
-        Unit carta = new Unit(6, new Siege());
+        int puntosCarta = 6;
+        Unit carta = new Unit(puntosCarta, new Siege());
 
         side.placeCard(carta, new Siege());
 
         int puntos = side.calculateTotalPointsForRow(new Siege());
-        assertEquals(6, puntos);
+        assertEquals(puntosCarta, puntos);
     }
 
     @Test
