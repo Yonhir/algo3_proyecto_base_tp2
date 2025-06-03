@@ -13,11 +13,9 @@ public class DeckBuilderTest {
 
         constructorMazo.addNSpecialCards(6);
         constructorMazo.addNUnitCards(15);
-        mazo = constructorMazo.builDeck();
+        mazo = constructorMazo.buildDeck();
         jugador = new Player("Pepito", 3, mazo);
 
-        assertTrue(mazo.getCardCount() >= 21)
-        assertTrue(mazo.getSpecialCount() >= 6)
-        assertTrue(mazo.getUnitCount() >= 15)
+        assertTrue(mazo.getCardCount() >= 21 && mazo.getSpecialCount() >= 6 && mazo.getUnitCount() >= 15);
     }
 }
