@@ -17,6 +17,7 @@ public class Player {
         side = new Side();
         cardsHand.addCard(new Unit("Arquero", "NA", 10, new Ranged()));
         cardsHand.addCard(new Unit("Paladino", "NA", 10, new CloseCombat()));
+        cardsHand.addCard(new Unit("Catapulta", "NA", 10, new Siege()));
     }
 
 
@@ -26,16 +27,11 @@ public class Player {
     }
 
     public int calculatePoints() {
-        return side.calculatedPoints();
-    }
-
-    public void putCardsInDiscardPile(ArrayList<Card> cards) {
-        discardPile.addCards(cards);
+        return side.calculatedTotalPoints();
     }
 
     public void cleanSide(){
-        ArrayList<Card> cards_to_clean = side.clean();
-        putCardsInDiscardPile(cards_to_clean);
+        side.clearSide(discardPile);
     }
 
     public ArrayList<Card> getDiscardPile() {

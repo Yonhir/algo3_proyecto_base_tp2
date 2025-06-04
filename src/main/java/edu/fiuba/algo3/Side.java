@@ -18,20 +18,18 @@ public class Side {
         }
     }
 
-    public int calculatedPoints() {
+    public int calculatedTotalPoints() {
         int totalPoints = 0;
         for (Row aRow: rows) {
-            totalPoints = totalPoints + aRow.calculatePoints();
+            totalPoints = totalPoints + aRow.calculateTotalPoints();
         }
         return totalPoints;
     }
 
-    public ArrayList<Card> clean() {
-        ArrayList<Card> cards_to_clean = new ArrayList<>();
+    public void clearSide(CardCollection discardPile) {
         for (Row aRow: rows) {
-            cards_to_clean.addAll(aRow.clean());
+            aRow.clearRow(discardPile);
         }
-        return cards_to_clean;
     }
 
 }

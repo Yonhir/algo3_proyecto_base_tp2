@@ -3,9 +3,11 @@ package edu.fiuba.algo3;
 public class CloseCombat extends RowType {
     @Override
     public void placeCardInRow(Row row, Card card, RowType type){
-        if (this.getClass() != type.getClass()) {
-            return;
+        if (card.getClass() == Unit.class){
+            if(((Unit) card).sameType(type) && this.getClass() == type.getClass()){
+                row.addCard(card);
+            }
         }
-        row.addCard(card);
+        //clase especial
     }
 }

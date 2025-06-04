@@ -3,12 +3,12 @@ package edu.fiuba.algo3;
 import java.util.ArrayList;
 
 public class Row {
-    private final CardCollection cards;
+    private final ArrayList<Card> cards;
     private final RowType type;
 
     public Row(RowType rowType) {
         type = rowType;
-        cards = new CardCollection();
+        cards = new ArrayList<>();
     }
 
     public void placeCard(Card card, RowType row) {
@@ -16,23 +16,23 @@ public class Row {
     }
 
     protected void addCard(Card card) {
-        cards.addCard(card);
+        cards.add(card);
     }
 
-    public int calculatePoints() {
+    public int calculateTotalPoints() {
         int puntaje_fila = 0;
-        for(Card card: cards.getCards()){
+        for(Card card: cards){
             if (card.getClass() == Unit.class){
-                puntaje_fila = puntaje_fila + ((Unit) card).getPuntos();
+                puntaje_fila = puntaje_fila + ((Unit) card).getPoints();
             }
         }
         return puntaje_fila;
     }
 
-    public ArrayList<Card> clean() {
-        ArrayList<Card> cards_to_clean = new ArrayList<>(cards.getCards());
-        cards.removeAllCards();
-        return cards_to_clean;
+    public void clearRow(CardCollection discardPile) {
+        ArrayList<Card> cards_to_clean = new ArrayList<>(cards);
+        discardPile.addCards(cards_to_clean);
+        cards.clear();
     }
 
 }

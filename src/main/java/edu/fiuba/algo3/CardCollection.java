@@ -22,10 +22,6 @@ public class CardCollection {
         return cards;
     }
 
-    public void removeAllCards() {
-        cards.clear();
-    }
-
     public void addCards(ArrayList<Card> cards) {
         this.cards.addAll(cards);
     }
