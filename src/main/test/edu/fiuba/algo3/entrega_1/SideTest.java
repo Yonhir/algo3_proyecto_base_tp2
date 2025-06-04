@@ -1,9 +1,9 @@
 package edu.fiuba.algo3.entrega_1;
+
 import static org.mockito.Mockito.mock;
 import edu.fiuba.algo3.*;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-
 
 public class SideTest {
 
@@ -11,12 +11,10 @@ public class SideTest {
     public void testSideColocaCartaEnCloseCombatRowCorrectamente() {
         Side side = new Side();
         int puntosCarta = 7;
-        Unit carta = new Unit(puntosCarta, new CloseCombat());
-
+        Unit carta = new Unit("NombreGenerico", "Unidad cuerpo a cuerpo", puntosCarta, new CloseCombat());
 
         side.placeCard(carta, new CloseCombat());
         int puntos = side.calculateTotalPointsForRow(new CloseCombat());
-
 
         assertEquals(puntosCarta, puntos);
     }
@@ -25,7 +23,7 @@ public class SideTest {
     public void testSideColocaCartaEnRangedRowCorrectamente() {
         Side side = new Side();
         int puntosCarta = 4;
-        Unit carta = new Unit(puntosCarta, new Ranged());
+        Unit carta = new Unit("NombreGenerico", "Unidad de largo alcance", puntosCarta, new Ranged());
 
         side.placeCard(carta, new Ranged());
 
@@ -37,7 +35,7 @@ public class SideTest {
     public void testSideColocaCartaEnSiegeRowCorrectamente() {
         Side side = new Side();
         int puntosCarta = 6;
-        Unit carta = new Unit(puntosCarta, new Siege());
+        Unit carta = new Unit("NombreGenerico", "Unidad de asedio", puntosCarta, new Siege());
 
         side.placeCard(carta, new Siege());
 
@@ -51,7 +49,8 @@ public class SideTest {
         RowType tipoDesconocido = mock(RowType.class);
 
         assertThrows(IllegalArgumentException.class, () -> {
-            side.placeCard(new Unit(3, tipoDesconocido), tipoDesconocido);
+            Unit carta = new Unit("Desconocido", "No pertenece a ninguna fila", 3, tipoDesconocido);
+            side.placeCard(carta, tipoDesconocido);
         });
     }
 }

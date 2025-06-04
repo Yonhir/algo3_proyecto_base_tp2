@@ -5,8 +5,8 @@ public class Unit extends Card {
     private int basePoint;
     private RowType rowType;
 
-    public Unit(int basePoint, RowType rowType) {
-        super("Unit", "Basic unit");
+    public Unit(String name, String description, int basePoint, RowType rowType) {
+        super(name, description);
         this.basePoint = basePoint;
         this.rowType = rowType;
     }
