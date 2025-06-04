@@ -3,22 +3,20 @@
 skinparam monochrome true
 hide circle
 skinparam classAttributeIconSize 0
-' =====================
-' DECK & PLAYER
-' =====================
 
 ' =====================
-' GAME & BOARD
+' GAME
 ' =====================
 class Game {
-  +start()
-  +playerPlayCard(card: Card)
-  +playerPassRound()
-}
-
-class Board {
-  +Board(player1: Player, player2: Player): Board
-  +calculatePlayerPoints(player: Player): int
+  +getDeckBuilder(): DeckBuilder
+  +registerPlayer(name: String, deck: Deck): void
+  +startPreparationPhase(): void
+  +getCurrentPlayerHand(): List<Card>
+  +drawAndDiscard(cardToDiscard: Card): void
+  +confirmHand(): void
+  +startGame() void
+  +playCardFromHand(card: Card, selectedRowType: RowType): void
+  +playerPassRound() void
 }
 
 class Round {
@@ -38,20 +36,17 @@ class Round {
 class Player {
   -name: String
   -health: int
-  -hand: List<Card>
-  -discardPile: List<Card>
+  -hand: Hand
+  -discardPile: DiscardPile
+  -deck: Deck
+  -side: Side
   +Player(name: String, health: int): Player
   +getHand(): List<Card>
-  +getRandomCardFromDiscardPile(): Card
-  +getCardFromHand(card: Card): Card
-  +discardCards(cards: List<Card>)
-  +addCardToHand(card: Card)
-}
-
-class Deck {
-  -cards: List<Card>
-  +Deck(cards: List<Card>): Deck
-  +getCards(amount: int): List<Card>
+  +putCardsInDiscardPile(cards: List<Card>): void
+  +retrieveNCardsFromDeck(n: int): List<Card>
+  +playCard(card: Card, row: RowType): void
+  +calculatePoints(): int
+  +clearBoard(): int
 }
 
 class DeckBuilder {
@@ -63,19 +58,13 @@ class DeckBuilder {
   +unselectCard(card: Card)
   +buildDeck(): Deck
 }
+
 ' =====================
 ' RELATIONSHIPS
 ' =====================
 
-Round "1..*" ---* Game 
-Game *- "1" Board
-Game *- "2" Player
+Game *-- "1..*" Round
+Game *-- "2" Player
 Game *-- DeckBuilder
-DeckBuilder --> Deck
-Player --> Deck
-
-
-
-
 
 @enduml
