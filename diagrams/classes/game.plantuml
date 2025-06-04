@@ -8,9 +8,15 @@ skinparam classAttributeIconSize 0
 ' GAME
 ' =====================
 class Game {
-  +start()
-  +playerPlayCard(card: Card)
-  +playerPassRound()
+  +getDeckBuilder(): DeckBuilder
+  +registerPlayer(name: String, deck: Deck): void
+  +startPreparationPhase(): void
+  +getCurrentPlayerHand(): List<Card>
+  +drawAndDiscard(cardToDiscard: Card): void
+  +confirmHand(): void
+  +startGame() void
+  +playCardFromHand(card: Card, selectedRowType: RowType): void
+  +playerPassRound() void
 }
 
 class Round {
