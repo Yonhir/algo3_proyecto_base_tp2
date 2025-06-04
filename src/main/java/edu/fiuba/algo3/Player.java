@@ -6,7 +6,7 @@ public class Player {
     private final CardCollection cardsHand;
     private final CardCollection discardPile;
     private final Side side;
-    private String name;
+    private final String name;
     private int health;
 
     public Player(String name, int health) {

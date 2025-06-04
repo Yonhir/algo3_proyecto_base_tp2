@@ -2,7 +2,7 @@ package edu.fiuba.algo3;
 
 public class Unit extends Card {
     private int points;
-    private RowType type;
+    private final RowType type;
 
     public Unit(String name, String description, int points, RowType row) {
         super(name, description);
