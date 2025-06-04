@@ -15,7 +15,7 @@ public class PlayerTest {
 
         player.cleanSide();
 
-        ArrayList<Card> cards_used = player.getDiscardPile();
+        CardCollection cards_used = player.getDiscardPile();
 
         assertTrue(cards_used.contains(cardArcher));
     }
@@ -28,7 +28,7 @@ public class PlayerTest {
 
         player.cleanSide();
 
-        ArrayList<Card> cards_used = player.getDiscardPile();
+        CardCollection cards_used = player.getDiscardPile();
 
         assertTrue(cards_used.contains(cardPaladin));
     }
@@ -41,7 +41,7 @@ public class PlayerTest {
 
         player.cleanSide();
 
-        ArrayList<Card> cards_used = player.getDiscardPile();
+        CardCollection cards_used = player.getDiscardPile();
 
         assertTrue(cards_used.contains(cardSiege));
     }
@@ -54,7 +54,7 @@ public class PlayerTest {
 
         player.cleanSide();
 
-        ArrayList<Card> cards_used = player.getDiscardPile();
+        CardCollection cards_used = player.getDiscardPile();
 
         assertFalse(cards_used.contains(cardSiege));
     }

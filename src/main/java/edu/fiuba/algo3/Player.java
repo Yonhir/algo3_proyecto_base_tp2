@@ -34,7 +34,7 @@ public class Player {
         side.clearSide(discardPile);
     }
 
-    public ArrayList<Card> getDiscardPile() {
-        return discardPile.getCards();
+    public CardCollection getDiscardPile() {
+        return discardPile;
     }
 }

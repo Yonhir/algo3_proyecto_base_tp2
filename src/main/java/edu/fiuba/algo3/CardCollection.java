@@ -18,11 +18,11 @@ public class CardCollection {
         cards.remove(card);
     }
 
-    public ArrayList<Card> getCards() {
-        return cards;
-    }
-
     public void addCards(ArrayList<Card> cards) {
         this.cards.addAll(cards);
+    }
+
+    public boolean contains(Card card) {
+        return cards.contains(card);
     }
 }
