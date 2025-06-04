@@ -22,9 +22,7 @@ public class Row {
     public int calculateTotalPoints() {
         int puntaje_fila = 0;
         for(Card card: cards){
-            if (card.getClass() == Unit.class){
-                puntaje_fila = puntaje_fila + ((Unit) card).getPoints();
-            }
+            puntaje_fila = puntaje_fila + ((Unit) card).getPoints();
         }
         return puntaje_fila;
     }
