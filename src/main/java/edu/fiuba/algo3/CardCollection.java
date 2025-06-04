@@ -10,7 +10,5 @@ public abstract class CardCollection {
         this.cards = cards;
     }
 
-    public int getCardCount() {
-        return this.cards.size();
-    }
+    public abstract int getCardCount();
 }

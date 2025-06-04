@@ -13,6 +13,10 @@ public class Deck extends CardCollection {
         this.specials = specials;
     }
 
+    public int getCardCount() {
+        return this.units.size() + this.specials.size();
+    }
+
     public int getUnitsCount() {
         return this.units.size();
     }
