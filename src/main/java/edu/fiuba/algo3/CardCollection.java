@@ -1,0 +1,48 @@
+package edu.fiuba.algo3;
+
+import java.util.ArrayList;
+
+public class CardCollection {
+
+    private final ArrayList<Card> cards;
+
+    public CardCollection() {
+        cards = new ArrayList<>();
+    }
+
+    public void addCard(Card card) {
+        cards.add(card);
+    }
+
+    public void removeCard(Card card) {
+        cards.remove(card);
+    }
+
+    public int size() {
+        return cards.size();
+    }
+
+    public void addCards(ArrayList<Card> cards) {
+        this.cards.addAll(cards);
+    }
+
+    public boolean equalsContent(Object object) {
+
+        if (this == object) return true;
+
+        if (object == null || !(object instanceof CardCollection)) return false;
+
+        CardCollection collection = (CardCollection) object;
+
+        if (size() != collection.size()) return false;
+
+        ArrayList<Card> copyThis = new ArrayList<>(this.cards);
+
+        for (Card card : collection.cards) {
+            if (!copyThis.contains(card)) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
