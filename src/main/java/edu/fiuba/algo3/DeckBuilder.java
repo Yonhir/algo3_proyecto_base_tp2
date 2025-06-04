@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class DeckBuilder {
+    public static final int MIN_UNITS = 15;
+    public static final int MIN_SPECIALS = 6;
+    public static final int MIN_CARDS = 21;
     private List<Card> cards;
     private List<Card> selectedCards;
     private List<Card> units;
@@ -16,7 +19,10 @@ public class DeckBuilder {
         this.specials = new ArrayList<>();
     }
     public Deck buildDeck() {
-        return new Deck(this.selectedCards);
+        if (this.units.size() < MIN_UNITS || this.specials.size() < MIN_SPECIALS || this.selectedCards.size() < MIN_CARDS) {
+            throw new IllegalArgumentException("Not Enough Cards");
+        }
+        return new Deck(this.units, this.specials);
     }
 
     public void selectUnitCard(Card card) {
