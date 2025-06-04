@@ -9,4 +9,8 @@ public class Unit extends Card {
         this.basePoint = basePoint;
         this.rowType = rowType;
     }
+
+    public void selectInDeckBuilder(DeckBuilder deckB) {
+        deckB.selectUnitCard(this);
+    }
 }
