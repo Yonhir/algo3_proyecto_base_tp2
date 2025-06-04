@@ -8,4 +8,6 @@ public abstract class Card {
         this.name = name;
         this.description = description;
     }
+
+    public abstract void selectInDeckBuilder(DeckBuilder deckB);
 }
