@@ -26,13 +26,9 @@ public class CardCollection {
         this.cards.addAll(cards);
     }
 
-    public boolean equalsContent(Object object) {
+    public boolean equalsContent(CardCollection collection) {
 
-        if (this == object) return true;
-
-        if (object == null || !(object instanceof CardCollection)) return false;
-
-        CardCollection collection = (CardCollection) object;
+        if (this == collection) return true;
 
         if (size() != collection.size()) return false;
 
