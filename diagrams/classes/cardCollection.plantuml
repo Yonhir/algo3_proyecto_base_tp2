@@ -1,0 +1,40 @@
+@startuml
+
+skinparam monochrome true
+hide circle
+skinparam classAttributeIconSize 0
+
+' =====================
+' CARD COLLECTION
+' =====================
+
+abstract class CardCollection <<abstract>> {
+  -cards: List<Card>
+  +CardCollection(cards: List<Card>): CardCollection
+  +getCards(): List<Card>
+  +addCard(card: Card)
+  +retrieveCard(card: Card): Card
+  +getCardCount(): int
+}
+
+class Hand {
+  +isEmpty(): boolean
+}
+
+class DiscardPile {
+  +getLastCard(): Card
+}
+
+class Deck {
+  +retrieveNRandomCard(n: int): List<Card>
+}
+
+' =====================
+' RELATIONSHIPS
+' =====================
+
+CardCollection <|-- Hand
+CardCollection <|-- DiscardPile
+CardCollection <|-- Deck
+
+@enduml
