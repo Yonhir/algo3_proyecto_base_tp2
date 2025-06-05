@@ -13,4 +13,8 @@ public class Unit extends Card {
     public void selectInDeckBuilder(DeckBuilder deckB) {
         deckB.selectUnitCard(this);
     }
+
+    public void unselectInDeckBuilder(DeckBuilder deckB) {
+        deckB.unselectUnitCard(this);
+    }
 }

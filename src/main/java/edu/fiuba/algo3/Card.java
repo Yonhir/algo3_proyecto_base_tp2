@@ -10,4 +10,6 @@ public abstract class Card {
     }
 
     public abstract void selectInDeckBuilder(DeckBuilder deckB);
+
+    public abstract void unselectInDeckBuilder(DeckBuilder deckB);
 }
