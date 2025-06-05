@@ -8,28 +8,41 @@ skinparam classAttributeIconSize 0
 ' GAME
 ' =====================
 class Game {
-  +start()
-  +playerPlayCard(card: Card)
-  +playerPassRound()
+  -instance: Game
+  -activePhase: Phase
+  -Game(): Game
+  +getInstance(): Game
+  +getDeckBuilder(): DeckBuilder
+  +registerPlayer(name: String, deck: Deck): void
+  +getCurrentPlayerHand(): List<Card>
+  +drawAndDiscard(cardToDiscard: Card): void
+  +confirmHand(): void
+  +playCardFromHand(card: Card, selectedRowType: RowType): void
+  +playerPassRound(): void
+  +resetGame(): void
+  +getRoundsResults(): Map<String, Object>
 }
 
 class DeckBuilder {
   -cards: List<Card>
   -selectedCards: List<Card>
+  -fillCards(): void
   +getSelection(): List<Card>
   +getCards(): List<Card>
-  +selectCard(card: Card)
-  +unselectCard(card: Card)
-  +buildDeck(): Deck
+  +selectCard(card: Card): void
+  +unselectCard(card: Card): void
+  +buildDeck(): CardCollection
+  +reset(): void
 }
 
 abstract class CardCollection <<abstract>> {
-  -cards: List<Card>
-  +CardCollection(cards: List<Card>): CardCollection
+  #cards: List<Card>
+  +CardCollection(cards: List<Card>)
   +getCards(): List<Card>
-  +addCard(card: Card)
+  +addCard(card: Card): void
   +retrieveCard(card: Card): Card
   +getCardCount(): int
+  +addCards(cardsToAdd: List<Card>): void
 }
 
 class Hand {
@@ -44,6 +57,30 @@ class Deck {
   +retrieveNRandomCard(n: int): List<Card>
 }
 
+interface SpecialEffectApplicable <<interface>> {
+  +applyEffectOnOwner(specialEffect: SpecialEffect, selectedRowType: RowType): void
+  +applyEffectOnOpponent(specialEffect: SpecialEffect, selectedRowType: RowType): void
+}
+
+interface SpecialEffect <<interface>> {
+  ' Owner effects
+  +applyOnOwnerPlayer(player: Player, selectedRowType: RowType): void
+  +applyOnOwnerSide(side: Side, selectedRowType: RowType): void
+  +applyOnOwnerRow(row: Row, selectedRowType: RowType): void
+  +applyOnOwnerHand(hand: Hand, selectedRowType: RowType): void
+  +applyOnOwnerDeck(deck: Deck, selectedRowType: RowType): void
+  +applyOnOwnerDiscardPile(discardPile: DiscardPile, selectedRowType: RowType): void
+  +applyOnOwnerCard(card: Card): void
+  ' Opponent effects
+  +applyOnOpponentPlayer(player: Player, selectedRowType: RowType): void
+  +applyOnOpponentSide(side: Side, selectedRowType: RowType): void
+  +applyOnOpponentRow(row: Row, selectedRowType: RowType): void
+  +applyOnOpponentHand(hand: Hand, selectedRowType: RowType): void
+  +applyOnOpponentDeck(deck: Deck, selectedRowType: RowType): void
+  +applyOnOpponentDiscardPile(discardPile: DiscardPile, selectedRowType: RowType): void
+  +applyOnOpponentCard(card: Card): void
+}
+
 class Player {
   -name: String
   -health: int
@@ -51,69 +88,134 @@ class Player {
   -discardPile: DiscardPile
   -deck: Deck
   -side: Side
-  +Player(name: String, health: int): Player
+  -confirmedHand: boolean
+  +Player(name: String, health: int, hand: Hand, discardPile: DiscardPile, deck: Deck, side: Side): Player
   +getHand(): List<Card>
-  +putCardsInDiscardPile(cards: List<Card>): void
-  +retrieveNCardsFromDeck(n: int): List<Card>
-  +playCard(card: Card, row: RowType): void
+  +drawNCards(n: int): void
+  +drawAndDiscard(card: Card): void
+  +confirmHand(): void
+  +playCard(card: Card, selectedRowType: RowType): void
   +calculatePoints(): int
-  +clearBoard(): int
-}
-
-class Round {
-  -roundNumber: int
-  -player1Points: int
-  -player2Points: int
-  -currentPlayer: Player
-  -opponentPlayer: Player
-  +Round(player1: Player, player2: Player, titular: Player, roundNumber: int, board: Board): Round
-  +nextTurn(): Player
-  +currentPlayer(): Player
-  +opponentPlayer(): Player
-  +playerPassTurn()
-  +whoWon(): Player
+  +clearBoard(): void
+  +loseHealth(): void
+  +getHealth(): int
+  +getName(): String
+  +applyEffectOnOwner(specialEffect: SpecialEffect, selectedRowType: RowType): void
+  +applyEffectOnOpponent(specialEffect: SpecialEffect, selectedRowType: RowType): void
 }
 
 class Side {
-  +placeCard(card: Card, row: RowType)
+  +placeCard(card: Card, selectedRowType: RowType)
   +calculateTotalPoints(): int
-  +calculateTotalPointsForRow(row: RowType): int
-  +clearSide(): void
+  +calculateTotalPointsForRow(rowType: RowType): int
+  +clearSide(discardPile: DiscardPile): void
 }
 
 abstract class RowType <<abstract>> {
-  +placeCardInRow(row: Row, card: Card)
+  +{abstract} placeCardInRow(row: Row, card: Card, selectedRowType: RowType): void
+  +{abstract} calculateTotalPoints(row: Row, rowType: RowType): int
+  +{abstract} applyEffectOnOwnerRow(row: Row, specialEffect: SpecialEffect, selectedRowType: RowType): void
+  +{abstract} applyEffectOnOpponentRow(row: Row, specialEffect: SpecialEffect, selectedRowType: RowType): void
+  +{abstract} getPlayableRowTypes(): List<RowType>
 }
 
 class Ranged extends RowType {
-  +placeCardInRow(row: Row, card: Card)
+  +placeCardInRow(row: Row, card: Card, selectedRowType: RowType): void
+  +calculateTotalPoints(row: Row, rowType: RowType): int
+  +applyEffectOnOwnerRow(row: Row, specialEffect: SpecialEffect, selectedRowType: RowType): void
+  +applyEffectOnOpponentRow(row: Row, specialEffect: SpecialEffect, selectedRowType: RowType): void
+  +getPlayableRowTypes(): List<RowType>
 }
 
 class CloseCombat extends RowType {
-  +placeCardInRow(row: Row, card: Card)
+  +placeCardInRow(row: Row, card: Card, selectedRowType: RowType): void
+  +calculateTotalPoints(row: Row, rowType: RowType): int
+  +applyEffectOnOwnerRow(row: Row, specialEffect: SpecialEffect, selectedRowType: RowType): void
+  +applyEffectOnOpponentRow(row: Row, specialEffect: SpecialEffect, selectedRowType: RowType): void
+  +getPlayableRowTypes(): List<RowType>
 }
 
 class Siege extends RowType {
-  +placeCardInRow(row: Row, card: Card)
+  +placeCardInRow(row: Row, card: Card, selectedRowType: RowType): void
+  +calculateTotalPoints(row: Row, rowType: RowType): int
+  +applyEffectOnOwnerRow(row: Row, specialEffect: SpecialEffect, selectedRowType: RowType): void
+  +applyEffectOnOpponentRow(row: Row, specialEffect: SpecialEffect, selectedRowType: RowType): void
+  +getPlayableRowTypes(): List<RowType>
 }
 
 class Row {
   -cards: List<Card>
-  +placeCard(card: Card)
+  -rowType: RowType
+  +Row(rowType: RowType)
+  +placeCard(card: Card, selectedRowType: RowType)
   +calculateTotalPoints(): int
   +clearRow(discardPile: DiscardPile): void
 }
 
 ' =====================
-' CARD
+' PHASES
 ' =====================
-interface SpecialEffect <<interface>> {
-  +apply(owner: Player, opponent: Player)
+interface Phase <<interface>> {
+  +getDeckBuilder(): DeckBuilder
+  +registerPlayer(name: String, deck: Deck): Phase
+  +getCurrentPlayerHand(): List<Card>
+  +drawAndDiscard(cardToDiscard: Card): Phase
+  +confirmHand(): Phase
+  +playCardFromHand(card: Card, selectedRowType: RowType): Phase
+  +playerPassRound(): Phase
+  +getRoundsResults(): Map<String, Object>
 }
 
+class RegistrationPhase {
+  +getDeckBuilder(): DeckBuilder
+  +registerPlayer(name: String, deck: Deck): Phase
+  +getCurrentPlayerHand(): List<Card>
+  +drawAndDiscard(cardToDiscard: Card): Phase
+  +confirmHand(): Phase
+  +playCardFromHand(card: Card, selectedRowType: RowType): Phase
+  +playerPassRound(): Phase
+  +getRoundsResults(): Map<String, Object>
+}
+
+class PreparationPhase {
+  +getDeckBuilder(): DeckBuilder
+  +registerPlayer(name: String, deck: Deck): Phase
+  +getCurrentPlayerHand(): List<Card>
+  +drawAndDiscard(cardToDiscard: Card): Phase
+  +confirmHand(): Phase
+  +playCardFromHand(card: Card, selectedRowType: RowType): Phase
+  +playerPassRound(): Phase
+  +getRoundsResults(): Map<String, Object>
+}
+
+class RoundPhase {
+  +getDeckBuilder(): DeckBuilder
+  +registerPlayer(name: String, deck: Deck): Phase
+  +getCurrentPlayerHand(): List<Card>
+  +drawAndDiscard(cardToDiscard: Card): Phase
+  +confirmHand(): Phase
+  +playCardFromHand(card: Card, selectedRowType: RowType): Phase
+  +playerPassRound(): Phase
+  +getRoundsResults(): Map<String, Object>
+}
+
+class EndGamePhase {
+  +getDeckBuilder(): DeckBuilder
+  +registerPlayer(name: String, deck: Deck): Phase
+  +getCurrentPlayerHand(): List<Card>
+  +drawAndDiscard(cardToDiscard: Card): Phase
+  +confirmHand(): Phase
+  +playCardFromHand(card: Card, selectedRowType: RowType): Phase
+  +playerPassRound(): Phase
+  +getRoundsResults(): Map<String, Object>
+}
+
+' =====================
+' CARD
+' =====================
 abstract class Card <<abstract>> {
-  -name: String
-  -description: String
+  #name: String
+  #description: String
   +Card(name: String, description: String): Card
   +play(owner: Player, opponent: Player): void
 }
@@ -139,6 +241,25 @@ abstract class Weather <<abstract>> {
 abstract class Modifier <<abstract>> {
   -description: String
   +Modifier(description: String): Modifier
+}
+
+class TightBond extends Modifier {
+  +play(owner: Player, opponent: Player): void
+}
+
+class ClearWeather extends Weather {
+  +play(owner: Player, opponent: Player): void
+}
+
+class BitingFrost extends Weather {
+  +play(owner: Player, opponent: Player): void
+}
+
+class ImpenetrableFog extends Weather {
+  +play(owner: Player, opponent: Player): void
+}
+
+class TorrentialRain extends Weather {
   +play(owner: Player, opponent: Player): void
 }
 
@@ -146,7 +267,12 @@ abstract class Modifier <<abstract>> {
 ' RELATIONSHIPS
 ' =====================
 
-Game *-- "1..*" Round
+Game *-- "1..*" Phase
+Phase <|.. RegistrationPhase
+Phase <|.. PreparationPhase
+Phase <|.. RoundPhase
+Phase <|.. EndGamePhase
+
 Game *-- "2" Player
 Game *-- DeckBuilder
 
@@ -154,14 +280,17 @@ DeckBuilder --> Card
 DeckBuilder --> CardCollection
 
 CardCollection --> "1..*" Card
+
 CardCollection <|-- Hand
 CardCollection <|-- DiscardPile
 CardCollection <|-- Deck
 
 Player --> "3" CardCollection
+
 Player --> "1" Side
 
 Side --> "3" Row
+
 Row *-- RowType
 Row --> "*" Card
 
@@ -172,5 +301,46 @@ Special <|-- Weather
 Unit --> "*" Modifier
 Modifier ..|> SpecialEffect
 Special ..|> SpecialEffect
+
+Player ..|> SpecialEffectApplicable
+CardCollection ..|> SpecialEffectApplicable
+Side ..|> SpecialEffectApplicable
+Hand ..|> SpecialEffectApplicable
+DiscardPile ..|> SpecialEffectApplicable
+Deck ..|> SpecialEffectApplicable
+Row ..|> SpecialEffectApplicable
+
+Weather <|-- ClearWeather
+Weather <|-- BitingFrost
+Weather <|-- ImpenetrableFog
+Weather <|-- TorrentialRain
+
+RowType --> SpecialEffect
+RowType --> Row
+
+SpecialEffect --> Player
+SpecialEffect --> Side
+SpecialEffect --> Row
+SpecialEffect --> Hand
+SpecialEffect --> Deck
+SpecialEffect --> DiscardPile
+SpecialEffect --> Card
+
+interface PointModifier <<interface>> {
+  +modifyPoints(currentPoints: int): int
+}
+
+class EffectManager {
+  -modifiers: List<PointModifier>
+  +EffectManager()
+  +addModifier(modifier: PointModifier): void
+  +removeModifier(modifier: PointModifier): void
+  +calculateTotalEffect(basePoints: int): int
+  +getModifiers(): List<PointModifier>
+  +clearEffects(): void
+}
+
+EffectManager *-- "0..*" PointModifier
+Unit --> EffectManager
 
 @enduml
