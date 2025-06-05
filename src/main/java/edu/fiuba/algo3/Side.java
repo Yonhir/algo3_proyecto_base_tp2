@@ -14,7 +14,7 @@ public class Side {
 
     public void placeCard(Card card, RowType row) {
         for (Row aRow: rows) {
-            aRow.placeCard(card, row);
+            aRow.placeCardInRow(card, row);
         }
     }
 
