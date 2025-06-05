@@ -3,6 +3,8 @@ package edu.fiuba.algo3.entrega_1;
 import edu.fiuba.algo3.*;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class DeckBuilderTest {
@@ -11,28 +13,12 @@ public class DeckBuilderTest {
         DeckBuilder constructor = new DeckBuilder();
         int minimoCartas = 21;
 
-        constructor.selectCard(new Decoy("Decoy", ""));
-        constructor.selectCard(new Mardroeme("Mardroeme", ""));
-        constructor.selectCard(new Scorch("Scorch", ""));
-        constructor.selectCard(new CommandersHorn("Commander's Horn", ""));
-        constructor.selectCard(new BitingFrost("Biting Frost", ""));
-        constructor.selectCard(new TorrentialRain("Torrential Rain", ""));
+        List<Card> cartas = constructor.getCards();
+        List<Card> copiaCartas = new ArrayList<>(cartas);
 
-        constructor.selectCard(new Unit("Botchling", "", 4, new CloseCombat()));
-        constructor.selectCard(new Unit("Berserker", "", 4, new CloseCombat()));
-        constructor.selectCard(new Unit("Dandelion", "", 2, new CloseCombat()));
-        constructor.selectCard(new Unit("Griffin", "", 5, new CloseCombat()));
-        constructor.selectCard(new Unit("Cerys", "", 10, new CloseCombat()));
-        constructor.selectCard(new Unit("Cow", "", 0, new Ranged()));
-        constructor.selectCard(new Unit("Dethmold", "", 6, new Ranged()));
-        constructor.selectCard(new Unit("Harpy", "", 2, new Ranged()));
-        constructor.selectCard(new Unit("Toad", "", 7, new Ranged()));
-        constructor.selectCard(new Unit("Cynthia", "", 4, new Ranged()));
-        constructor.selectCard(new Unit("Ermion", "", 8, new Ranged()));
-        constructor.selectCard(new Unit("Ballista", "", 6, new Siege()));
-        constructor.selectCard(new Unit("Catapult", "", 8, new Siege()));
-        constructor.selectCard(new Unit("Thaler", "", 1, new Siege()));
-        constructor.selectCard(new Unit("Ice Giant", "", 5, new Siege()));
+        for (Card c : copiaCartas) {
+            constructor.selectCard(c);
+        }
 
         List<Card> seleccionadas = constructor.getSelection();
 
@@ -44,28 +30,12 @@ public class DeckBuilderTest {
         DeckBuilder constructor = new DeckBuilder();
         int minimoEspeciales = 6;
 
-        constructor.selectCard(new Decoy("Decoy", ""));
-        constructor.selectCard(new Mardroeme("Mardroeme", ""));
-        constructor.selectCard(new Scorch("Scorch", ""));
-        constructor.selectCard(new CommandersHorn("Commander's Horn", ""));
-        constructor.selectCard(new BitingFrost("Biting Frost", ""));
-        constructor.selectCard(new TorrentialRain("Torrential Rain", ""));
+        List<Card> cartas = constructor.getCards();
+        List<Card> copiaCartas = new ArrayList<>(cartas);
 
-        constructor.selectCard(new Unit("Botchling", "", 4, new CloseCombat()));
-        constructor.selectCard(new Unit("Berserker", "", 4, new CloseCombat()));
-        constructor.selectCard(new Unit("Dandelion", "", 2, new CloseCombat()));
-        constructor.selectCard(new Unit("Griffin", "", 5, new CloseCombat()));
-        constructor.selectCard(new Unit("Cerys", "", 10, new CloseCombat()));
-        constructor.selectCard(new Unit("Cow", "", 0, new Ranged()));
-        constructor.selectCard(new Unit("Dethmold", "", 6, new Ranged()));
-        constructor.selectCard(new Unit("Harpy", "", 2, new Ranged()));
-        constructor.selectCard(new Unit("Toad", "", 7, new Ranged()));
-        constructor.selectCard(new Unit("Cynthia", "", 4, new Ranged()));
-        constructor.selectCard(new Unit("Ermion", "", 8, new Ranged()));
-        constructor.selectCard(new Unit("Ballista", "", 6, new Siege()));
-        constructor.selectCard(new Unit("Catapult", "", 8, new Siege()));
-        constructor.selectCard(new Unit("Thaler", "", 1, new Siege()));
-        constructor.selectCard(new Unit("Ice Giant", "", 5, new Siege()));
+        for (Card c : copiaCartas) {
+            constructor.selectCard(c);
+        }
 
         List<Card> especialesSeleccionadas = constructor.getSpecialsSelected();
 
@@ -77,28 +47,12 @@ public class DeckBuilderTest {
         DeckBuilder constructor = new DeckBuilder();
         int minimoUnidades = 15;
 
-        constructor.selectCard(new Decoy("Decoy", ""));
-        constructor.selectCard(new Mardroeme("Mardroeme", ""));
-        constructor.selectCard(new Scorch("Scorch", ""));
-        constructor.selectCard(new CommandersHorn("Commander's Horn", ""));
-        constructor.selectCard(new BitingFrost("Biting Frost", ""));
-        constructor.selectCard(new TorrentialRain("Torrential Rain", ""));
+        List<Card> cartas = constructor.getCards();
+        List<Card> copiaCartas = new ArrayList<>(cartas);
 
-        constructor.selectCard(new Unit("Botchling", "", 4, new CloseCombat()));
-        constructor.selectCard(new Unit("Berserker", "", 4, new CloseCombat()));
-        constructor.selectCard(new Unit("Dandelion", "", 2, new CloseCombat()));
-        constructor.selectCard(new Unit("Griffin", "", 5, new CloseCombat()));
-        constructor.selectCard(new Unit("Cerys", "", 10, new CloseCombat()));
-        constructor.selectCard(new Unit("Cow", "", 0, new Ranged()));
-        constructor.selectCard(new Unit("Dethmold", "", 6, new Ranged()));
-        constructor.selectCard(new Unit("Harpy", "", 2, new Ranged()));
-        constructor.selectCard(new Unit("Toad", "", 7, new Ranged()));
-        constructor.selectCard(new Unit("Cynthia", "", 4, new Ranged()));
-        constructor.selectCard(new Unit("Ermion", "", 8, new Ranged()));
-        constructor.selectCard(new Unit("Ballista", "", 6, new Siege()));
-        constructor.selectCard(new Unit("Catapult", "", 8, new Siege()));
-        constructor.selectCard(new Unit("Thaler", "", 1, new Siege()));
-        constructor.selectCard(new Unit("Ice Giant", "", 5, new Siege()));
+        for (Card c : copiaCartas) {
+            constructor.selectCard(c);
+        }
 
         List<Card> unidadesSeleccionadas = constructor.getUnitsSelected();
 
@@ -110,31 +64,12 @@ public class DeckBuilderTest {
         DeckBuilder constructor = new DeckBuilder();
         int minimoCartas = 21;
 
-        constructor.selectCard(new Decoy("Decoy", ""));
-        constructor.selectCard(new Mardroeme("Mardroeme", ""));
-        constructor.selectCard(new Mardroeme("Mardroeme", ""));
-        constructor.selectCard(new Scorch("Scorch", ""));
-        constructor.selectCard(new CommandersHorn("Commander's Horn", ""));
-        constructor.selectCard(new BitingFrost("Biting Frost", ""));
-        constructor.selectCard(new TorrentialRain("Torrential Rain", ""));
-        constructor.selectCard(new TorrentialRain("Torrential Rain", ""));
+        List<Card> cartas = constructor.getCards();
+        List<Card> copiaCartas = new ArrayList<>(cartas);
 
-        constructor.selectCard(new Unit("Botchling", "", 4, new CloseCombat()));
-        constructor.selectCard(new Unit("Berserker", "", 4, new CloseCombat()));
-        constructor.selectCard(new Unit("Dandelion", "", 2, new CloseCombat()));
-        constructor.selectCard(new Unit("Dandelion", "", 2, new CloseCombat()));
-        constructor.selectCard(new Unit("Griffin", "", 5, new CloseCombat()));
-        constructor.selectCard(new Unit("Cerys", "", 10, new CloseCombat()));
-        constructor.selectCard(new Unit("Cow", "", 0, new Ranged()));
-        constructor.selectCard(new Unit("Dethmold", "", 6, new Ranged()));
-        constructor.selectCard(new Unit("Harpy", "", 2, new Ranged()));
-        constructor.selectCard(new Unit("Toad", "", 7, new Ranged()));
-        constructor.selectCard(new Unit("Cynthia", "", 4, new Ranged()));
-        constructor.selectCard(new Unit("Ermion", "", 8, new Ranged()));
-        constructor.selectCard(new Unit("Ballista", "", 6, new Siege()));
-        constructor.selectCard(new Unit("Catapult", "", 8, new Siege()));
-        constructor.selectCard(new Unit("Thaler", "", 1, new Siege()));
-        constructor.selectCard(new Unit("Ice Giant", "", 5, new Siege()));
+        for (Card c : copiaCartas) {
+            constructor.selectCard(c);
+        }
 
         Deck mazo = constructor.buildDeck();
 
@@ -146,31 +81,12 @@ public class DeckBuilderTest {
         DeckBuilder constructor = new DeckBuilder();
         int minimoUnidades = 15;
 
-        constructor.selectCard(new Decoy("Decoy", ""));
-        constructor.selectCard(new Mardroeme("Mardroeme", ""));
-        constructor.selectCard(new Mardroeme("Mardroeme", ""));
-        constructor.selectCard(new Scorch("Scorch", ""));
-        constructor.selectCard(new CommandersHorn("Commander's Horn", ""));
-        constructor.selectCard(new BitingFrost("Biting Frost", ""));
-        constructor.selectCard(new TorrentialRain("Torrential Rain", ""));
-        constructor.selectCard(new TorrentialRain("Torrential Rain", ""));
+        List<Card> cartas = constructor.getCards();
+        List<Card> copiaCartas = new ArrayList<>(cartas);
 
-        constructor.selectCard(new Unit("Botchling", "", 4, new CloseCombat()));
-        constructor.selectCard(new Unit("Berserker", "", 4, new CloseCombat()));
-        constructor.selectCard(new Unit("Dandelion", "", 2, new CloseCombat()));
-        constructor.selectCard(new Unit("Dandelion", "", 2, new CloseCombat()));
-        constructor.selectCard(new Unit("Griffin", "", 5, new CloseCombat()));
-        constructor.selectCard(new Unit("Cerys", "", 10, new CloseCombat()));
-        constructor.selectCard(new Unit("Cow", "", 0, new Ranged()));
-        constructor.selectCard(new Unit("Dethmold", "", 6, new Ranged()));
-        constructor.selectCard(new Unit("Harpy", "", 2, new Ranged()));
-        constructor.selectCard(new Unit("Toad", "", 7, new Ranged()));
-        constructor.selectCard(new Unit("Cynthia", "", 4, new Ranged()));
-        constructor.selectCard(new Unit("Ermion", "", 8, new Ranged()));
-        constructor.selectCard(new Unit("Ballista", "", 6, new Siege()));
-        constructor.selectCard(new Unit("Catapult", "", 8, new Siege()));
-        constructor.selectCard(new Unit("Thaler", "", 1, new Siege()));
-        constructor.selectCard(new Unit("Ice Giant", "", 5, new Siege()));
+        for (Card c : copiaCartas) {
+            constructor.selectCard(c);
+        }
 
         Deck mazo = constructor.buildDeck();
 
@@ -182,31 +98,12 @@ public class DeckBuilderTest {
         DeckBuilder constructor = new DeckBuilder();
         int minimoEspeciales = 6;
 
-        constructor.selectCard(new Decoy("Decoy", ""));
-        constructor.selectCard(new Mardroeme("Mardroeme", ""));
-        constructor.selectCard(new Mardroeme("Mardroeme", ""));
-        constructor.selectCard(new Scorch("Scorch", ""));
-        constructor.selectCard(new CommandersHorn("Commander's Horn", ""));
-        constructor.selectCard(new BitingFrost("Biting Frost", ""));
-        constructor.selectCard(new TorrentialRain("Torrential Rain", ""));
-        constructor.selectCard(new TorrentialRain("Torrential Rain", ""));
+        List<Card> cartas = constructor.getCards();
+        List<Card> copiaCartas = new ArrayList<>(cartas);
 
-        constructor.selectCard(new Unit("Botchling", "", 4, new CloseCombat()));
-        constructor.selectCard(new Unit("Berserker", "", 4, new CloseCombat()));
-        constructor.selectCard(new Unit("Dandelion", "", 2, new CloseCombat()));
-        constructor.selectCard(new Unit("Dandelion", "", 2, new CloseCombat()));
-        constructor.selectCard(new Unit("Griffin", "", 5, new CloseCombat()));
-        constructor.selectCard(new Unit("Cerys", "", 10, new CloseCombat()));
-        constructor.selectCard(new Unit("Cow", "", 0, new Ranged()));
-        constructor.selectCard(new Unit("Dethmold", "", 6, new Ranged()));
-        constructor.selectCard(new Unit("Harpy", "", 2, new Ranged()));
-        constructor.selectCard(new Unit("Toad", "", 7, new Ranged()));
-        constructor.selectCard(new Unit("Cynthia", "", 4, new Ranged()));
-        constructor.selectCard(new Unit("Ermion", "", 8, new Ranged()));
-        constructor.selectCard(new Unit("Ballista", "", 6, new Siege()));
-        constructor.selectCard(new Unit("Catapult", "", 8, new Siege()));
-        constructor.selectCard(new Unit("Thaler", "", 1, new Siege()));
-        constructor.selectCard(new Unit("Ice Giant", "", 5, new Siege()));
+        for (Card c : copiaCartas) {
+            constructor.selectCard(c);
+        }
 
         Deck mazo = constructor.buildDeck();
 
@@ -217,20 +114,18 @@ public class DeckBuilderTest {
     public void testNoSePuedeCrearElMazoSiNoHaySuficientesCartasUnidades() {
         DeckBuilder constructor = new DeckBuilder();
 
-        constructor.selectCard(new Decoy("Decoy", ""));
-        constructor.selectCard(new Mardroeme("Mardroeme", ""));
-        constructor.selectCard(new Mardroeme("Mardroeme", ""));
-        constructor.selectCard(new Scorch("Scorch", ""));
-        constructor.selectCard(new CommandersHorn("Commander's Horn", ""));
-        constructor.selectCard(new BitingFrost("Biting Frost", ""));
-        constructor.selectCard(new TorrentialRain("Torrential Rain", ""));
-        constructor.selectCard(new TorrentialRain("Torrential Rain", ""));
+        List<Card> cartas = constructor.getCards();
+        List<Card> copiaCartas = new ArrayList<>(cartas);
 
-        constructor.selectCard(new Unit("Botchling", "", 4, new CloseCombat()));
-        constructor.selectCard(new Unit("Berserker", "", 4, new CloseCombat()));
-        constructor.selectCard(new Unit("Dandelion", "", 2, new CloseCombat()));
-        constructor.selectCard(new Unit("Dandelion", "", 2, new CloseCombat()));
-        constructor.selectCard(new Unit("Griffin", "", 5, new CloseCombat()));
+        for (Card c : copiaCartas) {
+            constructor.selectCard(c);
+        }
+
+        List<Card> unidades = constructor.getUnitsSelected();
+        List<Card> unidadesCopia = new ArrayList<>(unidades);
+        for (Card c : unidadesCopia) {
+            constructor.unselectCard(c);
+        }
 
         assertThrows(IllegalArgumentException.class, constructor::buildDeck);
     }
@@ -239,26 +134,18 @@ public class DeckBuilderTest {
     public void testNoSePuedeCrearElMazoSiNoHaySuficientesCartasEspeciales() {
         DeckBuilder constructor = new DeckBuilder();
 
-        constructor.selectCard(new Decoy("Decoy", ""));
-        constructor.selectCard(new Mardroeme("Mardroeme", ""));
-        constructor.selectCard(new Mardroeme("Mardroeme", ""));
+        List<Card> cartas = constructor.getCards();
+        List<Card> copiaCartas = new ArrayList<>(cartas);
 
-        constructor.selectCard(new Unit("Botchling", "", 4, new CloseCombat()));
-        constructor.selectCard(new Unit("Berserker", "", 4, new CloseCombat()));
-        constructor.selectCard(new Unit("Dandelion", "", 2, new CloseCombat()));
-        constructor.selectCard(new Unit("Dandelion", "", 2, new CloseCombat()));
-        constructor.selectCard(new Unit("Griffin", "", 5, new CloseCombat()));
-        constructor.selectCard(new Unit("Cerys", "", 10, new CloseCombat()));
-        constructor.selectCard(new Unit("Cow", "", 0, new Ranged()));
-        constructor.selectCard(new Unit("Dethmold", "", 6, new Ranged()));
-        constructor.selectCard(new Unit("Harpy", "", 2, new Ranged()));
-        constructor.selectCard(new Unit("Toad", "", 7, new Ranged()));
-        constructor.selectCard(new Unit("Cynthia", "", 4, new Ranged()));
-        constructor.selectCard(new Unit("Ermion", "", 8, new Ranged()));
-        constructor.selectCard(new Unit("Ballista", "", 6, new Siege()));
-        constructor.selectCard(new Unit("Catapult", "", 8, new Siege()));
-        constructor.selectCard(new Unit("Thaler", "", 1, new Siege()));
-        constructor.selectCard(new Unit("Ice Giant", "", 5, new Siege()));
+        for (Card c : copiaCartas) {
+            constructor.selectCard(c);
+        }
+
+        List<Card> especiales = constructor.getSpecialsSelected();
+        List<Card> especialesCopia = new ArrayList<>(especiales);
+        for (Card c : especialesCopia) {
+            constructor.unselectCard(c);
+        }
 
         assertThrows(IllegalArgumentException.class, constructor::buildDeck);
     }
