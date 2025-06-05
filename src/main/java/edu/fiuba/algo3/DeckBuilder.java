@@ -1,5 +1,6 @@
 package edu.fiuba.algo3;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -11,17 +12,24 @@ public class DeckBuilder {
     private List<Card> selectedCards;
     private List<Card> units;
     private List<Card> specials;
+    private List<DeckValidator> deckValidators;
 
     public DeckBuilder() {
         this.cards = new ArrayList<>();
         this.selectedCards = new ArrayList<>();
         this.units = new ArrayList<>();
         this.specials = new ArrayList<>();
+        this.deckValidators = Arrays.asList(
+                new Validate6SpecialCards(specials),
+                new Validate15UnitCards(units)
+        );
     }
 
     public Deck buildDeck() {
-        if (this.units.size() < MIN_UNITS || this.specials.size() < MIN_SPECIALS) {
-            throw new IllegalArgumentException("Not Enough Cards");
+        for (DeckValidator deckValidator : this.deckValidators) {
+            if (!(deckValidator.validate())) {
+                throw new IllegalArgumentException("Not Enough Cards");
+            }
         }
         return new Deck(this.units, this.specials);
     }
