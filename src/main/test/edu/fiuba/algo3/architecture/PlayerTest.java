@@ -11,7 +11,7 @@ public class PlayerTest {
         Card cardSiege = new Unit("Catapulta", "NA", 10, new Siege());
         Card cardArcher = new Unit("Arquero", "NA", 10, new Ranged());
 
-        CardCollection expected = new CardCollection();
+        CardCollection expected = new DiscardPile();
         expected.addCard(cardSiege);
         expected.addCard(cardArcher);
         expected.addCard(cardPaladin);
@@ -35,7 +35,7 @@ public class PlayerTest {
         Card cardSiege = new Unit("Catapulta", "NA", 10, new Siege());
         Card cardArcher = new Unit("Arquero", "NA", 10, new Ranged());
 
-        CardCollection expected = new CardCollection();
+        CardCollection expected = new DiscardPile();
         expected.addCard(cardArcher);
         expected.addCard(cardPaladin);
         expected.addCard(cardSiege);
@@ -61,7 +61,7 @@ public class PlayerTest {
         Card cardArcher = new Unit("Arquero", "NA", 10, new Ranged());
         Card cardZamurai = new Unit("Zamurai", "NA", 10, new CloseCombat());
 
-        CardCollection expected = new CardCollection();
+        CardCollection expected = new DiscardPile();
         expected.addCard(cardArcher);
         expected.addCard(cardPaladin);
         expected.addCard(cardZamurai);

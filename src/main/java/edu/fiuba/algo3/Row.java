@@ -11,11 +11,11 @@ public class Row {
         cards = new ArrayList<>();
     }
 
-    public void placeCard(Card card, RowType row) {
+    public void placeCardInRow(Card card, RowType row) {
         type.placeCardInRow(this, card, row);
     }
 
-    protected void addCard(Card card) {
+    protected void placeCard(Card card) {
         cards.add(card);
     }
 

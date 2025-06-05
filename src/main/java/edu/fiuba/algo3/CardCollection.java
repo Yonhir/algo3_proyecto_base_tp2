@@ -2,7 +2,7 @@ package edu.fiuba.algo3;
 
 import java.util.ArrayList;
 
-public class CardCollection {
+public abstract class CardCollection {
 
     private final ArrayList<Card> cards;
 
