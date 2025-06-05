@@ -1,0 +1,48 @@
+@startuml
+
+skinparam monochrome true
+hide circle
+skinparam classAttributeIconSize 0
+
+' =====================
+' SIDE
+' =====================
+
+class Side {
+  +placeCard(card: Card, row: RowType)
+  +calculateTotalPoints(): int
+  +calculateTotalPointsForRow(row: RowType): int
+  +clearSide(): void
+}
+
+class Row {
+  -cards: List<Card>
+  +placeCard(card: Card)
+  +calculateTotalPoints(): int
+  +clearRow(discardPile: DiscardPile): void
+}
+
+abstract class RowType <<abstract>> {
+  +placeCardInRow(row: Row, card: Card)
+}
+
+class Ranged extends RowType {
+  +placeCardInRow(row: Row, card: Card)
+}
+
+class CloseCombat extends RowType {
+  +placeCardInRow(row: Row, card: Card)
+}
+
+class Siege extends RowType {
+  +placeCardInRow(row: Row, card: Card)
+}
+
+' =====================
+' RELATIONSHIPS
+' =====================
+
+Side --> "3" Row
+Row *-- RowType
+
+@enduml
