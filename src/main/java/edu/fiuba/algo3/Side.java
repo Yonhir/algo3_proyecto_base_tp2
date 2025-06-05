@@ -6,14 +6,11 @@ import java.util.List;
 public class Side {
 
     private final List<Row> rows;
-    private final Row closeCombatRow;
-    private final Row rangedRow;
-    private final Row siegeRow;
 
     public Side() {
-        this.closeCombatRow = new Row(new CloseCombat());
-        this.rangedRow = new Row(new Ranged());
-        this.siegeRow = new Row(new Siege());
+        Row closeCombatRow = new Row(new CloseCombat());
+        Row rangedRow = new Row(new Ranged());
+        Row siegeRow = new Row(new Siege());
 
         this.rows = new ArrayList<>();
         this.rows.add(closeCombatRow);
