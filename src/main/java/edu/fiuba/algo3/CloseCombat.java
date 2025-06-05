@@ -2,6 +2,7 @@ package edu.fiuba.algo3;
 
 import java.util.List;
 
+
 public class CloseCombat extends RowType {
     @Override
     public void placeCardInRow(Row row, Card card, RowType selectedRowType) {

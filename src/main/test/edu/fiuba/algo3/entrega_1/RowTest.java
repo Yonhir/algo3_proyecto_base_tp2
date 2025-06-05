@@ -3,6 +3,7 @@ package edu.fiuba.algo3.entrega_1;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 import edu.fiuba.algo3.CloseCombat;
@@ -11,16 +12,26 @@ import edu.fiuba.algo3.RowType;
 import edu.fiuba.algo3.Unit;
 
 public class RowTest {
+
     @Test
-    public void testAddUnitsAndCalculateTotalPoints() {
-        RowType tipoFila = new CloseCombat();
-        Row row = new Row(tipoFila);
-        Unit unidad1 = new Unit("Soldado", "Unidad basica", 5, tipoFila, new ArrayList<>());
-        Unit unidad2 = new Unit("Arquero", "Unidad a distancia", 3, tipoFila, new ArrayList<>());
+    public void testRowGuardaUnaUnidadCorrectamente() {
+        Row row = new Row(new CloseCombat());
+        int puntosBase = 5;
+        Unit card = new Unit("NombreGenerico", "Unidad básica cuerpo a cuerpo", puntosBase, new CloseCombat());
 
-        row.placeCard(unidad1);
-        row.placeCard(unidad2);
+        row.placeCard(card);
 
-        assertEquals(8, row.calculateTotalPoints());
+        assertTrue(row.getCards().contains(card));
+    }
+
+    @Test
+    public void testRowCalculaCorrectamenteElPuntajeTotalConUnaUnidad() {
+        Row row = new Row(new CloseCombat());
+        int puntosBase = 5;
+        Unit card = new Unit("NombreGenerico", "Unidad básica cuerpo a cuerpo", puntosBase, new CloseCombat());
+
+        row.placeCard(card);
+
+        assertEquals(puntosBase, row.calculateTotalPoints());
     }
 }

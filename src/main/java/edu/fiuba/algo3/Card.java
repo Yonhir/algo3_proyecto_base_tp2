@@ -6,6 +6,7 @@ abstract public class Card implements SpecialEffectApplicable {
     protected String name;
     protected String description;
 
+
     public Card(String name, String description) {
         this.name = name;
         this.description = description;

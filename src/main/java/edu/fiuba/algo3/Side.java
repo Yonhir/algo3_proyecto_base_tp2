@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Side implements SpecialEffectApplicable {
-    private List<Row> rows;
+    private final List<Row> rows;
 
     public Side() {
         this.rows = new ArrayList<>();

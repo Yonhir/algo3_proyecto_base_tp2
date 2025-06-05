@@ -12,12 +12,12 @@ public class Row implements SpecialEffectApplicable {
         this.rowType = rowType;
     }
 
-    public void placeCard(Card card, RowType selectedRowType) {
-        rowType.placeCardInRow(this, card, selectedRowType);
-    }
-
     public void placeCard(Card card) {
         cards.add(card);
+    }
+
+    public void placeCard(Card card, RowType selectedRowType) {
+        rowType.placeCardInRow(this, card, selectedRowType);
     }
 
     public int calculateTotalPoints(RowType rowType) {
@@ -28,6 +28,9 @@ public class Row implements SpecialEffectApplicable {
             }
         }
         return total;
+
+    public List<Card> getCards() {
+        return cards;
     }
 
     public int calculateTotalPoints() {
