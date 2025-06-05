@@ -5,9 +5,6 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class DeckBuilder {
-    public static final int MIN_UNITS = 15;
-    public static final int MIN_SPECIALS = 6;
-
     private List<Card> cards;
     private List<Card> selectedCards;
     private List<Card> units;
