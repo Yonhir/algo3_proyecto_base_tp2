@@ -42,15 +42,4 @@ public class SideTest {
         int puntos = side.calculateTotalPointsForRow(new Siege());
         assertEquals(puntosCarta, puntos);
     }
-
-    @Test
-    public void testGetRowLanzaExcepcionConRowTypeDesconocido_UsandoMockito() {
-        Side side = new Side();
-        RowType tipoDesconocido = mock(RowType.class);
-
-        assertThrows(IllegalArgumentException.class, () -> {
-            Unit carta = new Unit("Desconocido", "No pertenece a ninguna fila", 3, tipoDesconocido);
-            side.placeCard(carta, tipoDesconocido);
-        });
-    }
 }

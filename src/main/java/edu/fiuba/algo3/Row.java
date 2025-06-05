@@ -16,6 +16,11 @@ public class Row {
         cards.add(card);
     }
 
+    public void placeCard(Card card, RowType selectedRowType) {
+        rowType.placeCardInRow(this, card, selectedRowType);
+    }
+
+
     public List<Card> getCards() {
         return cards;
     }
@@ -29,4 +34,9 @@ public class Row {
         }
         return total;
     }
+
+    public RowType getRowType() {
+        return rowType;
+    }
+
 }

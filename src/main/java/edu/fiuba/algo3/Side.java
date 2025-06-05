@@ -1,7 +1,11 @@
 package edu.fiuba.algo3;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Side {
 
+    private final List<Row> rows;
     private final Row closeCombatRow;
     private final Row rangedRow;
     private final Row siegeRow;
@@ -10,20 +14,26 @@ public class Side {
         this.closeCombatRow = new Row(new CloseCombat());
         this.rangedRow = new Row(new Ranged());
         this.siegeRow = new Row(new Siege());
+
+        this.rows = new ArrayList<>();
+        this.rows.add(closeCombatRow);
+        this.rows.add(rangedRow);
+        this.rows.add(siegeRow);
     }
 
-    public void placeCard(Card card, RowType rowType) {
-        rowType.placeCardInRow(getRow(rowType), card);
+    public void placeCard(Card card, RowType selectedRowType) {
+        for (Row row : rows) {
+            row.placeCard(card, selectedRowType);
+        }
     }
 
-    public int calculateTotalPointsForRow(RowType rowType) {
-        return getRow(rowType).calculateTotalPoints();
-    }
-
-    private Row getRow(RowType rowType) {
-        if (rowType instanceof CloseCombat) return closeCombatRow;
-        if (rowType instanceof Ranged) return rangedRow;
-        if (rowType instanceof Siege) return siegeRow;
+    public int calculateTotalPointsForRow(RowType selectedRowType) {
+        for (Row row : rows) {
+            if (row.getRowType().getClass().equals(selectedRowType.getClass())) {
+                return row.calculateTotalPoints();
+            }
+        }
         throw new IllegalArgumentException("RowType desconocido");
     }
+
 }
