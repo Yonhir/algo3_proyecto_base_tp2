@@ -8,4 +8,12 @@ public class Siege extends RowType {
         }
         row.placeCard(card);
     }
+
+    @Override
+    public int calculateTotalPoints(Row row, RowType rowType) {
+        if (rowType instanceof Siege) {
+            return row.calculateTotalPoints();
+        }
+        return 0;
+    }
 }

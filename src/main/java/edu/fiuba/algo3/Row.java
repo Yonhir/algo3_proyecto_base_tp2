@@ -35,8 +35,6 @@ public class Row {
         return total;
     }
 
-    public RowType getRowType() {
-        return rowType;
-    }
+
 
 }

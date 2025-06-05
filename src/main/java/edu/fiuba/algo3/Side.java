@@ -24,13 +24,12 @@ public class Side {
         }
     }
 
-    public int calculateTotalPointsForRow(RowType selectedRowType) {
+    public int calculateTotalPointsForRow(RowType rowType) {
+        int totalPoints = 0;
         for (Row row : rows) {
-            if (row.getRowType().getClass().equals(selectedRowType.getClass())) {
-                return row.calculateTotalPoints();
-            }
+            totalPoints += rowType.calculateTotalPoints(row, rowType);
         }
-        throw new IllegalArgumentException("RowType desconocido");
+        return totalPoints;
     }
 
 }

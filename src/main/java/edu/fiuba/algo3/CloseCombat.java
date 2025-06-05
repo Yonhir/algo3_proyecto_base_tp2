@@ -8,5 +8,13 @@ public class CloseCombat extends RowType {
         }
         row.placeCard(card);
     }
+
+    @Override
+    public int calculateTotalPoints(Row row, RowType rowType) {
+        if (rowType instanceof CloseCombat) {
+            return row.calculateTotalPoints();
+        }
+        return 0;
+    }
 }
 

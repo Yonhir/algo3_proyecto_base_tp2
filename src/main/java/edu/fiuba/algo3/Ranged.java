@@ -8,4 +8,12 @@ public class Ranged extends RowType {
         }
         row.placeCard(card);
     }
+
+    @Override
+    public int calculateTotalPoints(Row row, RowType rowType) {
+        if (rowType instanceof Ranged) {
+            return row.calculateTotalPoints();
+        }
+        return 0;
+    }
 }
