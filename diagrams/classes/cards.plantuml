@@ -7,28 +7,30 @@ skinparam classAttributeIconSize 0
 ' =====================
 ' CARD HIERARCHY
 ' =====================
-interface SpecialEffect <<interface>> {
-  +apply(owner: Player, opponent: Player)
-}
+
 
 abstract class Card <<abstract>> {
   -name: String
   -description: String
   +Card(name: String, description: String): Card
-  +play(owner: Player, opponent: Player): void
+  +getName(): String
+  +getDescription(): String
+  +play(row: Row): void
 }
 
 class Unit {
-  -basePoint: int
-  -rowType: RowType
-  -currentPoint: int
-  +Unit(name: String, description: String, basePoint: int, rowType: RowType): Unit
-  +getPoints(): int
-  +play(owner: Player, opponent: Player): void
+  -basePoints: int
+  -currentPoints: int
+  +Unit(name: String, description: String, points: int, modifiers: List<Modifier>): Unit
+  +calculatePoints(): int
+  +play(row: Row)
+  +resetPoints()
+  +setPoints(points: int): int
+  +haveModifier(modifier: Modifier): boolean
 }
 
 abstract class Special <<abstract>> {
-  +play(owner: Player, opponent: Player): void
+  +play(row: Row): void
 }
 
 abstract class Weather <<abstract>> {
@@ -36,12 +38,13 @@ abstract class Weather <<abstract>> {
   +play(owner: Player, opponent: Player): void
 }
 
-abstract class Modifier <<abstract>> {
-  -description: String
-  +Modifier(description: String): Modifier
-  +play(owner: Player, opponent: Player): void
+interface Modifier <<interface>> {
+    +apply(row: Row)
 }
 
+class TightBond{
+
+}
 
 ' =====================
 ' RELATIONSHIPS
@@ -52,7 +55,6 @@ Card <|-- Special
 Special <|-- Weather
 
 Unit --> "*" Modifier
-Modifier ..|> SpecialEffect
-Special ..|> SpecialEffect
+Modifier <|.. TightBond
 
 @enduml
