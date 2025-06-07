@@ -10,8 +10,14 @@ public class Deck extends CardCollection {
         super(cards);
         this.units = units;
         this.specials = specials;
+        validate();
     }
 
+    private void validate() {
+        if ((units.size() < 15) || (specials.size() < 6)) {
+            throw new IllegalArgumentException();
+        }
+    }
     public int getCardCount() {
         return cards.size();
     }
