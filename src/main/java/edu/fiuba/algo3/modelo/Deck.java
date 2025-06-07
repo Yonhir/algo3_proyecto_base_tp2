@@ -4,19 +4,17 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Deck extends CardCollection {
-    private List<DeckValidator> validators;
-
     public Deck(List<Card> cards) {
         super(cards);
-        this.validators = Arrays.asList(
+        List<DeckValidator> validators = Arrays.asList(
                 new Validate6SpecialCards(cards),
                 new Validate15UnitsCards(cards)
         );
-        validate();
+        validate(validators);
     }
 
-    private void validate() {
-        for (DeckValidator deckV : this.validators) {
+    private void validate(List<DeckValidator> validators) {
+        for (DeckValidator deckV : validators) {
             if (!deckV.validate()) {
                 throw new IllegalArgumentException("Deck inválido");
             }
