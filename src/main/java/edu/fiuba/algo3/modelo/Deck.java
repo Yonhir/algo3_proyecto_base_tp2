@@ -1,34 +1,37 @@
 package edu.fiuba.algo3.modelo;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class Deck extends CardCollection {
-    private static final int MIN_UNITS = 15;
-    private static final int MIN_SPECIALS = 6;
-    private List<Card> units;
-    private List<Card> specials;
+    private List<DeckValidator> validators;
 
-    public Deck(List<Card> cards, List<Card> units, List<Card> specials) {
+    public Deck(List<Card> cards) {
         super(cards);
-        this.units = units;
-        this.specials = specials;
+        this.validators = Arrays.asList(
+                new Validate6SpecialCards(cards),
+                new Validate15UnitsCards(cards)
+        );
         validate();
     }
 
     private void validate() {
-        if ((units.size() < MIN_UNITS) || (specials.size() < MIN_SPECIALS)) {
-            throw new IllegalArgumentException();
+        for (DeckValidator deckV : this.validators) {
+            if (!deckV.validate()) {
+                throw new IllegalArgumentException("Deck inválido");
+            }
         }
     }
+
     public int getCardCount() {
         return cards.size();
     }
 
-    public int getUnitsCount() {
-        return units.size();
+    public long getUnitsCount() {
+        return cards.stream().filter(card -> card instanceof Unit).count();
     }
 
-    public int getSpecialsCount() {
-        return specials.size();
+    public long getSpecialsCount() {
+        return cards.stream().filter(card -> card instanceof Special).count();
     }
 }

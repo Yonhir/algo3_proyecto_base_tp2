@@ -13,7 +13,7 @@ public class DeckTest {
     public void testElJugadorPoseeCartasSuficientesEnSuMazoParaEmpezarElJuego() {
         int minimoCartas = 21;
 
-        List<Card> unidades = Arrays.asList(
+        List<Card> cartas = Arrays.asList(
                 new Unit("Nombre", "Descripcion", 4, new ArrayList<Modifier>()),
                 new Unit("Nombre", "Descripcion", 5, new ArrayList<Modifier>()),
                 new Unit("Nombre", "Descripcion", 6, new ArrayList<Modifier>()),
@@ -28,23 +28,16 @@ public class DeckTest {
                 new Unit("Nombre", "Descripcion", 4, new ArrayList<Modifier>()),
                 new Unit("Nombre", "Descripcion", 8, new ArrayList<Modifier>()),
                 new Unit("Nombre", "Descripcion", 3, new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 4, new ArrayList<Modifier>())
-        );
-
-        List<Card> especiales = Arrays.asList(
+                new Unit("Nombre", "Descripcion", 4, new ArrayList<Modifier>()),
                 new TorrentialRain("Nombre", "Descripcion"),
                 new ImpenetrableFog("Nombre", "Descripcion"),
                 new BitingFrost("Nombre", "Descripcion"),
                 new TacticalAdvantage("Nombre", "Descripcion"),
                 new Decoy("Nombre", "Descripcion"),
-                new Scorch("Nombre", "Descripcion")
-        );
+                new Scorch("Nombre", "Descripcion"
+        ));
 
-        List<Card> cartas = new ArrayList<>();
-        cartas.addAll(unidades);
-        cartas.addAll(especiales);
-
-        Deck mazo = new Deck(cartas, unidades, especiales);
+        Deck mazo = new Deck(cartas);
 
         assertTrue(mazo.getCardCount() >= minimoCartas);
     }
@@ -53,7 +46,7 @@ public class DeckTest {
     public void testElJugadorPoseeCartasUnidadesSuficientesEnSuMazoParaEmpezarElJuego() {
         int minimoUnidades = 15;
 
-        List<Card> unidades = Arrays.asList(
+        List<Card> cartas = Arrays.asList(
                 new Unit("Nombre", "Descripcion", 4, new ArrayList<Modifier>()),
                 new Unit("Nombre", "Descripcion", 5, new ArrayList<Modifier>()),
                 new Unit("Nombre", "Descripcion", 6, new ArrayList<Modifier>()),
@@ -68,19 +61,16 @@ public class DeckTest {
                 new Unit("Nombre", "Descripcion", 4, new ArrayList<Modifier>()),
                 new Unit("Nombre", "Descripcion", 8, new ArrayList<Modifier>()),
                 new Unit("Nombre", "Descripcion", 3, new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 4, new ArrayList<Modifier>())
-        );
-
-        List<Card> especiales = Arrays.asList(
+                new Unit("Nombre", "Descripcion", 4, new ArrayList<Modifier>()),
                 new TorrentialRain("Nombre", "Descripcion"),
                 new ImpenetrableFog("Nombre", "Descripcion"),
                 new BitingFrost("Nombre", "Descripcion"),
                 new TacticalAdvantage("Nombre", "Descripcion"),
                 new Decoy("Nombre", "Descripcion"),
-                new Scorch("Nombre", "Descripcion")
-        );
+                new Scorch("Nombre", "Descripcion"
+        ));
 
-        Deck mazo = new Deck(new ArrayList<>(), unidades, especiales);
+        Deck mazo = new Deck(cartas);
 
         assertTrue(mazo.getUnitsCount() >= minimoUnidades);
     }
@@ -89,7 +79,7 @@ public class DeckTest {
     public void testElJugadorPoseeCartasEspecialesSuficientesEnSuMazoParaEmpezarElJuego() {
         int minimoEspeciales = 6;
 
-        List<Card> unidades = Arrays.asList(
+        List<Card> cartas = Arrays.asList(
                 new Unit("Nombre", "Descripcion", 4, new ArrayList<Modifier>()),
                 new Unit("Nombre", "Descripcion", 5, new ArrayList<Modifier>()),
                 new Unit("Nombre", "Descripcion", 6, new ArrayList<Modifier>()),
@@ -104,26 +94,23 @@ public class DeckTest {
                 new Unit("Nombre", "Descripcion", 4, new ArrayList<Modifier>()),
                 new Unit("Nombre", "Descripcion", 8, new ArrayList<Modifier>()),
                 new Unit("Nombre", "Descripcion", 3, new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 4, new ArrayList<Modifier>())
-        );
-
-        List<Card> especiales = Arrays.asList(
+                new Unit("Nombre", "Descripcion", 4, new ArrayList<Modifier>()),
                 new TorrentialRain("Nombre", "Descripcion"),
                 new ImpenetrableFog("Nombre", "Descripcion"),
                 new BitingFrost("Nombre", "Descripcion"),
                 new TacticalAdvantage("Nombre", "Descripcion"),
                 new Decoy("Nombre", "Descripcion"),
-                new Scorch("Nombre", "Descripcion")
-        );
+                new Scorch("Nombre", "Descripcion"
+        ));
 
-        Deck mazo = new Deck(new ArrayList<>(), unidades, especiales);
+        Deck mazo = new Deck(cartas);
 
         assertTrue(mazo.getSpecialsCount() >= minimoEspeciales);
     }
 
     @Test
     public void testNoSeCreaElMazoSiNoHaySuficientesCartasParaEmpezarElJuego() {
-        List<Card> unidades = Arrays.asList(
+        List<Card> cartas = Arrays.asList(
                 new Unit("Nombre", "Descripcion", 4, new ArrayList<Modifier>()),
                 new Unit("Nombre", "Descripcion", 5, new ArrayList<Modifier>()),
                 new Unit("Nombre", "Descripcion", 6, new ArrayList<Modifier>()),
@@ -133,27 +120,20 @@ public class DeckTest {
                 new Unit("Nombre", "Descripcion", 6, new ArrayList<Modifier>()),
                 new Unit("Nombre", "Descripcion", 8, new ArrayList<Modifier>()),
                 new Unit("Nombre", "Descripcion", 0, new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 10, new ArrayList<Modifier>())
-        );
-
-        List<Card> especiales = Arrays.asList(
+                new Unit("Nombre", "Descripcion", 10, new ArrayList<Modifier>()),
                 new TorrentialRain("Nombre", "Descripcion"),
                 new ImpenetrableFog("Nombre", "Descripcion"),
                 new BitingFrost("Nombre", "Descripcion")
         );
 
-        List<Card> cartas = new ArrayList<>();
-        cartas.addAll(unidades);
-        cartas.addAll(especiales);
-
         assertThrows(IllegalArgumentException.class, () -> {
-            Deck mazo = new Deck(cartas, unidades, especiales);
+            Deck mazo = new Deck(cartas);
         });
     }
 
     @Test
     public void testNoSeCreaElMazoSiNoHaySuficientesCartasUnidadesParaEmpezarElJuego() {
-        List<Card> unidades = Arrays.asList(
+        List<Card> cartas = Arrays.asList(
                 new Unit("Nombre", "Descripcion", 4, new ArrayList<Modifier>()),
                 new Unit("Nombre", "Descripcion", 5, new ArrayList<Modifier>()),
                 new Unit("Nombre", "Descripcion", 6, new ArrayList<Modifier>()),
@@ -163,10 +143,7 @@ public class DeckTest {
                 new Unit("Nombre", "Descripcion", 6, new ArrayList<Modifier>()),
                 new Unit("Nombre", "Descripcion", 8, new ArrayList<Modifier>()),
                 new Unit("Nombre", "Descripcion", 0, new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 10, new ArrayList<Modifier>())
-        );
-
-        List<Card> especiales = Arrays.asList(
+                new Unit("Nombre", "Descripcion", 10, new ArrayList<Modifier>()),
                 new TorrentialRain("Nombre", "Descripcion"),
                 new ImpenetrableFog("Nombre", "Descripcion"),
                 new BitingFrost("Nombre", "Descripcion"),
@@ -176,13 +153,13 @@ public class DeckTest {
         );
 
         assertThrows(IllegalArgumentException.class, () -> {
-            Deck mazo = new Deck(new ArrayList<>(), unidades, especiales);
+            Deck mazo = new Deck(cartas);
         });
     }
 
     @Test
     public void testNoSeCreaElMazoSiNoHaySuficientesCartasEspecialesParaEmpezarElJuego() {
-        List<Card> unidades = Arrays.asList(
+        List<Card> cartas = Arrays.asList(
                 new Unit("Nombre", "Descripcion", 4, new ArrayList<Modifier>()),
                 new Unit("Nombre", "Descripcion", 5, new ArrayList<Modifier>()),
                 new Unit("Nombre", "Descripcion", 6, new ArrayList<Modifier>()),
@@ -192,17 +169,14 @@ public class DeckTest {
                 new Unit("Nombre", "Descripcion", 6, new ArrayList<Modifier>()),
                 new Unit("Nombre", "Descripcion", 8, new ArrayList<Modifier>()),
                 new Unit("Nombre", "Descripcion", 0, new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 10, new ArrayList<Modifier>())
-        );
-
-        List<Card> especiales = Arrays.asList(
+                new Unit("Nombre", "Descripcion", 10, new ArrayList<Modifier>()),
                 new TorrentialRain("Nombre", "Descripcion"),
                 new ImpenetrableFog("Nombre", "Descripcion"),
                 new BitingFrost("Nombre", "Descripcion")
         );
 
         assertThrows(IllegalArgumentException.class, () -> {
-            Deck mazo = new Deck(new ArrayList<>(), unidades, especiales);
+            Deck mazo = new Deck(cartas);
         });
     }
 }
