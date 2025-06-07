@@ -11,7 +11,7 @@ public class DeckTest {
     public void testElJugadorPoseeCartasSuficientesEnSuMazoParaEmpezarElJuego() {
         int minimoCartas = 21;
 
-        List<Card> units = Arrays.asList(
+        List<Card> unidades = Arrays.asList(
                 new Unit("Nombre", "Descripcion", 4, new ArrayList<Modifier>()),
                 new Unit("Nombre", "Descripcion", 5, new ArrayList<Modifier>()),
                 new Unit("Nombre", "Descripcion", 6, new ArrayList<Modifier>()),
@@ -29,7 +29,7 @@ public class DeckTest {
                 new Unit("Nombre", "Descripcion", 4, new ArrayList<Modifier>())
         );
 
-        List<Card> specials = Arrays.asList(
+        List<Card> especiales = Arrays.asList(
                 new TorrentialRain("Nombre", "Descripcion"),
                 new ImpenetrableFog("Nombre", "Descripcion"),
                 new BitingFrost("Nombre", "Descripcion"),
@@ -38,7 +38,11 @@ public class DeckTest {
                 new Scorch("Nombre", "Descripcion")
         );
 
-        Deck mazo = new Deck(units, specials);
+        List<Card> cartas = new ArrayList<>();
+        cartas.addAll(unidades);
+        cartas.addAll(especiales);
+
+        Deck mazo = new Deck(cartas, unidades, especiales);
 
         assertTrue(mazo.getCardCount() >= minimoCartas);
     }
@@ -47,7 +51,7 @@ public class DeckTest {
     public void testElJugadorPoseeCartasUnidadesSuficientesEnSuMazoParaEmpezarElJuego() {
         int minimoUnidades = 15;
 
-        List<Card> units = Arrays.asList(
+        List<Card> unidades = Arrays.asList(
                 new Unit("Nombre", "Descripcion", 4, new ArrayList<Modifier>()),
                 new Unit("Nombre", "Descripcion", 5, new ArrayList<Modifier>()),
                 new Unit("Nombre", "Descripcion", 6, new ArrayList<Modifier>()),
@@ -65,9 +69,7 @@ public class DeckTest {
                 new Unit("Nombre", "Descripcion", 4, new ArrayList<Modifier>())
         );
 
-        List<Card> specials = new ArrayList<>();
-
-        Deck mazo = new Deck(units, specials);
+        Deck mazo = new Deck(new ArrayList<>(), unidades, new ArrayList<>());
 
         assertTrue(mazo.getUnitsCount() >= minimoUnidades);
     }
@@ -76,9 +78,7 @@ public class DeckTest {
     public void testElJugadorPoseeCartasEspecialesSuficientesEnSuMazoParaEmpezarElJuego() {
         int minimoEspeciales = 6;
 
-        List<Card> units = new ArrayList<>();
-
-        List<Card> specials = Arrays.asList(
+        List<Card> especiales = Arrays.asList(
                 new TorrentialRain("Nombre", "Descripcion"),
                 new ImpenetrableFog("Nombre", "Descripcion"),
                 new BitingFrost("Nombre", "Descripcion"),
@@ -87,7 +87,7 @@ public class DeckTest {
                 new Scorch("Nombre", "Descripcion")
         );
 
-        Deck mazo = new Deck(units, specials);
+        Deck mazo = new Deck(new ArrayList<>(), new ArrayList<>(), especiales);
 
         assertTrue(mazo.getSpecialsCount() >= minimoEspeciales);
     }

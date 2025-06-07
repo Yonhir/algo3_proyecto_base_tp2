@@ -2,24 +2,25 @@ package edu.fiuba.algo3.modelo;
 
 import java.util.List;
 
-public class Deck {
+public class Deck extends CardCollection {
     List<Card> units;
     List<Card> specials;
 
-    public Deck(List<Card> units, List<Card> specials) {
+    public Deck(List<Card> cards, List<Card> units, List<Card> specials) {
+        super(cards);
         this.units = units;
         this.specials = specials;
     }
 
     public int getCardCount() {
-        return 21;
+        return cards.size();
     }
 
     public int getUnitsCount() {
-        return 15;
+        return units.size();
     }
 
     public int getSpecialsCount() {
-        return 6;
+        return specials.size();
     }
 }
