@@ -7,20 +7,14 @@ skinparam classAttributeIconSize 0
 ' =====================
 ' GAME
 ' =====================
-class Game {
-  +start()
-  +playerPlayCard(card: Card)
-  +playerPassRound()
-}
-
-class DeckBuilder {
-  -cards: List<Card>
-  -selectedCards: List<Card>
-  +getSelection(): List<Card>
-  +getCards(): List<Card>
-  +selectCard(card: Card)
-  +unselectCard(card: Card)
-  +buildDeck(): Deck
+class Player {
+  -name: String
+  -health: int
+  +Player(name: String, health: int): Player
+  +getDeck(): Deck
+  +getHand(): Hand
+  +getDiscardPile(): DiscardPile
+  +calculatePoints(): int
 }
 
 abstract class CardCollection <<abstract>> {
@@ -28,11 +22,13 @@ abstract class CardCollection <<abstract>> {
   +CardCollection(cards: List<Card>): CardCollection
   +getCards(): List<Card>
   +addCard(card: Card)
+  +addCards(List<Card>)
   +retrieveCard(card: Card): Card
   +getCardCount(): int
 }
 
 class Hand {
+  +getNCardsFromDeck(deck: Deck, n: int)
   +isEmpty(): boolean
 }
 
@@ -41,136 +37,104 @@ class DiscardPile {
 }
 
 class Deck {
+  +Deck(cards: List<Card>)
   +retrieveNRandomCard(n: int): List<Card>
+  +dealHand(Hand: hand)
 }
 
-class Player {
-  -name: String
-  -health: int
-  -hand: Hand
-  -discardPile: DiscardPile
-  -deck: Deck
-  -side: Side
-  +Player(name: String, health: int): Player
-  +getHand(): List<Card>
-  +putCardsInDiscardPile(cards: List<Card>): void
-  +retrieveNCardsFromDeck(n: int): List<Card>
-  +playCard(card: Card, row: RowType): void
-  +calculatePoints(): int
-  +clearBoard(): int
-}
-
-class Round {
-  -roundNumber: int
-  -player1Points: int
-  -player2Points: int
-  -currentPlayer: Player
-  -opponentPlayer: Player
-  +Round(player1: Player, player2: Player, titular: Player, roundNumber: int, board: Board): Round
-  +nextTurn(): Player
-  +currentPlayer(): Player
-  +opponentPlayer(): Player
-  +playerPassTurn()
-  +whoWon(): Player
-}
-
-class Side {
-  +placeCard(card: Card, row: RowType)
-  +calculateTotalPoints(): int
-  +calculateTotalPointsForRow(row: RowType): int
-  +clearSide(): void
-}
-
-abstract class RowType <<abstract>> {
-  +placeCardInRow(row: Row, card: Card)
-}
-
-class Ranged extends RowType {
-  +placeCardInRow(row: Row, card: Card)
-}
-
-class CloseCombat extends RowType {
-  +placeCardInRow(row: Row, card: Card)
-}
-
-class Siege extends RowType {
-  +placeCardInRow(row: Row, card: Card)
-}
-
-class Row {
-  -cards: List<Card>
+interface Row <<abstract>> {
+  -weather: Weather
   +placeCard(card: Card)
-  +calculateTotalPoints(): int
-  +clearRow(discardPile: DiscardPile): void
+  +calculatePoints(): int
+  +discardCards(discardPile: DiscardPile)
+  +addWeather(weather: Weather)
 }
 
-' =====================
-' CARD
-' =====================
-interface SpecialEffect <<interface>> {
-  +apply(owner: Player, opponent: Player)
+class Ranged {
+  +placeCard(card: Card)
+}
+
+class CloseCombat {
+  +placeCard(card: Card)
+}
+
+class Siege {
+  +placeCard(card: Card)
+}
+
+class WeatherZone {
+  -closeCombatRows: List<Row>
+  -rangedRows: List<Row>
+  -siegeRows: List<Row>
+  +WeatherZone(closeCombatRows: List<Row>, rangedRows: List<Row>, siegeRows: List<Row>): WeatherZone
+  +addWeather(weather: Weather)
+  +addCloseCombatWeather(weather: Weather)
+  +addRangedWeather(weather: Weather)
+  +addSiegeWeather(weather: Weather)
 }
 
 abstract class Card <<abstract>> {
   -name: String
   -description: String
   +Card(name: String, description: String): Card
-  +play(owner: Player, opponent: Player): void
+  +getName(): String
+  +getDescription(): String
+  +play(row: Row): void
 }
 
 class Unit {
-  -basePoint: int
-  -rowType: RowType
-  -currentPoint: int
-  +Unit(name: String, description: String, basePoint: int, rowType: RowType): Unit
-  +getPoints(): int
-  +play(owner: Player, opponent: Player): void
+  -basePoints: int
+  -currentPoints: int
+  +Unit(name: String, description: String, points: int, modifiers: List<Modifier>): Unit
+  +calculatePoints(): int
+  +play(row: Row)
+  +resetPoints()
+  +setPoints(points: int): int
+  +haveModifier(modifier: Modifier): boolean
 }
 
 abstract class Special <<abstract>> {
-  +play(owner: Player, opponent: Player): void
+  +play(row: Row): void
 }
 
-abstract class Weather <<abstract>> {
-  -affectedRow: RowType
-  +play(owner: Player, opponent: Player): void
+class TightBond{
+
 }
 
-abstract class Modifier <<abstract>> {
-  -description: String
-  +Modifier(description: String): Modifier
-  +play(owner: Player, opponent: Player): void
+interface Modifier <<interface>> {
+    +apply(row: Row)
 }
+
+class Weather {
+  +play(row: Row): void
+  +apply(card: Card, row: Row)
+}
+
 
 ' =====================
 ' RELATIONSHIPS
 ' =====================
+Player --> "3" CardCollection
+Player --> "3" Row
+Player --> "1" WeatherZone
 
-Game *-- "1..*" Round
-Game *-- "2" Player
-Game *-- DeckBuilder
+WeatherZone --> "3" Row
 
-DeckBuilder --> Card
-DeckBuilder --> CardCollection
-
-CardCollection --> "1..*" Card
+CardCollection -->  Card
 CardCollection <|-- Hand
 CardCollection <|-- DiscardPile
 CardCollection <|-- Deck
 
-Player --> "3" CardCollection
-Player --> "1" Side
+Row <|-- Ranged
+Row <|-- CloseCombat
+Row <|-- Siege
 
-Side --> "3" Row
-Row *-- RowType
 Row --> "*" Card
 
 Card <|-- Unit
 Card <|-- Special
-Special <|-- Weather
-
-Unit --> "*" Modifier
-Modifier ..|> SpecialEffect
-Special ..|> SpecialEffect
+Modifier "*"<- Unit
+Modifier <|.. TightBond
+Special <|- Weather
 
 @enduml
