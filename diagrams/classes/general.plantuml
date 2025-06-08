@@ -37,7 +37,7 @@ class DiscardPile {
 }
 
 class Deck {
-  +Deck(cards: List<Card>)
+  +Deck(units: List<Unit>, specials: List<Special>)
   +retrieveNRandomCard(n: int): List<Card>
   +dealHand(Hand: hand)
 }
@@ -125,11 +125,11 @@ CardCollection <|-- Hand
 CardCollection <|-- DiscardPile
 CardCollection <|-- Deck
 
-Row <|-- Ranged
-Row <|-- CloseCombat
-Row <|-- Siege
+Ranged <|-- Row
+CloseCombat <|-- Row
+Siege <|-- Row
 
-Row --> "*" Card
+Row --> Card
 
 Card <|-- Unit
 Card <|-- Special
