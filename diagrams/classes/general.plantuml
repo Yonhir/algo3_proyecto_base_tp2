@@ -33,33 +33,39 @@ class Hand {
 }
 
 class DiscardPile {
+  +DiscardPile(): DiscardPile
   +getLastCard(): Card
+  +addCard(card: Card)
 }
 
 class Deck {
-  +Deck(units: List<Unit>, specials: List<Special>)
-  +retrieveNRandomCard(n: int): List<Card>
-  +dealHand(Hand: hand)
+  +Deck(cards: List<Card>): Deck
+  +getCardCount(): int
+  +getUnitsCount(): long
+  +getSpecialsCount(): long
 }
 
-interface Row <<abstract>> {
-  -weather: Weather
+abstract class Row <<abstract>> {
+  -cards: List<Card>
   +placeCard(card: Card)
+  +addCard(card: Card)
   +calculatePoints(): int
   +discardCards(discardPile: DiscardPile)
   +addWeather(weather: Weather)
+  +canBePlacedIn(unit: Unit): boolean
+  +getCards(): List<Card>
 }
 
 class Ranged {
-  +placeCard(card: Card)
+  +canBePlacedIn(unit: Unit): boolean
 }
 
 class CloseCombat {
-  +placeCard(card: Card)
+  +canBePlacedIn(unit: Unit): boolean
 }
 
 class Siege {
-  +placeCard(card: Card)
+  +canBePlacedIn(unit: Unit): boolean
 }
 
 class WeatherZone {
@@ -80,36 +86,87 @@ abstract class Card <<abstract>> {
   +getName(): String
   +getDescription(): String
   +play(row: Row): void
+  +canBePlaced(row: Row): boolean
 }
 
 class Unit {
   -basePoints: int
   -currentPoints: int
-  +Unit(name: String, description: String, points: int, modifiers: List<Modifier>): Unit
+  -modifiers: List<Modifier>
+  -canBeInCloseCombat: boolean
+  -canBeInRanged: boolean
+  -canBeInSiege: boolean
+  +Unit(name: String, description: String, points: int, closeCombat: boolean, ranged: boolean, siege: boolean, modifiers: List<Modifier>): Unit
   +calculatePoints(): int
-  +play(row: Row)
-  +resetPoints()
-  +setPoints(points: int): int
+  +play(row: Row): void
+  +resetPoints(): void
+  +setPoints(points: int): void
   +haveModifier(modifier: Modifier): boolean
+  +canBeInCloseCombat(): boolean
+  +canBeInRanged(): boolean
+  +canBeInSiege(): boolean
 }
 
 abstract class Special <<abstract>> {
   +play(row: Row): void
+  +canBePlaced(row: Row): boolean
 }
 
-class TightBond{
-
+class TightBond {
+  +apply(row: Row): void
 }
 
 interface Modifier <<interface>> {
-    +apply(row: Row)
+  +apply(row: Row): void
 }
 
-class Weather {
+abstract class Weather <<abstract>> {
+  +Weather(name: String, description: String): Weather
   +play(row: Row): void
-  +apply(card: Card, row: Row)
+  +apply(card: Card, row: Row): void
 }
 
+class TorrentialRain {
+  +TorrentialRain(name: String, description: String): TorrentialRain
+}
+
+class ImpenetrableFog {
+  +ImpenetrableFog(name: String, description: String): ImpenetrableFog
+}
+
+class BitingFrost {
+  +BitingFrost(name: String, description: String): BitingFrost
+}
+
+class Decoy {
+  +Decoy(name: String, description: String): Decoy
+}
+
+class TacticalAdvantage {
+  +TacticalAdvantage(name: String, description: String): TacticalAdvantage
+}
+
+class Scorch {
+  +Scorch(name: String, description: String): Scorch
+}
+
+interface DeckValidator <<interface>> {
+  +validate(): boolean
+}
+
+class Validate6SpecialCards {
+  -MIN_SPECIALS: int
+  -cards: List<Card>
+  +Validate6SpecialCards(cards: List<Card>): Validate6SpecialCards
+  +validate(): boolean
+}
+
+class Validate15UnitsCards {
+  -MIN_UNITS: int
+  -cards: List<Card>
+  +Validate15UnitsCards(cards: List<Card>): Validate15UnitsCards
+  +validate(): boolean
+}
 
 ' =====================
 ' RELATIONSHIPS
@@ -120,14 +177,14 @@ Player --> "1" WeatherZone
 
 WeatherZone --> "3" Row
 
-CardCollection -->  Card
+CardCollection --> Card
 CardCollection <|-- Hand
 CardCollection <|-- DiscardPile
 CardCollection <|-- Deck
 
-Ranged <|-- Row
-CloseCombat <|-- Row
-Siege <|-- Row
+Ranged --|> Row
+CloseCombat --|> Row
+Siege --|> Row
 
 Row --> Card
 
@@ -135,6 +192,16 @@ Card <|-- Unit
 Card <|-- Special
 Modifier "*"<- Unit
 Modifier <|.. TightBond
-Special <|- Weather
+Special <|-- Weather
+Weather <|-- TorrentialRain
+Weather <|-- ImpenetrableFog
+Weather <|-- BitingFrost
+Special <|-- Decoy
+Special <|-- TacticalAdvantage
+Special <|-- Scorch
+
+Deck --> "*" DeckValidator
+DeckValidator <|.. Validate6SpecialCards
+DeckValidator <|.. Validate15UnitsCards
 
 @enduml
