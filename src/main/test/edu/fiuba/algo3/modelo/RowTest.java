@@ -53,6 +53,4 @@ public class RowTest {
 
         assertTrue(siegeRow.getCards().contains(catapulta));
     }
-
-
 }
