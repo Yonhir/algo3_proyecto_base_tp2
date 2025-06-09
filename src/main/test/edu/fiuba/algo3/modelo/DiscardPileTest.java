@@ -44,4 +44,18 @@ public class DiscardPileTest {
         assertThrows(IllegalStateException.class, () -> discardPile.getLastCard(), 
             "Getting last card from empty discard pile should throw exception");
     }
+
+    @Test
+    void testUnitPointsResetWhenAddedToDiscardPile() {
+        // Modify unit1's points
+        unit1.setPoints(10);
+        assertEquals(10, unit1.calculatePoints(), "Unit points should be modified");
+
+        // Add unit1 to discard pile
+        discardPile.addCard(unit1);
+
+        // Get the card back from discard pile
+        Unit discardedUnit = (Unit) discardPile.getLastCard();
+        assertEquals(5, discardedUnit.calculatePoints(), "Unit points should be reset to base value");
+    }
 } 
