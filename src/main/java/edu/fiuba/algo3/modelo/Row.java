@@ -25,12 +25,6 @@ public abstract class Row {
         cards.add(card);
     }
 
-    public List<Card> getCards() {
-        return cards;
-    }
-
-    public abstract boolean puedeColocarUnidad(Unit unit);
-
     public int calculatePoints() {
         int totalPoints = 0;
         for (Card card : cards) {

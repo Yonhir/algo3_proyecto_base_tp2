@@ -6,7 +6,7 @@ public class ImpenetrableFog extends Weather {
     }
 
     @Override
-    public boolean puedeSerColocadaEn(Row row) {
+    public boolean canBePlaced(Row row) {
         return false;
     }
 
