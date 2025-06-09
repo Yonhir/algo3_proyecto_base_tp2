@@ -1,0 +1,15 @@
+@startuml
+actor Jugador
+
+participant "Row" as row
+participant "Card (Unit)" as unit
+
+Jugador -> row : placeCard(unit)
+row -> unit : puedeSerColocadaEn(this)
+unit -> row : puedeColocarUnidad(unit)
+row --> unit : true
+row <-- unit : true
+
+row -> unit : play(this)
+unit -> row : addCard(this)
+@enduml

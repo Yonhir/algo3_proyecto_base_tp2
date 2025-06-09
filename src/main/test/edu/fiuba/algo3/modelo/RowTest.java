@@ -14,7 +14,7 @@ public class RowTest {
         int puntosBase = 5;
         Unit arquero = new Unit("arquero", "tira flechas", puntosBase, false, true, false, List.of() );
 
-        arquero.play(rangedRow);
+        rangedRow.placeCard(arquero);
 
         assertTrue(rangedRow.getCards().contains(arquero));
     }
@@ -26,8 +26,8 @@ public class RowTest {
         Unit soldado2 = new Unit("soldado2", "pelea de cerca", 10,true, false, true, List.of());
         int cantidadCartasEsperadas = 2;
 
-        soldado1.play(closeCombat);
-        soldado2.play(closeCombat);
+        closeCombat.placeCard(soldado1);
+        closeCombat.placeCard(soldado2);
 
         List<Card> cartasEnLaFila = closeCombat.getCards();
         assertTrue(cartasEnLaFila.contains(soldado1));
@@ -40,7 +40,7 @@ public class RowTest {
         Unit arquero = new Unit("arquero", "tira flechas", 5, false, true, false, List.of()); // Solo Ranged
         Row closeCombatRow = new CloseCombat();
 
-        assertThrows(IllegalArgumentException.class, () -> arquero.play(closeCombatRow));
+        assertThrows(IllegalArgumentException.class, () -> closeCombatRow.placeCard(arquero));
     }
 
 }

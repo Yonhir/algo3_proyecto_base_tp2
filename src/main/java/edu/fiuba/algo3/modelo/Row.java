@@ -10,7 +10,7 @@ public abstract class Row {
         if (!card.puedeSerColocadaEn(this)) {
             throw new IllegalArgumentException("La carta no puede colocarse en esta fila.");
         }
-        cards.add(card);
+        card.play(this);
     }
 
     public List<Card> getCards() {
@@ -20,4 +20,9 @@ public abstract class Row {
     public boolean puedeColocarUnidad(Unit unit) {
         return false;
     }
+
+    public void addCard(Card card) {
+        cards.add(card);
+    }
+
 }

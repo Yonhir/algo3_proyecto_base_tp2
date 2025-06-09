@@ -34,7 +34,7 @@ public class Unit extends Card {
 
     @Override
     public void play(Row row) {
-        row.placeCard(this);
+        row.addCard(this);
     }
 
 
