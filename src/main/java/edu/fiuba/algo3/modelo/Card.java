@@ -11,5 +11,5 @@ public abstract class Card {
 
     public abstract void play(Row row);
 
-    public abstract boolean puedeSerColocadaEn(Row row);
+    public abstract boolean canBePlaced(Row row);
 }

@@ -6,30 +6,30 @@ public class Unit extends Card {
     private int basePoints;
     private int currentPoints;
     private List<Modifier> modifiers;
-    private boolean puedeIrEnCloseCombat;
-    private boolean puedeIrEnRanged;
-    private boolean puedeIrEnSiege;
+    private boolean canBeInCloseCombat;
+    private boolean canBeInRanged;
+    private boolean canBeInSiege;
 
     public Unit(String name, String description, int points, boolean closeCombat, boolean ranged, boolean siege, List<Modifier> modifiers) {
         super(name, description);
         this.basePoints = points;
         this.currentPoints = points;
-        this.puedeIrEnCloseCombat = closeCombat;
-        this.puedeIrEnRanged = ranged;
-        this.puedeIrEnSiege = siege;
+        this.canBeInCloseCombat = closeCombat;
+        this.canBeInRanged = ranged;
+        this.canBeInSiege = siege;
         this.modifiers = modifiers;
     }
 
-    public boolean puedeIrEnCloseCombat() {
-        return puedeIrEnCloseCombat;
+    public boolean canBeInCloseCombat() {
+        return canBeInCloseCombat;
     }
 
-    public boolean puedeIrEnRanged() {
-        return puedeIrEnRanged;
+    public boolean canBeInRanged() {
+        return canBeInRanged;
     }
 
-    public boolean puedeIrEnSiege() {
-        return puedeIrEnSiege;
+    public boolean canBeInSiege() {
+        return canBeInSiege;
     }
 
     @Override
@@ -39,8 +39,8 @@ public class Unit extends Card {
 
 
     @Override
-    public boolean puedeSerColocadaEn(Row row) {
-        return row.puedeColocarUnidad(this);
+    public boolean canBePlaced(Row row) {
+        return row.canBePlacedIn(this);
     }
 
 }

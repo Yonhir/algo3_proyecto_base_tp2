@@ -7,7 +7,7 @@ public abstract class Row {
     protected List<Card> cards = new ArrayList<>();
 
     public void placeCard(Card card) {
-        if (!card.puedeSerColocadaEn(this)) {
+        if (!card.canBePlaced(this)) {
             throw new IllegalArgumentException("La carta no puede colocarse en esta fila.");
         }
         card.play(this);
@@ -17,7 +17,7 @@ public abstract class Row {
         return cards;
     }
 
-    public boolean puedeColocarUnidad(Unit unit) {
+    public boolean canBePlacedIn(Unit unit) {
         return false;
     }
 

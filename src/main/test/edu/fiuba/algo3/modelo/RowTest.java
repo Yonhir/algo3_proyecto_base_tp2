@@ -43,4 +43,16 @@ public class RowTest {
         assertThrows(IllegalArgumentException.class, () -> closeCombatRow.placeCard(arquero));
     }
 
+    @Test
+    public void testUnaUnidadEsColocadaEnEspacioSiegeRow() {
+        Row siegeRow = new Siege();
+        int puntosBase = 8;
+        Unit catapulta = new Unit("catapulta", "dispara desde lejos", puntosBase, false, false, true, List.of());
+
+        siegeRow.placeCard(catapulta);
+
+        assertTrue(siegeRow.getCards().contains(catapulta));
+    }
+
+
 }

@@ -5,8 +5,8 @@ participant "Row" as row
 participant "Card (Unit)" as unit
 
 Jugador -> row : placeCard(unit)
-row -> unit : puedeSerColocadaEn(this)
-unit -> row : puedeColocarUnidad(unit)
+row -> unit : canBePlacedIn(this)
+unit -> row : canBePlaced(unit)
 row --> unit : true
 row <-- unit : true
 
