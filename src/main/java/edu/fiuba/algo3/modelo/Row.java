@@ -7,25 +7,15 @@ public abstract class Row {
     protected List<Card> cards = new ArrayList<>();
 
     public void placeCard(Card card) {
-        validateCard(card);
-        addCard(card);
-    }
-
-    protected void validateCard(Card card) {
-        if (!card.puedeSerColocadaEn(this)) {
+        if (!card.canBePlaced(this)) {
             throw new IllegalArgumentException("La carta no puede colocarse en esta fila.");
         }
-    }
-
-    public void addCard(Card card) {
-        cards.add(card);
+        card.play(this);
     }
 
     public List<Card> getCards() {
         return cards;
     }
-
-    public abstract boolean puedeColocarUnidad(Unit unit);
 
     public int calculatePoints() {
         int totalPoints = 0;
@@ -42,5 +32,13 @@ public abstract class Row {
             discardPile.addCard(card);
         }
         cards.clear();
+    }
+
+    public boolean canBePlacedIn(Unit unit) {
+        return false;
+    }
+
+    public void addCard(Card card) {
+        cards.add(card);
     }
 }

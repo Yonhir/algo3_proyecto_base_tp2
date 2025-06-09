@@ -20,5 +20,5 @@ public abstract class Card {
         return description;
     }
 
-    public abstract boolean puedeSerColocadaEn(Row row);
+    public abstract boolean canBePlaced(Row row);
 }
