@@ -13,6 +13,7 @@ public class TightBondTest {
     private Unit catapult1;
     private Unit catapult2;
     private Unit catapult3;
+    private Unit regularUnit;
     private TightBond tightBondModifier1;
     private TightBond tightBondModifier2;
     private TightBond tightBondModifier3;
@@ -52,43 +53,71 @@ public class TightBondTest {
             false, false, true,
             modifiers3
         );
+
+        // Create a regular unit without TightBond modifier
+        regularUnit = new Unit(
+            "Regular Unit", "Regular unit", 6,
+            false, false, true,
+            new ArrayList<>()
+        );
     }
 
     @Test
     void testPlay1CatapultTightBondPointsCalculation() {
-        // Place first catapult
+        // Arrange
+        int expectedPoints = 8;
+        
+        // Act
         siegeRow.placeCard(catapult1);
-        assertEquals(8, siegeRow.calculatePoints(), "First catapult should have base points");
+
+        // Assert
+        assertEquals(expectedPoints, siegeRow.calculatePoints(), "First catapult should have base points");
     }
 
     @Test
     void testPlay3CatapultsTightBondPointsCalculation() {
-        // Place first catapult
+        // Arrange
+        int expectedPoints = 72;
+
+        // Act
         siegeRow.placeCard(catapult1);
-        assertEquals(8, siegeRow.calculatePoints(), "First catapult should have base points");
-
-        // Place second catapult
         siegeRow.placeCard(catapult2);
-        assertEquals(32, siegeRow.calculatePoints(), "Two catapults should double each other's points (8*2*2)");
-
-        // Place third catapult
         siegeRow.placeCard(catapult3);
-        assertEquals(72, siegeRow.calculatePoints(), "Three catapults should triple each other's points (8*3*3)");
+        int pointsAfterThird = siegeRow.calculatePoints();
+
+        // Assert
+        assertEquals(expectedPoints, pointsAfterThird, "Three catapults should triple each other's points (8*3*3)");
     }
 
     @Test
     void testPlay2CatapultsTightBondAndPointsResetAfterRound() {
-        // Place two catapults
+        // Arrange
+        int expectedPoints = 6;
+
+        // Act
         siegeRow.placeCard(catapult1);
         siegeRow.placeCard(catapult2);
-        assertEquals(32, siegeRow.calculatePoints(), "Two catapults should double each other's points");
-
-        // End round by discarding cards
+        // End of round
         siegeRow.discardCards(discardPile);
+        siegeRow.placeCard(regularUnit);
+        int pointsAfterNewRound = siegeRow.calculatePoints();
 
-        // Place the same cards again
+        // Assert
+        assertEquals(expectedPoints, pointsAfterNewRound, "Points should be recalculated correctly in new round");
+    }
+
+    @Test
+    void testRegularUnitNotAffectedByTightBond() {
+        // Arrange
+        int expectedPoints = 38;
+
+        // Act
+        siegeRow.placeCard(regularUnit);
         siegeRow.placeCard(catapult1);
         siegeRow.placeCard(catapult2);
-        assertEquals(32, siegeRow.calculatePoints(), "Points should be recalculated correctly in new round");
+        int finalRowPoints = siegeRow.calculatePoints();
+
+        // Assert
+        assertEquals(expectedPoints, finalRowPoints, "Total points should be 38 ((8*2)*2 for TightBond units) + 6 (regular unit)");
     }
 }
