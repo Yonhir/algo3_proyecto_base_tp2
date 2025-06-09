@@ -73,7 +73,7 @@ public class TightBondTest {
 
         // Place third catapult
         siegeRow.placeCard(catapult3);
-        assertEquals(96, siegeRow.calculatePoints(), "Three catapults should triple each other's points (8*2*2*3)");
+        assertEquals(72, siegeRow.calculatePoints(), "Three catapults should triple each other's points (8*3*3)");
     }
 
     @Test

@@ -57,7 +57,12 @@ public class Unit extends Card {
         currentPoints = points;
     }
 
-    public boolean haveModifier(Modifier modifier) {
-        return modifiers.contains(modifier);
+    public boolean haveModifier(Modifier modifierInstance) {
+        for (Modifier modifier : modifiers) {
+            if (modifier.getClass().isInstance(modifierInstance)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
