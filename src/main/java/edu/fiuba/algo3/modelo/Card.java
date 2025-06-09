@@ -12,13 +12,5 @@ public abstract class Card {
 
     public abstract void play(Row row);
 
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
     public abstract boolean canBePlaced(Row row);
 }
