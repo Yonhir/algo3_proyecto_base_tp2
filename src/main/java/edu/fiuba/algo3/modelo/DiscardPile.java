@@ -9,6 +9,14 @@ public class DiscardPile extends CardCollection {
         super(new ArrayList<>());
     }
 
+    @Override
+    public void addCard(Card card) {
+        if (card instanceof Unit) {
+            ((Unit) card).resetPoints();
+        }
+        super.addCard(card);
+    }
+
     public Card getLastCard() {
         if (cards.isEmpty()) {
             throw new IllegalStateException("Cannot get last card from empty discard pile");
