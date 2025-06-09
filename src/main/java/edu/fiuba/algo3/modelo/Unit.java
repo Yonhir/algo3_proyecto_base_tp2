@@ -34,13 +34,30 @@ public class Unit extends Card {
 
     @Override
     public void play(Row row) {
-        row.placeCard(this);
+        row.addCard(this);
+        for (Modifier modifier : modifiers) {
+            modifier.apply(row);
+        }
     }
-
 
     @Override
     public boolean puedeSerColocadaEn(Row row) {
         return row.puedeColocarUnidad(this);
     }
 
+    public int calculatePoints() {
+        return currentPoints;
+    }
+
+    public void resetPoints() {
+        currentPoints = basePoints;
+    }
+
+    public void setPoints(int points) {
+        currentPoints = points;
+    }
+
+    public boolean haveModifier(Modifier modifier) {
+        return modifiers.contains(modifier);
+    }
 }
