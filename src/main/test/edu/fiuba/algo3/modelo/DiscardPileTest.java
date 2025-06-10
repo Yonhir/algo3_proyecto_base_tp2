@@ -39,12 +39,9 @@ public class DiscardPileTest {
         Player player = new Player("Player1", 3);
         DiscardPile discardPile = player.getDiscardPile();
 
-
-
         Row ranged = new Ranged();
         Row closeCombat = new CloseCombat();
         Row siege = new Siege();
-
 
         for (Card card : cards) {
             if(card.canBePlaced(ranged)) ranged.placeCard(card);
