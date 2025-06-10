@@ -9,5 +9,5 @@ coverage:
     project:
       default:
         target: 80%
-        threshold: 2%
+        threshold: 0%
         only_pulls: true
