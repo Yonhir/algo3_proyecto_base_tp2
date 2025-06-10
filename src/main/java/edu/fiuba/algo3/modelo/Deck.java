@@ -7,15 +7,15 @@ public class Deck extends CardCollection {
     public Deck(List<Card> cards) {
         super(cards);
         List<DeckValidator> validators = Arrays.asList(
-                new Validate6SpecialCards(cards),
-                new Validate15UnitsCards(cards)
+                new Validate6SpecialCards(),
+                new Validate15UnitsCards()
         );
         validate(validators);
     }
 
     private void validate(List<DeckValidator> validators) {
         for (DeckValidator deckV : validators) {
-            deckV.validate();
+            deckV.validate(cards);
         }
     }
 

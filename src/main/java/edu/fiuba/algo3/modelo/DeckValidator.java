@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.modelo;
 
+import java.util.List;
+
 interface DeckValidator {
-    public boolean validate();
+    public void validate(List<Card> cards);
 }
