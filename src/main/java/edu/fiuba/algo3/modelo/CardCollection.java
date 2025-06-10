@@ -3,9 +3,8 @@ package edu.fiuba.algo3.modelo;
 import java.util.List;
 
 public abstract class CardCollection {
+    protected final List<Card> cards;
 
-    private final List<Card> cards;
-  
     public CardCollection(List<Card> cards) {
         this.cards = cards;
     }
@@ -20,5 +19,4 @@ public abstract class CardCollection {
     public int size() {
         return cards.size();
     }
-
 }
