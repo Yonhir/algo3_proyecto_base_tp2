@@ -8,6 +8,10 @@ coverage:
   status:
     project:
       default:
-        target: 80%
-        threshold: 0%
+        enabled: false  # Desactivamos la regla global por defecto
+    patch:
+      default:
+        enabled: true
+        target: 80%     # Cobertura mínima requerida
+        threshold: 0%   # No se permite bajar nada
         only_pulls: true
