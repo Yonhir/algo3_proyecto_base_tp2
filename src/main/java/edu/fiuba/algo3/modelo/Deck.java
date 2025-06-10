@@ -15,9 +15,7 @@ public class Deck extends CardCollection {
 
     private void validate(List<DeckValidator> validators) {
         for (DeckValidator deckV : validators) {
-            if (!deckV.validate()) {
-                throw new IllegalArgumentException("Deck inválido");
-            }
+            deckV.validate();
         }
     }
 

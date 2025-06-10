@@ -12,6 +12,10 @@ public class Validate6SpecialCards implements DeckValidator {
 
     @Override
     public boolean validate() {
-        return cards.stream().filter(card -> card instanceof Special).count() >= MIN_SPECIALS;
+        long specialsCount =  cards.stream().filter(card -> card instanceof Special).count();
+        if (specialsCount < MIN_SPECIALS) {
+            throw new NotEnoughSpecialsCardsError("Instance of Deck without enough special cards");
+        }
+        return true;
     }
 }

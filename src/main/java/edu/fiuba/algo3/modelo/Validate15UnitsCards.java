@@ -12,6 +12,10 @@ public class Validate15UnitsCards implements DeckValidator {
 
     @Override
     public boolean validate() {
-        return cards.stream().filter(card -> card instanceof Unit).count() >= MIN_UNITS;
+        long unitsCount = cards.stream().filter(card -> card instanceof Unit).count();
+        if (unitsCount < MIN_UNITS) {
+            throw new NotEnoughUnitsCardsError("Instance of Deck without enough unit cards");
+        }
+        return true;
     }
 }

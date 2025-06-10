@@ -80,21 +80,11 @@ public class DeckTest {
     }
 
     @Test
-    public void testNoSeCreaElMazoSiNoHaySuficientesCartasParaEmpezarElJuego() {
-        cartas.addAll(unidades.subList(5, 15));
-        cartas.addAll(especiales.subList(3, 6));
-
-        assertThrows(IllegalArgumentException.class, () -> {
-            Deck mazo = new Deck(cartas);
-        });
-    }
-
-    @Test
     public void testNoSeCreaElMazoSiNoHaySuficientesCartasUnidadesParaEmpezarElJuego() {
         cartas.addAll(unidades.subList(5, 15));
         cartas.addAll(especiales);
 
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(NotEnoughUnitsCardsError.class, () -> {
             Deck mazo = new Deck(cartas);
         });
     }
@@ -104,7 +94,7 @@ public class DeckTest {
         cartas.addAll(especiales.subList(3, 6));
         cartas.addAll(unidades);
 
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(NotEnoughSpecialsCardsError.class, () -> {
             Deck mazo = new Deck(cartas);
         });
     }
