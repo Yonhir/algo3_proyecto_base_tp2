@@ -57,6 +57,16 @@ public class WeatherZoneTest {
         rainWeather = new TorrentialRain("Lluvia", "Reduce todas las unidades de asedio a 1 punto");
     }
 
+    private void setupAllWeatherEffects() {
+        player1CloseCombatRow.placeCard(player1Soldier);
+        player1RangedRow.placeCard(player1Archer);
+        player1SiegeRow.placeCard(player1Catapult);
+        
+        weatherZone.placeCard(frostWeather);
+        weatherZone.placeCard(fogWeather);
+        weatherZone.placeCard(rainWeather);
+    }
+
     @Test
     public void testBitingFrostAffectsPlayer1CloseCombatRow() {
         // Arrange
@@ -211,5 +221,114 @@ public class WeatherZoneTest {
         
         // Assert
         assertEquals(1, player1Catapult.calculatePoints(), "Las nuevas unidades de asedio deberían ser afectadas por la lluvia");
+    }
+
+    @Test
+    public void testClearWeatherRemovesAllWeatherEffectsFromCloseCombat() {
+        // Arrange
+        setupAllWeatherEffects();
+        
+        // Act
+        Special clearWeather = new ClearWeather("Clima Despejado", "Elimina todos los efectos de clima");
+        weatherZone.placeCard(clearWeather);
+        
+        // Assert
+        assertEquals(10, player1Soldier.calculatePoints(), "Las unidades cuerpo a cuerpo deberían volver a sus puntos originales");
+    }
+
+    @Test
+    public void testClearWeatherRemovesAllWeatherEffectsFromRanged() {
+        // Arrange
+        setupAllWeatherEffects();
+        
+        // Act
+        Special clearWeather = new ClearWeather("Clima Despejado", "Elimina todos los efectos de clima");
+        weatherZone.placeCard(clearWeather);
+        
+        // Assert
+        assertEquals(8, player1Archer.calculatePoints(), "Las unidades a distancia deberían volver a sus puntos originales");
+    }
+
+    @Test
+    public void testClearWeatherRemovesAllWeatherEffectsFromSiege() {
+        // Arrange
+        setupAllWeatherEffects();
+        
+        // Act
+        Special clearWeather = new ClearWeather("Clima Despejado", "Elimina todos los efectos de clima");
+        weatherZone.placeCard(clearWeather);
+        
+        // Assert
+        assertEquals(12, player1Catapult.calculatePoints(), "Las unidades de asedio deberían volver a sus puntos originales");
+    }
+
+    @Test
+    public void testFrostAffectsBothPlayersCloseCombat() {
+        // Arrange
+        player1CloseCombatRow.placeCard(player1Soldier);
+        player2CloseCombatRow.placeCard(player2Soldier);
+        
+        // Act
+        weatherZone.placeCard(frostWeather);
+        
+        // Assert
+        assertEquals(1, player1Soldier.calculatePoints(), "La escarcha debería afectar a las unidades cuerpo a cuerpo del jugador 1");
+        assertEquals(1, player2Soldier.calculatePoints(), "La escarcha debería afectar a las unidades cuerpo a cuerpo del jugador 2");
+    }
+
+    @Test
+    public void testFogAffectsBothPlayersRanged() {
+        // Arrange
+        player1RangedRow.placeCard(player1Archer);
+        player2RangedRow.placeCard(player2Archer);
+        
+        // Act
+        weatherZone.placeCard(fogWeather);
+        
+        // Assert
+        assertEquals(1, player1Archer.calculatePoints(), "La niebla debería afectar a las unidades a distancia del jugador 1");
+        assertEquals(1, player2Archer.calculatePoints(), "La niebla debería afectar a las unidades a distancia del jugador 2");
+    }
+
+    @Test
+    public void testRainAffectsBothPlayersSiege() {
+        // Arrange
+        player1SiegeRow.placeCard(player1Catapult);
+        player2SiegeRow.placeCard(player2Catapult);
+        
+        // Act
+        weatherZone.placeCard(rainWeather);
+        
+        // Assert
+        assertEquals(1, player1Catapult.calculatePoints(), "La lluvia debería afectar a las unidades de asedio del jugador 1");
+        assertEquals(1, player2Catapult.calculatePoints(), "La lluvia debería afectar a las unidades de asedio del jugador 2");
+    }
+
+    @Test
+    public void testClearWeatherRemovesEffectsFromBothPlayers() {
+        // Arrange
+        player1CloseCombatRow.placeCard(player1Soldier);
+        player1RangedRow.placeCard(player1Archer);
+        player1SiegeRow.placeCard(player1Catapult);
+        player2CloseCombatRow.placeCard(player2Soldier);
+        player2RangedRow.placeCard(player2Archer);
+        player2SiegeRow.placeCard(player2Catapult);
+        
+        // Apply all weather effects
+        weatherZone.placeCard(frostWeather);
+        weatherZone.placeCard(fogWeather);
+        weatherZone.placeCard(rainWeather);
+        
+        // Act
+        Special clearWeather = new ClearWeather("Clima Despejado", "Elimina todos los efectos de clima");
+        weatherZone.placeCard(clearWeather);
+        
+        // Assert
+        assertEquals(10, player1Soldier.calculatePoints(), "Las unidades cuerpo a cuerpo del jugador 1 deberían volver a sus puntos originales");
+        assertEquals(8, player1Archer.calculatePoints(), "Las unidades a distancia del jugador 1 deberían volver a sus puntos originales");
+        assertEquals(12, player1Catapult.calculatePoints(), "Las unidades de asedio del jugador 1 deberían volver a sus puntos originales");
+        assertEquals(10, player2Soldier.calculatePoints(), "Las unidades cuerpo a cuerpo del jugador 2 deberían volver a sus puntos originales");
+        assertEquals(8, player2Archer.calculatePoints(), "Las unidades a distancia del jugador 2 deberían volver a sus puntos originales");
+        assertEquals(12, player2Catapult.calculatePoints(), "Las unidades de asedio del jugador 2 deberían volver a sus puntos originales");
     }
 }

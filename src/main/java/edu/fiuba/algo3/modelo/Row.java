@@ -7,6 +7,10 @@ public abstract class Row implements CardTarget {
     protected List<Card> cards = new ArrayList<>();
     protected Weather currentWeather;
 
+    public Row() {
+        this.currentWeather = new ClearWeather("Clima Despejado", "Elimina todos los efectos de clima");
+    }
+
     @Override
     public void placeCard(Card card) {
         if (!card.canBePlaced(this)) {
@@ -26,9 +30,7 @@ public abstract class Row implements CardTarget {
     @Override
     public void addCard(Card card) {
         cards.add(card);
-        if (currentWeather != null) {
-            currentWeather.apply(card, this);
-        }
+        currentWeather.apply(card, this);
     }
 
     public void addWeather(Weather weather) {
