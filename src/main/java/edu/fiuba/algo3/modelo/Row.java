@@ -17,8 +17,9 @@ public abstract class Row {
         return cards;
     }
 
-    public abstract boolean canBePlacedIn(Unit unit);
+    public boolean canBePlacedIn(Unit unit) {
+        return false;
+    }
 
     public void addCard(Card card) { cards.add(card); }
-
 }
