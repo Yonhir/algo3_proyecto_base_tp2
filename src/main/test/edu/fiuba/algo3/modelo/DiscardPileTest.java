@@ -53,7 +53,7 @@ public class DiscardPileTest {
         ranged.discardCards(discardPile);
         closeCombat.discardCards(discardPile);
 
-        int actualSize = discardPile.size();
+        int actualSize = discardPile.getCardCount();
 
         Assertions.assertEquals(expectedSize, actualSize);
         Assertions.assertTrue(cards.containsAll(discardPile.getCards()));

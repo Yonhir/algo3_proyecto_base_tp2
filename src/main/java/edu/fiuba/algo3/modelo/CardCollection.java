@@ -16,7 +16,8 @@ public abstract class CardCollection {
     public List<Card> getCards() {
         return cards;
     }
-    public int size() {
+
+    public int getCardCount() {
         return cards.size();
     }
 }
