@@ -43,5 +43,4 @@ public class Unit extends Card {
     public boolean canBePlaced(Row row) {
         return row.canBePlacedIn(this);
     }
-
 }
