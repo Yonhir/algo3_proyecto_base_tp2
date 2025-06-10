@@ -17,8 +17,3 @@ public abstract class Card {
         return false;
     }
 }
-
-    public boolean canBePlaced(Row row) {
-        return false;
-    }
-}
