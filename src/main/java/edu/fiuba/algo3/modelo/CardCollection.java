@@ -8,6 +8,7 @@ public abstract class CardCollection {
     public CardCollection(List<Card> cards) {
         this.cards = cards;
     }
+  
     public int getCardCount() {
         return cards.size();
     }

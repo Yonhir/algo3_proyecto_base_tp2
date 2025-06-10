@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,4 +22,25 @@ public class Unit extends Card {
         this.modifiers = modifiers;
     }
 
+    public boolean canBeInCloseCombat() {
+        return canBeInCloseCombat;
+    }
+
+    public boolean canBeInRanged() {
+        return canBeInRanged;
+    }
+
+    public boolean canBeInSiege() {
+        return canBeInSiege;
+    }
+
+    @Override
+    public void play(Row row) {
+        row.addCard(this);
+    }
+
+    @Override
+    public boolean canBePlaced(Row row) {
+        return row.canBePlacedIn(this);
+    }
 }
