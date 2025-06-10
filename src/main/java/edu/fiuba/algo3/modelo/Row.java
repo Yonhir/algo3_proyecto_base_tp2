@@ -13,7 +13,13 @@ public abstract class Row {
         card.play(this);
     }
 
-    public abstract boolean canBePlacedIn(Unit unit);
+    public List<Card> getCards() {
+        return cards;
+    }
+
+    public boolean canBePlacedIn(Unit unit) {
+        return false;
+    }
 
     public void addCard(Card card) {
         cards.add(card);
