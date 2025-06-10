@@ -4,14 +4,4 @@ public class BitingFrost extends Weather  {
     public BitingFrost(String name, String description) {
         super(name, description);
     }
-
-    @Override
-    public boolean canBePlaced(Row row) {
-        return false;
-    }
-
-    @Override
-    public void play(Row row) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
 }
