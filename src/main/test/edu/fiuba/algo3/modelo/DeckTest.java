@@ -11,10 +11,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class DeckTest {
     private List<Card> cartas;
+    private List<Card> especiales;
+    private List<Card> unidades;
 
     @BeforeEach
     void setUp() {
-        cartas = Arrays.asList(
+        unidades = Arrays.asList(
                 new Unit("Nombre", "Descripcion", 4, true, false, false, new ArrayList<Modifier>()),
                 new Unit("Nombre", "Descripcion", 5, true, false, false, new ArrayList<Modifier>()),
                 new Unit("Nombre", "Descripcion", 6, false, true, false, new ArrayList<Modifier>()),
@@ -29,7 +31,10 @@ public class DeckTest {
                 new Unit("Nombre", "Descripcion", 4, false, false, true, new ArrayList<Modifier>()),
                 new Unit("Nombre", "Descripcion", 8, false, false, true, new ArrayList<Modifier>()),
                 new Unit("Nombre", "Descripcion", 3, true, false, false, new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 4, false, true, false, new ArrayList<Modifier>()),
+                new Unit("Nombre", "Descripcion", 4, false, true, false, new ArrayList<Modifier>())
+        );
+
+        especiales = Arrays.asList(
                 new TorrentialRain("Nombre", "Descripcion"),
                 new ImpenetrableFog("Nombre", "Descripcion"),
                 new BitingFrost("Nombre", "Descripcion"),
@@ -37,12 +42,16 @@ public class DeckTest {
                 new Decoy("Nombre", "Descripcion"),
                 new Scorch("Nombre", "Descripcion"
         ));
+
+        cartas = new ArrayList<>();
     }
 
     @Test
     public void testElJugadorPoseeCartasSuficientesEnSuMazoParaEmpezarElJuego() {
         int minimoCartas = 21;
 
+        cartas.addAll(unidades);
+        cartas.addAll(especiales);
         Deck mazo = new Deck(cartas);
 
         assertTrue(mazo.getCardCount() >= minimoCartas);
@@ -52,6 +61,8 @@ public class DeckTest {
     public void testElJugadorPoseeCartasUnidadesSuficientesEnSuMazoParaEmpezarElJuego() {
         int minimoUnidades = 15;
 
+        cartas.addAll(unidades);
+        cartas.addAll(especiales);
         Deck mazo = new Deck(cartas);
 
         assertTrue(mazo.getUnitsCount() >= minimoUnidades);
@@ -61,6 +72,8 @@ public class DeckTest {
     public void testElJugadorPoseeCartasEspecialesSuficientesEnSuMazoParaEmpezarElJuego() {
         int minimoEspeciales = 6;
 
+        cartas.addAll(unidades);
+        cartas.addAll(especiales);
         Deck mazo = new Deck(cartas);
 
         assertTrue(mazo.getSpecialsCount() >= minimoEspeciales);
@@ -68,28 +81,31 @@ public class DeckTest {
 
     @Test
     public void testNoSeCreaElMazoSiNoHaySuficientesCartasParaEmpezarElJuego() {
-        List<Card> insuficientes = new ArrayList<>(cartas.subList(5, 18));
+        cartas.addAll(unidades.subList(5, 15));
+        cartas.addAll(especiales.subList(3, 6));
 
         assertThrows(IllegalArgumentException.class, () -> {
-            Deck mazo = new Deck(insuficientes);
+            Deck mazo = new Deck(cartas);
         });
     }
 
     @Test
     public void testNoSeCreaElMazoSiNoHaySuficientesCartasUnidadesParaEmpezarElJuego() {
-        List<Card> insuficientes = new ArrayList<>(cartas.subList(5, 21));
+        cartas.addAll(unidades.subList(5, 15));
+        cartas.addAll(especiales);
 
         assertThrows(IllegalArgumentException.class, () -> {
-            Deck mazo = new Deck(insuficientes);
+            Deck mazo = new Deck(cartas);
         });
     }
 
     @Test
     public void testNoSeCreaElMazoSiNoHaySuficientesCartasEspecialesParaEmpezarElJuego() {
-        List<Card> insuficientes = new ArrayList<>(cartas.subList(0, 18));
+        cartas.addAll(especiales.subList(3, 6));
+        cartas.addAll(unidades);
 
         assertThrows(IllegalArgumentException.class, () -> {
-            Deck mazo = new Deck(insuficientes);
+            Deck mazo = new Deck(cartas);
         });
     }
 }
