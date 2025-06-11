@@ -122,4 +122,16 @@ public class DeckTest {
         assertEquals(mazo.getCardCount(), cartasEsperadas);
     }
 
+    @Test
+    public void testNoSePuedeObtenerUnaCartaQueNoEsteEnElMazo(){
+        cartas.addAll(unidades);
+        cartas.addAll(especiales);
+        Deck mazo = new Deck(cartas);
+        Card carta = new Unit("Arquero", "Descripcion", 4, false, true, false, new ArrayList<Modifier>());
+
+        assertThrows(TheCardWasNotFound.class, () -> {
+           mazo.retrieveCard(carta);
+        });
+    }
+
 }
