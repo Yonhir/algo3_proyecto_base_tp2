@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DiscardPile extends CardCollection {
 
@@ -14,6 +15,12 @@ public class DiscardPile extends CardCollection {
             ((Unit) card).resetPoints();
         }
         super.addCard(card);
+    }
+
+    public void addCards(List<Card> cards) {
+        for (Card card : cards) {
+            addCard(card);
+        }
     }
 
     public Card getLastCard() {

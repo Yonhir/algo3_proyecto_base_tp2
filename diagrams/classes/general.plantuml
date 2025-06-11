@@ -22,7 +22,7 @@ abstract class CardCollection <<abstract>> {
   +CardCollection(cards: List<Card>): CardCollection
   +getCards(): List<Card>
   +addCard(card: Card)
-  +addCards(List<Card>)
+  +addCards(cards: List<Card>)
   +retrieveCard(card: Card): Card
   +getCardCount(): int
 }
@@ -36,6 +36,7 @@ class DiscardPile {
   +DiscardPile(): DiscardPile
   +getLastCard(): Card
   +addCard(card: Card)
+  +addCards(cards: List<Card>)
 }
 
 class Deck {
@@ -43,6 +44,19 @@ class Deck {
   +getCardCount(): int
   +getUnitsCount(): long
   +getSpecialsCount(): long
+  -validate(validators: List<DeckValidator>): void
+}
+
+interface DeckValidator <<interface>> {
+  +validate(cards: List<Card>): void
+}
+
+class Validate6SpecialCards {
+  -MIN_SPECIALS: int
+}
+
+class Validate15UnitsCards {
+  -MIN_UNITS: int
 }
 
 abstract class Row <<abstract>> {
@@ -68,11 +82,12 @@ class Siege {
   +canBePlacedIn(unit: Unit): boolean
 }
 
-class WeatherZone {
+class SpecialZone {
   -closeCombatRows: List<Row>
   -rangedRows: List<Row>
   -siegeRows: List<Row>
-  +WeatherZone(closeCombatRows: List<Row>, rangedRows: List<Row>, siegeRows: List<Row>): WeatherZone
+  +SpecialZone(closeCombatRows: List<Row>, rangedRows: List<Row>, siegeRows: List<Row>): SpecialZone
+  +placeCard(special: Special): void
   +addWeather(weather: Weather)
   +addCloseCombatWeather(weather: Weather)
   +addRangedWeather(weather: Weather)
@@ -112,16 +127,17 @@ abstract class Special <<abstract>> {
   +canBePlaced(row: Row): boolean
 }
 
-class TightBond {
-  +apply(row: Row): void
-}
-
 interface Modifier <<interface>> {
   +apply(row: Row): void
 }
 
+class TightBond {
+}
+
+class Agil {
+}
+
 abstract class Weather <<abstract>> {
-  +Weather(name: String, description: String): Weather
   +play(row: Row): void
   +apply(card: Card, row: Row): void
 }
@@ -139,33 +155,12 @@ class BitingFrost {
 }
 
 class Decoy {
-  +Decoy(name: String, description: String): Decoy
 }
 
 class TacticalAdvantage {
-  +TacticalAdvantage(name: String, description: String): TacticalAdvantage
 }
 
 class Scorch {
-  +Scorch(name: String, description: String): Scorch
-}
-
-interface DeckValidator <<interface>> {
-  +validate(): boolean
-}
-
-class Validate6SpecialCards {
-  -MIN_SPECIALS: int
-  -cards: List<Card>
-  +Validate6SpecialCards(cards: List<Card>): Validate6SpecialCards
-  +validate(): boolean
-}
-
-class Validate15UnitsCards {
-  -MIN_UNITS: int
-  -cards: List<Card>
-  +Validate15UnitsCards(cards: List<Card>): Validate15UnitsCards
-  +validate(): boolean
 }
 
 ' =====================
@@ -173,32 +168,37 @@ class Validate15UnitsCards {
 ' =====================
 Player --> "3" CardCollection
 Player --> "3" Row
-Player --> "1" WeatherZone
+Player --> "1" SpecialZone
 
-WeatherZone --> "3" Row
+SpecialZone --> "6" Row
 
-CardCollection --> Card
+CardCollection --> "*" Card
 CardCollection <|-- Hand
 CardCollection <|-- DiscardPile
 CardCollection <|-- Deck
 
-Ranged --|> Row
-CloseCombat --|> Row
-Siege --|> Row
+Row <|-- Ranged
+Row <|-- CloseCombat
+Row <|-- Siege
 
 Row --> Card
 
 Card <|-- Unit
 Card <|-- Special
-Modifier "*"<- Unit
+
+Unit --> "*" Modifier
+
 Modifier <|.. TightBond
-Special <|-- Weather
-Weather <|-- TorrentialRain
-Weather <|-- ImpenetrableFog
-Weather <|-- BitingFrost
+Modifier <|.. Agil
+
 Special <|-- Decoy
 Special <|-- TacticalAdvantage
 Special <|-- Scorch
+Special <|--- Weather
+
+Weather <|-- TorrentialRain
+Weather <|-- ImpenetrableFog
+Weather <|-- BitingFrost
 
 Deck --> "*" DeckValidator
 DeckValidator <|.. Validate6SpecialCards
