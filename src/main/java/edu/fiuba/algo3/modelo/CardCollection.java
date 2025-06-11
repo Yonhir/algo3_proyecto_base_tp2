@@ -9,6 +9,15 @@ public abstract class CardCollection {
         this.cards = cards;
     }
 
-    public List<Card> getCards() { return cards; }
+    public void addCards(List<Card> cards) {
+        this.cards.addAll(cards);
+    }
 
+    public List<Card> getCards() {
+        return cards;
+    }
+
+    public int getCardCount() {
+        return cards.size();
+    }
 }
