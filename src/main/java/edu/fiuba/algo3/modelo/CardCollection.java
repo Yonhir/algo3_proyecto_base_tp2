@@ -10,7 +10,8 @@ public abstract class CardCollection {
     }
 
     public void addCard(Card card) {
-        cards.add(card);
+        this.cards.add(card);
+    }
 
     public void addCards(List<Card> cards) {
         this.cards.addAll(cards);

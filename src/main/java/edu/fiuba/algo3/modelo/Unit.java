@@ -40,8 +40,6 @@ public class Unit extends Card {
         }
     }
 
-    public int calculatePoints() { return currentPoints; }
-
     @Override
     public boolean canBePlaced(Row row) {
         return row.canBePlacedIn(this);

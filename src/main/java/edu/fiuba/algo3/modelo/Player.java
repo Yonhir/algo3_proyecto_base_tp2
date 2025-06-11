@@ -11,7 +11,7 @@ public class Player {
     public Player(String name, int health) {
         this.name = name;
         this.health = health;
-        discardPile = new DiscardPile(new ArrayList<>());
+        discardPile = new DiscardPile();
         hand = new Hand(new ArrayList<>());
     }
 
