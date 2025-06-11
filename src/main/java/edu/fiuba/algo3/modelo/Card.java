@@ -8,4 +8,15 @@ public abstract class Card {
         this.name = name;
         this.description = description;
     }
+
+    public void play(CardTarget target) {
+
+    }
+
+    public void addToSpecialZone(SpecialZone specialZone) {
+    }
+
+    public void deleteFromRow(int points, Row row) {
+
+    }
 }
