@@ -21,8 +21,5 @@ public abstract class Row {
         return false;
     }
 
-    public void addCard(Card card) {
-        cards.add(card);
-    }
-
+    public void addCard(Card card) { cards.add(card); }
 }

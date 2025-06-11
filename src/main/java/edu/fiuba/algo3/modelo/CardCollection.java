@@ -8,4 +8,7 @@ public abstract class CardCollection {
     public CardCollection(List<Card> cards) {
         this.cards = cards;
     }
+
+    public List<Card> getCards() { return cards; }
+
 }
