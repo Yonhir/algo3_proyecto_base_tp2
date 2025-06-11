@@ -19,7 +19,7 @@ public abstract class CardCollection {
 
     public int getCardCount() {
         return cards.size();
-      
+    }
     public boolean isEmpty(){
         return cards.isEmpty();
     }
