@@ -37,10 +37,8 @@ public class Unit extends Card {
         row.addCard(this);
     }
 
-
     @Override
     public boolean canBePlaced(Row row) {
         return row.canBePlacedIn(this);
     }
-
 }

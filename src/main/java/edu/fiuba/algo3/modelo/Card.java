@@ -9,7 +9,11 @@ public abstract class Card {
         this.description = description;
     }
 
-    public abstract void play(Row row);
+    public void play(Row row) {
 
-    public abstract boolean canBePlaced(Row row);
+    }
+
+    public boolean canBePlaced(Row row) {
+        return false;
+    }
 }
