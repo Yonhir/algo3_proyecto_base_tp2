@@ -8,11 +8,18 @@ public abstract class CardCollection {
     public CardCollection(List<Card> cards) {
         this.cards = cards;
     }
-  
-    public int getCardCount() {
-        return cards.size();
+
+    public void addCards(List<Card> cards) {
+        this.cards.addAll(cards);
     }
 
+    public List<Card> getCards() {
+        return cards;
+    }
+
+    public int getCardCount() {
+        return cards.size();
+      
     public boolean isEmpty(){
         return cards.isEmpty();
     }
@@ -22,7 +29,6 @@ public abstract class CardCollection {
             cards.remove(card);
             return card;
         }
-        throw new TheCardWasNotFound("The card is not in the deck");
-
+        throw new TheCardWasNotFound("The card is not in the deck");  
     }
 }

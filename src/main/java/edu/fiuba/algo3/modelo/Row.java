@@ -25,4 +25,8 @@ public abstract class Row {
         cards.add(card);
     }
 
+    public void discardCards(DiscardPile discardPile) {
+        discardPile.addCards(cards);
+        cards.clear();
+    }
 }

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Unit extends Card {
-    private int basePoints;
+    private final int basePoints;
     private int currentPoints;
     private List<Modifier> modifiers;
     private boolean canBeInCloseCombat;
@@ -38,6 +38,8 @@ public class Unit extends Card {
     public void play(Row row) {
         row.addCard(this);
     }
+
+    public int calculatePoints() { return currentPoints; }
 
     @Override
     public boolean canBePlaced(Row row) {
