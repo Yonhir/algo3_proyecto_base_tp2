@@ -19,7 +19,12 @@ public abstract class Row implements CardTarget {
     }
 
     public int mostPowerfulCard() {
-        return 6;
+        int max = 0;
+        for (Card card : this.cards) {
+            int actual = card.compareTo(max);
+            max = actual;
+        }
+        return max;
     }
 
     public void deleteCardsWithPoints(int mostPowerful) {

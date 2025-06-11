@@ -19,4 +19,8 @@ public abstract class Card {
     public void deleteFromRow(int points, Row row) {
 
     }
+
+    public int compareTo(int points) {
+        return 0;
+    }
 }

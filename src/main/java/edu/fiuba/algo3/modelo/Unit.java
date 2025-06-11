@@ -31,4 +31,11 @@ public class Unit extends Card {
             row.deleteCard(this);
         }
     }
+
+    public int compareTo(int points) {
+        if (this.points > points) {
+            return this.points;
+        }
+        return points;
+    }
 }
