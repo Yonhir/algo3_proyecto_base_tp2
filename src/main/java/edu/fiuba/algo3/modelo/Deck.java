@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -34,6 +35,8 @@ public class Deck extends CardCollection {
   
     public List<Card> retrieveNRandomCards(int n){
         Collections.shuffle(cards);
-        return cards.subList(0,n);
+        List<Card> selectedCards = new ArrayList<>(cards.subList(0, n));
+        cards.subList(0, n).clear();
+        return selectedCards;
     }
 }

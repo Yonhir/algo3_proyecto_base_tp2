@@ -6,8 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class DeckTest {
     private List<Card> cartas;
@@ -98,4 +97,29 @@ public class DeckTest {
             Deck mazo = new Deck(cartas);
         });
     }
+
+    @Test
+    public void testSeObtiene5CartasAleatoriasDelMazo(){
+        cartas.addAll(unidades);
+        cartas.addAll(especiales);
+        Deck mazo = new Deck(cartas);
+        int cartasEsperadas = 5;
+
+        List<Card> cards = mazo.retrieveNRandomCards(5);
+
+        assertEquals(cards.size(), cartasEsperadas);
+    }
+
+    @Test
+    public void testSeEliminanLasCartasDelMazoDespuesDeRepartir(){
+        cartas.addAll(unidades);
+        cartas.addAll(especiales);
+        Deck mazo = new Deck(cartas);
+        int cartasEsperadas = 15;
+
+        mazo.retrieveNRandomCards(6);
+
+        assertEquals(mazo.getCardCount(), cartasEsperadas);
+    }
+
 }
