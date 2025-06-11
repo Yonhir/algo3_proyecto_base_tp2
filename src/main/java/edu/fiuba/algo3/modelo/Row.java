@@ -36,10 +36,7 @@ public abstract class Row {
     }
 
     public void discardCards(DiscardPile discardPile) {
-        for (Card card : cards) {
-            discardPile.addCard(card);
-        }
+        discardPile.addCards(cards);
         cards.clear();
     }
-
 }

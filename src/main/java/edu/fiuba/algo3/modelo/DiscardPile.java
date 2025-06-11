@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DiscardPile extends CardCollection {
-    
-    public DiscardPile() {
-        super(new ArrayList<>());
+
+    public DiscardPile(List<Card> cards) {
+        super(cards);
     }
 
     @Override
