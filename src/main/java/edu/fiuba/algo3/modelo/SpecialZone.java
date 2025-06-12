@@ -24,7 +24,7 @@ public class SpecialZone implements CardTarget {
     @Override
     public void addCard(Card card) {
         if (card instanceof Weather) {
-            ((Weather) card).addToWeatherZone(this);
+            ((Weather) card).addToSpecialZone(this);
         }
     }
 

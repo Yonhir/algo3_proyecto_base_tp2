@@ -15,7 +15,7 @@ public class TorrentialRain extends Weather {
     }
 
     @Override
-    public void addToWeatherZone(SpecialZone specialZone) {
+    public void addToSpecialZone(SpecialZone specialZone) {
         specialZone.addSiegeWeather(this);
     }
 }
