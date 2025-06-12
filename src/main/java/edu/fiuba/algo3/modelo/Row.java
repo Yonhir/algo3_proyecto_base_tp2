@@ -49,9 +49,7 @@ public abstract class Row implements CardTarget {
     }
 
     public void discardCards(DiscardPile discardPile) {
-        for (Card card : cards) {
-            discardPile.addCard(card);
-        }
+        discardPile.addCards(cards);
         cards.clear();
     }
 }
