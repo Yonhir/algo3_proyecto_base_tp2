@@ -134,4 +134,18 @@ public class DeckTest {
         });
     }
 
+    @Test
+    public void testNoSePuedePedirCartasDelMazoConNumerosMenoresOIgualesACero(){
+        cartas.addAll(unidades);
+        cartas.addAll(especiales);
+        Deck mazo = new Deck(cartas);
+
+        assertThrows(InvalidCardAmountError.class, () -> {
+            mazo.retrieveNRandomCards(0);
+        });
+        assertThrows(InvalidCardAmountError.class, () ->{
+            mazo.retrieveNRandomCards(-5);
+        });
+    }
+
 }

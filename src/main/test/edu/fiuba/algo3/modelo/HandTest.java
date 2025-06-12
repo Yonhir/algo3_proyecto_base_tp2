@@ -90,4 +90,17 @@ public class HandTest {
             hand.getNCardsFromDeck(deck,10);;
         });
     }
+
+    @Test
+    public void testNoSePuedePedirCardsDelDeckConNumerosMenoresOIgualesACero(){
+        Deck deck = new Deck(cards);
+        Hand hand = new Hand(new ArrayList<>());
+
+        assertThrows(InvalidCardAmountError.class, () -> {
+            hand.getNCardsFromDeck(deck,0);;
+        });
+        assertThrows(InvalidCardAmountError.class, () ->{
+            hand.getNCardsFromDeck(deck, -5);
+        });
+    }
 }

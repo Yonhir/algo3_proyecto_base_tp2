@@ -34,8 +34,11 @@ public class Deck extends CardCollection {
     }
   
     public List<Card> retrieveNRandomCards(int n){
-        if(cards.isEmpty() || cards.size() < n){
+        if(cards.size() < n){
             throw new NotEnoughtCardsInDeckError("Deck without enough cards");
+        }
+        if(n <= 0){
+            throw new InvalidCardAmountError("Invalid number of cards requested, must be greater than zero");
         }
         Collections.shuffle(cards);
         List<Card> selectedCards = new ArrayList<>(cards.subList(0, n));
