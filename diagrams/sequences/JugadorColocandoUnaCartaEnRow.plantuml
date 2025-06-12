@@ -1,0 +1,22 @@
+@startuml
+
+hide footbox
+title Jugador coloca una carta en un Row
+
+actor Jugador
+
+participant "Row (CloseCombat)" as row
+participant "Card (Unit)" as unit
+
+Jugador -> row : placeCard(unit)
+row -> unit : canBePlaced(this)
+unit -> row : canBePlacedIn(this)
+row -> unit : canBeInCloseCombat()
+
+unit --> row : true
+row --> unit : true
+unit --> row : true
+
+row -> unit : play(this)
+unit -> row : addCard(this)
+@enduml

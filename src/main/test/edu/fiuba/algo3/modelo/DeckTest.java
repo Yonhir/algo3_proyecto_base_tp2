@@ -6,8 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class DeckTest {
     private List<Card> cartas;
@@ -36,11 +35,11 @@ public class DeckTest {
 
         especiales = Arrays.asList(
                 new TorrentialRain("Nombre", "Descripcion"),
+                new TorrentialRain("Nombre", "Descripcion"),
+                new ImpenetrableFog("Nombre", "Descripcion"),
                 new ImpenetrableFog("Nombre", "Descripcion"),
                 new BitingFrost("Nombre", "Descripcion"),
-                new TacticalAdvantage("Nombre", "Descripcion"),
-                new Decoy("Nombre", "Descripcion"),
-                new Scorch("Nombre", "Descripcion"
+                new BitingFrost("Nombre", "Descripcion"
         ));
 
         cartas = new ArrayList<>();
@@ -96,6 +95,63 @@ public class DeckTest {
 
         assertThrows(NotEnoughSpecialsCardsError.class, () -> {
             Deck mazo = new Deck(cartas);
+        });
+    }
+
+    @Test
+    public void testSeObtiene5CartasAleatoriasDelMazo(){
+        cartas.addAll(unidades);
+        cartas.addAll(especiales);
+        Deck mazo = new Deck(cartas);
+        int cartasEsperadas = 5;
+
+        List<Card> cards = mazo.retrieveNRandomCards(5);
+
+        assertEquals(cards.size(), cartasEsperadas);
+    }
+
+    @Test
+    public void testSeEliminanLasCartasDelMazoDespuesDeRepartir(){
+        cartas.addAll(unidades);
+        cartas.addAll(especiales);
+        Deck mazo = new Deck(cartas);
+        int cartasEsperadas = 15;
+
+        mazo.retrieveNRandomCards(6);
+
+        assertEquals(mazo.getCardCount(), cartasEsperadas);
+    }
+
+    @Test
+    public void testNoSePuedeObtenerUnaCartaQueNoEsteEnElMazo(){
+        cartas.addAll(unidades);
+        cartas.addAll(especiales);
+        Deck mazo = new Deck(cartas);
+        Card carta = new Unit("Arquero", "Descripcion", 4, false, true, false, new ArrayList<Modifier>());
+
+        assertThrows(TheCardWasNotFound.class, () -> {
+           mazo.retrieveCard(carta);
+        });
+    }
+
+    @Test
+    public void testNoSePuedePedirCartasDelMazoConNumerosMenoresACero(){
+        cartas.addAll(unidades);
+        cartas.addAll(especiales);
+        Deck mazo = new Deck(cartas);
+
+        assertThrows(InvalidCardAmountError.class, () ->{
+            mazo.retrieveNRandomCards(-5);
+        });
+    }
+    @Test
+    public void testNoSePuedePedirCartasDelMazoConNumeroIgualACero(){
+        cartas.addAll(unidades);
+        cartas.addAll(especiales);
+        Deck mazo = new Deck(cartas);
+
+        assertThrows(InvalidCardAmountError.class, () -> {
+            mazo.retrieveNRandomCards(0);
         });
     }
 }

@@ -9,7 +9,8 @@ public class WeatherTest {
     private Row closeCombatRow;
     private Row rangedRow;
     private Row siegeRow;
-    
+    private SpecialZone specialZone;
+
     private Unit soldier;
     private Unit archer;
     private Unit catapult;
@@ -26,6 +27,13 @@ public class WeatherTest {
         rangedRow = new Ranged();
         siegeRow = new Siege();
         
+        // Initialize weather zone
+        specialZone = new SpecialZone(
+            List.of(closeCombatRow),
+            List.of(rangedRow),
+            List.of(siegeRow)
+        );
+        
         // Initialize units
         soldier = new Unit("soldado", "pelea de cerca", 10, true, false, false, List.of());
         archer = new Unit("arquero", "tira flechas", 8, false, true, false, List.of());
@@ -39,11 +47,33 @@ public class WeatherTest {
     }
 
     @Test
+    public void testWeatherCanBePlacedInSpecialZone() {
+        assertTrue(frostWeather.canBePlaced(specialZone), "El clima debería poder ser colocado en la zona especial");
+    }
+
+    @Test
+    public void testWeatherCannotBePlacedInRegularRow() {
+        assertFalse(frostWeather.canBePlaced(closeCombatRow), "El clima no debería poder ser colocado en una fila normal");
+    }
+
+    @Test
+    public void testWeatherPlayAppliesEffectToTarget() {
+        // Arrange
+        closeCombatRow.placeCard(soldier);
+        
+        // Act
+        frostWeather.play(specialZone);
+        
+        // Assert
+        assertEquals(1, soldier.calculatePoints(), "El clima debería aplicar su efecto al ser jugado");
+    }
+
+    @Test
     public void testBitingFrostReducesCloseCombatUnitPoints() {
         // Act
         closeCombatRow.placeCard(soldier);
         closeCombatRow.addWeather(frostWeather);
-        
+
         // Assert
         assertEquals(1, soldier.calculatePoints(), "La escarcha debería reducir los puntos de la unidad cuerpo a cuerpo a 1");
     }
@@ -165,5 +195,45 @@ public class WeatherTest {
         
         // Assert
         assertEquals(12, catapult.calculatePoints(), "Las unidades de asedio deberían volver a sus puntos originales");
+    public void testMultipleWeatherEffectsDoNotInterfereWithCloseCombat() {
+        // Act
+        closeCombatRow.placeCard(soldier);
+        specialZone.placeCard(fogWeather);
+        specialZone.placeCard(rainWeather);
+        specialZone.placeCard(frostWeather);
+        
+        // Assert
+        assertEquals(1, soldier.calculatePoints(), "La escarcha debería ser el único efecto que afecta a las unidades cuerpo a cuerpo");
+    }
+
+    @Test
+    public void testMultipleWeatherEffectsDoNotInterfereWithRanged() {
+        // Act
+        rangedRow.placeCard(archer);
+        specialZone.placeCard(frostWeather);
+        specialZone.placeCard(rainWeather);
+        specialZone.placeCard(fogWeather);
+        
+        // Assert
+        assertEquals(1, archer.calculatePoints(), "La niebla debería ser el único efecto que afecta a las unidades a distancia");
+    }
+
+    @Test
+    public void testMultipleWeatherEffectsDoNotInterfereWithSiege() {
+        // Act
+        siegeRow.placeCard(catapult);
+        specialZone.placeCard(frostWeather);
+        specialZone.placeCard(fogWeather);
+        specialZone.placeCard(rainWeather);
+        
+        // Assert
+        assertEquals(1, catapult.calculatePoints(), "La lluvia debería ser el único efecto que afecta a las unidades de asedio");
+    }
+
+    @Test
+    public void testWeatherCannotBePlacedInInvalidTarget() {
+        // Act
+        assertThrows(IllegalArgumentException.class, () -> closeCombatRow.placeCard(frostWeather),
+            "Debería lanzar una excepción al intentar colocar clima en una fila normal");
     }
 }

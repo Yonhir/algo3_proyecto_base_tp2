@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Row implements CardTarget {
+public abstract class Row implements CardTarget {
     protected List<Card> cards = new ArrayList<>();
     protected Weather currentWeather;
 
@@ -11,6 +12,7 @@ public abstract class Row implements CardTarget {
         this.currentWeather = new ClearWeather("Clima Despejado", "Elimina todos los efectos de clima");
     }
 
+    @Override
     @Override
     public void placeCard(Card card) {
         if (!card.canBePlaced(this)) {
@@ -27,6 +29,7 @@ public abstract class Row implements CardTarget {
         return false;
     }
 
+    @Override
     @Override
     public void addCard(Card card) {
         cards.add(card);

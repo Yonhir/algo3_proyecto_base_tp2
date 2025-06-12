@@ -1,0 +1,27 @@
+@startuml
+
+hide footbox
+title Calcula el puntaje de un jugador basado en las cartas que se encuentran en el tablero
+
+actor TestCase
+
+participant ":Player" as player
+participant ":Row" as row
+participant ":Unit" as unit
+
+TestCase -> player : calculatePoints()
+
+loop For each row
+    player -> row : calculatePoints()
+    
+    loop For each card in the row
+        row -> unit : calculatePoints()
+        unit --> row : currentPoints
+    end
+    
+    row --> player : totalPoints
+end
+
+player --> TestCase : totalPoints
+
+@enduml
