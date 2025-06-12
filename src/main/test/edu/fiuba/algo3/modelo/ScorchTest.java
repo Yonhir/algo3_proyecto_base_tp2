@@ -74,4 +74,106 @@ public class ScorchTest {
 
         assertFalse(rango.getPlayedCards().contains(unidad7) && rango.getPlayedCards().contains(unidad8));
     }
+
+    @Test
+    public void testSeJuegaUnaTierraArrasadaSeEliminanLasCartasMasFuertesDeLaFilaCloseCombatDelOponenteCorrectamente() {
+        Row cuerpoACuerpo2 = new CloseCombat();
+        Row rango2 = new Ranged();
+        Row asedio2 = new Siege();
+
+        SpecialZone zonaDeEspeciales = new SpecialZone(List.of(cuerpoACuerpo, cuerpoACuerpo2), List.of(rango, rango2), List.of(asedio, asedio2));
+
+        Card unidad1 = new Unit("Griffin", "Descripcion", 5, true, false, false, new ArrayList<Modifier>());
+        Card unidad2 = new Unit("Fiend", "Descripcion", 6, true, false, false, new ArrayList<Modifier>());
+        Card unidad3 = new Unit("Donar an Hindar", "Descripcion", 4, true, false, false, new ArrayList<Modifier>());
+        Card unidad4 = new Unit("Cynthia", "Descripcion", 4, false, true, false, new ArrayList<Modifier>());
+        Card unidad5 = new Unit("Dethmold", "Descripcion", 6, false, true, false, new ArrayList<Modifier>());
+        Card unidad6 = new Unit("Endrega", "Descripcion", 2, false, true, false, new ArrayList<Modifier>());
+        Card unidad7 = new Unit("Ballista", "Descripcion", 6, false, false, true, new ArrayList<Modifier>());
+        Card unidad8 = new Unit("Earth Elemental", "Descripcion", 6, false, false, true, new ArrayList<Modifier>());
+        Card unidad9 = new Unit("Ice Giant", "Descripcion", 5, false, false, true, new ArrayList<Modifier>());
+        Card tierraArrasada = new Scorch("Nombre", "Descripcion");
+
+        cuerpoACuerpo2.placeCard(unidad1);
+        cuerpoACuerpo2.placeCard(unidad2);
+        cuerpoACuerpo2.placeCard(unidad3);
+        rango2.placeCard(unidad4);
+        rango2.placeCard(unidad5);
+        rango2.placeCard(unidad6);
+        asedio2.placeCard(unidad7);
+        asedio2.placeCard(unidad8);
+        asedio2.placeCard(unidad9);
+
+        zonaDeEspeciales.placeCard(tierraArrasada);
+
+        assertFalse(cuerpoACuerpo2.getPlayedCards().contains(unidad2));
+    }
+
+    @Test
+    public void testSeJuegaUnaTierraArrasadaSeEliminanLasCartasMasFuertesDeLaFilaRangedDelOponenteCorrectamente() {
+        Row cuerpoACuerpo2 = new CloseCombat();
+        Row rango2 = new Ranged();
+        Row asedio2 = new Siege();
+
+        SpecialZone zonaDeEspeciales = new SpecialZone(List.of(cuerpoACuerpo, cuerpoACuerpo2), List.of(rango, rango2), List.of(asedio, asedio2));
+
+        Card unidad1 = new Unit("Griffin", "Descripcion", 5, true, false, false, new ArrayList<Modifier>());
+        Card unidad2 = new Unit("Fiend", "Descripcion", 6, true, false, false, new ArrayList<Modifier>());
+        Card unidad3 = new Unit("Donar an Hindar", "Descripcion", 4, true, false, false, new ArrayList<Modifier>());
+        Card unidad4 = new Unit("Cynthia", "Descripcion", 4, false, true, false, new ArrayList<Modifier>());
+        Card unidad5 = new Unit("Dethmold", "Descripcion", 6, false, true, false, new ArrayList<Modifier>());
+        Card unidad6 = new Unit("Endrega", "Descripcion", 2, false, true, false, new ArrayList<Modifier>());
+        Card unidad7 = new Unit("Ballista", "Descripcion", 6, false, false, true, new ArrayList<Modifier>());
+        Card unidad8 = new Unit("Earth Elemental", "Descripcion", 6, false, false, true, new ArrayList<Modifier>());
+        Card unidad9 = new Unit("Ice Giant", "Descripcion", 5, false, false, true, new ArrayList<Modifier>());
+        Card tierraArrasada = new Scorch("Nombre", "Descripcion");
+
+        cuerpoACuerpo2.placeCard(unidad1);
+        cuerpoACuerpo2.placeCard(unidad2);
+        cuerpoACuerpo2.placeCard(unidad3);
+        rango2.placeCard(unidad4);
+        rango2.placeCard(unidad5);
+        rango2.placeCard(unidad6);
+        asedio2.placeCard(unidad7);
+        asedio2.placeCard(unidad8);
+        asedio2.placeCard(unidad9);
+
+        zonaDeEspeciales.placeCard(tierraArrasada);
+
+        assertFalse(rango2.getPlayedCards().contains(unidad5));
+    }
+
+    @Test
+    public void testSeJuegaUnaTierraArrasadaSeEliminanLasCartasMasFuertesDeLaFilaSiegeDelOponenteCorrectamente() {
+        Row cuerpoACuerpo2 = new CloseCombat();
+        Row rango2 = new Ranged();
+        Row asedio2 = new Siege();
+
+        SpecialZone zonaDeEspeciales = new SpecialZone(List.of(cuerpoACuerpo, cuerpoACuerpo2), List.of(rango, rango2), List.of(asedio, asedio2));
+
+        Card unidad1 = new Unit("Griffin", "Descripcion", 5, true, false, false, new ArrayList<Modifier>());
+        Card unidad2 = new Unit("Fiend", "Descripcion", 6, true, false, false, new ArrayList<Modifier>());
+        Card unidad3 = new Unit("Donar an Hindar", "Descripcion", 4, true, false, false, new ArrayList<Modifier>());
+        Card unidad4 = new Unit("Cynthia", "Descripcion", 4, false, true, false, new ArrayList<Modifier>());
+        Card unidad5 = new Unit("Dethmold", "Descripcion", 6, false, true, false, new ArrayList<Modifier>());
+        Card unidad6 = new Unit("Endrega", "Descripcion", 2, false, true, false, new ArrayList<Modifier>());
+        Card unidad7 = new Unit("Ballista", "Descripcion", 6, false, false, true, new ArrayList<Modifier>());
+        Card unidad8 = new Unit("Earth Elemental", "Descripcion", 6, false, false, true, new ArrayList<Modifier>());
+        Card unidad9 = new Unit("Ice Giant", "Descripcion", 5, false, false, true, new ArrayList<Modifier>());
+        Card tierraArrasada = new Scorch("Nombre", "Descripcion");
+
+        cuerpoACuerpo2.placeCard(unidad1);
+        cuerpoACuerpo2.placeCard(unidad2);
+        cuerpoACuerpo2.placeCard(unidad3);
+        rango2.placeCard(unidad4);
+        rango2.placeCard(unidad5);
+        rango2.placeCard(unidad6);
+        asedio2.placeCard(unidad7);
+        asedio2.placeCard(unidad8);
+        asedio2.placeCard(unidad9);
+
+        zonaDeEspeciales.placeCard(tierraArrasada);
+
+        assertFalse(asedio2.getPlayedCards().contains(unidad7) && asedio2.getPlayedCards().contains(unidad8));
+    }
 }
