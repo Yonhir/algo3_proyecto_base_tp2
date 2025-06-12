@@ -15,7 +15,7 @@ public class BitingFrost extends Weather {
     }
 
     @Override
-    public void addToWeatherZone(WeatherZone weatherZone) {
-        weatherZone.addCloseCombatWeather(this);
+    public void addToWeatherZone(SpecialZone specialZone) {
+        specialZone.addCloseCombatWeather(this);
     }
 }

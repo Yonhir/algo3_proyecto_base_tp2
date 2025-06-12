@@ -2,12 +2,12 @@ package edu.fiuba.algo3.modelo;
 
 import java.util.List;
 
-public class WeatherZone implements CardTarget {
+public class SpecialZone implements CardTarget {
     private final List<Row> closeCombatRows;
     private final List<Row> rangedRows;
     private final List<Row> siegeRows;
 
-    public WeatherZone(List<Row> closeCombatRows, List<Row> rangedRows, List<Row> siegeRows) {
+    public SpecialZone(List<Row> closeCombatRows, List<Row> rangedRows, List<Row> siegeRows) {
         this.closeCombatRows = closeCombatRows;
         this.rangedRows = rangedRows;
         this.siegeRows = siegeRows;

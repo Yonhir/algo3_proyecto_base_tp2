@@ -3,11 +3,11 @@ package edu.fiuba.algo3.modelo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.List;
-import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-public class WeatherZoneTest {
-    private WeatherZone weatherZone;
+public class SpecialZoneTest {
+    private SpecialZone specialZone;
     private Row player1CloseCombatRow;
     private Row player1RangedRow;
     private Row player1SiegeRow;
@@ -37,7 +37,7 @@ public class WeatherZoneTest {
         player2SiegeRow = new Siege();
 
         // Initialize weather zone with both players' rows
-        weatherZone = new WeatherZone(
+        specialZone = new SpecialZone(
             List.of(player1CloseCombatRow, player2CloseCombatRow),
             List.of(player1RangedRow, player2RangedRow),
             List.of(player1SiegeRow, player2SiegeRow)
@@ -64,7 +64,7 @@ public class WeatherZoneTest {
         player2CloseCombatRow.placeCard(player2Soldier);
         
         // Act
-        weatherZone.placeCard(frostWeather);
+        specialZone.placeCard(frostWeather);
         
         // Assert
         assertEquals(1, player1Soldier.calculatePoints(), "La escarcha debería afectar a las unidades cuerpo a cuerpo del jugador 1");
@@ -77,7 +77,7 @@ public class WeatherZoneTest {
         player2CloseCombatRow.placeCard(player2Soldier);
         
         // Act
-        weatherZone.placeCard(frostWeather);
+        specialZone.placeCard(frostWeather);
         
         // Assert
         assertEquals(1, player2Soldier.calculatePoints(), "La escarcha debería afectar a las unidades cuerpo a cuerpo del jugador 2");
@@ -90,7 +90,7 @@ public class WeatherZoneTest {
         player2RangedRow.placeCard(player2Archer);
         
         // Act
-        weatherZone.placeCard(fogWeather);
+        specialZone.placeCard(fogWeather);
         
         // Assert
         assertEquals(1, player1Archer.calculatePoints(), "La niebla debería afectar a las unidades a distancia del jugador 1");
@@ -103,7 +103,7 @@ public class WeatherZoneTest {
         player2RangedRow.placeCard(player2Archer);
         
         // Act
-        weatherZone.placeCard(fogWeather);
+        specialZone.placeCard(fogWeather);
         
         // Assert
         assertEquals(1, player2Archer.calculatePoints(), "La niebla debería afectar a las unidades a distancia del jugador 2");
@@ -116,7 +116,7 @@ public class WeatherZoneTest {
         player2SiegeRow.placeCard(player2Catapult);
         
         // Act
-        weatherZone.placeCard(rainWeather);
+        specialZone.placeCard(rainWeather);
         
         // Assert
         assertEquals(1, player1Catapult.calculatePoints(), "La lluvia debería afectar a las unidades de asedio del jugador 1");
@@ -129,7 +129,7 @@ public class WeatherZoneTest {
         player2SiegeRow.placeCard(player2Catapult);
         
         // Act
-        weatherZone.placeCard(rainWeather);
+        specialZone.placeCard(rainWeather);
         
         // Assert
         assertEquals(1, player2Catapult.calculatePoints(), "La lluvia debería afectar a las unidades de asedio del jugador 2");
@@ -143,7 +143,7 @@ public class WeatherZoneTest {
         player1SiegeRow.placeCard(player1Catapult);
         
         // Act
-        weatherZone.placeCard(frostWeather);
+        specialZone.placeCard(frostWeather);
         
         // Assert
         assertEquals(1, player1Soldier.calculatePoints(), "La escarcha solo debería afectar a las unidades cuerpo a cuerpo");
@@ -157,7 +157,7 @@ public class WeatherZoneTest {
         player1SiegeRow.placeCard(player1Catapult);
         
         // Act
-        weatherZone.placeCard(fogWeather);
+        specialZone.placeCard(fogWeather);
         
         // Assert
         assertEquals(1, player1Archer.calculatePoints(), "La niebla solo debería afectar a las unidades a distancia");
@@ -171,7 +171,7 @@ public class WeatherZoneTest {
         player1SiegeRow.placeCard(player1Catapult);
         
         // Act
-        weatherZone.placeCard(rainWeather);
+        specialZone.placeCard(rainWeather);
         
         // Assert
         assertEquals(1, player1Catapult.calculatePoints(), "La lluvia solo debería afectar a las unidades de asedio");
@@ -180,7 +180,7 @@ public class WeatherZoneTest {
     @Test
     public void testNewCloseCombatUnitsAreAffectedByExistingFrost() {
         // Arrange
-        weatherZone.placeCard(frostWeather);
+        specialZone.placeCard(frostWeather);
         
         // Act
         player1CloseCombatRow.placeCard(player1Soldier);
@@ -192,7 +192,7 @@ public class WeatherZoneTest {
     @Test
     public void testNewRangedUnitsAreAffectedByExistingFog() {
         // Arrange
-        weatherZone.placeCard(fogWeather);
+        specialZone.placeCard(fogWeather);
         
         // Act
         player1RangedRow.placeCard(player1Archer);
@@ -204,7 +204,7 @@ public class WeatherZoneTest {
     @Test
     public void testNewSiegeUnitsAreAffectedByExistingRain() {
         // Arrange
-        weatherZone.placeCard(rainWeather);
+        specialZone.placeCard(rainWeather);
         
         // Act
         player1SiegeRow.placeCard(player1Catapult);

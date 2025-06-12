@@ -9,7 +9,7 @@ public class WeatherTest {
     private Row closeCombatRow;
     private Row rangedRow;
     private Row siegeRow;
-    private WeatherZone weatherZone;
+    private SpecialZone specialZone;
     
     private Unit soldier;
     private Unit archer;
@@ -27,7 +27,7 @@ public class WeatherTest {
         siegeRow = new Siege();
         
         // Initialize weather zone
-        weatherZone = new WeatherZone(
+        specialZone = new SpecialZone(
             List.of(closeCombatRow),
             List.of(rangedRow),
             List.of(siegeRow)
@@ -48,7 +48,7 @@ public class WeatherTest {
     public void testBitingFrostReducesCloseCombatUnitPoints() {
         // Act
         closeCombatRow.placeCard(soldier);
-        weatherZone.placeCard(frostWeather);
+        specialZone.placeCard(frostWeather);
         
         // Assert
         assertEquals(1, soldier.calculatePoints(), "La escarcha debería reducir los puntos de la unidad cuerpo a cuerpo a 1");
@@ -58,7 +58,7 @@ public class WeatherTest {
     public void testBitingFrostDoesNotAffectRangedUnits() {
         // Act
         rangedRow.placeCard(archer);
-        weatherZone.placeCard(frostWeather);
+        specialZone.placeCard(frostWeather);
         
         // Assert
         assertEquals(8, archer.calculatePoints(), "La escarcha no debería afectar a las unidades a distancia");
@@ -68,7 +68,7 @@ public class WeatherTest {
     public void testImpenetrableFogReducesRangedUnitPoints() {
         // Act
         rangedRow.placeCard(archer);
-        weatherZone.placeCard(fogWeather);
+        specialZone.placeCard(fogWeather);
         
         // Assert
         assertEquals(1, archer.calculatePoints(), "La niebla debería reducir los puntos de la unidad a distancia a 1");
@@ -78,7 +78,7 @@ public class WeatherTest {
     public void testImpenetrableFogDoesNotAffectCloseCombatUnits() {
         // Act
         closeCombatRow.placeCard(soldier);
-        weatherZone.placeCard(fogWeather);
+        specialZone.placeCard(fogWeather);
         
         // Assert
         assertEquals(10, soldier.calculatePoints(), "La niebla no debería afectar a las unidades cuerpo a cuerpo");
@@ -88,7 +88,7 @@ public class WeatherTest {
     public void testTorrentialRainReducesSiegeUnitPoints() {
         // Act
         siegeRow.placeCard(catapult);
-        weatherZone.placeCard(rainWeather);
+        specialZone.placeCard(rainWeather);
         
         // Assert
         assertEquals(1, catapult.calculatePoints(), "La lluvia debería reducir los puntos de la unidad de asedio a 1");
@@ -98,7 +98,7 @@ public class WeatherTest {
     public void testTorrentialRainDoesNotAffectCloseCombatUnits() {
         // Act
         closeCombatRow.placeCard(soldier);
-        weatherZone.placeCard(rainWeather);
+        specialZone.placeCard(rainWeather);
         
         // Assert
         assertEquals(10, soldier.calculatePoints(), "La lluvia no debería afectar a las unidades cuerpo a cuerpo");
@@ -107,7 +107,7 @@ public class WeatherTest {
     @Test
     public void testBitingFrostAffectsNewCloseCombatUnit() {
         // Act
-        weatherZone.placeCard(frostWeather);
+        specialZone.placeCard(frostWeather);
         closeCombatRow.placeCard(soldier);
         
         // Assert
@@ -117,7 +117,7 @@ public class WeatherTest {
     @Test
     public void testImpenetrableFogAffectsNewRangedUnit() {
         // Act
-        weatherZone.placeCard(fogWeather);
+        specialZone.placeCard(fogWeather);
         rangedRow.placeCard(archer);
         
         // Assert
@@ -127,7 +127,7 @@ public class WeatherTest {
     @Test
     public void testTorrentialRainAffectsNewSiegeUnit() {
         // Act
-        weatherZone.placeCard(rainWeather);
+        specialZone.placeCard(rainWeather);
         siegeRow.placeCard(catapult);
         
         // Assert
@@ -138,9 +138,9 @@ public class WeatherTest {
     public void testMultipleWeatherEffectsDoNotInterfereWithCloseCombat() {
         // Act
         closeCombatRow.placeCard(soldier);
-        weatherZone.placeCard(fogWeather);
-        weatherZone.placeCard(rainWeather);
-        weatherZone.placeCard(frostWeather);
+        specialZone.placeCard(fogWeather);
+        specialZone.placeCard(rainWeather);
+        specialZone.placeCard(frostWeather);
         
         // Assert
         assertEquals(1, soldier.calculatePoints(), "La escarcha debería ser el único efecto que afecta a las unidades cuerpo a cuerpo");
@@ -150,9 +150,9 @@ public class WeatherTest {
     public void testMultipleWeatherEffectsDoNotInterfereWithRanged() {
         // Act
         rangedRow.placeCard(archer);
-        weatherZone.placeCard(frostWeather);
-        weatherZone.placeCard(rainWeather);
-        weatherZone.placeCard(fogWeather);
+        specialZone.placeCard(frostWeather);
+        specialZone.placeCard(rainWeather);
+        specialZone.placeCard(fogWeather);
         
         // Assert
         assertEquals(1, archer.calculatePoints(), "La niebla debería ser el único efecto que afecta a las unidades a distancia");
@@ -162,9 +162,9 @@ public class WeatherTest {
     public void testMultipleWeatherEffectsDoNotInterfereWithSiege() {
         // Act
         siegeRow.placeCard(catapult);
-        weatherZone.placeCard(frostWeather);
-        weatherZone.placeCard(fogWeather);
-        weatherZone.placeCard(rainWeather);
+        specialZone.placeCard(frostWeather);
+        specialZone.placeCard(fogWeather);
+        specialZone.placeCard(rainWeather);
         
         // Assert
         assertEquals(1, catapult.calculatePoints(), "La lluvia debería ser el único efecto que afecta a las unidades de asedio");

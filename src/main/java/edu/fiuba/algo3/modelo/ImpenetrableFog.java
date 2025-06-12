@@ -15,7 +15,7 @@ public class ImpenetrableFog extends Weather {
     }
 
     @Override
-    public void addToWeatherZone(WeatherZone weatherZone) {
-        weatherZone.addRangedWeather(this);
+    public void addToWeatherZone(SpecialZone specialZone) {
+        specialZone.addRangedWeather(this);
     }
 }
