@@ -92,15 +92,22 @@ public class HandTest {
     }
 
     @Test
-    public void testNoSePuedePedirCardsDelDeckConNumerosMenoresOIgualesACero(){
+    public void testNoSePuedePedirCardsDelDeckConNumerosMenoresACero(){
+        Deck deck = new Deck(cards);
+        Hand hand = new Hand(new ArrayList<>());
+
+        assertThrows(InvalidCardAmountError.class, () ->{
+            hand.getNCardsFromDeck(deck, -5);
+        });
+    }
+
+    @Test
+    public void testNoSePuedePedirCardsDelDeckConNumeroIgualACero(){
         Deck deck = new Deck(cards);
         Hand hand = new Hand(new ArrayList<>());
 
         assertThrows(InvalidCardAmountError.class, () -> {
             hand.getNCardsFromDeck(deck,0);;
-        });
-        assertThrows(InvalidCardAmountError.class, () ->{
-            hand.getNCardsFromDeck(deck, -5);
         });
     }
 }

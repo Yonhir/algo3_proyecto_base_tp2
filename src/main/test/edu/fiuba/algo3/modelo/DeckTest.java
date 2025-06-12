@@ -135,7 +135,17 @@ public class DeckTest {
     }
 
     @Test
-    public void testNoSePuedePedirCartasDelMazoConNumerosMenoresOIgualesACero(){
+    public void testNoSePuedePedirCartasDelMazoConNumerosMenoresACero(){
+        cartas.addAll(unidades);
+        cartas.addAll(especiales);
+        Deck mazo = new Deck(cartas);
+
+        assertThrows(InvalidCardAmountError.class, () ->{
+            mazo.retrieveNRandomCards(-5);
+        });
+    }
+    @Test
+    public void testNoSePuedePedirCartasDelMazoConNumeroIgualACero(){
         cartas.addAll(unidades);
         cartas.addAll(especiales);
         Deck mazo = new Deck(cartas);
@@ -143,9 +153,5 @@ public class DeckTest {
         assertThrows(InvalidCardAmountError.class, () -> {
             mazo.retrieveNRandomCards(0);
         });
-        assertThrows(InvalidCardAmountError.class, () ->{
-            mazo.retrieveNRandomCards(-5);
-        });
     }
-
 }
