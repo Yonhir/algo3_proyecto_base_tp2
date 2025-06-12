@@ -53,4 +53,26 @@ public class RowTest {
 
         assertTrue(siegeRow.getCards().contains(catapulta));
     }
+
+    @Test
+    public void testUnidadAgilPuedeSerColocadaEnFilaRanged() {
+        Modifier agil = new Agil();
+        Unit unitConAgil = new Unit("ágil", "puede ir a melee o rango", 6, true, true, false, List.of(agil));
+        Row ranged = new Ranged();
+
+        ranged.placeCard(unitConAgil);
+
+        assertTrue(ranged.getCards().contains(unitConAgil));
+    }
+
+    @Test
+    public void testUnidadAgilPuedeSerColocadaEnFilaCloseCombat() {
+        Modifier agil = new Agil();
+        Unit unitConAgil = new Unit("ágil", "puede ir a melee o rango", 6, true, true, false, List.of(agil));
+        Row closeCombat = new CloseCombat();
+
+        closeCombat.placeCard(unitConAgil);
+
+        assertTrue(closeCombat.getCards().contains(unitConAgil));
+    }
 }

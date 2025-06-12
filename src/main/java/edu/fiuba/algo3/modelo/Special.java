@@ -5,3 +5,4 @@ public abstract class Special extends Card {
         super(name, description);
     }
 }
+

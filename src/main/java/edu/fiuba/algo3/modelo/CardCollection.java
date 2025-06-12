@@ -10,10 +10,30 @@ public abstract class CardCollection {
     }
 
     public void addCard(Card card) {
-        cards.add(card);
+        this.cards.add(card);
+    }
+
+    public void addCards(List<Card> cards) {
+        this.cards.addAll(cards);
+    }
+
+    public List<Card> getCards() {
+        return cards;
     }
 
     public int getCardCount() {
         return cards.size();
+    }
+
+    public boolean isEmpty(){
+        return cards.isEmpty();
+    }
+
+    public Card retrieveCard(Card card){
+        if (cards.contains(card)) {
+            cards.remove(card);
+            return card;
+        }
+        throw new TheCardWasNotFound("The card is not in the deck");  
     }
 }

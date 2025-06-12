@@ -1,6 +1,8 @@
 package edu.fiuba.algo3.modelo;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class Deck extends CardCollection {
@@ -29,5 +31,18 @@ public class Deck extends CardCollection {
 
     public long getSpecialsCount() {
         return cards.stream().filter(card -> card instanceof Special).count();
+    }
+
+    public List<Card> retrieveNRandomCards(int n){
+        if(cards.size() < n){
+            throw new NotEnoughtCardsInDeckError("Deck without enough cards");
+        }
+        if(n <= 0){
+            throw new InvalidCardAmountError("Invalid number of cards requested, must be greater than zero");
+        }
+        Collections.shuffle(cards);
+        List<Card> selectedCards = new ArrayList<>(cards.subList(0, n));
+        cards.subList(0, n).clear();
+        return selectedCards;
     }
 }
