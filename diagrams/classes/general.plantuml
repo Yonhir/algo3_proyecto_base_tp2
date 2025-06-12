@@ -1,0 +1,126 @@
+@startuml
+
+skinparam monochrome true
+hide circle
+skinparam classAttributeIconSize 0
+
+' =====================
+' GAME
+' =====================
+class Player {
+  -name: String
+  -health: int
+  +Player(name: String, health: int): Player
+  +getDeck(): Deck
+  +getHand(): Hand
+  +getDiscardPile(): DiscardPile
+  +calculatePoints(): int
+}
+
+abstract class CardCollection <<abstract>> {
+  -cards: List<Card>
+  +CardCollection(cards: List<Card>): CardCollection
+  +getCards(): List<Card>
+  +addCard(card: Card)
+  +addCards(List<Card>)
+  +retrieveCard(card: Card): Card
+  +getCardCount(): int
+}
+
+class Hand {
+  +getNCardsFromDeck(deck: Deck, n: int)
+  +isEmpty(): boolean
+}
+
+class DiscardPile {
+  +getLastCard(): Card
+}
+
+class Deck {
+  +Deck(units: List<Unit>, specials: List<Special>)
+  +retrieveNRandomCard(n: int): List<Card>
+  +dealHand(Hand: hand)
+}
+
+interface Row <<abstract>> {
+  -weather: Weather
+  +placeCard(card: Card)
+  +calculatePoints(): int
+  +discardCards(discardPile: DiscardPile)
+  +addWeather(weather: Weather)
+}
+
+class Ranged {
+  +placeCard(card: Card)
+}
+
+class CloseCombat {
+  +placeCard(card: Card)
+}
+
+class Siege {
+  +placeCard(card: Card)
+}
+
+abstract class Card <<abstract>> {
+  -name: String
+  -description: String
+  +Card(name: String, description: String): Card
+  +getName(): String
+  +getDescription(): String
+  +play(row: Row): void
+}
+
+class Unit {
+  -basePoints: int
+  -currentPoints: int
+  +Unit(name: String, description: String, points: int, modifiers: List<Modifier>): Unit
+  +calculatePoints(): int
+  +play(row: Row)
+  +resetPoints()
+  +setPoints(points: int): int
+  +haveModifier(modifier: Modifier): boolean
+}
+
+abstract class Special <<abstract>> {
+  +play(row: Row): void
+}
+
+class TightBond{
+
+}
+
+interface Modifier <<interface>> {
+    +apply(row: Row)
+}
+
+class Weather {
+  +play(row: Row): void
+  +apply(card: Card, row: Row)
+}
+
+
+' =====================
+' RELATIONSHIPS
+' =====================
+Player --> "3" CardCollection
+Player --> "3" Row
+
+CardCollection -->  Card
+CardCollection <|-- Hand
+CardCollection <|-- DiscardPile
+CardCollection <|-- Deck
+
+Ranged <|-- Row
+CloseCombat <|-- Row
+Siege <|-- Row
+
+Row --> Card
+
+Card <|-- Unit
+Card <|-- Special
+Modifier "*"<- Unit
+Modifier <|.. TightBond
+Special <|- Weather
+
+@enduml

@@ -1,22 +1,22 @@
-@startuml DiagramaDeSecuencia1
+@startuml
 
 hide footbox
-
-title: Calcula el puntaje de un jugador basado en las cartas que se encuentran en el tablero
+title Calcula el puntaje de un jugador basado en las cartas que se encuentran en el tablero
 
 actor TestCase
-participant ":Board" as board
+
+participant ":Player" as player
 participant ":Side" as side
 participant ":Row" as row
 participant ":Unit" as unit
 
-TestCase -> board : calculatePlayerPoints(player)
-board -> side : calculateTotalPoints()
+TestCase -> player : calculatePoints()
+player -> side : calculateTotalPoints()
 
-loop For each row on the side
+loop For each row on the side.
     side -> row : calculateTotalPoints()
 
-    loop For each card in the row
+    loop For each card in the row.
         row -> unit : getPoints()
         unit --> row : Points
     end
@@ -24,7 +24,7 @@ loop For each row on the side
     row --> side : TotalPoints
 end
 
-side --> board : TotalPoints
-board --> TestCase : TotalPoints
+side --> player : TotalPoints
+player --> TestCase : TotalPoints
 
 @enduml
