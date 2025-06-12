@@ -195,6 +195,9 @@ public class WeatherTest {
         
         // Assert
         assertEquals(12, catapult.calculatePoints(), "Las unidades de asedio deberían volver a sus puntos originales");
+    }
+    
+    @Test
     public void testMultipleWeatherEffectsDoNotInterfereWithCloseCombat() {
         // Act
         closeCombatRow.placeCard(soldier);
