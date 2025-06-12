@@ -45,6 +45,28 @@ public class WeatherTest {
     }
 
     @Test
+    public void testWeatherCanBePlacedInSpecialZone() {
+        assertTrue(frostWeather.canBePlaced(specialZone), "El clima debería poder ser colocado en la zona especial");
+    }
+
+    @Test
+    public void testWeatherCannotBePlacedInRegularRow() {
+        assertFalse(frostWeather.canBePlaced(closeCombatRow), "El clima no debería poder ser colocado en una fila normal");
+    }
+
+    @Test
+    public void testWeatherPlayAppliesEffectToTarget() {
+        // Arrange
+        closeCombatRow.placeCard(soldier);
+        
+        // Act
+        frostWeather.play(specialZone);
+        
+        // Assert
+        assertEquals(1, soldier.calculatePoints(), "El clima debería aplicar su efecto al ser jugado");
+    }
+
+    @Test
     public void testBitingFrostReducesCloseCombatUnitPoints() {
         // Act
         closeCombatRow.placeCard(soldier);
@@ -168,5 +190,12 @@ public class WeatherTest {
         
         // Assert
         assertEquals(1, catapult.calculatePoints(), "La lluvia debería ser el único efecto que afecta a las unidades de asedio");
+    }
+
+    @Test
+    public void testWeatherCannotBePlacedInInvalidTarget() {
+        // Act
+        assertThrows(IllegalArgumentException.class, () -> closeCombatRow.placeCard(frostWeather),
+            "Debería lanzar una excepción al intentar colocar clima en una fila normal");
     }
 }
