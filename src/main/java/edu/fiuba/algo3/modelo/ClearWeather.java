@@ -7,24 +7,24 @@ public class ClearWeather extends Weather {
 
     @Override
     public void play(CardTarget target) {
-        if (target instanceof WeatherZone) {
-            WeatherZone weatherZone = (WeatherZone) target;
-            weatherZone.addCard(this);
+        if (target instanceof SpecialZone) {
+            SpecialZone specialZone = (SpecialZone) target;
+            specialZone.addCard(this);
         } else {
             throw new IllegalArgumentException("ClearWeather can only be placed in a WeatherZone");
         }
     }
 
     @Override
-    public void addToWeatherZone(WeatherZone weatherZone) {
-        weatherZone.addCloseCombatWeather(this);
-        weatherZone.addRangedWeather(this);
-        weatherZone.addSiegeWeather(this);
+    public void addToSpecialZone(SpecialZone specialZone) {
+        specialZone.addCloseCombatWeather(this);
+        specialZone.addRangedWeather(this);
+        specialZone.addSiegeWeather(this);
     }
 
     @Override
     public boolean canBePlaced(CardTarget target) {
-        return target instanceof WeatherZone;
+        return target instanceof SpecialZone;
     }
 
     @Override

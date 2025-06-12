@@ -12,10 +12,10 @@ public abstract class Weather extends Special {
 
     public abstract void apply(Card card, Row row);
 
-    public abstract void addToWeatherZone(WeatherZone weatherZone);
+    public abstract void addToSpecialZone(SpecialZone specialZone);
 
     @Override
     public boolean canBePlaced(CardTarget target) {
-        return target instanceof WeatherZone;
+        return target instanceof SpecialZone;
     }
 }
