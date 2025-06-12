@@ -20,4 +20,15 @@ public abstract class CardCollection {
     public int getCardCount() {
         return cards.size();
     }
+    public boolean isEmpty(){
+        return cards.isEmpty();
+    }
+
+    public Card retrieveCard(Card card){
+        if (cards.contains(card)) {
+            cards.remove(card);
+            return card;
+        }
+        throw new TheCardWasNotFound("The card is not in the deck");  
+    }
 }
