@@ -10,11 +10,10 @@ public abstract class Card {
         this.description = description;
     }
 
-    public void play(Row row) {
-
+    public void play(CardTarget target) {
     }
 
-    public boolean canBePlaced(Row row) {
+    public boolean canBePlaced(CardTarget target) {
         return false;
     }
 }

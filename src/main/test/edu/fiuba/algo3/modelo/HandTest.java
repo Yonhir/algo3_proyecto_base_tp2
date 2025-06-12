@@ -31,12 +31,12 @@ public class HandTest {
                 new Unit("Nombre", "Descripcion", 8, false, false, true, new ArrayList<Modifier>()),
                 new Unit("Nombre", "Descripcion", 3, true, false, false, new ArrayList<Modifier>()),
                 new Unit("Nombre", "Descripcion", 4, false, true, false, new ArrayList<Modifier>()),
-                new Scorch("Nombre", "Descripcion"),
-                new Scorch("Nombre", "Descripcion"),
-                new Scorch("Nombre", "Descripcion"),
-                new Scorch("Nombre", "Descripcion"),
-                new Scorch("Nombre", "Descripcion"),
-                new Scorch("Nombre", "Descripcion")));
+                new BitingFrost("Nombre", "Descripcion"),
+                new BitingFrost("Nombre", "Descripcion"),
+                new TorrentialRain("Nombre", "Descripcion"),
+                new TorrentialRain("Nombre", "Descripcion"),
+                new ImpenetrableFog("Nombre", "Descripcion"),
+                new ImpenetrableFog("Nombre", "Descripcion")));
     }
 
     @Test

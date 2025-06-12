@@ -77,7 +77,7 @@ public class DiscardPileTest {
         Unit discardedUnit = (Unit) discardPile.getLastCard();
         assertEquals(5, discardedUnit.calculatePoints(), "Unit points should be reset to base value");
     }
-  
+
     @Test
     public void cards_go_to_discardPile(){
         int expectedSize = 15;

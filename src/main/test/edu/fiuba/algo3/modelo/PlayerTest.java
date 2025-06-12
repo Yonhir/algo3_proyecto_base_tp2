@@ -8,13 +8,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-
 public class PlayerTest {
     private List<Card> cards;
+    private Player player;
+    private Deck deck;
+    private SpecialZone specialZone;
+    private CloseCombat closeCombat;
+    private Ranged ranged;
+    private Siege siege;
 
     @BeforeEach
     void setUp() {
-        cards = Arrays.asList(
+        // Create unit cards
+        List<Card> unitCards = Arrays.asList(
                 new Unit("Nombre", "Descripcion", 4, true, false, false, new ArrayList<>()),
                 new Unit("Nombre", "Descripcion", 5, true, false, false, new ArrayList<>()),
                 new Unit("Nombre", "Descripcion", 6, false, true, false, new ArrayList<>()),
@@ -31,28 +37,50 @@ public class PlayerTest {
                 new Unit("Nombre", "Descripcion", 3, true, false, false, new ArrayList<>()),
                 new Unit("Nombre", "Descripcion", 4, false, true, false, new ArrayList<>())
         );
+
+        // Create special cards (weather cards)
+        List<Card> specialCards = Arrays.asList(
+                new BitingFrost("Escarcha", "Reduce todas las unidades cuerpo a cuerpo a 1 punto"),
+                new ImpenetrableFog("Niebla", "Reduce todas las unidades a distancia a 1 punto"),
+                new TorrentialRain("Lluvia", "Reduce todas las unidades de asedio a 1 punto"),
+                new BitingFrost("Escarcha", "Reduce todas las unidades cuerpo a cuerpo a 1 punto"),
+                new ImpenetrableFog("Niebla", "Reduce todas las unidades a distancia a 1 punto"),
+                new TorrentialRain("Lluvia", "Reduce todas las unidades de asedio a 1 punto")
+        );
+
+        // Combine all cards
+        cards = new ArrayList<>();
+        cards.addAll(unitCards);
+        cards.addAll(specialCards);
+        
+        // Initialize game components
+        deck = new Deck(cards);
+        closeCombat = new CloseCombat();
+        ranged = new Ranged();
+        siege = new Siege();
+        specialZone = new SpecialZone(
+            List.of(closeCombat),
+            List.of(ranged),
+            List.of(siege)
+        );
+        player = new Player("Gabriel", 2, deck, specialZone, closeCombat, ranged, siege);
     }
 
     @Test
-    public void play_card_close_combat() {
+    public void testPlayCardCloseCombat() {
         //ARRANGE
         int expected_cards = 1;
-        int expected_cards_in_hand = 14;
+        int expected_cards_in_hand = 20; // 15 unit cards + 6 special cards - 1 played card
         int expected_points = 4;
-
-        Player player = new Player("Gabriel", 2);
-        Row closeCombat = new CloseCombat();
 
         List<Card> hand = player.getHand().getCards();
         hand.addAll(cards);
 
         //ACT
         Card card_to_play = hand.remove(0);
-
         closeCombat.placeCard(card_to_play);
 
         List<Card> fila = closeCombat.getCards();
-
         int actual_points = ((Unit) fila.get(0)).calculatePoints();
         int actual_cards_in_hand = hand.size();
         int actual_cards = fila.size();
@@ -66,25 +94,20 @@ public class PlayerTest {
     }
 
     @Test
-    public void play_card_ranged() {
+    public void testPlayCardRanged() {
         //ARRANGE
         int expected_cards = 1;
-        int expected_cards_in_hand = 14;
+        int expected_cards_in_hand = 20; // 15 unit cards + 6 special cards - 1 played card
         int expected_points = 6;
-
-        Player player = new Player("Gabriel", 2);
-        Row ranged = new Ranged();
 
         List<Card> hand = player.getHand().getCards();
         hand.addAll(cards);
 
         //ACT
         Card card_to_play = hand.remove(2);
-
         ranged.placeCard(card_to_play);
 
         List<Card> fila = ranged.getCards();
-
         int actual_points = ((Unit) fila.get(0)).calculatePoints();
         int actual_cards_in_hand = hand.size();
         int actual_cards = fila.size();
@@ -98,25 +121,20 @@ public class PlayerTest {
     }
 
     @Test
-    public void play_card_siege() {
+    public void testPlayCardSiege() {
         //ARRANGE
         int expected_cards = 1;
-        int expected_cards_in_hand = 14;
+        int expected_cards_in_hand = 20; // 15 unit cards + 6 special cards - 1 played card
         int expected_points = 3;
-
-        Player player = new Player("Gabriel", 2);
-        Row siege = new Siege();
 
         List<Card> hand = player.getHand().getCards();
         hand.addAll(cards);
 
         //ACT
         Card card_to_play = hand.remove(3);
-
         siege.placeCard(card_to_play);
 
         List<Card> fila = siege.getCards();
-
         int actual_points = ((Unit) fila.get(0)).calculatePoints();
         int actual_cards_in_hand = hand.size();
         int actual_cards = fila.size();
@@ -130,19 +148,68 @@ public class PlayerTest {
     }
 
     @Test
-    public void play_card_error() {
-
-        Player player = new Player("Gabriel", 2);
-        Row siege = new Siege();
-
+    public void testPlayCardError() {
+        //ARRANGE
         List<Card> hand = player.getHand().getCards();
         hand.addAll(cards);
-
-        //ACT
         Card card_to_play = hand.remove(0);
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {siege.placeCard(card_to_play);});
+        //ASSERT + ACT
+        Assertions.assertThrows(IllegalArgumentException.class, () -> siege.placeCard(card_to_play));
     }
 
+    @Test
+    public void testGetDiscardPile() {
+        //ARRANGE
+        DiscardPile expectedDiscardPile = new DiscardPile();
+        
+        //ACT
+        DiscardPile actualDiscardPile = player.getDiscardPile();
+        
+        //ASSERT
+        Assertions.assertEquals(expectedDiscardPile.getCardCount(), actualDiscardPile.getCardCount());
+    }
 
+    @Test
+    public void testGetHand() {
+        //ARRANGE
+        Hand expectedHand = new Hand(new ArrayList<>());
+        
+        //ACT
+        Hand actualHand = player.getHand();
+        
+        //ASSERT
+        Assertions.assertEquals(expectedHand.getCardCount(), actualHand.getCardCount());
+    }
+
+    @Test
+    public void testCalculatePoints() {
+        //ARRANGE
+        // Use cards from setUp: card[0] = 4 points (close combat), card[2] = 6 points (ranged), card[3] = 3 points (siege)
+        Unit closeCombatUnit = (Unit) cards.get(0);
+        Unit rangedUnit = (Unit) cards.get(2);
+        Unit siegeUnit = (Unit) cards.get(3);
+        int expectedPoints = 13; // 4 + 6 + 3
+        closeCombat.placeCard(closeCombatUnit);
+        ranged.placeCard(rangedUnit);
+        siege.placeCard(siegeUnit);
+        
+        //ACT
+        int actualPoints = player.calculatePoints();
+        
+        //ASSERT
+        Assertions.assertEquals(expectedPoints, actualPoints);
+    }
+
+    @Test
+    public void testCalculatePointsWithEmptyRows() {
+        //ARRANGE
+        int expectedPoints = 0;
+
+        //ACT
+        int actualPoints = player.calculatePoints();
+        
+        //ASSERT
+        Assertions.assertEquals(expectedPoints, actualPoints);
+    }
 }

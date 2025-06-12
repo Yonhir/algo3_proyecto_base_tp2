@@ -35,11 +35,11 @@ public class DeckTest {
 
         especiales = Arrays.asList(
                 new TorrentialRain("Nombre", "Descripcion"),
+                new TorrentialRain("Nombre", "Descripcion"),
+                new ImpenetrableFog("Nombre", "Descripcion"),
                 new ImpenetrableFog("Nombre", "Descripcion"),
                 new BitingFrost("Nombre", "Descripcion"),
-                new TacticalAdvantage("Nombre", "Descripcion"),
-                new Decoy("Nombre", "Descripcion"),
-                new Scorch("Nombre", "Descripcion"
+                new BitingFrost("Nombre", "Descripcion"
         ));
 
         cartas = new ArrayList<>();

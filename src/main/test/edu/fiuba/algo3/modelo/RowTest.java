@@ -75,4 +75,44 @@ public class RowTest {
 
         assertTrue(closeCombat.getCards().contains(unitConAgil));
     }
+
+    @Test
+    public void testCalcularPuntosDeUnaFila() {
+        Row closeCombat = new CloseCombat();
+        Unit soldado1 = new Unit("soldado1", "pelea de cerca", 10, true, false, true, List.of());
+        Unit soldado2 = new Unit("soldado2", "pelea de cerca", 15, true, false, true, List.of());
+        int puntosEsperados = 25;
+
+        closeCombat.placeCard(soldado1);
+        closeCombat.placeCard(soldado2);
+
+        assertEquals(puntosEsperados, closeCombat.calculatePoints());
+    }
+
+    @Test
+    public void testAgregarClimaAUnaFila() {
+        Row ranged = new Ranged();
+        Unit arquero = new Unit("arquero", "tira flechas", 5, false, true, false, List.of());
+        Weather niebla = new ImpenetrableFog("Niebla Impenetrable", "Reduce la fuerza de las unidades a 1");
+
+        ranged.placeCard(arquero);
+        ranged.addWeather(niebla);
+
+        assertEquals(1, arquero.calculatePoints());
+    }
+
+    @Test
+    public void testDescartarCartasDeUnaFila() {
+        Row siege = new Siege();
+        Unit catapulta1 = new Unit("catapulta1", "dispara desde lejos", 8, false, false, true, List.of());
+        Unit catapulta2 = new Unit("catapulta2", "dispara desde lejos", 8, false, false, true, List.of());
+        DiscardPile discardPile = new DiscardPile();
+
+        siege.placeCard(catapulta1);
+        siege.placeCard(catapulta2);
+        siege.discardCards(discardPile);
+
+        assertTrue(siege.getCards().isEmpty());
+        assertEquals(2, discardPile.getCardCount());
+    }
 }

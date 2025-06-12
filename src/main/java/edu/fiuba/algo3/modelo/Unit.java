@@ -1,7 +1,5 @@
 package edu.fiuba.algo3.modelo;
 
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class Unit extends Card {
@@ -35,16 +33,22 @@ public class Unit extends Card {
     }
 
     @Override
-    public void play(Row row) {
-        row.addCard(this);
-        for (Modifier modifier : modifiers) {
-            modifier.apply(row);
+    public void play(CardTarget target) {
+        if (target instanceof Row) {
+            Row row = (Row) target;
+            target.addCard(this);
+            for (Modifier modifier : modifiers) {
+                modifier.apply(row);
+            }
         }
     }
 
     @Override
-    public boolean canBePlaced(Row row) {
-        return row.canBePlacedIn(this);
+    public boolean canBePlaced(CardTarget target) {
+        if (target instanceof Row) {
+            return ((Row) target).canBePlacedIn(this);
+        }
+        return false;
     }
 
     public int calculatePoints() {
