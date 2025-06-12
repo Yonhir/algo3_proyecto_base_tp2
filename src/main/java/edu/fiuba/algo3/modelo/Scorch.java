@@ -5,4 +5,3 @@ public class Scorch extends Special {
         super(name, description);
     }
 }
-

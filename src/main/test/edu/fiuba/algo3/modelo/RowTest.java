@@ -75,5 +75,4 @@ public class RowTest {
 
         assertTrue(closeCombat.getCards().contains(unitConAgil));
     }
-
 }

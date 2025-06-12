@@ -32,7 +32,7 @@ public class Deck extends CardCollection {
     public long getSpecialsCount() {
         return cards.stream().filter(card -> card instanceof Special).count();
     }
-  
+
     public List<Card> retrieveNRandomCards(int n){
         if(cards.size() < n){
             throw new NotEnoughtCardsInDeckError("Deck without enough cards");

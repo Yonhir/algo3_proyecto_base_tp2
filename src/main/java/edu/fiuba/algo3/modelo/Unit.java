@@ -37,12 +37,34 @@ public class Unit extends Card {
     @Override
     public void play(Row row) {
         row.addCard(this);
+        for (Modifier modifier : modifiers) {
+            modifier.apply(row);
+        }
     }
-
-    public int calculatePoints() { return currentPoints; }
 
     @Override
     public boolean canBePlaced(Row row) {
         return row.canBePlacedIn(this);
+    }
+
+    public int calculatePoints() {
+        return currentPoints;
+    }
+
+    public void resetPoints() {
+        currentPoints = basePoints;
+    }
+
+    public void setPoints(int points) {
+        currentPoints = points;
+    }
+
+    public boolean haveModifier(Modifier modifierInstance) {
+        for (Modifier modifier : modifiers) {
+            if (modifier.getClass().isInstance(modifierInstance)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

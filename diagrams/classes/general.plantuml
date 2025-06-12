@@ -22,7 +22,7 @@ abstract class CardCollection <<abstract>> {
   +CardCollection(cards: List<Card>): CardCollection
   +getCards(): List<Card>
   +addCard(card: Card)
-  +addCards(List<Card>)
+  +addCards(cards: List<Card>)
   +retrieveCard(card: Card): Card
   +getCardCount(): int
 }
@@ -33,33 +33,65 @@ class Hand {
 }
 
 class DiscardPile {
+  +DiscardPile(): DiscardPile
   +getLastCard(): Card
+  +addCard(card: Card)
+  +addCards(cards: List<Card>)
 }
 
 class Deck {
-  +Deck(units: List<Unit>, specials: List<Special>)
-  +retrieveNRandomCard(n: int): List<Card>
-  +dealHand(Hand: hand)
+  +Deck(cards: List<Card>): Deck
+  +getCardCount(): int
+  +getUnitsCount(): long
+  +getSpecialsCount(): long
+  -validate(validators: List<DeckValidator>): void
 }
 
-interface Row <<abstract>> {
-  -weather: Weather
+interface DeckValidator <<interface>> {
+  +validate(cards: List<Card>): void
+}
+
+class Validate6SpecialCards {
+  -MIN_SPECIALS: int
+}
+
+class Validate15UnitsCards {
+  -MIN_UNITS: int
+}
+
+abstract class Row <<abstract>> {
+  -cards: List<Card>
   +placeCard(card: Card)
+  +addCard(card: Card)
   +calculatePoints(): int
   +discardCards(discardPile: DiscardPile)
   +addWeather(weather: Weather)
+  +canBePlacedIn(unit: Unit): boolean
+  +getCards(): List<Card>
 }
 
 class Ranged {
-  +placeCard(card: Card)
+  +canBePlacedIn(unit: Unit): boolean
 }
 
 class CloseCombat {
-  +placeCard(card: Card)
+  +canBePlacedIn(unit: Unit): boolean
 }
 
 class Siege {
-  +placeCard(card: Card)
+  +canBePlacedIn(unit: Unit): boolean
+}
+
+class SpecialZone {
+  -closeCombatRows: List<Row>
+  -rangedRows: List<Row>
+  -siegeRows: List<Row>
+  +SpecialZone(closeCombatRows: List<Row>, rangedRows: List<Row>, siegeRows: List<Row>): SpecialZone
+  +placeCard(special: Special): void
+  +addWeather(weather: Weather)
+  +addCloseCombatWeather(weather: Weather)
+  +addRangedWeather(weather: Weather)
+  +addSiegeWeather(weather: Weather)
 }
 
 abstract class Card <<abstract>> {
@@ -69,58 +101,107 @@ abstract class Card <<abstract>> {
   +getName(): String
   +getDescription(): String
   +play(row: Row): void
+  +canBePlaced(row: Row): boolean
 }
 
 class Unit {
   -basePoints: int
   -currentPoints: int
-  +Unit(name: String, description: String, points: int, modifiers: List<Modifier>): Unit
+  -modifiers: List<Modifier>
+  -canBeInCloseCombat: boolean
+  -canBeInRanged: boolean
+  -canBeInSiege: boolean
+  +Unit(name: String, description: String, points: int, closeCombat: boolean, ranged: boolean, siege: boolean, modifiers: List<Modifier>): Unit
   +calculatePoints(): int
-  +play(row: Row)
-  +resetPoints()
-  +setPoints(points: int): int
+  +play(row: Row): void
+  +resetPoints(): void
+  +setPoints(points: int): void
   +haveModifier(modifier: Modifier): boolean
+  +canBeInCloseCombat(): boolean
+  +canBeInRanged(): boolean
+  +canBeInSiege(): boolean
 }
 
 abstract class Special <<abstract>> {
   +play(row: Row): void
-}
-
-class TightBond{
-
+  +canBePlaced(row: Row): boolean
 }
 
 interface Modifier <<interface>> {
-    +apply(row: Row)
+  +apply(row: Row): void
 }
 
-class Weather {
+class TightBond {
+}
+
+class Agil {
+}
+
+abstract class Weather <<abstract>> {
   +play(row: Row): void
-  +apply(card: Card, row: Row)
+  +apply(card: Card, row: Row): void
 }
 
+class TorrentialRain {
+  +TorrentialRain(name: String, description: String): TorrentialRain
+}
+
+class ImpenetrableFog {
+  +ImpenetrableFog(name: String, description: String): ImpenetrableFog
+}
+
+class BitingFrost {
+  +BitingFrost(name: String, description: String): BitingFrost
+}
+
+class Decoy {
+}
+
+class TacticalAdvantage {
+}
+
+class Scorch {
+}
 
 ' =====================
 ' RELATIONSHIPS
 ' =====================
 Player --> "3" CardCollection
 Player --> "3" Row
+Player --> "1" SpecialZone
 
-CardCollection -->  Card
+SpecialZone --> "6" Row
+
+CardCollection --> "*" Card
 CardCollection <|-- Hand
 CardCollection <|-- DiscardPile
 CardCollection <|-- Deck
 
-Ranged <|-- Row
-CloseCombat <|-- Row
-Siege <|-- Row
+Row <|-- Ranged
+Row <|-- CloseCombat
+Row <|-- Siege
 
 Row --> Card
 
 Card <|-- Unit
 Card <|-- Special
-Modifier "*"<- Unit
+
+Unit --> "*" Modifier
+
 Modifier <|.. TightBond
-Special <|- Weather
+Modifier <|.. Agil
+
+Special <|-- Decoy
+Special <|-- TacticalAdvantage
+Special <|-- Scorch
+Special <|--- Weather
+
+Weather <|-- TorrentialRain
+Weather <|-- ImpenetrableFog
+Weather <|-- BitingFrost
+
+Deck --> "*" DeckValidator
+DeckValidator <|.. Validate6SpecialCards
+DeckValidator <|.. Validate15UnitsCards
 
 @enduml

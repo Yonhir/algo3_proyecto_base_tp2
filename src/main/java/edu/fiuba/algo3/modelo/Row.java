@@ -25,6 +25,16 @@ public abstract class Row {
         cards.add(card);
     }
 
+    public int calculatePoints() {
+        int totalPoints = 0;
+        for (Card card : cards) {
+            if (card instanceof Unit) {
+                totalPoints += ((Unit) card).calculatePoints();
+            }
+        }
+        return totalPoints;
+    }
+
     public void discardCards(DiscardPile discardPile) {
         discardPile.addCards(cards);
         cards.clear();

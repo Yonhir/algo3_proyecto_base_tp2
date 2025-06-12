@@ -6,5 +6,4 @@ public class Ranged extends Row {
     public boolean canBePlacedIn(Unit unit) {
         return unit.canBeInRanged();
     }
-
 }

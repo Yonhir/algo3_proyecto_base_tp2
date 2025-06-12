@@ -6,5 +6,4 @@ public class Siege extends Row {
     public boolean canBePlacedIn(Unit unit) {
         return unit.canBeInSiege();
     }
-
 }
