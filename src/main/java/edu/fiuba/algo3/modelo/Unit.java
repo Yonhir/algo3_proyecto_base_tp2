@@ -32,6 +32,10 @@ public class Unit extends Card {
         return canBeInSiege;
     }
 
+    public int getBasePoints() {
+        return basePoints;
+    }
+
     @Override
     public void play(CardTarget target) {
         if (target instanceof Row) {
