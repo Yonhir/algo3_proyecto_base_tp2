@@ -12,10 +12,8 @@ abstract class Card <<abstract>> {
   -name: String
   -description: String
   +Card(name: String, description: String): Card
-  +getName(): String
-  +getDescription(): String
-  +play(row: Row): void
-  +canBePlaced(row: Row): boolean
+  +play(target : CardTarget): void
+  +canBePlaced(target : CardTarget): boolean
 }
 
 class Unit {
@@ -27,36 +25,44 @@ class Unit {
   -canBeInSiege: boolean
   +Unit(name: String, description: String, points: int, closeCombat: boolean, ranged: boolean, siege: boolean, modifiers: List<Modifier>): Unit
   +calculatePoints(): int
-  +play(row: Row): void
+  +play(target : CardTarget): void
   +resetPoints(): void
   +setPoints(points: int): void
   +haveModifier(modifier: Modifier): boolean
+  +canBePlaced(target : CardTarget): boolean
   +canBeInCloseCombat(): boolean
   +canBeInRanged(): boolean
   +canBeInSiege(): boolean
 }
 
 abstract class Special <<abstract>> {
-  +play(row: Row): void
-  +canBePlaced(row: Row): boolean
+  +Special(name : String, description : String)
 }
 
 abstract class Weather <<abstract>> {
   +Weather(name: String, description: String): Weather
-  +play(row: Row): void
-  +apply(card: Card, row: Row): void
+  +play(target : CardTarget): void
+  +canBePlaced(target : CardTarget): boolean
+  +{abstract}apply(card: Card, row: Row): void
+  +{abstract}addToSpecialZone(specialZone : SpecialZone) : void
 }
 
 class TorrentialRain {
   +TorrentialRain(name: String, description: String): TorrentialRain
+  +apply(card: Card, row: Row): void
+  +addToSpecialZone(specialZone : SpecialZone) : void
 }
 
 class ImpenetrableFog {
   +ImpenetrableFog(name: String, description: String): ImpenetrableFog
+  +apply(card: Card, row: Row): void
+  +addToSpecialZone(specialZone : SpecialZone) : void
 }
 
 class BitingFrost {
   +BitingFrost(name: String, description: String): BitingFrost
+  +apply(card: Card, row: Row): void
+  +addToSpecialZone(specialZone : SpecialZone) : void
 }
 
 class Decoy {
@@ -78,7 +84,7 @@ interface Modifier <<interface>> {
 class TightBond {
 }
 
-class Agil {
+class Agile {
 }
 
 ' =====================
@@ -91,7 +97,7 @@ Card <|-- Special
 Unit --> "*" Modifier
 
 Modifier <|.. TightBond
-Modifier <|.. Agil
+Modifier <|.. Agile
 
 Special <|-- Decoy
 Special <|-- TacticalAdvantage

@@ -18,8 +18,8 @@ class NotEnoughUnitsCardsError {
   +NotEnoughUnitsCardsError(message: String): NotEnoughUnitsCardsError
 }
 
-class NotEnoughtCardsInDeckError {
-  +NotEnoughtCardsInDeckError(message: String): NotEnoughtCardsInDeckError
+class NotEnoughCardsInDeckError {
+  +NotEnoughCardsInDeckError(message: String): NotEnoughCardsInDeckError
 }
 
 class InvalidCardAmountError {
@@ -64,7 +64,7 @@ Validate6SpecialCards ..> NotEnoughSpecialsCardsError : throws
 Validate15UnitsCards ..> NotEnoughUnitsCardsError : throws
 
 Deck ..> InvalidCardAmountError : throws
-Deck ..> NotEnoughtCardsInDeckError : throws
+Deck ..> NotEnoughCardsInDeckError : throws
 Deck ..> NotEnoughSpecialsCardsError : throws
 Deck ..> NotEnoughUnitsCardsError : throws
 
@@ -75,7 +75,7 @@ CardCollection ..> TheCardWasNotFound : throws
 ' Error inheritance
 InvalidCardAmountError --|> RuntimeException
 NotEnoughSpecialsCardsError --|> RuntimeException
-NotEnoughtCardsInDeckError --|> RuntimeException
+NotEnoughCardsInDeckError --|> RuntimeException
 NotEnoughUnitsCardsError --|> RuntimeException
 TheCardWasNotFound --|> RuntimeException
 
