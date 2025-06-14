@@ -25,20 +25,19 @@ TestCase -> row: placeCard(unit)
                     activate otherUnits
                     otherUnits --> tightBond: true
                     deactivate otherUnits
-                    tightBond -> otherUnits: calculatePoints()
-                        activate otherUnits
-                        otherUnits --> tightBond: points
-                        deactivate otherUnits
             end
 
-            loop For each card in row
-                tightBond -> otherUnits: haveModifier(TightBond)
+            loop For each unit with TightBond
+                tightBond -> otherUnits: calculatePoints()
                     activate otherUnits
-                    otherUnits --> tightBond: true
+                    otherUnits --> tightBond: points
                     deactivate otherUnits
-                    tightBond -> otherUnits: setPoints(newCardPoints * tightBondCount)
-                        activate otherUnits
-                        deactivate otherUnits
+            end
+
+            loop For each unit with TightBond
+                tightBond -> otherUnits: setPoints(newCardPoints * tightBondUnits.size())
+                    activate otherUnits
+                    deactivate otherUnits
             end
             deactivate tightBond
         deactivate tightBondUnit
