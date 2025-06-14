@@ -1,13 +1,10 @@
 package edu.fiuba.algo3.modelo;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class DiscardPile extends CardCollection {
-
-    public DiscardPile() {
-        super(new ArrayList<>());
-    }
 
     @Override
     public void addCard(Card card) {
@@ -28,5 +25,9 @@ public class DiscardPile extends CardCollection {
             throw new IllegalStateException("Cannot get last card from empty discard pile");
         }
         return cards.get(cards.size() - 1);
+    }
+
+    public void insertCards(List<Card> cards) {
+        this.cards = cards;
     }
 }

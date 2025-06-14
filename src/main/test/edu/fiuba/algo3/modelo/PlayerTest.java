@@ -54,7 +54,8 @@ public class PlayerTest {
         cards.addAll(specialCards);
         
         // Initialize game components
-        deck = new Deck(cards);
+        deck = new Deck();
+        deck.insertCards(cards);
         closeCombat = new CloseCombat();
         ranged = new Ranged();
         siege = new Siege();
@@ -173,7 +174,7 @@ public class PlayerTest {
     @Test
     public void testGetHand() {
         //ARRANGE
-        Hand expectedHand = new Hand(new ArrayList<>());
+        Hand expectedHand = new Hand();
         
         //ACT
         Hand actualHand = player.getHand();

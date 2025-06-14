@@ -6,8 +6,9 @@ import java.util.Collections;
 import java.util.List;
 
 public class Deck extends CardCollection {
-    public Deck(List<Card> cards) {
-        super(cards);
+
+    public void insertCards(List<Card> cards) {
+        this.cards = cards;
         List<DeckValidator> validators = Arrays.asList(
                 new Validate6SpecialCards(),
                 new Validate15UnitsCards()
@@ -19,10 +20,6 @@ public class Deck extends CardCollection {
         for (DeckValidator deckV : validators) {
             deckV.validate(cards);
         }
-    }
-
-    public int getCardCount() {
-        return cards.size();
     }
 
     public long getUnitsCount() {

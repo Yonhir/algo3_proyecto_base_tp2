@@ -1,14 +1,14 @@
 package edu.fiuba.algo3.modelo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class CardCollection {
     protected List<Card> cards;
 
-    public CardCollection(List<Card> cards) {
-        this.cards = cards;
+    public CardCollection() {
+        this.cards = new ArrayList<>();
     }
-
     public void addCard(Card card) {
         this.cards.add(card);
     }
@@ -36,4 +36,6 @@ public abstract class CardCollection {
         }
         throw new TheCardWasNotFound("The card is not in the deck");  
     }
+
+    public abstract void insertCards(List<Card> cards);
 }
