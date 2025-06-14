@@ -27,7 +27,7 @@ public class Deck extends CardCollection {
 
     public List<Card> retrieveNRandomCards(int n){
         if(cards.size() < n){
-            throw new NotEnoughtCardsInDeckError("Deck without enough cards");
+            throw new NotEnoughCardsInDeckError("Deck without enough cards");
         }
         if(n <= 0){
             throw new InvalidCardAmountError("Invalid number of cards requested, must be greater than zero");
