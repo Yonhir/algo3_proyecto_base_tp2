@@ -96,7 +96,7 @@ public class RowTest {
         Weather niebla = new ImpenetrableFog("Niebla Impenetrable", "Reduce la fuerza de las unidades a 1");
 
         ranged.placeCard(arquero);
-        ranged.addWeather(niebla);
+        ranged.applyWeather(niebla);
 
         assertEquals(1, arquero.calculatePoints());
     }

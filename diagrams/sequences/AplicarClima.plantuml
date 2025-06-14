@@ -17,10 +17,10 @@ TestCase -> specialZone: placeCard(weather)
         deactivate weather
     specialZone -> weather: play(specialZone)
         activate weather
-        weather -> specialZone: addCloseCombatWeather(weather)
+        weather -> specialZone: applyCloseCombatWeather(weather)
             activate specialZone
             loop for each closeCombat row
-                specialZone -> row: addWeather(weather)
+                specialZone -> row: applyWeather(weather)
                     activate row
                     loop for each unit in row
                         row -> weather: apply(unit, row)

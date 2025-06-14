@@ -28,7 +28,7 @@ public abstract class Row implements Section {
         currentWeather.apply(card, this);
     }
 
-    public void addWeather(Weather weather) {
+    public void applyWeather(Weather weather) {
         this.currentWeather = weather;
         for (Card card : cards) {
             currentWeather.apply(card, this);

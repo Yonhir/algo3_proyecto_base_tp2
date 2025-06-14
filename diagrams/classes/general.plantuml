@@ -90,7 +90,7 @@ abstract class Row <<abstract>> {
   +Row(sectionType: SectionType): Row
   +placeCard(card: Card): void
   +addCard(card: Card): void
-  +addWeather(weather: Weather): void
+  +applyWeather(weather: Weather): void
   +calculatePoints(): int
   +discardCards(discardPile: DiscardPile): void
   +getCards(): List<Card>
@@ -116,9 +116,9 @@ class SpecialZone {
   +SpecialZone(closeCombatRows: List<Row>, rangedRows: List<Row>, siegeRows: List<Row>)
   +placeCard(card: Card): void
   +addCard(card: Card): void
-  +addCloseCombatWeather(weather: Weather): void
-  +addRangedWeather(weather: Weather): void
-  +addSiegeWeather(weather: Weather): void
+  +applyCloseCombatWeather(weather: Weather): void
+  +applyRangedWeather(weather: Weather): void
+  +applySiegeWeather(weather: Weather): void
 }
 
 ' =====================
@@ -161,10 +161,9 @@ class Agil {
 }
 
 abstract class Weather <<abstract>> {
-  +Weather(name: String, description: String, sectionType: SectionType): Weather
+  +verifySectionType(sectionType: SectionType): void
   +play(section: Section): void
   +apply(card: Card, row: Row): void
-  +verifySectionType(sectionType: SectionType): void
 }
 
 class TorrentialRain {

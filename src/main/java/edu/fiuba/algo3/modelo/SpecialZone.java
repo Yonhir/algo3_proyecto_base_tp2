@@ -21,21 +21,21 @@ public class SpecialZone implements Section {
         card.play(this);
     }
 
-    public void addCloseCombatWeather(Weather weather) {
+    public void applyCloseCombatWeather(Weather weather) {
         for (Row row : closeCombatRows) {
-            row.addWeather(weather);
+            row.applyWeather(weather);
         }
     }
 
-    public void addRangedWeather(Weather weather) {
+    public void applyRangedWeather(Weather weather) {
         for (Row row : rangedRows) {
-            row.addWeather(weather);
+            row.applyWeather(weather);
         }
     }
 
-    public void addSiegeWeather(Weather weather) {
+    public void applySiegeWeather(Weather weather) {
         for (Row row : siegeRows) {
-            row.addWeather(weather);
+            row.applyWeather(weather);
         }
     }
 } 

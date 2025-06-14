@@ -10,9 +10,9 @@ public class ClearWeather extends Weather {
     @Override
     public void play(Section section) {
         SpecialZone specialZone = (SpecialZone) section;
-        specialZone.addCloseCombatWeather(this);
-        specialZone.addRangedWeather(this);
-        specialZone.addSiegeWeather(this);
+        specialZone.applyCloseCombatWeather(this);
+        specialZone.applyRangedWeather(this);
+        specialZone.applySiegeWeather(this);
     }
 
     @Override

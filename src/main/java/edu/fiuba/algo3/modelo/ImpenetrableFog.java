@@ -12,7 +12,7 @@ public class ImpenetrableFog extends Weather {
     @Override
     public void play(Section section) {
         SpecialZone specialZone = (SpecialZone) section;
-        specialZone.addRangedWeather(this);
+        specialZone.applyRangedWeather(this);
     }
 
     @Override
