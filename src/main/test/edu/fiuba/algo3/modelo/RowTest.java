@@ -56,7 +56,7 @@ public class RowTest {
 
     @Test
     public void testUnidadAgilPuedeSerColocadaEnFilaRanged() {
-        Modifier agil = new Agil();
+        Modifier agil = new Agile();
         Unit unitConAgil = new Unit("ágil", "puede ir a melee o rango", 6, true, true, false, List.of(agil));
         Row ranged = new Ranged();
 
@@ -67,7 +67,7 @@ public class RowTest {
 
     @Test
     public void testUnidadAgilPuedeSerColocadaEnFilaCloseCombat() {
-        Modifier agil = new Agil();
+        Modifier agil = new Agile();
         Unit unitConAgil = new Unit("ágil", "puede ir a melee o rango", 6, true, true, false, List.of(agil));
         Row closeCombat = new CloseCombat();
 

@@ -75,7 +75,7 @@ public class HandTest {
             deck.retrieveCard(card);
         }
 
-        assertThrows(NotEnoughtCardsInDeckError.class, () -> {
+        assertThrows(NotEnoughCardsInDeckError.class, () -> {
             hand.getNCardsFromDeck(deck,10);
         });
     }
@@ -86,7 +86,7 @@ public class HandTest {
         deck.insertCards(cards.subList(0, 8));
         Hand hand = new Hand();
 
-        assertThrows(NotEnoughtCardsInDeckError.class, () -> {
+        assertThrows(NotEnoughCardsInDeckError.class, () -> {
             hand.getNCardsFromDeck(deck,10);
         });
     }
