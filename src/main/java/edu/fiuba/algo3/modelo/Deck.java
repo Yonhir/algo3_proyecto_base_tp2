@@ -6,19 +6,14 @@ import java.util.Collections;
 import java.util.List;
 
 public class Deck extends CardCollection {
-    @Override
-    public void insertCards(List<Card> cards) {
-        this.cards = cards;
-        List<DeckValidator> validators = Arrays.asList(
-                new Validate6SpecialCards(),
-                new Validate15UnitsCards()
-        );
-        validate(validators);
-    }
 
-    private void validate(List<DeckValidator> validators) {
+    public void validate() {
+        List<DeckValidator> validators = Arrays.asList(
+                new Validate15UnitsCards(),
+                new Validate6SpecialCards()
+        );
         for (DeckValidator deckV : validators) {
-            deckV.validate(cards);
+            deckV.validate(this.cards);
         }
     }
 
