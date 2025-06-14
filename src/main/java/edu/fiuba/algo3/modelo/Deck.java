@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class Deck extends CardCollection {
-
+    @Override
     public void insertCards(List<Card> cards) {
         this.cards = cards;
         List<DeckValidator> validators = Arrays.asList(

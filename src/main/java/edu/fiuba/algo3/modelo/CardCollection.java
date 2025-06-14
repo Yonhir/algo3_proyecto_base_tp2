@@ -13,7 +13,7 @@ public abstract class CardCollection {
         this.cards.add(card);
     }
 
-    public void addCards(List<Card> cards) {
+    public void insertCards(List<Card> cards) {
         this.cards.addAll(cards);
     }
 
@@ -29,13 +29,9 @@ public abstract class CardCollection {
         return cards.isEmpty();
     }
 
-    public Card retrieveCard(Card card){
-        if (cards.contains(card)) {
-            cards.remove(card);
-            return card;
+    public void retrieveCard(Card card){
+        if (!cards.remove(card)) {
+            throw new TheCardWasNotFound("The card is not in the deck");
         }
-        throw new TheCardWasNotFound("The card is not in the deck");  
     }
-
-    public abstract void insertCards(List<Card> cards);
 }

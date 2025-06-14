@@ -14,20 +14,10 @@ public class DiscardPile extends CardCollection {
         super.addCard(card);
     }
 
-    public void addCards(List<Card> cards) {
-        for (Card card : cards) {
-            addCard(card);
-        }
-    }
-
     public Card getLastCard() {
         if (cards.isEmpty()) {
             throw new IllegalStateException("Cannot get last card from empty discard pile");
         }
         return cards.get(cards.size() - 1);
-    }
-
-    public void insertCards(List<Card> cards) {
-        this.cards = cards;
     }
 }
