@@ -30,17 +30,17 @@ interface CardTarget <<interface>> {
 
 abstract class CardCollection <<abstract>> {
   #cards: List<Card>
-  +CardCollection(cards: List<Card>): CardCollection
+  +CardCollection(): CardCollection
   +getCards(): List<Card>
   +addCard(card: Card): void
-  +addCards(cards: List<Card>): void
+  +insertCards(cards: List<Card>): void
   +retrieveCard(card: Card): Card
   +getCardCount(): int
   +isEmpty(): boolean
 }
 
 class Hand {
-  +Hand(cards: List<Card>): Hand
+  +Hand(): Hand
   +getNCardsFromDeck(deck: Deck, n: int): void
 }
 
@@ -48,15 +48,13 @@ class DiscardPile {
   +DiscardPile(): DiscardPile
   +getLastCard(): Card
   +addCard(card: Card): void
-  +addCards(cards: List<Card>): void
 }
 
 class Deck {
-  +Deck(cards: List<Card>): Deck
-  +getCardCount(): int
+  +Deck(): Deck
   +getUnitsCount(): long
   +getSpecialsCount(): long
-  -validate(validators: List<DeckValidator>): void
+  -validate(): void
   +retrieveNRandomCards(n: int): List<Card>
 }
 
@@ -75,8 +73,6 @@ class Validate15UnitsCards {
 abstract class Row <<abstract>> {
   #cards: List<Card>
   #currentWeather: Weather
-  +placeCard(card: Card): void
-  +addCard(card: Card): void
   +calculatePoints(): int
   +discardCards(discardPile: DiscardPile): void
   +addWeather(weather: Weather): void
@@ -101,21 +97,17 @@ class SpecialZone {
   -rangedRows: List<Row>
   -siegeRows: List<Row>
   +SpecialZone(closeCombatRows: List<Row>, rangedRows: List<Row>, siegeRows: List<Row>): SpecialZone
-  +placeCard(card: Card): void
-  +addCard(card: Card): void
   +addCloseCombatWeather(weather: Weather): void
   +addRangedWeather(weather: Weather): void
   +addSiegeWeather(weather: Weather): void
 }
 
 abstract class Card <<abstract>> {
-  #name: String
-  #description: String
+  -name: String
+  -description: String
   +Card(name: String, description: String): Card
-  +getName(): String
-  +getDescription(): String
-  +play(target: CardTarget): void
-  +canBePlaced(target: CardTarget): boolean
+  +play(target : CardTarget): void
+  +canBePlaced(target : CardTarget): boolean
 }
 
 class Unit {
@@ -127,10 +119,11 @@ class Unit {
   -canBeInSiege: boolean
   +Unit(name: String, description: String, points: int, closeCombat: boolean, ranged: boolean, siege: boolean, modifiers: List<Modifier>): Unit
   +calculatePoints(): int
-  +play(target: CardTarget): void
+  +play(target : CardTarget): void
   +resetPoints(): void
   +setPoints(points: int): void
   +haveModifier(modifier: Modifier): boolean
+  +canBePlaced(target : CardTarget): boolean
   +canBeInCloseCombat(): boolean
   +canBeInRanged(): boolean
   +canBeInSiege(): boolean
@@ -147,15 +140,15 @@ interface Modifier <<interface>> {
 class TightBond {
 }
 
-class Agil {
+class Agile {
 }
 
 abstract class Weather <<abstract>> {
   +Weather(name: String, description: String): Weather
-  +play(target: CardTarget): void
-  +apply(card: Card, row: Row): void
-  +addToSpecialZone(specialZone: SpecialZone): void
-  +canBePlaced(target: CardTarget): boolean
+  +play(target : CardTarget): void
+  +canBePlaced(target : CardTarget): boolean
+  +{abstract}apply(card: Card, row: Row): void
+  +{abstract}addToSpecialZone(specialZone : SpecialZone) : void
 }
 
 class TorrentialRain {
@@ -187,8 +180,8 @@ class NotEnoughSpecialsCardsError {
   +NotEnoughSpecialsCardsError(message: String): NotEnoughSpecialsCardsError
 }
 
-class NotEnoughtCardsInDeckError {
-  +NotEnoughtCardsInDeckError(message: String): NotEnoughtCardsInDeckError
+class NotEnoughCardsInDeckError {
+  +NotEnoughCardsInDeckError(message: String): NotEnoughCardsInDeckError
 }
 
 class NotEnoughUnitsCardsError {
@@ -227,7 +220,7 @@ Card <|-- Special
 Unit --> "*" Modifier
 
 Modifier <|.. TightBond
-Modifier <|.. Agil
+Modifier <|.. Agile
 
 Special <|-- Weather
 
@@ -242,7 +235,7 @@ DeckValidator <|.. Validate15UnitsCards
 ' Exception relationships
 InvalidCardAmountError --|> RuntimeException
 NotEnoughSpecialsCardsError --|> RuntimeException
-NotEnoughtCardsInDeckError --|> RuntimeException
+NotEnoughCardsInDeckError --|> RuntimeException
 NotEnoughUnitsCardsError --|> RuntimeException
 TheCardWasNotFound --|> RuntimeException
 

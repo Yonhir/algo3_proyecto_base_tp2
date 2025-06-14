@@ -17,7 +17,7 @@ public class Player {
         this.name = name;
         this.health = health;
         discardPile = new DiscardPile();
-        hand = new Hand(new ArrayList<>());
+        hand = new Hand();
         this.deck = deck;
         this.specialZone = specialZone;
         this.closeCombat = closeCombat;

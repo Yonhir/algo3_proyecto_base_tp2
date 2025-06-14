@@ -6,23 +6,15 @@ import java.util.Collections;
 import java.util.List;
 
 public class Deck extends CardCollection {
-    public Deck(List<Card> cards) {
-        super(cards);
+
+    public void validate() {
         List<DeckValidator> validators = Arrays.asList(
-                new Validate6SpecialCards(),
-                new Validate15UnitsCards()
+                new Validate15UnitsCards(),
+                new Validate6SpecialCards()
         );
-        validate(validators);
-    }
-
-    private void validate(List<DeckValidator> validators) {
         for (DeckValidator deckV : validators) {
-            deckV.validate(cards);
+            deckV.validate(this.cards);
         }
-    }
-
-    public int getCardCount() {
-        return cards.size();
     }
 
     public long getUnitsCount() {
@@ -35,7 +27,7 @@ public class Deck extends CardCollection {
 
     public List<Card> retrieveNRandomCards(int n){
         if(cards.size() < n){
-            throw new NotEnoughtCardsInDeckError("Deck without enough cards");
+            throw new NotEnoughCardsInDeckError("Deck without enough cards");
         }
         if(n <= 0){
             throw new InvalidCardAmountError("Invalid number of cards requested, must be greater than zero");
