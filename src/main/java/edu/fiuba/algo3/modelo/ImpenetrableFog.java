@@ -10,12 +10,9 @@ public class ImpenetrableFog extends Weather {
     }
 
     @Override
-    public void play(Section target) {
-        if (target instanceof SpecialZone) {
-            ((SpecialZone) target).addRangedWeather(this);
-        } else {
-            throw new IllegalArgumentException("ImpenetrableFog can only be placed in a SpecialZone");
-        }
+    public void play(Section section) {
+        SpecialZone specialZone = (SpecialZone) section;
+        specialZone.addRangedWeather(this);
     }
 
     @Override

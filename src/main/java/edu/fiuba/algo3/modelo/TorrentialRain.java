@@ -10,12 +10,9 @@ public class TorrentialRain extends Weather {
     }
 
     @Override
-    public void play(Section target) {
-        if (target instanceof SpecialZone) {
-            ((SpecialZone) target).addSiegeWeather(this);
-        } else {
-            throw new IllegalArgumentException("TorrentialRain can only be placed in a SpecialZone");
-        }
+    public void play(Section section) {
+        SpecialZone specialZone = (SpecialZone) section;
+        specialZone.addSiegeWeather(this);
     }
 
     @Override

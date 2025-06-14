@@ -10,12 +10,9 @@ public class BitingFrost extends Weather {
     }
 
     @Override
-    public void play(Section target) {
-        if (target instanceof SpecialZone) {
-            ((SpecialZone) target).addCloseCombatWeather(this);
-        } else {
-            throw new IllegalArgumentException("BitingFrost can only be placed in a SpecialZone");
-        }
+    public void play(Section section) {
+        SpecialZone specialZone = (SpecialZone) section;
+        specialZone.addCloseCombatWeather(this);
     }
 
     @Override
