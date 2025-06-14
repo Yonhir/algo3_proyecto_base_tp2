@@ -40,24 +40,24 @@ public class TightBondTest {
 
         catapult1 = new Unit(
             "Catapult", "Siege unit", 8,
-            false, false, true,
+            new SiegeType(),
             modifiers1
         );
         catapult2 = new Unit(
             "Catapult", "Siege unit", 8,
-            false, false, true,
+            new SiegeType(),
             modifiers2
         );
         catapult3 = new Unit(
             "Catapult", "Siege unit", 8,
-            false, false, true,
+            new SiegeType(),
             modifiers3
         );
 
         // Create a regular unit without TightBond modifier
         regularUnit = new Unit(
             "Regular Unit", "Regular unit", 6,
-            false, false, true,
+            new SiegeType(),
             new ArrayList<>()
         );
     }

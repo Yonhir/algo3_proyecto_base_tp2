@@ -12,30 +12,42 @@ public class DiscardPileTest {
     private DiscardPile discardPile;
     private Unit unit1;
     private Unit unit2;
+    private List<Card> closeCombatUnits;
+    private List<Card> rangedUnits;
+    private List<Card> siegeUnits;
     private List<Card> cards;
+
 
     @BeforeEach
     void setUp() {
         discardPile = new DiscardPile();
-        unit1 = new Unit("Unit1", "Description1", 5, true, false, false, new ArrayList<>());
-        unit2 = new Unit("Unit2", "Description2", 7, false, true, false, new ArrayList<>());
-        cards = Arrays.asList(
-            new Unit("Nombre", "Descripcion", 4, true, false, false, new ArrayList<>()),
-            new Unit("Nombre", "Descripcion", 5, true, false, false, new ArrayList<>()),
-            new Unit("Nombre", "Descripcion", 6, false, true, false, new ArrayList<>()),
-            new Unit("Nombre", "Descripcion", 3, false, false, true, new ArrayList<>()),
-            new Unit("Nombre", "Descripcion", 2, true, false, false, new ArrayList<>()),
-            new Unit("Nombre", "Descripcion", 0, false, false, true, new ArrayList<>()),
-            new Unit("Nombre", "Descripcion", 6, false, false, true, new ArrayList<>()),
-            new Unit("Nombre", "Descripcion", 8, false, true, false, new ArrayList<>()),
-            new Unit("Nombre", "Descripcion", 0, false, true, false, new ArrayList<>()),
-            new Unit("Nombre", "Descripcion", 10, true, false, false, new ArrayList<>()),
-            new Unit("Nombre", "Descripcion", 2, false, true, false, new ArrayList<>()),
-            new Unit("Nombre", "Descripcion", 4, false, false, true, new ArrayList<>()),
-            new Unit("Nombre", "Descripcion", 8, false, false, true, new ArrayList<>()),
-            new Unit("Nombre", "Descripcion", 3, true, false, false, new ArrayList<>()),
-            new Unit("Nombre", "Descripcion", 4, false, true, false, new ArrayList<>())
+        unit1 = new Unit("Unit1", "Description1", 5, List.of(new CloseCombatType()), new ArrayList<>());
+        unit2 = new Unit("Unit2", "Description2", 7, List.of(new RangedType()), new ArrayList<>());
+        closeCombatUnits = Arrays.asList(
+            new Unit("Nombre", "Descripcion", 4, List.of(new CloseCombatType()), new ArrayList<>()),
+            new Unit("Nombre", "Descripcion", 5, List.of(new CloseCombatType()), new ArrayList<>()),
+            new Unit("Nombre", "Descripcion", 2, List.of(new CloseCombatType()), new ArrayList<>()),
+            new Unit("Nombre", "Descripcion", 10, List.of(new CloseCombatType()), new ArrayList<>()),
+            new Unit("Nombre", "Descripcion", 3, List.of(new CloseCombatType()), new ArrayList<>())
         );
+        rangedUnits = Arrays.asList(
+            new Unit("Nombre", "Descripcion", 6, List.of(new RangedType()), new ArrayList<>()),
+            new Unit("Nombre", "Descripcion", 8, List.of(new RangedType()), new ArrayList<>()),
+            new Unit("Nombre", "Descripcion", 0, List.of(new RangedType()), new ArrayList<>()),
+            new Unit("Nombre", "Descripcion", 2, List.of(new RangedType()), new ArrayList<>()),
+            new Unit("Nombre", "Descripcion", 4, List.of(new RangedType()), new ArrayList<>())
+        );
+        siegeUnits = Arrays.asList(
+            new Unit("Nombre", "Descripcion", 3, List.of(new SiegeType()), new ArrayList<>()),
+            new Unit("Nombre", "Descripcion", 0, List.of(new SiegeType()), new ArrayList<>()),
+            new Unit("Nombre", "Descripcion", 6, List.of(new SiegeType()), new ArrayList<>()),
+            new Unit("Nombre", "Descripcion", 4, List.of(new SiegeType()), new ArrayList<>()),
+            new Unit("Nombre", "Descripcion", 8, List.of(new SiegeType()), new ArrayList<>())
+        );
+        cards = new ArrayList<>();
+        cards.addAll(closeCombatUnits);
+        cards.addAll(rangedUnits);
+        cards.addAll(siegeUnits);
     }
 
     @Test
@@ -85,10 +97,14 @@ public class DiscardPileTest {
         Row closeCombat = new CloseCombat();
         Row siege = new Siege();
 
-        for (Card card : cards) {
-            if(card.canBePlaced(ranged)) ranged.placeCard(card);
-            if (card.canBePlaced(closeCombat)) closeCombat.placeCard(card);
-            if (card.canBePlaced(siege)) siege.placeCard(card);
+        for (Card card : closeCombatUnits) {
+            closeCombat.placeCard(card);
+        }
+        for (Card card : rangedUnits) {
+            ranged.placeCard(card);
+        }
+        for (Card card : siegeUnits) {
+            siege.placeCard(card);
         }
 
         siege.discardCards(discardPile);

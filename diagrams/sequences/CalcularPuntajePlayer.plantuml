@@ -10,18 +10,20 @@ participant ":Row" as row
 participant ":Unit" as unit
 
 TestCase -> player : calculatePoints()
-
-loop For each row
-    player -> row : calculatePoints()
-    
-    loop For each card in the row
-        row -> unit : calculatePoints()
-        unit --> row : currentPoints
+    activate player
+    loop For each row
+        player -> row : calculatePoints()
+            activate row
+            loop For each card in row
+                row -> unit : calculatePoints()
+                    activate unit
+                    unit --> row : currentPoints
+                    deactivate unit
+            end
+            row --> player : totalPoints
+            deactivate row
     end
-    
-    row --> player : totalPoints
-end
-
-player --> TestCase : totalPoints
+    player --> TestCase : totalPoints
+    deactivate player
 
 @enduml

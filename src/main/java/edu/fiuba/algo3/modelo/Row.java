@@ -3,20 +3,19 @@ package edu.fiuba.algo3.modelo;
 import java.util.ArrayList;
 import java.util.List;
 
-
-public abstract class Row implements CardTarget {
+public abstract class Row implements Section {
     protected List<Card> cards = new ArrayList<>();
     protected Weather currentWeather;
+    protected SectionType sectionType;
 
-    public Row() {
+    protected Row(SectionType sectionType) {
         this.currentWeather = new ClearWeather("Clima Despejado", "Elimina todos los efectos de clima");
+        this.sectionType = sectionType;
     }
 
     @Override
     public void placeCard(Card card) {
-        if (!card.canBePlaced(this)) {
-            throw new IllegalArgumentException("La carta no puede colocarse en esta fila.");
-        }
+        card.verifySectionType(this.sectionType);
         card.play(this);
     }
 
@@ -24,17 +23,12 @@ public abstract class Row implements CardTarget {
         return cards;
     }
 
-    public boolean canBePlacedIn(Unit unit) {
-        return false;
-    }
-
-    @Override
     public void addCard(Card card) {
         cards.add(card);
         currentWeather.apply(card, this);
     }
 
-    public void addWeather(Weather weather) {
+    public void applyWeather(Weather weather) {
         this.currentWeather = weather;
         for (Card card : cards) {
             currentWeather.apply(card, this);

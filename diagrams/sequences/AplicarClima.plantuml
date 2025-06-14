@@ -5,42 +5,31 @@ title Aplicación del clima BitingFrost a las filas de combate cercano
 
 actor TestCase
 
-participant "specialZone:SpecialZone" as SpecialZone
-participant "bitingFrost:BitingFrost" as Weather
-participant "closeCombatRow:CloseCombat" as Row
-participant "unit:Unit" as Unit
+participant "specialZone:SpecialZone" as specialZone
+participant "bitingFrost:BitingFrost" as weather
+participant "closeCombatRow:CloseCombat" as row
+participant "unit:Unit" as unit
 
-TestCase -> SpecialZone: placeCard(bitingFrost)
-activate SpecialZone
-
-SpecialZone -> Weather: canBePlaced(this)
-activate Weather
-Weather --> SpecialZone: true
-deactivate Weather
-
-SpecialZone -> Weather: play(this)
-activate Weather
-
-Weather -> SpecialZone: addCard(this)
-
-SpecialZone -> Weather: addToSpecialZone(this)
-Weather -> SpecialZone: addCloseCombatWeather(this)
-
-loop for each closeCombat row
-    SpecialZone -> Row: addWeather(this)
-    activate Row
-    
-    loop for each unit in row
-        Row -> Unit: apply(this, row)
-        activate Unit
-        Unit -> Unit: setPoints(1)
-        deactivate Unit
-    end
-    
-    deactivate Row
-end
-
-deactivate Weather
-deactivate SpecialZone
+TestCase -> specialZone: placeCard(weather)
+    activate specialZone
+    specialZone -> weather: verifySectionType(sectionType)
+        activate weather
+        deactivate weather
+    specialZone -> weather: play(specialZone)
+        activate weather
+        weather -> specialZone: applyCloseCombatWeather(weather)
+            activate specialZone
+            loop for each closeCombat row
+                specialZone -> row: applyWeather(weather)
+                    activate row
+                    loop for each unit in row
+                        row -> weather: apply(unit, row)
+                            weather -> unit: setPoints(1)
+                    end
+                    deactivate row
+            end
+            deactivate specialZone
+        deactivate weather
+    deactivate specialZone
 
 @enduml 
