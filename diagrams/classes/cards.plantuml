@@ -75,6 +75,11 @@ Card <|-- Special
 
 Card --> "*" SectionType
 
+SectionType <|-- CloseCombatType
+SectionType <|-- RangedType
+SectionType <|-- SiegeType
+SectionType <|-- SpecialType
+
 Unit --> "*" Modifier
 
 Modifier <|.. TightBond
