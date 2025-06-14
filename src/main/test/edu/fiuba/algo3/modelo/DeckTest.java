@@ -86,10 +86,10 @@ public class DeckTest {
         cartas.addAll(unidades.subList(5, 15));
         cartas.addAll(especiales);
 
-        assertThrows(NotEnoughUnitsCardsError.class, () -> {
-            Deck mazo = new Deck();
-            mazo.insertCards(cartas);
-        });
+        Deck mazo = new Deck();
+        mazo.insertCards(cartas);
+
+        assertThrows(NotEnoughUnitsCardsError.class, mazo::validate);
     }
 
     @Test
@@ -97,10 +97,10 @@ public class DeckTest {
         cartas.addAll(especiales.subList(3, 6));
         cartas.addAll(unidades);
 
-        assertThrows(NotEnoughSpecialsCardsError.class, () -> {
-            Deck mazo = new Deck();
-            mazo.insertCards(cartas);
-        });
+        Deck mazo = new Deck();
+        mazo.insertCards(cartas);
+
+        assertThrows(NotEnoughSpecialsCardsError.class, mazo::validate);
     }
 
     @Test
@@ -113,7 +113,7 @@ public class DeckTest {
 
         List<Card> cards = mazo.retrieveNRandomCards(5);
 
-        assertEquals(cards.size(), cartasEsperadas);
+        assertEquals(cartasEsperadas, cards.size());
     }
 
     @Test
@@ -126,7 +126,7 @@ public class DeckTest {
 
         mazo.retrieveNRandomCards(6);
 
-        assertEquals(mazo.getCardCount(), cartasEsperadas);
+        assertEquals(cartasEsperadas, mazo.getCardCount());
     }
 
     @Test
