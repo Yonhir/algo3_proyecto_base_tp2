@@ -8,14 +8,14 @@ public class ClearWeather extends Weather {
     }
 
     @Override
-    public void play(Section target) {
-        if (target instanceof SpecialZone) {
-            SpecialZone specialZone = (SpecialZone) target;
+    public void play(Section section) {
+        if (section instanceof SpecialZone) {
+            SpecialZone specialZone = (SpecialZone) section;
             specialZone.addCloseCombatWeather(this);
             specialZone.addRangedWeather(this);
             specialZone.addSiegeWeather(this);
         } else {
-            throw new IllegalArgumentException("ClearWeather can only be placed in a SpecialZone");
+            throw new SectionTypeMismatchError("ClearWeather can only be placed in a SpecialZone");
         }
     }
 

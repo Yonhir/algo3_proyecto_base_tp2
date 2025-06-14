@@ -229,4 +229,32 @@ public class WeatherTest {
         assertThrows(SectionTypeMismatchError.class, () -> closeCombatRow.placeCard(frostWeather),
             "Debería lanzar una excepción al intentar colocar clima en una fila normal");
     }
+
+    @Test
+    public void testClearWeatherCannotBePlacedInRow() {
+        // Act & Assert
+        assertThrows(SectionTypeMismatchError.class, () -> closeCombatRow.placeCard(clearWeather),
+            "Debería lanzar una excepción al intentar colocar ClearWeather en una fila normal");
+    }
+
+    @Test
+    public void testBitingFrostCannotBePlacedInRow() {
+        // Act & Assert
+        assertThrows(SectionTypeMismatchError.class, () -> closeCombatRow.placeCard(frostWeather),
+            "Debería lanzar una excepción al intentar colocar BitingFrost en una fila normal");
+    }
+
+    @Test
+    public void testImpenetrableFogCannotBePlacedInRow() {
+        // Act & Assert
+        assertThrows(SectionTypeMismatchError.class, () -> closeCombatRow.placeCard(fogWeather),
+            "Debería lanzar una excepción al intentar colocar ImpenetrableFog en una fila normal");
+    }
+
+    @Test
+    public void testTorrentialRainCannotBePlacedInRow() {
+        // Act & Assert
+        assertThrows(SectionTypeMismatchError.class, () -> closeCombatRow.placeCard(rainWeather),
+            "Debería lanzar una excepción al intentar colocar TorrentialRain en una fila normal");
+    }
 }

@@ -22,12 +22,10 @@ public class Unit extends Card {
     }
 
     public void play(Section section) {
-        if (section instanceof Row) {
-            Row row = (Row) section;
-            row.addCard(this);
-            for (Modifier modifier : modifiers) {
-                modifier.apply(row);
-            }
+        Row row = (Row) section;
+        row.addCard(this);
+        for (Modifier modifier : modifiers) {
+            modifier.apply(row);
         }
     }
 

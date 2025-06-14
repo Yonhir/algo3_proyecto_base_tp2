@@ -14,7 +14,7 @@ public abstract class Card {
         this.sectionTypes = sectionTypes;
     }
 
-    public void play(Section target) {
+    public void play(Section section) {
     }
 
     public void verifySectionType(SectionType sectionType) {

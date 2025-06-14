@@ -7,8 +7,5 @@ public abstract class Weather extends Special {
         super(name, description, sectionTypes);
     }
 
-    @Override
-    public void play(Section section) {}
-
     public abstract void apply(Card card, Row row);
 }
