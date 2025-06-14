@@ -83,13 +83,8 @@ public class HandTest {
     @Test
     public void testNoSePuedePedirMasCartasDeLasQueTieneElDeck(){
         Deck deck = new Deck();
-        deck.insertCards(cards);
+        deck.insertCards(cards.subList(0, 8));
         Hand hand = new Hand();
-
-        for (int i = 15; i >= 0; i--) {
-            Card card = cards.get(i);
-            deck.retrieveCard(card);
-        }
 
         assertThrows(NotEnoughtCardsInDeckError.class, () -> {
             hand.getNCardsFromDeck(deck,10);
