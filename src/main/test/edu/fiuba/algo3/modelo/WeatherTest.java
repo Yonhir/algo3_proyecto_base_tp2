@@ -35,25 +35,15 @@ public class WeatherTest {
         );
         
         // Initialize units
-        soldier = new Unit("soldado", "pelea de cerca", 10, true, false, false, List.of());
-        archer = new Unit("arquero", "tira flechas", 8, false, true, false, List.of());
-        catapult = new Unit("catapulta", "arma de asedio", 12, false, false, true, List.of());
+        soldier = new Unit("soldado", "pelea de cerca", 10, new CloseCombatType(), List.of());
+        archer = new Unit("arquero", "tira flechas", 8, new RangedType(), List.of());
+        catapult = new Unit("catapulta", "arma de asedio", 12, new SiegeType(), List.of());
         
         // Initialize weather cards
         frostWeather = new BitingFrost("Escarcha", "Reduce todas las unidades cuerpo a cuerpo a 1 punto");
         fogWeather = new ImpenetrableFog("Niebla", "Reduce todas las unidades a distancia a 1 punto");
         rainWeather = new TorrentialRain("Lluvia", "Reduce todas las unidades de asedio a 1 punto");
         clearWeather = new ClearWeather("Clima Despejado", "Elimina todos los efectos de clima");
-    }
-
-    @Test
-    public void testWeatherCanBePlacedInSpecialZone() {
-        assertTrue(frostWeather.canBePlaced(specialZone), "El clima debería poder ser colocado en la zona especial");
-    }
-
-    @Test
-    public void testWeatherCannotBePlacedInRegularRow() {
-        assertFalse(frostWeather.canBePlaced(closeCombatRow), "El clima no debería poder ser colocado en una fila normal");
     }
 
     @Test
@@ -236,7 +226,7 @@ public class WeatherTest {
     @Test
     public void testWeatherCannotBePlacedInInvalidTarget() {
         // Act
-        assertThrows(IllegalArgumentException.class, () -> closeCombatRow.placeCard(frostWeather),
+        assertThrows(SectionTypeMismatchError.class, () -> closeCombatRow.placeCard(frostWeather),
             "Debería lanzar una excepción al intentar colocar clima en una fila normal");
     }
 }

@@ -1,30 +1,22 @@
 package edu.fiuba.algo3.modelo;
 
+import java.util.List;
+
 public class ClearWeather extends Weather {
     public ClearWeather(String name, String description) {
-        super(name, description);
+        super(name, description, List.of(new SpecialType()));
     }
 
     @Override
-    public void play(CardTarget target) {
+    public void play(Section target) {
         if (target instanceof SpecialZone) {
             SpecialZone specialZone = (SpecialZone) target;
-            specialZone.addCard(this);
+            specialZone.addCloseCombatWeather(this);
+            specialZone.addRangedWeather(this);
+            specialZone.addSiegeWeather(this);
         } else {
-            throw new IllegalArgumentException("ClearWeather can only be placed in a WeatherZone");
+            throw new IllegalArgumentException("ClearWeather can only be placed in a SpecialZone");
         }
-    }
-
-    @Override
-    public void addToSpecialZone(SpecialZone specialZone) {
-        specialZone.addCloseCombatWeather(this);
-        specialZone.addRangedWeather(this);
-        specialZone.addSiegeWeather(this);
-    }
-
-    @Override
-    public boolean canBePlaced(CardTarget target) {
-        return target instanceof SpecialZone;
     }
 
     @Override
