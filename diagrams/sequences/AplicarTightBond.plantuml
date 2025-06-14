@@ -6,28 +6,42 @@ title Aplicación del modificador TightBond a las unidades en una fila
 actor TestCase
 
 participant ":Row" as row
-participant "tightBondUnit:Unit" as tightBondUnit
+participant "TightBondUnit:Unit" as tightBondUnit
 participant ":TightBond" as tightBond
-participant "otherUnit:Unit" as otherUnit
+participant ":Unit" as otherUnits
 
-TestCase -> row: placeCard(tightBondUnit)
-row -> tightBondUnit: play(this)
+TestCase -> row: placeCard(unit)
+    activate row
+    row -> tightBondUnit: play(row)
+        activate tightBondUnit
+        tightBondUnit -> row: addCard(tightBondUnit)
+        tightBondUnit -> tightBond: apply(row)
+            activate tightBond
+            tightBond -> row: getCards()
+            row --> tightBond: cards
 
-loop For each modifier
-    tightBondUnit -> tightBond : apply(row)
-    tightBond -> row : getCards()
-    row --> tightBond : cards
+            loop For each card in row
+                tightBond -> otherUnits: haveModifier(TightBond)
+                    activate otherUnits
+                    otherUnits --> tightBond: true
+                    deactivate otherUnits
+                    tightBond -> otherUnits: calculatePoints()
+                        activate otherUnits
+                        otherUnits --> tightBond: points
+                        deactivate otherUnits
+            end
 
-    loop For each card in row
-        tightBond -> otherUnit : haveModifier(this)
-        otherUnit --> tightBond : true
-        tightBond -> otherUnit : calculatePoints()
-        otherUnit --> tightBond : points
-    end
-
-    loop For each card with TightBond
-        tightBond -> otherUnit : setPoints(newCardPoints * tightBondCount)
-    end
-end
+            loop For each card in row
+                tightBond -> otherUnits: haveModifier(TightBond)
+                    activate otherUnits
+                    otherUnits --> tightBond: true
+                    deactivate otherUnits
+                    tightBond -> otherUnits: setPoints(newCardPoints * tightBondCount)
+                        activate otherUnits
+                        deactivate otherUnits
+            end
+            deactivate tightBond
+        deactivate tightBondUnit
+    deactivate row
 
 @enduml

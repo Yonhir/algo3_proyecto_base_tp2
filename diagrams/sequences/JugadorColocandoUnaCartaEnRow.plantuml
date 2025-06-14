@@ -3,14 +3,19 @@
 hide footbox
 title Jugador coloca una Unidad en un Row
 
-actor Jugador
+actor TestCase
+participant ":Row" as row
+participant ":Unit" as unit
 
-participant "Row (CloseCombat)" as row
-participant "Card (Unit)" as unit
+TestCase -> row : placeCard(unit)
+    activate row
+    row -> unit : verifySectionType(sectionType)
+        activate unit
+        deactivate unit
 
-Jugador -> row : placeCard(unit)
-row -> unit : verify(sectionType)
-
-row -> unit : play(row)
-unit -> row : addCard(unit)
+    row -> unit : play(row)
+        activate unit
+        unit -> row : addCard(unit)
+        deactivate unit
+    deactivate row
 @enduml

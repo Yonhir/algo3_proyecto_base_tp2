@@ -4,6 +4,9 @@ skinparam monochrome true
 hide circle
 skinparam classAttributeIconSize 0
 
+' Layout direction
+left to right direction
+
 ' =====================
 ' GAME
 ' =====================

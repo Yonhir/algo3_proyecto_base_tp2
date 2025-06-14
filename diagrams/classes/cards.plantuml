@@ -9,66 +9,29 @@ skinparam classAttributeIconSize 0
 ' =====================
 
 abstract class Card <<abstract>> {
-  -name: String
-  -description: String
-  +Card(name: String, description: String): Card
-  +getName(): String
-  +getDescription(): String
-  +play(row: Row): void
-  +canBePlaced(row: Row): boolean
+  #name: String
+  #description: String
+  #sectionTypes: List<SectionType>
+  +Card(name: String, description: String, sectionTypes: List<SectionType>): Card
+  +play(section: Section): void
+  +verifySectionType(sectionType: SectionType): void
 }
 
 class Unit {
   -basePoints: int
   -currentPoints: int
   -modifiers: List<Modifier>
-  -canBeInCloseCombat: boolean
-  -canBeInRanged: boolean
-  -canBeInSiege: boolean
-  +Unit(name: String, description: String, points: int, closeCombat: boolean, ranged: boolean, siege: boolean, modifiers: List<Modifier>): Unit
+  +Unit(name: String, description: String, points: int, sectionTypes: List<SectionType>, modifiers: List<Modifier>): Unit
   +calculatePoints(): int
-  +play(row: Row): void
   +resetPoints(): void
   +setPoints(points: int): void
   +haveModifier(modifier: Modifier): boolean
-  +canBeInCloseCombat(): boolean
-  +canBeInRanged(): boolean
-  +canBeInSiege(): boolean
+  +play(section: Section): void
+  +verifySectionType(sectionType: SectionType): void
 }
 
 abstract class Special <<abstract>> {
-  +play(row: Row): void
-  +canBePlaced(row: Row): boolean
-}
-
-abstract class Weather <<abstract>> {
-  +Weather(name: String, description: String): Weather
-  +play(row: Row): void
-  +apply(card: Card, row: Row): void
-}
-
-class TorrentialRain {
-  +TorrentialRain(name: String, description: String): TorrentialRain
-}
-
-class ImpenetrableFog {
-  +ImpenetrableFog(name: String, description: String): ImpenetrableFog
-}
-
-class BitingFrost {
-  +BitingFrost(name: String, description: String): BitingFrost
-}
-
-class Decoy {
-  +Decoy(name: String, description: String): Decoy
-}
-
-class TacticalAdvantage {
-  +TacticalAdvantage(name: String, description: String): TacticalAdvantage
-}
-
-class Scorch {
-  +Scorch(name: String, description: String): Scorch
+  +verifySectionType(sectionType: SectionType): void
 }
 
 interface Modifier <<interface>> {
@@ -81,6 +44,28 @@ class TightBond {
 class Agil {
 }
 
+abstract class Weather <<abstract>> {
+  +Weather(name: String, description: String, sectionType: SectionType): Weather
+  +play(section: Section): void
+  +apply(card: Card, row: Row): void
+  +verifySectionType(sectionType: SectionType): void
+}
+
+class TorrentialRain {
+  +TorrentialRain(name: String, description: String): TorrentialRain
+  +apply(card: Card, row: Row): void
+}
+
+class ImpenetrableFog {
+  +ImpenetrableFog(name: String, description: String): ImpenetrableFog
+  +apply(card: Card, row: Row): void
+}
+
+class BitingFrost {
+  +BitingFrost(name: String, description: String): BitingFrost
+  +apply(card: Card, row: Row): void
+}
+
 ' =====================
 ' RELATIONSHIPS
 ' =====================
@@ -88,15 +73,14 @@ class Agil {
 Card <|-- Unit
 Card <|-- Special
 
+Card --> "*" SectionType
+
 Unit --> "*" Modifier
 
 Modifier <|.. TightBond
 Modifier <|.. Agil
 
-Special <|-- Decoy
-Special <|-- TacticalAdvantage
-Special <|-- Scorch
-Special <|--- Weather
+Special <|-- Weather
 
 Weather <|-- TorrentialRain
 Weather <|-- ImpenetrableFog
