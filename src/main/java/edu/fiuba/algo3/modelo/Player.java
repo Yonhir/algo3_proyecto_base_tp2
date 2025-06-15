@@ -1,6 +1,8 @@
 package edu.fiuba.algo3.modelo;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class Player {
     private final String name;
@@ -36,5 +38,15 @@ public class Player {
     public int calculatePoints() {
         int points = closeCombat.calculatePoints() + ranged.calculatePoints() + siege.calculatePoints();
         return points;
+    }
+
+    public Card selectCard(List<Card> cards){
+        Scanner scanner = new Scanner(System.in);
+        for (int i = 0; i < cards.size(); i++) {
+            System.out.println(i + ": " + cards.get(i));
+        }
+        System.out.println("Seleccione una carta por indice:");
+        int index = scanner.nextInt();
+        return cards.get(index);
     }
 }
