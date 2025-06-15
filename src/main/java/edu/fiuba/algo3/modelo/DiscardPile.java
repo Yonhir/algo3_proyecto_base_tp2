@@ -29,4 +29,17 @@ public class DiscardPile extends CardCollection {
         }
         return cards.get(cards.size() - 1);
     }
+
+    public List<Card> getUnitCards(){
+        List<Card> unitCards = new ArrayList<>();
+        for (Card card: cards){
+            if (card instanceof Unit){
+                unitCards.add(card);
+            }
+        }
+        if (unitCards.isEmpty()) {
+            throw new IllegalStateException("No unit cards");
+        }
+        return unitCards;
+    }
 }
