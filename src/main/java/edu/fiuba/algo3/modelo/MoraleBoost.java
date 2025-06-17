@@ -9,8 +9,8 @@ public class MoraleBoost extends Special {
     private Ranged ranged;
     private Siege siege;
 
-    public MoraleBoost(Row... rows) {
-        super("Morale Boost", "Doubles the points of all units in Row.");
+    public MoraleBoost(String name, String description, Row... rows) {
+        super(name, description);
         this.rows = rows;
     }
 

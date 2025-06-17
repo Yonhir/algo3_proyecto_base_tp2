@@ -23,7 +23,7 @@ public class MoraleBoostTest {
 
         closeCombatOpponent = new CloseCombat();
 
-        moraleBoost = new MoraleBoost(closeCombat, ranged, siege);
+        moraleBoost = new MoraleBoost("MoraleBoost", "X2", closeCombat, ranged, siege);
 
         closeCombat.addCard(new Unit("Nombre", "Descripcion", 4, true, false, false, new ArrayList<>()));
         closeCombat.addCard(new Unit("Nombre", "Descripcion", 4, true, false, false, new ArrayList<>()));
