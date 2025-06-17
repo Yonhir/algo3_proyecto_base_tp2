@@ -6,6 +6,7 @@ import java.util.List;
 
 public abstract class Row implements CardTarget {
     protected List<Card> cards = new ArrayList<>();
+    protected Unit lastCard;
     protected Weather currentWeather;
 
     public Row() {
@@ -32,6 +33,7 @@ public abstract class Row implements CardTarget {
     public void addCard(Card card) {
         cards.add(card);
         currentWeather.apply(card, this);
+        lastCard = (Unit) card;
     }
 
     public void addWeather(Weather weather) {
@@ -54,5 +56,9 @@ public abstract class Row implements CardTarget {
     public void discardCards(DiscardPile discardPile) {
         discardPile.addCards(cards);
         cards.clear();
+    }
+
+    public Unit getLastCard() {
+        return lastCard;
     }
 }
