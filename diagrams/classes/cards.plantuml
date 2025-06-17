@@ -63,6 +63,14 @@ class Decoy {
   +Decoy(name: String, description: String): Decoy
 }
 
+class MoraleBoost{
+  -closeCombatOwner: CloseCombat
+  -RangedOwner: Ranged
+  -SiegeOwner: Siege
+  +MoraleBoost(name: String, description: String, closeCombat: CloseCombat, ranged: Ranged, siege: Siege)
+  +play(target: CardTarget): void
+}
+
 class TacticalAdvantage {
   +TacticalAdvantage(name: String, description: String): TacticalAdvantage
 }
@@ -96,6 +104,7 @@ Modifier <|.. Agil
 Special <|-- Decoy
 Special <|-- TacticalAdvantage
 Special <|-- Scorch
+Special <|-- MoraleBoost
 Special <|--- Weather
 
 Weather <|-- TorrentialRain
