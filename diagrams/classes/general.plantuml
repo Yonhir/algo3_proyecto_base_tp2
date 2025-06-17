@@ -74,6 +74,7 @@ class Validate15UnitsCards {
 
 abstract class Row <<abstract>> {
   #cards: List<Card>
+  #lastCard: Card
   #currentWeather: Weather
   +placeCard(card: Card): void
   +addCard(card: Card): void
@@ -148,6 +149,9 @@ class TightBond {
 }
 
 class Agil {
+}
+
+class MoraleBoostModifier {
 }
 
 abstract class Weather <<abstract>> {
@@ -228,6 +232,7 @@ Unit --> "*" Modifier
 
 Modifier <|.. TightBond
 Modifier <|.. Agil
+Modifier <|.. MoraleBoostModifier
 
 Special <|-- Weather
 
