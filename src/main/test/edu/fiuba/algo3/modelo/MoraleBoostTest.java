@@ -89,8 +89,8 @@ public class MoraleBoostTest {
     }
 
     @Test
-    public void use_moralBost_in_opponent_row() {
-        Assertions.assertThrows(CardPlaceInOpponentPlaceException.class, () -> {
+    public void use_moralBoost_in_opponent_row() {
+        Assertions.assertThrows(CardPlayInOpponentPlaceException.class, () -> {
             moraleBoost.play(closeCombatOpponent);
         });
     }
