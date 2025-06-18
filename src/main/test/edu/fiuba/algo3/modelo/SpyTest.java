@@ -11,32 +11,38 @@ import java.util.List;
 public class SpyTest {
     private Row RangedRowOpponent;
     private Row RangedRowOwner;
+    private CloseCombatType cct ;
+    private RangedType r ;
+    private SiegeType s ;
 
     private List<Card> cards;
     @BeforeEach
     void setUp(){
+        cct = new CloseCombatType();
+        r = new RangedType();
+        s = new SiegeType();
         cards = new ArrayList<>(Arrays.asList(
-                new Unit("Nombre", "Descripcion", 4, true, false, false, new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 5, true, false, false, new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 6, false, true, false, new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 3, false, false, true, new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 2, true, false, false, new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 0, false, false, true, new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 6, false, false, true, new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 8, false, true, false, new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 0, false, true, false, new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 10, true, false, false, new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 2, false, true, false, new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 4, false, false, true, new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 8, false, false, true, new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 3, true, false, false, new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 4, false, true, false, new ArrayList<Modifier>()),
-                new Scorch("Nombre", "Descripcion"),
-                new Scorch("Nombre", "Descripcion"),
-                new Scorch("Nombre", "Descripcion"),
-                new Scorch("Nombre", "Descripcion"),
-                new Scorch("Nombre", "Descripcion"),
-                new Scorch("Nombre", "Descripcion")));
+                new Unit("Nombre", "Descripcion", 4, cct, new ArrayList<>()),
+                new Unit("Nombre", "Descripcion", 5, cct, new ArrayList<>()),
+                new Unit("Nombre", "Descripcion", 6, r, new ArrayList<>()),
+                new Unit("Nombre", "Descripcion", 3, s, new ArrayList<>()),
+                new Unit("Nombre", "Descripcion", 2, cct, new ArrayList<>()),
+                new Unit("Nombre", "Descripcion", 0, s, new ArrayList<>()),
+                new Unit("Nombre", "Descripcion", 6, s, new ArrayList<>()),
+                new Unit("Nombre", "Descripcion", 8, r, new ArrayList<>()),
+                new Unit("Nombre", "Descripcion", 0, r, new ArrayList<>()),
+                new Unit("Nombre", "Descripcion", 10, cct, new ArrayList<>()),
+                new Unit("Nombre", "Descripcion", 2, r, new ArrayList<>()),
+                new Unit("Nombre", "Descripcion", 4, s, new ArrayList<>()),
+                new Unit("Nombre", "Descripcion", 8, s, new ArrayList<>()),
+                new Unit("Nombre", "Descripcion", 3, cct, new ArrayList<>()),
+                new Unit("Nombre", "Descripcion", 4, r, new ArrayList<>()),
+                new MoraleBoost("Nombre", "Descripcion", List.of(r)),
+                new MoraleBoost("Nombre", "Descripcion", List.of(r)),
+                new MoraleBoost("Nombre", "Descripcion", List.of(r)),
+                new MoraleBoost("Nombre", "Descripcion", List.of(r)),
+                new MoraleBoost("Nombre", "Descripcion", List.of(r)),
+                new MoraleBoost("Nombre", "Descripcion", List.of(r))));
     }
     @Test
     public void play_card_in_my_row() {
@@ -44,7 +50,7 @@ public class SpyTest {
         Hand hand = new Hand(new ArrayList<>());
         RangedRowOpponent = new Ranged();
         RangedRowOwner = new Ranged();
-        Unit carta_espia = new Unit("Nombre", "Descripcion", 4, false, true, false, List.of(new Spy(deck, hand, RangedRowOwner)));
+        Unit carta_espia = new Unit("Nombre", "Descripcion", 4, r, List.of(new Spy(deck, hand, RangedRowOwner)));
 
         RangedRowOwner.placeCard(carta_espia);
 
@@ -58,7 +64,7 @@ public class SpyTest {
         Hand hand = new Hand(new ArrayList<>());
         RangedRowOpponent = new Ranged();
         RangedRowOwner = new Ranged();
-        Unit carta_espia = new Unit("Nombre", "Descripcion", 4, false, true, false, List.of(new Spy(deck, hand, RangedRowOwner)));
+        Unit carta_espia = new Unit("Nombre", "Descripcion", 4, r, List.of(new Spy(deck, hand, RangedRowOwner)));
         int expectedCardsInHand = 2;
 
         RangedRowOpponent.placeCard(carta_espia);
@@ -72,7 +78,7 @@ public class SpyTest {
         Hand hand = new Hand(new ArrayList<>());
         RangedRowOpponent = new Ranged();
         RangedRowOwner = new Ranged();
-        Unit carta_espia = new Unit("Nombre", "Descripcion", 4, false, true, false, List.of(new Spy(deck, hand, RangedRowOwner)));
+        Unit carta_espia = new Unit("Nombre", "Descripcion", 4, r, List.of(new Spy(deck, hand, RangedRowOwner)));
         int expectedCardsInHand = deck.getCardCount() - 2;
 
         RangedRowOpponent.placeCard(carta_espia);
@@ -86,7 +92,7 @@ public class SpyTest {
         Hand hand = new Hand(new ArrayList<>());
         RangedRowOpponent = new Ranged();
         RangedRowOwner = new Ranged();
-        Unit carta_espia = new Unit("Nombre", "Descripcion", 4, false, true, false, List.of(new Spy(deck, hand, RangedRowOwner)));
+        Unit carta_espia = new Unit("Nombre", "Descripcion", 4, r, List.of(new Spy(deck, hand, RangedRowOwner)));
         int expectedCardsInHand = 0;
 
         RangedRowOwner.placeCard(carta_espia);
@@ -100,7 +106,7 @@ public class SpyTest {
         Hand hand = new Hand(new ArrayList<>());
         RangedRowOpponent = new Ranged();
         RangedRowOwner = new Ranged();
-        Unit carta_espia = new Unit("Nombre", "Descripcion", 4, false, true, false, List.of(new Spy(deck, hand, RangedRowOwner)));
+        Unit carta_espia = new Unit("Nombre", "Descripcion", 4, r, List.of(new Spy(deck, hand, RangedRowOwner)));
         int expectedCardsInDeck = deck.getCardCount();
 
         RangedRowOwner.placeCard(carta_espia);
