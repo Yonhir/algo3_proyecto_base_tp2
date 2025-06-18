@@ -12,6 +12,7 @@ public class DiscardPileTest {
     private DiscardPile discardPile;
     private Unit unit1;
     private Unit unit2;
+    private Unit unit3;
     private List<Card> closeCombatUnits;
     private List<Card> rangedUnits;
     private List<Card> siegeUnits;
@@ -23,6 +24,7 @@ public class DiscardPileTest {
         discardPile = new DiscardPile();
         unit1 = new Unit("Unit1", "Description1", 5, List.of(new CloseCombatType()), new ArrayList<>());
         unit2 = new Unit("Unit2", "Description2", 7, List.of(new RangedType()), new ArrayList<>());
+        unit3 = new Unit("Nombre", "Descripcion3", 3, List.of(new SiegeType()), new ArrayList<>());
         closeCombatUnits = Arrays.asList(
             new Unit("Nombre", "Descripcion", 4, List.of(new CloseCombatType()), new ArrayList<>()),
             new Unit("Nombre", "Descripcion", 5, List.of(new CloseCombatType()), new ArrayList<>()),
@@ -88,6 +90,29 @@ public class DiscardPileTest {
         // Get the card back from discard pile
         Unit discardedUnit = (Unit) discardPile.getLastCard();
         assertEquals(5, discardedUnit.calculatePoints(), "Unit points should be reset to base value");
+    }
+
+    @Test
+    void testUnitCardsPointsResetWhenAddedToDiscardPile() {
+        // Modify their points
+        unit1.setPoints(10);
+        unit2.setPoints(8);
+        unit3.setPoints(6);
+
+        List<Card> unitCards = Arrays.asList(unit1, unit2, unit3);
+
+        // Add the cards to discard pile
+        discardPile.addCards(unitCards);
+
+        // Get the cards back from discard pile
+        Unit discardedUnit3 = (Unit) discardPile.getLastCard();
+        Unit discardedUnit2 = (Unit) discardPile.getLastCard();
+        Unit discardedUnit1 = (Unit) discardPile.getLastCard();
+
+        List<Integer> pointsGotten = Arrays.asList(discardedUnit1.calculatePoints(), discardedUnit2.calculatePoints(), discardedUnit3.calculatePoints());
+        List<Integer> pointsExpected = Arrays.asList(5, 7, 3);
+
+        assertEquals(pointsGotten, pointsExpected, "Points should be reset to base value");
     }
 
     @Test
