@@ -104,12 +104,7 @@ public class DiscardPileTest {
         // Add the cards to discard pile
         discardPile.insertCards(unitCards);
 
-        // Get the cards back from discard pile
-        Unit discardedUnit3 = (Unit) discardPile.getLastCard();
-        Unit discardedUnit2 = (Unit) discardPile.getLastCard();
-        Unit discardedUnit1 = (Unit) discardPile.getLastCard();
-
-        List<Integer> pointsGotten = Arrays.asList(discardedUnit1.calculatePoints(), discardedUnit2.calculatePoints(), discardedUnit3.calculatePoints());
+        List<Integer> pointsGotten = Arrays.asList(unit1.calculatePoints(), unit2.calculatePoints(), unit3.calculatePoints());
         List<Integer> pointsExpected = Arrays.asList(5, 7, 3);
 
         assertEquals(pointsGotten, pointsExpected, "Points should be reset to base value");
