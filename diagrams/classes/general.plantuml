@@ -46,6 +46,7 @@ class DiscardPile {
   +DiscardPile(): DiscardPile
   +getLastCard(): Card
   +addCard(card: Card): void
+  +insertCards(cards: List<Card>): void
 }
 
 class Deck {
