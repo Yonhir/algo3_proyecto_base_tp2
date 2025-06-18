@@ -63,8 +63,38 @@ class ImpenetrableFog {
 
 class BitingFrost {
   +BitingFrost(name: String, description: String): BitingFrost
-  +apply(card: Card, row: Row): void
+
 }
+
+class Decoy {
+  +Decoy(name: String, description: String): Decoy
+}
+
+class MoraleBoost{
+  -closeCombatOwner: CloseCombat
+  -RangedOwner: Ranged
+  -SiegeOwner: Siege
+  +MoraleBoost(name: String, description: String, closeCombat: CloseCombat, ranged: Ranged, siege: Siege)
+  +play(target: CardTarget): void
+}
+
+class TacticalAdvantage {
+  +TacticalAdvantage(name: String, description: String): TacticalAdvantage
+}
+
+class Scorch {
+  +Scorch(name: String, description: String): Scorch
+}
+
+interface Modifier <<interface>> {
+  +apply(row: Row): void
+}
+
+class TightBond {
+}
+
+class Agil {
+
 
 ' =====================
 ' RELATIONSHIPS
@@ -85,7 +115,11 @@ Unit --> "*" Modifier
 Modifier <|.. TightBond
 Modifier <|.. Agil
 
-Special <|-- Weather
+Special <|-- Decoy
+Special <|-- TacticalAdvantage
+Special <|-- Scorch
+Special <|-- MoraleBoost
+Special <|--- Weather
 
 Weather <|-- TorrentialRain
 Weather <|-- ImpenetrableFog
