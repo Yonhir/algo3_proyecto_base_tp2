@@ -4,39 +4,49 @@ skinparam monochrome true
 hide circle
 skinparam classAttributeIconSize 0
 
+' Layout direction
+left to right direction
+
 ' =====================
 ' GAME
 ' =====================
 class Player {
   -name: String
   -health: int
-  +Player(name: String, health: int): Player
-  +getDeck(): Deck
-  +getHand(): Hand
+  -discardPile: DiscardPile
+  -hand: Hand
+  -deck: Deck
+  -specialZone: SpecialZone
+  -closeCombat: CloseCombat
+  -ranged: Ranged
+  -siege: Siege
+  +Player(name: String, health: int, deck: Deck, specialZone: SpecialZone, closeCombat: CloseCombat, ranged: Ranged, siege: Siege): Player
   +getDiscardPile(): DiscardPile
+  +getHand(): Hand
   +calculatePoints(): int
 }
 
 abstract class CardCollection <<abstract>> {
-  -cards: List<Card>
+  #cards: List<Card>
   +CardCollection(cards: List<Card>): CardCollection
   +getCards(): List<Card>
-  +addCard(card: Card)
-  +addCards(cards: List<Card>)
+  +addCard(card: Card): void
+  +addCards(cards: List<Card>): void
   +retrieveCard(card: Card): Card
   +getCardCount(): int
+  +isEmpty(): boolean
 }
 
 class Hand {
-  +getNCardsFromDeck(deck: Deck, n: int)
-  +isEmpty(): boolean
+  +Hand(cards: List<Card>): Hand
+  +getNCardsFromDeck(deck: Deck, n: int): void
 }
 
 class DiscardPile {
   +DiscardPile(): DiscardPile
   +getLastCard(): Card
-  +addCard(card: Card)
-  +addCards(cards: List<Card>)
+  +addCard(card: Card): void
+  +addCards(cards: List<Card>): void
 }
 
 class Deck {
@@ -45,6 +55,7 @@ class Deck {
   +getUnitsCount(): long
   +getSpecialsCount(): long
   -validate(validators: List<DeckValidator>): void
+  +retrieveNRandomCards(n: int): List<Card>
 }
 
 interface DeckValidator <<interface>> {
@@ -59,14 +70,30 @@ class Validate15UnitsCards {
   -MIN_UNITS: int
 }
 
+' =====================
+' SECTIONS
+' =====================
+interface Section <<interface>> {
+  +placeCard(card: Card): void
+}
+
+abstract class SectionType
+class CloseCombatType
+class RangedType
+class SiegeType
+class SpecialType
+
 abstract class Row <<abstract>> {
-  -cards: List<Card>
-  +placeCard(card: Card)
-  +addCard(card: Card)
+  #cards: List<Card>
+  #lastCard: Card
+  #currentWeather: Weather
+  #sectionType: SectionType
+  +Row(sectionType: SectionType): Row
+  +placeCard(card: Card): void
+  +addCard(card: Card): void
+  +applyWeather(weather: Weather): void
   +calculatePoints(): int
-  +discardCards(discardPile: DiscardPile)
-  +addWeather(weather: Weather)
-  +canBePlacedIn(unit: Unit): boolean
+  +discardCards(discardPile: DiscardPile): void
   +getCards(): List<Card>
 }
 
@@ -86,45 +113,42 @@ class SpecialZone {
   -closeCombatRows: List<Row>
   -rangedRows: List<Row>
   -siegeRows: List<Row>
-  +SpecialZone(closeCombatRows: List<Row>, rangedRows: List<Row>, siegeRows: List<Row>): SpecialZone
-  +placeCard(special: Special): void
-  +addWeather(weather: Weather)
-  +addCloseCombatWeather(weather: Weather)
-  +addRangedWeather(weather: Weather)
-  +addSiegeWeather(weather: Weather)
+  -sectionType: SpecialType
+  +SpecialZone(closeCombatRows: List<Row>, rangedRows: List<Row>, siegeRows: List<Row>)
+  +placeCard(card: Card): void
+  +addCard(card: Card): void
+  +applyCloseCombatWeather(weather: Weather): void
+  +applyRangedWeather(weather: Weather): void
+  +applySiegeWeather(weather: Weather): void
 }
 
+' =====================
+' CARDS
+' =====================
 abstract class Card <<abstract>> {
-  -name: String
-  -description: String
-  +Card(name: String, description: String): Card
-  +getName(): String
-  +getDescription(): String
-  +play(row: Row): void
-  +canBePlaced(row: Row): boolean
+  #name: String
+  #description: String
+  #sectionTypes: List<SectionType>
+  +Card(name: String, description: String, sectionTypes: List<SectionType>): Card
+  +play(section: Section): void
+  +verifySectionType(sectionType: SectionType): void
 }
 
 class Unit {
   -basePoints: int
   -currentPoints: int
   -modifiers: List<Modifier>
-  -canBeInCloseCombat: boolean
-  -canBeInRanged: boolean
-  -canBeInSiege: boolean
-  +Unit(name: String, description: String, points: int, closeCombat: boolean, ranged: boolean, siege: boolean, modifiers: List<Modifier>): Unit
+  +Unit(name: String, description: String, points: int, sectionTypes: List<SectionType>, modifiers: List<Modifier>): Unit
   +calculatePoints(): int
-  +play(row: Row): void
   +resetPoints(): void
   +setPoints(points: int): void
   +haveModifier(modifier: Modifier): boolean
-  +canBeInCloseCombat(): boolean
-  +canBeInRanged(): boolean
-  +canBeInSiege(): boolean
+  +play(section: Section): void
+  +verifySectionType(sectionType: SectionType): void
 }
 
 abstract class Special <<abstract>> {
-  +play(row: Row): void
-  +canBePlaced(row: Row): boolean
+  +verifySectionType(sectionType: SectionType): void
 }
 
 interface Modifier <<interface>> {
@@ -137,71 +161,121 @@ class TightBond {
 class Agil {
 }
 
+class MoraleBoostModifier {
+}
+
 abstract class Weather <<abstract>> {
-  +play(row: Row): void
+  +verifySectionType(sectionType: SectionType): void
+  +play(section: Section): void
   +apply(card: Card, row: Row): void
 }
 
 class TorrentialRain {
   +TorrentialRain(name: String, description: String): TorrentialRain
+  +apply(card: Card, row: Row): void
 }
 
 class ImpenetrableFog {
   +ImpenetrableFog(name: String, description: String): ImpenetrableFog
+  +apply(card: Card, row: Row): void
 }
 
 class BitingFrost {
   +BitingFrost(name: String, description: String): BitingFrost
+  +apply(card: Card, row: Row): void
 }
 
-class Decoy {
+' =====================
+' EXCEPTIONS
+' =====================
+class InvalidCardAmountError {
+  +InvalidCardAmountError(message: String): InvalidCardAmountError
 }
 
-class TacticalAdvantage {
+class SectionTypeMismatchError {
+  +SectionTypeMismatchError(message: String): SectionTypeMismatchError
 }
 
-class Scorch {
+class NotEnoughSpecialsCardsError {
+  +NotEnoughSpecialsCardsError(message: String): NotEnoughSpecialsCardsError
+}
+
+class NotEnoughtCardsInDeckError {
+  +NotEnoughtCardsInDeckError(message: String): NotEnoughtCardsInDeckError
+}
+
+class NotEnoughUnitsCardsError {
+  +NotEnoughUnitsCardsError(message: String): NotEnoughUnitsCardsError
+}
+
+class TheCardWasNotFound {
+  +TheCardWasNotFound(message: String): TheCardWasNotFound
 }
 
 ' =====================
 ' RELATIONSHIPS
 ' =====================
+' Game Relationships
 Player --> "3" CardCollection
-Player --> "3" Row
-Player --> "1" SpecialZone
-
-SpecialZone --> "6" Row
 
 CardCollection --> "*" Card
 CardCollection <|-- Hand
 CardCollection <|-- DiscardPile
 CardCollection <|-- Deck
 
-Row <|-- Ranged
-Row <|-- CloseCombat
-Row <|-- Siege
-
-Row --> Card
-
-Card <|-- Unit
-Card <|-- Special
-
-Unit --> "*" Modifier
-
-Modifier <|.. TightBond
-Modifier <|.. Agil
-
-Special <|-- Decoy
-Special <|-- TacticalAdvantage
-Special <|-- Scorch
-Special <|--- Weather
-
-Weather <|-- TorrentialRain
-Weather <|-- ImpenetrableFog
-Weather <|-- BitingFrost
+Player --> "3" Row
+Player --> "1" SpecialZone
 
 Deck --> "*" DeckValidator
 DeckValidator <|.. Validate6SpecialCards
 DeckValidator <|.. Validate15UnitsCards
 
-@enduml
+' Section Relationships
+SpecialZone --> "6" Row
+
+Row <|-- Ranged
+Row <|-- CloseCombat
+Row <|-- Siege
+
+Row --> "*" Card
+
+Row ..|> Section
+SpecialZone ..|> Section
+
+SectionType <|-- SpecialType
+SectionType <|-- CloseCombatType
+SectionType <|-- RangedType
+SectionType <|-- SiegeType
+
+SpecialZone --> "1" SectionType
+Row --> "1" SectionType
+
+Ranged --> "1" RangedType
+CloseCombat --> "1" CloseCombatType
+Siege --> "1" SiegeType
+
+' Card Relationships
+Card <|-- Unit
+Card <|-- Special
+
+Card --> "*" SectionType
+
+Unit --> "*" Modifier
+
+Modifier <|.. TightBond
+Modifier <|.. Agil
+Modifier <|.. MoraleBoostModifier
+
+Special <|-- Weather
+
+Weather <|-- TorrentialRain
+Weather <|-- ImpenetrableFog
+Weather <|-- BitingFrost
+
+' Exceptions Relationships
+InvalidCardAmountError --|> RuntimeException
+NotEnoughSpecialsCardsError --|> RuntimeException
+NotEnoughtCardsInDeckError --|> RuntimeException
+NotEnoughUnitsCardsError --|> RuntimeException
+TheCardWasNotFound --|> RuntimeException
+SectionTypeMismatchError --|> RuntimeException

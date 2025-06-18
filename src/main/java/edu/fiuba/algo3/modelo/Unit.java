@@ -1,41 +1,28 @@
 package edu.fiuba.algo3.modelo;
 
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class Unit extends Card {
     private final int basePoints;
     private int currentPoints;
     private List<Modifier> modifiers;
-    private boolean canBeInCloseCombat;
-    private boolean canBeInRanged;
-    private boolean canBeInSiege;
 
-    public Unit(String name, String description, int points, boolean closeCombat, boolean ranged, boolean siege, List<Modifier> modifiers) {
-        super(name, description);
+    public Unit(String name, String description, int points, List<SectionType> sectionTypes, List<Modifier> modifiers) {
+        super(name, description, sectionTypes);
         this.basePoints = points;
         this.currentPoints = points;
-        this.canBeInCloseCombat = closeCombat;
-        this.canBeInRanged = ranged;
-        this.canBeInSiege = siege;
         this.modifiers = modifiers;
     }
 
-    public boolean canBeInCloseCombat() {
-        return canBeInCloseCombat;
+    public Unit(String name, String description, int points, SectionType sectionType, List<Modifier> modifiers) {
+        super(name, description, List.of(sectionType));
+        this.basePoints = points;
+        this.currentPoints = points;
+        this.modifiers = modifiers;
     }
 
-    public boolean canBeInRanged() {
-        return canBeInRanged;
-    }
-
-    public boolean canBeInSiege() {
-        return canBeInSiege;
-    }
-
-    @Override
-    public void play(Row row) {
+    public void play(Section section) {
+        Row row = (Row) section;
         row.addCard(this);
         for (Modifier modifier : modifiers) {
             modifier.apply(row);
@@ -43,8 +30,8 @@ public class Unit extends Card {
     }
 
     @Override
-    public boolean canBePlaced(Row row) {
-        return row.canBePlacedIn(this);
+    public void verifySectionType(SectionType sectionType) {
+        super.verifySectionType(sectionType);
     }
 
     public int calculatePoints() {

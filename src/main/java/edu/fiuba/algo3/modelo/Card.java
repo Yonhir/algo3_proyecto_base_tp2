@@ -1,20 +1,26 @@
 package edu.fiuba.algo3.modelo;
 
+import java.util.List;
+
 public abstract class Card {
 
     protected final String name;
     protected final String description;
+    protected final List<SectionType> sectionTypes;
 
-    public Card(String name, String description) {
+    public Card(String name, String description, List<SectionType> sectionTypes) {
         this.name = name;
         this.description = description;
+        this.sectionTypes = sectionTypes;
     }
 
-    public void play(Row row) {
-
+    public void play(Section section) {
     }
 
-    public boolean canBePlaced(Row row) {
-        return false;
+    public void verifySectionType(SectionType sectionType) {
+        boolean matches = sectionTypes.stream().anyMatch(type -> type.getClass().equals(sectionType.getClass()));
+        if (!matches) {
+            throw new SectionTypeMismatchError("SectionType does not match for this card.");
+        }
     }
 }
