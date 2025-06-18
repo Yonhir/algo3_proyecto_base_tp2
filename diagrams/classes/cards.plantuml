@@ -9,72 +9,61 @@ skinparam classAttributeIconSize 0
 ' =====================
 
 abstract class Card <<abstract>> {
-  -name: String
-  -description: String
-  +Card(name: String, description: String): Card
-  +play(target : CardTarget): void
-  +canBePlaced(target : CardTarget): boolean
+  #name: String
+  #description: String
+  #sectionTypes: List<SectionType>
+  +Card(name: String, description: String, sectionTypes: List<SectionType>): Card
+  +play(section: Section): void
+  +verifySectionType(sectionType: SectionType): void
 }
 
 class Unit {
   -basePoints: int
   -currentPoints: int
   -modifiers: List<Modifier>
-  -canBeInCloseCombat: boolean
-  -canBeInRanged: boolean
-  -canBeInSiege: boolean
-  +Unit(name: String, description: String, points: int, closeCombat: boolean, ranged: boolean, siege: boolean, modifiers: List<Modifier>): Unit
+  +Unit(name: String, description: String, points: int, sectionTypes: List<SectionType>, modifiers: List<Modifier>): Unit
   +calculatePoints(): int
-  +play(target : CardTarget): void
   +resetPoints(): void
   +setPoints(points: int): void
   +haveModifier(modifier: Modifier): boolean
-  +canBePlaced(target : CardTarget): boolean
-  +canBeInCloseCombat(): boolean
-  +canBeInRanged(): boolean
-  +canBeInSiege(): boolean
+  +play(section: Section): void
+  +verifySectionType(sectionType: SectionType): void
 }
 
 abstract class Special <<abstract>> {
-  +Special(name : String, description : String)
+  +verifySectionType(sectionType: SectionType): void
+}
+
+interface Modifier <<interface>> {
+  +apply(row: Row): void
+}
+
+class TightBond {
+}
+
+class Agile {
 }
 
 abstract class Weather <<abstract>> {
-  +Weather(name: String, description: String): Weather
-  +play(target : CardTarget): void
-  +canBePlaced(target : CardTarget): boolean
-  +{abstract}apply(card: Card, row: Row): void
-  +{abstract}addToSpecialZone(specialZone : SpecialZone) : void
+  +Weather(name: String, description: String, sectionType: SectionType): Weather
+  +play(section: Section): void
+  +apply(card: Card, row: Row): void
+  +verifySectionType(sectionType: SectionType): void
 }
 
 class TorrentialRain {
   +TorrentialRain(name: String, description: String): TorrentialRain
   +apply(card: Card, row: Row): void
-  +addToSpecialZone(specialZone : SpecialZone) : void
 }
 
 class ImpenetrableFog {
   +ImpenetrableFog(name: String, description: String): ImpenetrableFog
   +apply(card: Card, row: Row): void
-  +addToSpecialZone(specialZone : SpecialZone) : void
 }
 
 class BitingFrost {
   +BitingFrost(name: String, description: String): BitingFrost
   +apply(card: Card, row: Row): void
-  +addToSpecialZone(specialZone : SpecialZone) : void
-}
-
-class Decoy {
-  +Decoy(name: String, description: String): Decoy
-}
-
-class TacticalAdvantage {
-  +TacticalAdvantage(name: String, description: String): TacticalAdvantage
-}
-
-class Scorch {
-  +Scorch(name: String, description: String): Scorch
 }
 
 interface Modifier <<interface>> {
@@ -94,15 +83,19 @@ class Agile {
 Card <|-- Unit
 Card <|-- Special
 
+Card --> "*" SectionType
+
+SectionType <|-- CloseCombatType
+SectionType <|-- RangedType
+SectionType <|-- SiegeType
+SectionType <|-- SpecialType
+
 Unit --> "*" Modifier
 
 Modifier <|.. TightBond
 Modifier <|.. Agile
 
-Special <|-- Decoy
-Special <|-- TacticalAdvantage
-Special <|-- Scorch
-Special <|--- Weather
+Special <|-- Weather
 
 Weather <|-- TorrentialRain
 Weather <|-- ImpenetrableFog

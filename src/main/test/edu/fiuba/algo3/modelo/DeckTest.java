@@ -16,21 +16,21 @@ public class DeckTest {
     @BeforeEach
     void setUp() {
         unidades = Arrays.asList(
-                new Unit("Nombre", "Descripcion", 4, true, false, false, new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 5, true, false, false, new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 6, false, true, false, new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 3, false, false, true, new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 2, true, false, false, new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 0, false, false, true, new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 6, false, false, true, new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 8, false, true, false, new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 0, false, true, false, new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 10, true, false, false, new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 2, false, true, false, new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 4, false, false, true, new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 8, false, false, true, new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 3, true, false, false, new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 4, false, true, false, new ArrayList<Modifier>())
+                new Unit("Nombre", "Descripcion", 4, new CloseCombatType(), new ArrayList<Modifier>()),
+                new Unit("Nombre", "Descripcion", 5, new CloseCombatType(), new ArrayList<Modifier>()),
+                new Unit("Nombre", "Descripcion", 6, new RangedType(), new ArrayList<Modifier>()),
+                new Unit("Nombre", "Descripcion", 3, new SiegeType(), new ArrayList<Modifier>()),
+                new Unit("Nombre", "Descripcion", 2, new CloseCombatType(), new ArrayList<Modifier>()),
+                new Unit("Nombre", "Descripcion", 0, new SiegeType(), new ArrayList<Modifier>()),
+                new Unit("Nombre", "Descripcion", 6, new SiegeType(), new ArrayList<Modifier>()),
+                new Unit("Nombre", "Descripcion", 8, new RangedType(), new ArrayList<Modifier>()),
+                new Unit("Nombre", "Descripcion", 0, new RangedType(), new ArrayList<Modifier>()),
+                new Unit("Nombre", "Descripcion", 10, new CloseCombatType(), new ArrayList<Modifier>()),
+                new Unit("Nombre", "Descripcion", 2, new RangedType(), new ArrayList<Modifier>()),
+                new Unit("Nombre", "Descripcion", 4, new SiegeType(), new ArrayList<Modifier>()),
+                new Unit("Nombre", "Descripcion", 8, new SiegeType(), new ArrayList<Modifier>()),
+                new Unit("Nombre", "Descripcion", 3, new CloseCombatType(), new ArrayList<Modifier>()),
+                new Unit("Nombre", "Descripcion", 4, new RangedType(), new ArrayList<Modifier>())
         );
 
         especiales = Arrays.asList(
@@ -135,7 +135,7 @@ public class DeckTest {
         cartas.addAll(especiales);
         Deck mazo = new Deck();
         mazo.insertCards(cartas);
-        Card carta = new Unit("Arquero", "Descripcion", 4, false, true, false, new ArrayList<Modifier>());
+        Card carta = new Unit("Arquero", "Descripcion", 4, new RangedType(), new ArrayList<Modifier>());
 
         assertThrows(TheCardWasNotFound.class, () -> {
            mazo.retrieveCard(carta);
