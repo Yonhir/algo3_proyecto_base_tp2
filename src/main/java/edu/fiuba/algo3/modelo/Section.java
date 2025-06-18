@@ -1,6 +1,5 @@
 package edu.fiuba.algo3.modelo;
 
-public interface CardTarget {
+public interface Section {
     void placeCard(Card card);
-    void addCard(Card card);
 }

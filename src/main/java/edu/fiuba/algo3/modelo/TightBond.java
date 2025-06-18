@@ -1,35 +1,33 @@
 package edu.fiuba.algo3.modelo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TightBond implements Modifier {
     @Override
     public void apply(Row row) {
         List<Card> cards = row.getCards();
-        int tightBondCount = 0;
-        int newCardPoints = 0;
+        List<Unit> tightBondUnits = new ArrayList<>();
+        int newCardPoints = Integer.MAX_VALUE;
         
-        // Count how many cards have the TightBond modifier and get the points of the new card
+        // Get all the units with the TightBond modifier
         for (Card card : cards) {
             if (card instanceof Unit && ((Unit) card).haveModifier(this)) {
-                tightBondCount++;
-                // Get the points of the last card (the new one being placed)
-                if (tightBondCount == 1) {
-                    newCardPoints = ((Unit) card).calculatePoints();
-                }
-                else if (tightBondCount > 1 && newCardPoints > ((Unit) card).calculatePoints()) {
-                    newCardPoints = ((Unit) card).calculatePoints();
-                }
+                tightBondUnits.add((Unit) card);
+            }
+        }
+
+        // Get the points of the last card (the new one being placed)
+        for (Unit unit : tightBondUnits) {
+            if (unit.calculatePoints() < newCardPoints) {
+                newCardPoints = unit.calculatePoints();
             }
         }
 
         // If we have multiple cards with TightBond, multiply their points
-        if (tightBondCount > 1) {
-            for (Card card : cards) {
-                if (card instanceof Unit && ((Unit) card).haveModifier(this)) {
-                    Unit unit = (Unit) card;
-                    unit.setPoints(newCardPoints * tightBondCount);
-                }
+        if (tightBondUnits.size() > 1) {
+            for (Unit unit : tightBondUnits) {
+                unit.setPoints(newCardPoints * tightBondUnits.size());
             }
         }
     }

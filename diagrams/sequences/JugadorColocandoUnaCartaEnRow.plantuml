@@ -1,22 +1,21 @@
 @startuml
 
 hide footbox
-title Jugador coloca una carta en un Row
+title Jugador coloca una Unidad en un Row
 
-actor Jugador
+actor TestCase
+participant ":Row" as row
+participant ":Unit" as unit
 
-participant "Row (CloseCombat)" as row
-participant "Card (Unit)" as unit
+TestCase -> row : placeCard(unit)
+    activate row
+    row -> unit : verifySectionType(sectionType)
+        activate unit
+        deactivate unit
 
-Jugador -> row : placeCard(unit)
-row -> unit : canBePlaced(this)
-unit -> row : canBePlacedIn(this)
-row -> unit : canBeInCloseCombat()
-
-unit --> row : true
-row --> unit : true
-unit --> row : true
-
-row -> unit : play(this)
-unit -> row : addCard(this)
+    row -> unit : play(row)
+        activate unit
+        unit -> row : addCard(unit)
+        deactivate unit
+    deactivate row
 @enduml

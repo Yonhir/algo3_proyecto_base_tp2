@@ -1,10 +1,18 @@
 package edu.fiuba.algo3.modelo;
 
+import java.util.List;
+
 public class BitingFrost extends Weather {
     // Sets the strength of all Close Combat cards to 1 for both players.
 
     public BitingFrost(String name, String description) {
-        super(name, description);
+        super(name, description, List.of(new SpecialType()));
+    }
+
+    @Override
+    public void play(Section section) {
+        SpecialZone specialZone = (SpecialZone) section;
+        specialZone.applyCloseCombatWeather(this);
     }
 
     @Override
@@ -12,10 +20,5 @@ public class BitingFrost extends Weather {
         if (card instanceof Unit && row instanceof CloseCombat) {
             ((Unit) card).setPoints(1);
         }
-    }
-
-    @Override
-    public void addToSpecialZone(SpecialZone specialZone) {
-        specialZone.addCloseCombatWeather(this);
     }
 }
