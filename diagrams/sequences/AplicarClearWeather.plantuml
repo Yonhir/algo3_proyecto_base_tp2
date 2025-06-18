@@ -5,84 +5,31 @@ title Aplicación del clima ClearWeather a todas las filas
 
 actor TestCase
 
-participant "specialZone:SpecialZone" as SpecialZone
-participant "clearWeather:ClearWeather" as Weather
-participant "row:Row" as Row
-participant "unit:Unit" as Unit
+participant "specialZone:SpecialZone" as specialZone
+participant "clearWeather:ClearWeather" as weather
+participant "row:Row" as row
+participant "unit:Unit" as unit
 
-TestCase -> SpecialZone: placeCard(clearWeather)
-activate SpecialZone
+TestCase -> specialZone: placeCard(weather)
+    activate specialZone
+    specialZone -> weather: verifySectionType(sectionType)
+        activate weather
+        deactivate weather
+    specialZone -> weather: play(specialZone)
+        activate weather
+        weather -> specialZone: applyCloseCombatWeather(weather)
+        weather -> specialZone: applyRangedWeather(weather)
+        weather -> specialZone: applySiegeWeather(weather)
+        loop For each row type (closeCombat, ranged, siege)
+            specialZone -> row: applyWeather(weather)
+                activate row
+                loop For each unit in row
+                    row -> weather: apply(unit, row)
+                        weather -> unit: resetPoints()
+                end
+                deactivate row
+        end
+        deactivate weather
+    deactivate specialZone
 
-SpecialZone -> Weather: canBePlaced(this)
-activate Weather
-Weather --> SpecialZone: true
-deactivate Weather
-
-SpecialZone -> Weather: play(this)
-activate Weather
-
-Weather -> SpecialZone: addCard(this)
-
-SpecialZone -> Weather: addToSpecialZone(this)
-
-Weather -> SpecialZone: addCloseCombatWeather(this)
-activate SpecialZone
-
-loop For each close combat row
-    SpecialZone -> Row: addWeather(this)
-    activate Row
-    
-    loop For each unit in row
-        Row -> Unit: resetPoints()
-        activate Unit
-        Unit --> Row: points reset
-        deactivate Unit
-    end
-    
-    deactivate Row
-end
-
-deactivate SpecialZone
-
-Weather -> SpecialZone: addRangedWeather(this)
-activate SpecialZone
-
-loop For each ranged row
-    SpecialZone -> Row: addWeather(this)
-    activate Row
-    
-    loop For each unit in row
-        Row -> Unit: resetPoints()
-        activate Unit
-        Unit --> Row: points reset
-        deactivate Unit
-    end
-    
-    deactivate Row
-end
-
-deactivate SpecialZone
-
-Weather -> SpecialZone: addSiegeWeather(this)
-activate SpecialZone
-
-loop For each siege row
-    SpecialZone -> Row: addWeather(this)
-    activate Row
-    
-    loop For each unit in row
-        Row -> Unit: resetPoints()
-        activate Unit
-        Unit --> Row: points reset
-        deactivate Unit
-    end
-    
-    deactivate Row
-end
-
-deactivate SpecialZone
-
-deactivate Weather
-deactivate SpecialZone
-
-@enduml 
+@enduml
