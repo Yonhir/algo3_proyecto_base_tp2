@@ -23,22 +23,22 @@ public class MoraleBoostModifierTest {
 
         modifierMoral = new MoraleBoostModifier();
 
-        closeCombat.addCard(new Unit("Nombre", "Descripcion", 4, true, false, false, new ArrayList<>()));
-        closeCombat.addCard(new Unit("Nombre", "Descripcion", 4, true, false, false, new ArrayList<>()));
-        closeCombat.addCard(new Unit("Nombre", "Descripcion", 5, true, false, false, new ArrayList<>()));
+        closeCombat.addCard(new Unit("Nombre", "Descripcion", 4, new CloseCombatType(), new ArrayList<>()));
+        closeCombat.addCard(new Unit("Nombre", "Descripcion", 4, new CloseCombatType(), new ArrayList<>()));
+        closeCombat.addCard(new Unit("Nombre", "Descripcion", 5, new CloseCombatType(), new ArrayList<>()));
 
-        ranged.addCard(new Unit("Nombre", "Descripcion", 6, false, true, false, new ArrayList<>()));
-        ranged.addCard(new Unit("Nombre", "Descripcion", 8, false, true, false, new ArrayList<>()));
-        ranged.addCard(new Unit("Nombre", "Descripcion", 0, false, true, false, new ArrayList<>()));
+        ranged.addCard(new Unit("Nombre", "Descripcion", 6, new RangedType(), new ArrayList<>()));
+        ranged.addCard(new Unit("Nombre", "Descripcion", 8, new RangedType(), new ArrayList<>()));
+        ranged.addCard(new Unit("Nombre", "Descripcion", 0, new RangedType(), new ArrayList<>()));
 
-        siege.addCard(new Unit("Nombre", "Descripcion", 2, false, false, true, new ArrayList<>()));
-        siege.addCard(new Unit("Nombre", "Descripcion", 3, false, false, true, new ArrayList<>()));
-        siege.addCard(new Unit("Nombre", "Descripcion", 1, false, false, true, new ArrayList<>()));
+        siege.addCard(new Unit("Nombre", "Descripcion", 2, new SiegeType(), new ArrayList<>()));
+        siege.addCard(new Unit("Nombre", "Descripcion", 3, new SiegeType(), new ArrayList<>()));
+        siege.addCard(new Unit("Nombre", "Descripcion", 1, new SiegeType(), new ArrayList<>()));
     }
 
     @Test
     public void moral_boost_closeCombat() {
-        cardMoraleBoost = new Unit("Nombre", "Descripcion", 10, true, false, false, List.of(modifierMoral));
+        cardMoraleBoost = new Unit("Nombre", "Descripcion", 10, new CloseCombatType(), List.of(modifierMoral));
         int expectedPoints = closeCombat.calculatePoints() + closeCombat.getCards().size() + cardMoraleBoost.calculatePoints();
 
         closeCombat.placeCard(cardMoraleBoost);
@@ -49,7 +49,7 @@ public class MoraleBoostModifierTest {
 
     @Test
     public void moral_boost_ranged() {
-        cardMoraleBoost = new Unit("Nombre", "Descripcion", 10, false, true, false, List.of(modifierMoral));
+        cardMoraleBoost = new Unit("Nombre", "Descripcion", 10, new RangedType(), List.of(modifierMoral));
         int expectedPoints = ranged.calculatePoints() + ranged.getCards().size() + cardMoraleBoost.calculatePoints();
 
         ranged.placeCard(cardMoraleBoost);
@@ -60,7 +60,7 @@ public class MoraleBoostModifierTest {
 
     @Test
     public void moral_boost_siege() {
-        cardMoraleBoost = new Unit("Nombre", "Descripcion", 10, false, false, true, List.of(modifierMoral));
+        cardMoraleBoost = new Unit("Nombre", "Descripcion", 10, new SiegeType(), List.of(modifierMoral));
         int expectedPoints = siege.calculatePoints() + siege.getCards().size() + cardMoraleBoost.calculatePoints();
 
         siege.placeCard(cardMoraleBoost);
@@ -71,7 +71,7 @@ public class MoraleBoostModifierTest {
 
     @Test
     public void moral_boost_empty_row() {
-        cardMoraleBoost = new Unit("Nombre", "Descripcion", 10, false, false, true, List.of(modifierMoral));
+        cardMoraleBoost = new Unit("Nombre", "Descripcion", 10, new SiegeType(), List.of(modifierMoral));
         int expectedPoints = cardMoraleBoost.calculatePoints();
 
         siege.discardCards(new DiscardPile());

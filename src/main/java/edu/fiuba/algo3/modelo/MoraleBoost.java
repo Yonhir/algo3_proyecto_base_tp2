@@ -1,29 +1,20 @@
 package edu.fiuba.algo3.modelo;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class MoraleBoost extends Special {
-    private Row[] rows;
-    private CloseCombat closeCombat;
-    private Ranged ranged;
-    private Siege siege;
 
-    public MoraleBoost(String name, String description, Row... rows) {
-        super(name, description);
-        this.rows = rows;
+    public MoraleBoost(String name, String description, List<SectionType> sectionTypes) {
+        super(name, description, sectionTypes);
     }
 
     @Override
-    public void play(CardTarget target) {
-        if (target instanceof Row){
-            Row row = (Row) target;
-            if(Arrays.stream(rows).noneMatch(row1 -> row1.equals(row))) throw new CardPlaceInOpponentPlaceException("Morale Boost can only be played in your own rows.");
-            List<Card> cards= row.getCards();
-            for (Card card : cards) {
-                int points = ((Unit) card).calculatePoints();
-                ((Unit) card).setPoints(points * 2);
-            }
+    public void play(Section section) {
+        Row row = (Row) section;
+        List<Card> cards= row.getCards();
+        for (Card card : cards) {
+            int points = ((Unit) card).calculatePoints();
+            ((Unit) card).setPoints(points * 2);
         }
     }
 }

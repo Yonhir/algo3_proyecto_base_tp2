@@ -5,12 +5,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MoraleBoostTest {
     private CloseCombat closeCombat;
     private Ranged ranged;
     private Siege siege;
-    private CloseCombat closeCombatOpponent;
 
     private MoraleBoost moraleBoost;
 
@@ -21,21 +21,19 @@ public class MoraleBoostTest {
         ranged = new Ranged();
         siege = new Siege();
 
-        closeCombatOpponent = new CloseCombat();
+        moraleBoost = new MoraleBoost("MoraleBoost", "X2", List.of(new CloseCombatType(), new RangedType(), new SiegeType()));
 
-        moraleBoost = new MoraleBoost("MoraleBoost", "X2", closeCombat, ranged, siege);
+        closeCombat.addCard(new Unit("Nombre", "Descripcion", 4, new CloseCombatType(), new ArrayList<>()));
+        closeCombat.addCard(new Unit("Nombre", "Descripcion", 4, new CloseCombatType(), new ArrayList<>()));
+        closeCombat.addCard(new Unit("Nombre", "Descripcion", 5, new CloseCombatType(), new ArrayList<>()));
 
-        closeCombat.addCard(new Unit("Nombre", "Descripcion", 4, true, false, false, new ArrayList<>()));
-        closeCombat.addCard(new Unit("Nombre", "Descripcion", 4, true, false, false, new ArrayList<>()));
-        closeCombat.addCard(new Unit("Nombre", "Descripcion", 5, true, false, false, new ArrayList<>()));
+        ranged.addCard(new Unit("Nombre", "Descripcion", 6, new RangedType(), new ArrayList<>()));
+        ranged.addCard(new Unit("Nombre", "Descripcion", 8, new RangedType(), new ArrayList<>()));
+        ranged.addCard(new Unit("Nombre", "Descripcion", 0, new RangedType(), new ArrayList<>()));
 
-        ranged.addCard(new Unit("Nombre", "Descripcion", 6, false, true, false, new ArrayList<>()));
-        ranged.addCard(new Unit("Nombre", "Descripcion", 8, false, true, false, new ArrayList<>()));
-        ranged.addCard(new Unit("Nombre", "Descripcion", 0, false, true, false, new ArrayList<>()));
-
-        siege.addCard(new Unit("Nombre", "Descripcion", 2, false, false, true, new ArrayList<>()));
-        siege.addCard(new Unit("Nombre", "Descripcion", 3, false, false, true, new ArrayList<>()));
-        siege.addCard(new Unit("Nombre", "Descripcion", 1, false, false, true, new ArrayList<>()));
+        siege.addCard(new Unit("Nombre", "Descripcion", 2, new SiegeType(), new ArrayList<>()));
+        siege.addCard(new Unit("Nombre", "Descripcion", 3, new SiegeType(), new ArrayList<>()));
+        siege.addCard(new Unit("Nombre", "Descripcion", 1, new SiegeType(), new ArrayList<>()));
     }
 
     @Test
@@ -85,13 +83,6 @@ public class MoraleBoostTest {
         int actualPoints = siege.calculatePoints();
 
         Assertions.assertEquals(expectedPoints, actualPoints);
-
     }
 
-    @Test
-    public void use_moralBost_in_opponent_row() {
-        Assertions.assertThrows(CardPlaceInOpponentPlaceException.class, () -> {
-            moraleBoost.play(closeCombatOpponent);
-        });
-    }
 }
