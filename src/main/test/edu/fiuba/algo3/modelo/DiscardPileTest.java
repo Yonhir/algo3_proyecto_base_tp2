@@ -102,7 +102,7 @@ public class DiscardPileTest {
         List<Card> unitCards = Arrays.asList(unit1, unit2, unit3);
 
         // Add the cards to discard pile
-        discardPile.addCards(unitCards);
+        discardPile.insertCards(unitCards);
 
         // Get the cards back from discard pile
         Unit discardedUnit3 = (Unit) discardPile.getLastCard();

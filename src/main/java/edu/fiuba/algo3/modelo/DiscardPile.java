@@ -1,7 +1,5 @@
 package edu.fiuba.algo3.modelo;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class DiscardPile extends CardCollection {
@@ -14,7 +12,8 @@ public class DiscardPile extends CardCollection {
         super.addCard(card);
     }
 
-    public void addCards(List<Card> cards) {
+    @Override
+    public void insertCards(List<Card> cards) {
         for (Card c : cards) {
             addCard(c);
         }
