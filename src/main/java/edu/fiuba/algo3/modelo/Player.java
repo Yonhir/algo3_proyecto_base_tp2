@@ -39,9 +39,7 @@ public class Player {
     }
 
     public void playCard(Card card, Row row) {
-        if(row.canBePlacedIn((Unit) card)) {
-            hand.getCard(card);
-            row.placeCard(card);
-        }
+        row.placeCard(card);
+        hand.getCard(card);
     }
 }

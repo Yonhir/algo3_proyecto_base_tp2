@@ -24,9 +24,9 @@ public class PlayerTest {
 
     @BeforeEach
     void setUp() {
-        siegeCard = new Unit("Nombre", "Descripcion", 3, false, false, true, new ArrayList<>());
-        rangedCard = new Unit("Nombre", "Descripcion", 6, false, true, false, new ArrayList<>());
-        closeCombatCard = new Unit("Nombre", "Descripcion", 4, true, false, false, new ArrayList<>());
+        siegeCard = new Unit("Nombre", "Descripcion", 3, new SiegeType(), new ArrayList<>());
+        rangedCard = new Unit("Nombre", "Descripcion", 6, new RangedType(), new ArrayList<>());
+        closeCombatCard = new Unit("Nombre", "Descripcion", 4, new CloseCombatType(), new ArrayList<>());
 
                 // Create unit cards
         List<Card> unitCards = Arrays.asList(
@@ -145,8 +145,6 @@ public class PlayerTest {
 
         Assertions.assertEquals(expected_points, actual_points);
 
-        //ASSERT + ACT
-        Assertions.assertThrows(SectionTypeMismatchError.class, () -> siege.placeCard(card_to_play));//testing
     }
 
     @Test

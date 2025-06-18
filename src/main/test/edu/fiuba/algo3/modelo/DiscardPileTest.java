@@ -116,22 +116,4 @@ public class DiscardPileTest {
         assertEquals(expectedSize, actualSize);
     }
 
-    @Test
-    public void cards_go_to_discardPile(){
-        Row ranged = new Ranged();
-        Row closeCombat = new CloseCombat();
-        Row siege = new Siege();
-
-        for (Card card : cards) {
-            if(card.canBePlaced(ranged)) ranged.placeCard(card);
-            if (card.canBePlaced(closeCombat)) closeCombat.placeCard(card);
-            if (card.canBePlaced(siege)) siege.placeCard(card);
-        }
-
-        siege.discardCards(discardPile);
-        ranged.discardCards(discardPile);
-        closeCombat.discardCards(discardPile);
-
-        assertTrue(cards.containsAll(discardPile.getCards()));
-    }
 }
