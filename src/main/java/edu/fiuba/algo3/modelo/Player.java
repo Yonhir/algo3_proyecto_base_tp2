@@ -37,4 +37,9 @@ public class Player {
         int points = closeCombat.calculatePoints() + ranged.calculatePoints() + siege.calculatePoints();
         return points;
     }
+
+    public void playCard(Card card, Row row) {
+        row.placeCard(card);
+        hand.getCard(card);
+    }
 }

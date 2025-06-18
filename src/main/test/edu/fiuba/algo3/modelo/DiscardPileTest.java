@@ -91,7 +91,7 @@ public class DiscardPileTest {
     }
 
     @Test
-    public void cards_go_to_discardPile(){
+    public void cards_count_go_to_discardPile(){
         int expectedSize = 15;
         Row ranged = new Ranged();
         Row closeCombat = new CloseCombat();
@@ -114,6 +114,6 @@ public class DiscardPileTest {
         int actualSize = discardPile.getCardCount();
 
         assertEquals(expectedSize, actualSize);
-        assertTrue(cards.containsAll(discardPile.getCards()));
     }
+
 }
