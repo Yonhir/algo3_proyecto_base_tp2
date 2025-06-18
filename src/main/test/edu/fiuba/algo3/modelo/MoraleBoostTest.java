@@ -84,5 +84,4 @@ public class MoraleBoostTest {
 
         Assertions.assertEquals(expectedPoints, actualPoints);
     }
-
 }

@@ -63,7 +63,6 @@ class ImpenetrableFog {
 
 class BitingFrost {
   +BitingFrost(name: String, description: String): BitingFrost
-
 }
 
 class Decoy {
@@ -71,11 +70,8 @@ class Decoy {
 }
 
 class MoraleBoost{
-  -closeCombatOwner: CloseCombat
-  -RangedOwner: Ranged
-  -SiegeOwner: Siege
-  +MoraleBoost(name: String, description: String, closeCombat: CloseCombat, ranged: Ranged, siege: Siege)
-  +play(target: CardTarget): void
+  +MoraleBoost(name: String, description: String, sectionsType: SectionsType[])
+  +play(section: Section): void
 }
 
 class TacticalAdvantage {
@@ -94,7 +90,7 @@ class TightBond {
 }
 
 class Agil {
-
+}
 
 ' =====================
 ' RELATIONSHIPS
