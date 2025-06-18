@@ -7,12 +7,12 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MoraleBoostTest {
+public class MoraleBoostModifierTest {
     private CloseCombat closeCombat;
     private Ranged ranged;
     private Siege siege;
-
-    private MoraleBoost moraleBoost;
+    private MoraleBoostModifier modifierMoral;
+    private Unit cardMoraleBoost;
 
 
     @BeforeEach
@@ -21,7 +21,7 @@ public class MoraleBoostTest {
         ranged = new Ranged();
         siege = new Siege();
 
-        moraleBoost = new MoraleBoost("MoraleBoost", "X2", List.of(new CloseCombatType(), new RangedType(), new SiegeType()));
+        modifierMoral = new MoraleBoostModifier();
 
         closeCombat.addCard(new Unit("Nombre", "Descripcion", 4, new CloseCombatType(), new ArrayList<>()));
         closeCombat.addCard(new Unit("Nombre", "Descripcion", 4, new CloseCombatType(), new ArrayList<>()));
@@ -37,51 +37,47 @@ public class MoraleBoostTest {
     }
 
     @Test
-    public void use_moralBost_in_closeCombat() {
-        int expectedPoints = closeCombat.calculatePoints() * 2;
+    public void moral_boost_closeCombat() {
+        cardMoraleBoost = new Unit("Nombre", "Descripcion", 10, new CloseCombatType(), List.of(modifierMoral));
+        int expectedPoints = closeCombat.calculatePoints() + closeCombat.getCards().size() + cardMoraleBoost.calculatePoints();
 
-        moraleBoost.play(closeCombat);
+        closeCombat.placeCard(cardMoraleBoost);
 
         int actualPoints = closeCombat.calculatePoints();
-
         Assertions.assertEquals(expectedPoints, actualPoints);
-
     }
 
     @Test
-    public void use_moralBost_in_ranged() {
-        int expectedPoints = ranged.calculatePoints() * 2;
+    public void moral_boost_ranged() {
+        cardMoraleBoost = new Unit("Nombre", "Descripcion", 10, new RangedType(), List.of(modifierMoral));
+        int expectedPoints = ranged.calculatePoints() + ranged.getCards().size() + cardMoraleBoost.calculatePoints();
 
-        moraleBoost.play(ranged);
+        ranged.placeCard(cardMoraleBoost);
 
         int actualPoints = ranged.calculatePoints();
-
         Assertions.assertEquals(expectedPoints, actualPoints);
-
     }
 
     @Test
-    public void use_moralBost_in_siege() {
-        int expectedPoints = siege.calculatePoints() * 2;
+    public void moral_boost_siege() {
+        cardMoraleBoost = new Unit("Nombre", "Descripcion", 10, new SiegeType(), List.of(modifierMoral));
+        int expectedPoints = siege.calculatePoints() + siege.getCards().size() + cardMoraleBoost.calculatePoints();
 
-        moraleBoost.play(siege);
+        siege.placeCard(cardMoraleBoost);
 
         int actualPoints = siege.calculatePoints();
-
         Assertions.assertEquals(expectedPoints, actualPoints);
-
     }
 
     @Test
-    public void use_moralBost_in_empty_row() {
-        int expectedPoints = 0;
+    public void moral_boost_empty_row() {
+        cardMoraleBoost = new Unit("Nombre", "Descripcion", 10, new SiegeType(), List.of(modifierMoral));
+        int expectedPoints = cardMoraleBoost.calculatePoints();
 
         siege.discardCards(new DiscardPile());
-
-        moraleBoost.play(siege);
+        siege.placeCard(cardMoraleBoost);
 
         int actualPoints = siege.calculatePoints();
-
         Assertions.assertEquals(expectedPoints, actualPoints);
     }
 }
