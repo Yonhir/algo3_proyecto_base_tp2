@@ -66,16 +66,6 @@ class BitingFrost {
   +apply(card: Card, row: Row): void
 }
 
-interface Modifier <<interface>> {
-  +apply(row: Row): void
-}
-
-class TightBond {
-}
-
-class Agile {
-}
-
 ' =====================
 ' RELATIONSHIPS
 ' =====================
