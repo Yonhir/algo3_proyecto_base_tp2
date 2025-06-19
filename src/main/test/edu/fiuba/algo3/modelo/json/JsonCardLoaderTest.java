@@ -1,12 +1,17 @@
 package edu.fiuba.algo3.modelo.json;
 
-import edu.fiuba.algo3.modelo.cardcollection.Deck;
+import edu.fiuba.algo3.modelo.cardcollections.Deck;
 import edu.fiuba.algo3.modelo.cards.*;
+import edu.fiuba.algo3.modelo.cards.specials.MoraleBoost;
+import edu.fiuba.algo3.modelo.cards.specials.ScorchCard;
+import edu.fiuba.algo3.modelo.cards.specials.Special;
+import edu.fiuba.algo3.modelo.cards.specials.weathers.*;
+import edu.fiuba.algo3.modelo.cards.units.Unit;
 import edu.fiuba.algo3.modelo.errors.GwentFileInvalid;
 import edu.fiuba.algo3.modelo.errors.SpecialsFileInvalid;
 import edu.fiuba.algo3.modelo.errors.UnitsFileInvalid;
-import edu.fiuba.algo3.modelo.modifiers.Agile;
-import edu.fiuba.algo3.modelo.modifiers.Hero;
+import edu.fiuba.algo3.modelo.cards.units.modifiers.Agile;
+import edu.fiuba.algo3.modelo.cards.units.modifiers.Hero;
 import edu.fiuba.algo3.modelo.sections.CloseCombatType;
 import edu.fiuba.algo3.modelo.sections.RangedType;
 import org.junit.jupiter.api.BeforeEach;
@@ -215,7 +220,7 @@ public class JsonCardLoaderTest {
         
         // Assert
         boolean foundMoraleBoostCard = loadedSpecials.stream()
-                .anyMatch(special -> special instanceof MoraleBoostCard);
+                .anyMatch(special -> special instanceof MoraleBoost);
         assertTrue(foundMoraleBoostCard, "Should load Morale Boost card (Cuerno del comandante) from JSON");
     }
 

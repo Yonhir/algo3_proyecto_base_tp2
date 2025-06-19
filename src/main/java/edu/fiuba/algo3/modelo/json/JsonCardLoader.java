@@ -1,8 +1,8 @@
 package edu.fiuba.algo3.modelo.json;
 
-import edu.fiuba.algo3.modelo.cardcollection.Deck;
-import edu.fiuba.algo3.modelo.cards.Special;
-import edu.fiuba.algo3.modelo.cards.Unit;
+import edu.fiuba.algo3.modelo.cardcollections.Deck;
+import edu.fiuba.algo3.modelo.cards.specials.Special;
+import edu.fiuba.algo3.modelo.cards.units.Unit;
 import edu.fiuba.algo3.modelo.errors.GwentFileInvalid;
 import edu.fiuba.algo3.modelo.errors.SpecialsFileInvalid;
 import edu.fiuba.algo3.modelo.errors.UnitsFileInvalid;
@@ -42,6 +42,8 @@ public class JsonCardLoader {
             return unitConverter.convertFromJsonArray(jsonUnits);
         } catch (IOException | ParseException | ClassCastException | NullPointerException e) {
             // File reading, parsing, or structure errors
+            // print traceback of the error
+            e.printStackTrace();
             throw new UnitsFileInvalid("Error reading or parsing file");
         } catch (RuntimeException e) {
             // Data conversion errors
