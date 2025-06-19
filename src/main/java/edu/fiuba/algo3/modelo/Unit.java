@@ -43,10 +43,14 @@ public class Unit extends Card {
     }
 
     public void setPoints(int points) {
-        for(Modifier m : modifiers) {
-            if (!(m instanceof Hero)) {
-                currentPoints = points;
+        if (!modifiers.isEmpty()) {
+            for (Modifier m : modifiers) {
+                if (!(m instanceof Hero)) {
+                    currentPoints = points;
+                }
             }
+        } else {
+            currentPoints = points;
         }
     }
 
