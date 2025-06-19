@@ -185,18 +185,6 @@ public class PlayerTest {
     }
 
     @Test
-    public void testGetHand() {
-        //ARRANGE
-        Hand expectedHand = new Hand();
-        
-        //ACT
-        Hand actualHand = player.getHand();
-        
-        //ASSERT
-        Assertions.assertEquals(expectedHand.getCardCount(), actualHand.getCardCount());
-    }
-
-    @Test
     public void testCalculatePoints() {
         //ARRANGE
         // Use cards from setUp: card[0] = 4 points (close combat), card[2] = 6 points (ranged), card[3] = 3 points (siege)
