@@ -21,6 +21,7 @@ public class DiscardPile extends CardCollection {
         for (Card card : cards) {
             addCard(card);
         }
+
     }
 
     public Card getLastCard() {
