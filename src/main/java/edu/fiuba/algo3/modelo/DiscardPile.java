@@ -30,16 +30,12 @@ public class DiscardPile extends CardCollection {
         return cards.get(cards.size() - 1);
     }
 
-    public List<Card> getUnitCards(){
-        List<Card> unitCards = new ArrayList<>();
-        for (Card card: cards){
-            if (card instanceof Unit){
-                unitCards.add(card);
+    public Card getLastUnitCards() {
+        for (int i = cards.size() - 1; i >= 0; i--) {
+            if (cards.get(i) instanceof Unit) {
+                return cards.get(i);
             }
         }
-        if (unitCards.isEmpty()) {
-            throw new IllegalStateException("No unit cards");
-        }
-        return unitCards;
+        throw new IllegalStateException("No unit cards");
     }
 }

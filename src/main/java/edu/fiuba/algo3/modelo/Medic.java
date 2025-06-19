@@ -4,20 +4,13 @@ import java.util.List;
 
 public class Medic implements Modifier{
     private DiscardPile discardPile;
-    private Player player;
-    public Medic(DiscardPile discardPile, Player player){
+
+    public Medic(DiscardPile discardPile){
         this.discardPile = discardPile;
-        this.player = player;
     }
     @Override
     public void apply(Row row) {
-        List<Card> unitCards = discardPile.getUnitCards();
-        Card card;
-        if (unitCards.size() == 1){
-            card = unitCards.get(0);
-        }else{
-            card = player.selectCard(unitCards);
-        }
+        Card card = discardPile.getLastUnitCards();
         row.placeCard(card);
     }
 

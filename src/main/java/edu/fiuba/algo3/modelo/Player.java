@@ -40,13 +40,4 @@ public class Player {
         return points;
     }
 
-    public Card selectCard(List<Card> cards){
-        Scanner scanner = new Scanner(System.in);
-        for (int i = 0; i < cards.size(); i++) {
-            System.out.println(i + ": " + cards.get(i));
-        }
-        System.out.println("Seleccione una carta por indice:");
-        int index = scanner.nextInt();
-        return cards.get(index);
-    }
 }

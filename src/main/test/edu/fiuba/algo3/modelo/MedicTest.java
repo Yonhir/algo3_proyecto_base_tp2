@@ -12,7 +12,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class MedicTest {
     private DiscardPile discardPile;
     private Row closeCombat;
-    private Player mockPlayer;
     private Card medicCard;
     private List<Modifier> modifiers = new ArrayList<>();
 
@@ -20,8 +19,7 @@ public class MedicTest {
     public void setUp(){
         discardPile = new DiscardPile();
         closeCombat = new CloseCombat();
-        mockPlayer = mock(Player.class);
-        modifiers.add(new Medic(discardPile,mockPlayer));
+        modifiers.add(new Medic(discardPile));
         medicCard = new Unit("Regular", "Descripcion", 6, List.of(new CloseCombatType()), modifiers);
     }
 
@@ -41,7 +39,7 @@ public class MedicTest {
     }
 
     @Test
-    public void testUnaMedicCardNoPuedeDevolverCartasQueNoSeanUnitDelDiscardPile(){
+    public void testUnaMedicCardNoPuedeDevolverCartasQueNoSeanUnitDelDiscardPilePeroSeColocaCorrectamente(){
         Card specialCard = new BitingFrost("Nombre", "Descripcion");
         SpecialZone specialZone = new SpecialZone(
                 List.of(closeCombat),
@@ -53,32 +51,10 @@ public class MedicTest {
         closeCombat.discardCards(discardPile);
 
         assertEquals(1, discardPile.getCardCount());
-
         assertThrows(IllegalStateException.class, () ->{
             closeCombat.placeCard(medicCard);
        });
-    }
-
-    @Test
-    public void testUnaMedicCardDaLaOpcionDeElejirUnaUnitCardDelDiscardPileSiHayMasDeUna(){
-        Card unit1 = new Unit("Catapult", "Descripcion", 8, List.of(new CloseCombatType()), new ArrayList<>());
-        Card unit2 = new Unit("Arquero", "Descripcion", 5, List.of(new CloseCombatType()), new ArrayList<>());
-        Card unit3 = new Unit("Arquero", "Descripcion", 3, List.of(new CloseCombatType()), new ArrayList<>());
-
-        closeCombat.placeCard(unit1);
-        closeCombat.placeCard(unit2);
-        closeCombat.placeCard(unit3);
-        closeCombat.discardCards(discardPile);
-
-        assertTrue(closeCombat.getCards().isEmpty());
-        assertEquals(3, discardPile.getCardCount());
-
-        List<Card> unitCards = discardPile.getUnitCards();
-        when(mockPlayer.selectCard(unitCards)).thenReturn(unit2);
-
-        closeCombat.placeCard(medicCard);
-
-        assertTrue(closeCombat.getCards().containsAll(List.of(unit2, medicCard)));
+        assertTrue(closeCombat.getCards().contains( medicCard)); //CloseCombat queda con Medico
     }
 
     @Test
@@ -86,57 +62,10 @@ public class MedicTest {
         assertThrows(IllegalStateException.class, () ->{
             closeCombat.placeCard(medicCard);
         });
+        assertTrue(closeCombat.getCards().contains( medicCard));
     }
 
-    @Test
-    public void testElUsuarioNoPuedeElegirUnitCardDeDiferenteRowDondeJugoLaMedicCard(){
-        Row siege = new Siege();
-        Card unit1 = new Unit("Catapult", "Descripcion", 8, List.of(new CloseCombatType()), new ArrayList<>());
-        Card unit2 = new Unit("Arquero", "Descripcion", 5, List.of(new SiegeType()), new ArrayList<>());
-        Card unit3 = new Unit("Arquero", "Descripcion", 3, List.of(new SiegeType()), new ArrayList<>());
 
-        closeCombat.placeCard(unit1);
-        siege.placeCard(unit2);
-        siege.placeCard(unit3);
-        closeCombat.discardCards(discardPile);
-        siege.discardCards(discardPile);
-
-        assertTrue(closeCombat.getCards().isEmpty());
-        assertTrue(siege.getCards().isEmpty());
-        assertEquals(3, discardPile.getCardCount());
-
-        List<Card> unitCards = discardPile.getUnitCards();
-        when(mockPlayer.selectCard(unitCards)).thenReturn(unit2); //El usario elige una Unit Card de una Row difertente
-                                                                   //a donde jugo Medic Card
-        assertThrows(SectionTypeMismatchError.class, () ->{
-            closeCombat.placeCard(medicCard);
-        });
-    }
-
-    @Test
-    public void testElUsuarioEligeCorrectamenteUnitCardDeMismoRowDondeJugoMedicCard(){
-        Row siege = new Siege();
-        Card unit1 = new Unit("Catapult", "Descripcion", 8, List.of(new CloseCombatType()), new ArrayList<>());
-        Card unit2 = new Unit("Arquero", "Descripcion", 5, List.of(new SiegeType()), new ArrayList<>());
-        Card unit3 = new Unit("Arquero", "Descripcion", 3, List.of(new SiegeType()), new ArrayList<>());
-
-        closeCombat.placeCard(unit1);
-        siege.placeCard(unit2);
-        siege.placeCard(unit3);
-        closeCombat.discardCards(discardPile);
-        siege.discardCards(discardPile);
-
-        assertTrue(closeCombat.getCards().isEmpty());
-        assertTrue(siege.getCards().isEmpty());
-        assertEquals(3, discardPile.getCardCount());
-
-        List<Card> unitCards = discardPile.getUnitCards();
-        when(mockPlayer.selectCard(unitCards)).thenReturn(unit1);
-
-        closeCombat.placeCard(medicCard);
-
-        assertTrue(closeCombat.getCards().containsAll(List.of(unit1, medicCard)));
-    }
 
     @Test
     public void tesSeCalculaCorrectamenteElPuntajeUsandoUnaMedicCard(){
@@ -151,12 +80,10 @@ public class MedicTest {
         assertEquals(16, closeCombat.calculatePoints());
 
         closeCombat.discardCards(discardPile);
-
-        List<Card> unitCards = discardPile.getUnitCards();
-        when(mockPlayer.selectCard(unitCards)).thenReturn(unit2);
         closeCombat.placeCard(medicCard);
 
-        assertEquals(11, closeCombat.calculatePoints());
+        assertEquals(9, closeCombat.calculatePoints());
+        assertTrue(closeCombat.getCards().containsAll(List.of(unit3, medicCard)));
     }
 
 }
