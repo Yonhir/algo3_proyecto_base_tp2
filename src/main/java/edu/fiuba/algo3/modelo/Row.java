@@ -48,6 +48,10 @@ public abstract class Row implements Section {
     }
 
     public void discardCards(DiscardPile discardPile) {
+        if(!(currentWeather instanceof ClearWeather)){
+            discardPile.addCard(currentWeather);
+            this.currentWeather = new ClearWeather("Clima Despejado", "Elimina todos los efectos de clima");
+        }
         discardPile.insertCards(cards);
         cards.clear();
     }

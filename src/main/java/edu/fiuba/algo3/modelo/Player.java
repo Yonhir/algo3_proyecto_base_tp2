@@ -1,6 +1,8 @@
 package edu.fiuba.algo3.modelo;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class Player {
     private final String name;
@@ -37,7 +39,7 @@ public class Player {
         int points = closeCombat.calculatePoints() + ranged.calculatePoints() + siege.calculatePoints();
         return points;
     }
-
+  
     public void playCard(Card card, Row row) {
         row.placeCard(card);
         hand.getCard(card);

@@ -17,6 +17,7 @@ public class DiscardPile extends CardCollection {
         for (Card c : cards) {
             addCard(c);
         }
+
     }
 
     public Card getLastCard() {
@@ -25,5 +26,14 @@ public class DiscardPile extends CardCollection {
         }
         int lastCard = (cards.size() - 1);
         return cards.remove(lastCard);
+    }
+
+    public Card getLastUnitCards() {
+        for (int i = cards.size() - 1; i >= 0; i--) {
+            if (cards.get(i) instanceof Unit) {
+                return cards.get(i);
+            }
+        }
+        throw new IllegalStateException("No unit cards");
     }
 }
