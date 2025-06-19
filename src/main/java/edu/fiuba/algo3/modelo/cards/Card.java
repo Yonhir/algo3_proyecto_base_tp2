@@ -27,4 +27,8 @@ public abstract class Card {
             throw new SectionTypeMismatchError("SectionType does not match for this card.");
         }
     }
+
+    public String getName() {
+        return name;
+    }
 }
