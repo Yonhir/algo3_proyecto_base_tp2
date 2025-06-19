@@ -1,19 +1,19 @@
 package edu.fiuba.algo3.modelo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class CardCollection {
     protected List<Card> cards;
 
-    public CardCollection(List<Card> cards) {
-        this.cards = cards;
+    public CardCollection() {
+        this.cards = new ArrayList<>();
     }
-
     public void addCard(Card card) {
         this.cards.add(card);
     }
 
-    public void addCards(List<Card> cards) {
+    public void insertCards(List<Card> cards) {
         this.cards.addAll(cards);
     }
 
@@ -29,12 +29,10 @@ public abstract class CardCollection {
         return cards.isEmpty();
     }
 
-    public Card retrieveCard(Card card){
-        if (cards.contains(card)) {
-            cards.remove(card);
-            return card;
+    public void retrieveCard(Card card){
+        if (!cards.remove(card)) {
+            throw new TheCardWasNotFound("The card is not in the deck");
         }
-        throw new TheCardWasNotFound("The card is not in the deck");  
     }
 
     public void getCard(Card card){

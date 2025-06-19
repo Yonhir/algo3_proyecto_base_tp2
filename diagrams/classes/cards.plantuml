@@ -41,7 +41,7 @@ interface Modifier <<interface>> {
 class TightBond {
 }
 
-class Agil {
+class Agile {
 }
 
 abstract class Weather <<abstract>> {
@@ -109,7 +109,7 @@ SectionType <|-- SpecialType
 Unit --> "*" Modifier
 
 Modifier <|.. TightBond
-Modifier <|.. Agil
+Modifier <|.. Agile
 
 Special <|-- Decoy
 Special <|-- TacticalAdvantage

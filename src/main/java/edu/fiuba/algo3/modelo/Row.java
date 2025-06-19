@@ -48,7 +48,7 @@ public abstract class Row implements Section {
     }
 
     public void discardCards(DiscardPile discardPile) {
-        discardPile.addCards(cards);
+        discardPile.insertCards(cards);
         cards.clear();
     }
 

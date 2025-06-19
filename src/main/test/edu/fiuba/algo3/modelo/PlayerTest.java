@@ -65,7 +65,8 @@ public class PlayerTest {
         cards.addAll(specialCards);
 
         // Initialize game components
-        deck = new Deck(cards);
+        deck = new Deck();
+        deck.insertCards(cards);
         closeCombat = new CloseCombat();
         ranged = new Ranged();
         siege = new Siege();
@@ -80,7 +81,7 @@ public class PlayerTest {
         deck.getCards().remove(closeCombatCard);
         deck.getCards().remove(rangedCard);
 
-        hand.addCards(Arrays.asList(siegeCard, closeCombatCard, rangedCard));
+        hand.insertCards(Arrays.asList(siegeCard, closeCombatCard, rangedCard));
         hand.getNCardsFromDeck(deck, 7);
     }
 
@@ -181,6 +182,25 @@ public class PlayerTest {
         
         //ASSERT
         Assertions.assertEquals(expectedDiscardPile.getCardCount(), actualDiscardPile.getCardCount());
+    }
+
+    @Test
+    public void testCalculatePoints() {
+        //ARRANGE
+        // Use cards from setUp: card[0] = 4 points (close combat), card[2] = 6 points (ranged), card[3] = 3 points (siege)
+        Unit closeCombatUnit = (Unit) cards.get(0);
+        Unit rangedUnit = (Unit) cards.get(2);
+        Unit siegeUnit = (Unit) cards.get(3);
+        int expectedPoints = 13; // 4 + 6 + 3
+        closeCombat.placeCard(closeCombatUnit);
+        ranged.placeCard(rangedUnit);
+        siege.placeCard(siegeUnit);
+        
+        //ACT
+        int actualPoints = player.calculatePoints();
+        
+        //ASSERT
+        Assertions.assertEquals(expectedPoints, actualPoints);
     }
 
     @Test

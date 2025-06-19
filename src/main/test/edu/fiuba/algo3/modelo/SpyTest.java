@@ -46,8 +46,9 @@ public class SpyTest {
     }
     @Test
     public void play_card_in_my_row() {
-        Deck deck = new Deck(cards);
-        Hand hand = new Hand(new ArrayList<>());
+        Deck deck = new Deck();
+        deck.insertCards(cards);
+        Hand hand = new Hand();
         RangedRowOpponent = new Ranged();
         RangedRowOwner = new Ranged();
         Unit carta_espia = new Unit("Nombre", "Descripcion", 4, r, List.of(new Spy(deck, hand, RangedRowOwner)));
@@ -60,8 +61,9 @@ public class SpyTest {
 
     @Test
     public void hand_get_2_cards_from_deck_play_opponent() {
-        Deck deck = new Deck(cards);
-        Hand hand = new Hand(new ArrayList<>());
+        Deck deck = new Deck();
+        deck.insertCards(cards);
+        Hand hand = new Hand();
         RangedRowOpponent = new Ranged();
         RangedRowOwner = new Ranged();
         Unit carta_espia = new Unit("Nombre", "Descripcion", 4, r, List.of(new Spy(deck, hand, RangedRowOwner)));
@@ -74,8 +76,9 @@ public class SpyTest {
 
     @Test
     public void deck_lose_2_cards_play_opponent() {
-        Deck deck = new Deck(cards);
-        Hand hand = new Hand(new ArrayList<>());
+        Deck deck = new Deck();
+        deck.insertCards(cards);
+        Hand hand = new Hand();
         RangedRowOpponent = new Ranged();
         RangedRowOwner = new Ranged();
         Unit carta_espia = new Unit("Nombre", "Descripcion", 4, r, List.of(new Spy(deck, hand, RangedRowOwner)));
@@ -88,8 +91,9 @@ public class SpyTest {
 
     @Test
     public void not_steals_cards_from_deck_if_play_in_my_row() {
-        Deck deck = new Deck(cards);
-        Hand hand = new Hand(new ArrayList<>());
+        Deck deck = new Deck();
+        deck.insertCards(cards);
+        Hand hand = new Hand();
         RangedRowOpponent = new Ranged();
         RangedRowOwner = new Ranged();
         Unit carta_espia = new Unit("Nombre", "Descripcion", 4, r, List.of(new Spy(deck, hand, RangedRowOwner)));
@@ -102,8 +106,9 @@ public class SpyTest {
 
     @Test
     public void not_lose_cards_from_deck_if_play_in_my_row() {
-        Deck deck = new Deck(cards);
-        Hand hand = new Hand(new ArrayList<>());
+        Deck deck = new Deck();
+        deck.insertCards(cards);
+        Hand hand = new Hand();
         RangedRowOpponent = new Ranged();
         RangedRowOwner = new Ranged();
         Unit carta_espia = new Unit("Nombre", "Descripcion", 4, r, List.of(new Spy(deck, hand, RangedRowOwner)));
