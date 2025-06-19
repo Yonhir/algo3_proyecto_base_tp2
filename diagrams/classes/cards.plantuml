@@ -41,7 +41,7 @@ interface Modifier <<interface>> {
 class TightBond {
 }
 
-class Agil {
+class Agile {
 }
 
 abstract class Weather <<abstract>> {
@@ -63,7 +63,33 @@ class ImpenetrableFog {
 
 class BitingFrost {
   +BitingFrost(name: String, description: String): BitingFrost
-  +apply(card: Card, row: Row): void
+}
+
+class Decoy {
+  +Decoy(name: String, description: String): Decoy
+}
+
+class MoraleBoost{
+  +MoraleBoost(name: String, description: String, sectionsType: SectionsType[])
+  +play(section: Section): void
+}
+
+class TacticalAdvantage {
+  +TacticalAdvantage(name: String, description: String): TacticalAdvantage
+}
+
+class Scorch {
+  +Scorch(name: String, description: String): Scorch
+}
+
+interface Modifier <<interface>> {
+  +apply(row: Row): void
+}
+
+class TightBond {
+}
+
+class Agil {
 }
 
 ' =====================
@@ -83,9 +109,13 @@ SectionType <|-- SpecialType
 Unit --> "*" Modifier
 
 Modifier <|.. TightBond
-Modifier <|.. Agil
+Modifier <|.. Agile
 
-Special <|-- Weather
+Special <|-- Decoy
+Special <|-- TacticalAdvantage
+Special <|-- Scorch
+Special <|-- MoraleBoost
+Special <|--- Weather
 
 Weather <|-- TorrentialRain
 Weather <|-- ImpenetrableFog
