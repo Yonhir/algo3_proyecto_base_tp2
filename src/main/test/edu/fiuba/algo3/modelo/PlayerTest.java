@@ -214,4 +214,57 @@ public class PlayerTest {
         //ASSERT
         Assertions.assertEquals(expectedPoints, actualPoints);
     }
+
+    @Test
+    public void testPlayerPassesRoundHasPassedIsTrue() {
+        player.passRound();
+
+        Assertions.assertTrue(player.hasPassed());
+    }
+
+    @Test
+    public void testPlayerResetsPassHasPassedIsFalse() {
+        player.passRound();
+        player.resetPass();
+
+        Assertions.assertFalse(player.hasPassed());
+    }
+
+    @Test
+    public void testPlayerWinsOneRoundRoundsWonIncreases() {
+        player.winRound();
+
+        Assertions.assertEquals(1, player.getRoundsWon());
+    }
+
+    @Test
+    public void testPlayerWinsTwoRoundsHasWonGameIsTrue() {
+        player.winRound();
+        player.winRound();
+
+        Assertions.assertTrue(player.hasWonGame());
+    }
+
+    @Test
+    public void testPlayerWinsOneRoundHasNotWonGameYet() {
+        player.winRound();
+
+        Assertions.assertFalse(player.hasWonGame());
+    }
+
+    @Test
+    public void discardAllRows_movesCardsToDiscardPile() {
+        player.playCard(siegeCard, siege);
+        player.playCard(closeCombatCard, closeCombat);
+        player.playCard(rangedCard, ranged);
+
+        int expectedDiscardCount = 3;
+
+        player.discardAllRows();
+
+        Assertions.assertEquals(0, siege.getCards().size());
+        Assertions.assertEquals(0, ranged.getCards().size());
+        Assertions.assertEquals(0, closeCombat.getCards().size());
+        Assertions.assertEquals(expectedDiscardCount, player.getDiscardPile().getCardCount());
+    }
 }
