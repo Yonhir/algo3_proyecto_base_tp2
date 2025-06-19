@@ -23,7 +23,8 @@ public class Game {
     }
 
     public boolean isGameOver() {
-        return player1.hasWonGame() || player2.hasWonGame();
+        int totalRoundsPlayed = player1.getRoundsWon() + player2.getRoundsWon();
+        return player1.hasWonGame() || player2.hasWonGame() || totalRoundsPlayed == 2;
     }
 
     public Player getGameWinner() {
@@ -46,6 +47,10 @@ public class Game {
     private void clearBoard() {
         player1.discardAllRows();
         player2.discardAllRows();
+    }
+
+    public boolean isDraw() {
+        return player1.getRoundsWon() == 1 && player2.getRoundsWon() == 1 && isGameOver();
     }
 }
 

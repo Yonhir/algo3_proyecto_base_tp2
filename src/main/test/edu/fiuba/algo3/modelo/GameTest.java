@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class GameTest {
 
@@ -43,5 +45,20 @@ public class GameTest {
 
         assertTrue(player1.getDiscardPile().getCards().isEmpty());
         assertTrue(player2.getDiscardPile().getCards().isEmpty());
+    }
+
+    @Test
+    public void testGameEndsInDrawAfterThreeRoundsWithOneWinEach() {
+        Player p1 = mock(Player.class);
+        Player p2 = mock(Player.class);
+
+        when(p1.getRoundsWon()).thenReturn(1);
+        when(p2.getRoundsWon()).thenReturn(1);
+        when(p1.hasWonGame()).thenReturn(false);
+        when(p2.hasWonGame()).thenReturn(false);
+
+        Game game = new Game(p1, p2);
+
+        assertTrue(game.isDraw());
     }
 }

@@ -39,12 +39,18 @@ public class Round {
     }
 
     public void assignVictory() {
-        getWinner().winRound();
+        if (!isDraw()) {
+            getWinner().winRound();
+        }
     }
 
     private void swapPlayers() {
         Player temp = currentPlayer;
         currentPlayer = opponentPlayer;
         opponentPlayer = temp;
+    }
+
+    public boolean isDraw() {
+        return player1.calculatePoints() == player2.calculatePoints();
     }
 }

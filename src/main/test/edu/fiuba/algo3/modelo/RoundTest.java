@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 public class RoundTest {
 
@@ -47,5 +48,49 @@ public class RoundTest {
         round.getWinner().winRound();
         assertEquals(1, round.getWinner().getRoundsWon());
     }
+    @Test
+    public void testRoundIsDrawWhenPlayersHaveSamePoints() {
+        Player p1 = mock(Player.class);
+        Player p2 = mock(Player.class);
+        when(p1.calculatePoints()).thenReturn(10);
+        when(p2.calculatePoints()).thenReturn(10);
+
+        Round round = new Round(p1, p2);
+
+        assertTrue(round.isDraw());
+    }
+
+    @Test
+    public void testAssignVictoryDoesNotIncrementRoundsWonOnDraw() {
+        Player p1 = mock(Player.class);
+        Player p2 = mock(Player.class);
+
+        when(p1.calculatePoints()).thenReturn(10);
+        when(p2.calculatePoints()).thenReturn(10);
+
+        Round round = new Round(p1, p2);
+
+        round.assignVictory();
+
+        verify(p1, never()).winRound();
+        verify(p2, never()).winRound();
+    }
+
+    @Test
+    public void testAssignVictoryGivesRoundToWinner() {
+        Player p1 = mock(Player.class);
+        Player p2 = mock(Player.class);
+
+        when(p1.calculatePoints()).thenReturn(15);
+        when(p2.calculatePoints()).thenReturn(10);
+
+        Round round = new Round(p1, p2);
+
+        round.assignVictory();
+
+        verify(p1, times(1)).winRound();
+        verify(p2, never()).winRound();
+    }
+
 }
 
