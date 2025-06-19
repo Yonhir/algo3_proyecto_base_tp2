@@ -1,6 +1,10 @@
 package edu.fiuba.algo3.modelo;
 
-import java.util.ArrayList;
+import edu.fiuba.algo3.modelo.cardcollections.Deck;
+import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
+import edu.fiuba.algo3.modelo.cardcollections.Hand;
+import edu.fiuba.algo3.modelo.cards.Card;
+import edu.fiuba.algo3.modelo.sections.*;
 
 public class Player {
     private final String name;
