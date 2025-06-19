@@ -34,4 +34,8 @@ public abstract class CardCollection {
             throw new TheCardWasNotFound("The card is not in the deck");
         }
     }
+
+    public void getCard(Card card){
+        cards.remove(card);
+    }
 }

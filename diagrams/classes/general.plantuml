@@ -84,6 +84,7 @@ class SpecialType
 
 abstract class Row <<abstract>> {
   #cards: List<Card>
+  #lastCard: Card
   #currentWeather: Weather
   #sectionType: SectionType
   +Row(sectionType: SectionType): Row
@@ -157,6 +158,9 @@ class TightBond {
 }
 
 class Agile {
+}
+
+class MoraleBoostModifier {
 }
 
 abstract class Weather <<abstract>> {
@@ -259,6 +263,7 @@ Unit --> "*" Modifier
 
 Modifier <|.. TightBond
 Modifier <|.. Agile
+Modifier <|.. MoraleBoostModifier
 
 Special <|-- Weather
 
