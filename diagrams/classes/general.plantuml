@@ -28,17 +28,17 @@ class Player {
 
 abstract class CardCollection <<abstract>> {
   #cards: List<Card>
-  +CardCollection(cards: List<Card>): CardCollection
+  +CardCollection(): CardCollection
   +getCards(): List<Card>
   +addCard(card: Card): void
-  +addCards(cards: List<Card>): void
+  +insertCards(cards: List<Card>): void
   +retrieveCard(card: Card): Card
   +getCardCount(): int
   +isEmpty(): boolean
 }
 
 class Hand {
-  +Hand(cards: List<Card>): Hand
+  +Hand(): Hand
   +getNCardsFromDeck(deck: Deck, n: int): void
 }
 
@@ -46,15 +46,14 @@ class DiscardPile {
   +DiscardPile(): DiscardPile
   +getLastCard(): Card
   +addCard(card: Card): void
-  +addCards(cards: List<Card>): void
+  +insertCards(cards: List<Card>): void
 }
 
 class Deck {
-  +Deck(cards: List<Card>): Deck
-  +getCardCount(): int
+  +Deck(): Deck
   +getUnitsCount(): long
   +getSpecialsCount(): long
-  -validate(validators: List<DeckValidator>): void
+  -validate(): void
   +retrieveNRandomCards(n: int): List<Card>
 }
 
@@ -85,6 +84,7 @@ class SpecialType
 
 abstract class Row <<abstract>> {
   #cards: List<Card>
+  #lastCard: Card
   #currentWeather: Weather
   #sectionType: SectionType
   +Row(sectionType: SectionType): Row
@@ -157,7 +157,10 @@ interface Modifier <<interface>> {
 class TightBond {
 }
 
-class Agil {
+class Agile {
+}
+
+class MoraleBoostModifier {
 }
 
 abstract class Weather <<abstract>> {
@@ -196,8 +199,8 @@ class NotEnoughSpecialsCardsError {
   +NotEnoughSpecialsCardsError(message: String): NotEnoughSpecialsCardsError
 }
 
-class NotEnoughtCardsInDeckError {
-  +NotEnoughtCardsInDeckError(message: String): NotEnoughtCardsInDeckError
+class NotEnoughCardsInDeckError {
+  +NotEnoughCardsInDeckError(message: String): NotEnoughCardsInDeckError
 }
 
 class NotEnoughUnitsCardsError {
@@ -259,7 +262,8 @@ Card --> "*" SectionType
 Unit --> "*" Modifier
 
 Modifier <|.. TightBond
-Modifier <|.. Agil
+Modifier <|.. Agile
+Modifier <|.. MoraleBoostModifier
 
 Special <|-- Weather
 
@@ -270,7 +274,9 @@ Weather <|-- BitingFrost
 ' Exceptions Relationships
 InvalidCardAmountError --|> RuntimeException
 NotEnoughSpecialsCardsError --|> RuntimeException
-NotEnoughtCardsInDeckError --|> RuntimeException
+NotEnoughCardsInDeckError --|> RuntimeException
 NotEnoughUnitsCardsError --|> RuntimeException
 TheCardWasNotFound --|> RuntimeException
 SectionTypeMismatchError --|> RuntimeException
+
+@enduml

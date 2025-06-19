@@ -1,6 +1,5 @@
 package edu.fiuba.algo3.modelo;
 
-import edu.fiuba.algo3.modelo.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -36,13 +35,15 @@ public class HandTest {
                 new TorrentialRain("Nombre", "Descripcion"),
                 new TorrentialRain("Nombre", "Descripcion"),
                 new ImpenetrableFog("Nombre", "Descripcion"),
-                new ImpenetrableFog("Nombre", "Descripcion")));
+                new ImpenetrableFog("Nombre", "Descripcion")
+        ));
     }
 
     @Test
     public void testSePideUnaCartaDelDeckALaHandCorrectamente(){
-        Deck deck = new Deck(cards);
-        Hand hand = new Hand(new ArrayList<>());
+        Deck deck = new Deck();
+        deck.insertCards(cards);
+        Hand hand = new Hand();
         int expectedCards = 1;
 
         hand.getNCardsFromDeck(deck,1);
@@ -52,8 +53,10 @@ public class HandTest {
     }
     @Test
     public void testSeReparten10CardsAlaHand(){
-        Deck deck = new Deck(cards);
-        Hand hand = new Hand(new ArrayList<>());
+        Deck deck = new Deck();
+        deck.insertCards(cards);
+        Hand hand = new Hand();
+
         int expectedCards = 10;
 
         hand.getNCardsFromDeck(deck,10);
@@ -64,37 +67,35 @@ public class HandTest {
 
     @Test
     public void testNoSePuedeObtenerCartasSiElDeckEstaVacio(){
-        Deck deck = new Deck(cards);
-        Hand hand = new Hand(new ArrayList<>());
+        Deck deck = new Deck();
+        deck.insertCards(cards);
+        Hand hand = new Hand();
 
         for(Card card: new ArrayList<>(cards)){
             deck.retrieveCard(card);
         }
 
-        assertThrows(NotEnoughtCardsInDeckError.class, () -> {
-            hand.getNCardsFromDeck(deck,10);;
+        assertThrows(NotEnoughCardsInDeckError.class, () -> {
+            hand.getNCardsFromDeck(deck,10);
         });
     }
 
     @Test
     public void testNoSePuedePedirMasCartasDeLasQueTieneElDeck(){
-        Deck deck = new Deck(new ArrayList<>(cards));
-        Hand hand = new Hand(new ArrayList<>());
+        Deck deck = new Deck();
+        deck.insertCards(cards.subList(0, 8));
+        Hand hand = new Hand();
 
-        for (int i = 0; i < 15; i++) {
-            Card card = cards.get(i);
-            deck.retrieveCard(card);
-        }
-
-        assertThrows(NotEnoughtCardsInDeckError.class, () -> {
-            hand.getNCardsFromDeck(deck,10);;
+        assertThrows(NotEnoughCardsInDeckError.class, () -> {
+            hand.getNCardsFromDeck(deck,10);
         });
     }
 
     @Test
     public void testNoSePuedePedirCardsDelDeckConNumerosMenoresACero(){
-        Deck deck = new Deck(cards);
-        Hand hand = new Hand(new ArrayList<>());
+        Deck deck = new Deck();
+        deck.insertCards(cards);
+        Hand hand = new Hand();
 
         assertThrows(InvalidCardAmountError.class, () ->{
             hand.getNCardsFromDeck(deck, -5);
@@ -103,11 +104,12 @@ public class HandTest {
 
     @Test
     public void testNoSePuedePedirCardsDelDeckConNumeroIgualACero(){
-        Deck deck = new Deck(cards);
-        Hand hand = new Hand(new ArrayList<>());
+        Deck deck = new Deck();
+        deck.insertCards(cards);
+        Hand hand = new Hand();
 
         assertThrows(InvalidCardAmountError.class, () -> {
-            hand.getNCardsFromDeck(deck,0);;
+            hand.getNCardsFromDeck(deck,0);
         });
     }
 }

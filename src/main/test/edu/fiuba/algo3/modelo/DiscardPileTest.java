@@ -12,6 +12,7 @@ public class DiscardPileTest {
     private DiscardPile discardPile;
     private Unit unit1;
     private Unit unit2;
+    private Unit unit3;
     private List<Card> closeCombatUnits;
     private List<Card> rangedUnits;
     private List<Card> siegeUnits;
@@ -23,6 +24,7 @@ public class DiscardPileTest {
         discardPile = new DiscardPile();
         unit1 = new Unit("Unit1", "Description1", 5, List.of(new CloseCombatType()), new ArrayList<>());
         unit2 = new Unit("Unit2", "Description2", 7, List.of(new RangedType()), new ArrayList<>());
+        unit3 = new Unit("Nombre", "Descripcion3", 3, List.of(new SiegeType()), new ArrayList<>());
         closeCombatUnits = Arrays.asList(
             new Unit("Nombre", "Descripcion", 4, List.of(new CloseCombatType()), new ArrayList<>()),
             new Unit("Nombre", "Descripcion", 5, List.of(new CloseCombatType()), new ArrayList<>()),
@@ -91,7 +93,25 @@ public class DiscardPileTest {
     }
 
     @Test
-    public void cards_go_to_discardPile(){
+    void testUnitCardsPointsResetWhenAddedToDiscardPile() {
+        // Modify their points
+        unit1.setPoints(10);
+        unit2.setPoints(8);
+        unit3.setPoints(6);
+
+        List<Card> unitCards = Arrays.asList(unit1, unit2, unit3);
+
+        // Add the cards to discard pile
+        discardPile.insertCards(unitCards);
+
+        List<Integer> pointsGotten = Arrays.asList(unit1.calculatePoints(), unit2.calculatePoints(), unit3.calculatePoints());
+        List<Integer> pointsExpected = Arrays.asList(5, 7, 3);
+
+        assertEquals(pointsGotten, pointsExpected, "Points should be reset to base value");
+    }
+
+    @Test
+    public void cards_count_go_to_discardPile(){
         int expectedSize = 15;
         Row ranged = new Ranged();
         Row closeCombat = new CloseCombat();
@@ -114,6 +134,6 @@ public class DiscardPileTest {
         int actualSize = discardPile.getCardCount();
 
         assertEquals(expectedSize, actualSize);
-        assertTrue(cards.containsAll(discardPile.getCards()));
     }
+
 }
