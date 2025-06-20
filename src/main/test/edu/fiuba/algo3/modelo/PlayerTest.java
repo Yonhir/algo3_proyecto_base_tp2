@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo;
 
+import edu.fiuba.algo3.modelo.Colors.Blue;
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
 import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cardcollections.Hand;
@@ -90,7 +91,7 @@ public class PlayerTest {
                 List.of(ranged),
                 List.of(siege)
         );
-        player = new Player("Gabriel", 2, deck, specialZone, closeCombat, ranged, siege);
+        player = new Player("Gabriel", 2, deck, specialZone, closeCombat, ranged, siege, new Blue());
         Hand hand = player.getHand();
         deck.getCards().remove(siegeCard);
         deck.getCards().remove(closeCombatCard);
