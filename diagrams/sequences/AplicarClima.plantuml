@@ -1,0 +1,35 @@
+@startuml
+
+hide footbox
+title Aplicación del clima BitingFrost a las filas de combate cercano
+
+actor TestCase
+
+participant "specialZone:SpecialZone" as specialZone
+participant "bitingFrost:BitingFrost" as weather
+participant "closeCombatRow:CloseCombat" as row
+participant "unit:Unit" as unit
+
+TestCase -> specialZone: placeCard(weather)
+    activate specialZone
+    specialZone -> weather: verifySectionType(sectionType)
+        activate weather
+        deactivate weather
+    specialZone -> weather: play(specialZone)
+        activate weather
+        weather -> specialZone: applyCloseCombatWeather(weather)
+            activate specialZone
+            loop for each closeCombat row
+                specialZone -> row: applyWeather(weather)
+                    activate row
+                    loop for each unit in row
+                        row -> weather: apply(unit, row)
+                            weather -> unit: setPoints(1)
+                    end
+                    deactivate row
+            end
+            deactivate specialZone
+        deactivate weather
+    deactivate specialZone
+
+@enduml 

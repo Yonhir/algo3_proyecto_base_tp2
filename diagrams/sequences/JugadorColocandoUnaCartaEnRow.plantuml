@@ -1,0 +1,21 @@
+@startuml
+
+hide footbox
+title Jugador coloca una Unidad en un Row
+
+actor TestCase
+participant ":Row" as row
+participant ":Unit" as unit
+
+TestCase -> row : placeCard(unit)
+    activate row
+    row -> unit : verifySectionType(sectionType)
+        activate unit
+        deactivate unit
+
+    row -> unit : play(row)
+        activate unit
+        unit -> row : addCard(unit)
+        deactivate unit
+    deactivate row
+@enduml

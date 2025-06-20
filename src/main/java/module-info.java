@@ -3,4 +3,26 @@ module edu.fiuba.algo3 {
     requires json.simple;
     exports edu.fiuba.algo3;
     exports edu.fiuba.algo3.vistas;
+    exports edu.fiuba.algo3.modelo;
+    opens edu.fiuba.algo3.modelo;
+    exports edu.fiuba.algo3.modelo.errors;
+    opens edu.fiuba.algo3.modelo.errors;
+    exports edu.fiuba.algo3.modelo.sections;
+    opens edu.fiuba.algo3.modelo.sections;
+    exports edu.fiuba.algo3.modelo.cardcollections;
+    opens edu.fiuba.algo3.modelo.cardcollections;
+    exports edu.fiuba.algo3.modelo.cards;
+    opens edu.fiuba.algo3.modelo.cards;
+    exports edu.fiuba.algo3.modelo.cards.units.modifiers;
+    opens edu.fiuba.algo3.modelo.cards.units.modifiers;
+    exports edu.fiuba.algo3.modelo.cards.units;
+    opens edu.fiuba.algo3.modelo.cards.units;
+    exports edu.fiuba.algo3.modelo.cards.specials;
+    opens edu.fiuba.algo3.modelo.cards.specials;
+    exports edu.fiuba.algo3.modelo.cards.specials.weathers;
+    opens edu.fiuba.algo3.modelo.cards.specials.weathers;
+    exports edu.fiuba.algo3.modelo.sections.rows;
+    opens edu.fiuba.algo3.modelo.sections.rows;
+    exports edu.fiuba.algo3.modelo.sections.types;
+    opens edu.fiuba.algo3.modelo.sections.types;
 }

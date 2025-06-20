@@ -1,0 +1,282 @@
+@startuml
+
+skinparam monochrome true
+hide circle
+skinparam classAttributeIconSize 0
+
+' Layout direction
+left to right direction
+
+' =====================
+' GAME
+' =====================
+class Player {
+  -name: String
+  -health: int
+  -discardPile: DiscardPile
+  -hand: Hand
+  -deck: Deck
+  -specialZone: SpecialZone
+  -closeCombat: CloseCombat
+  -ranged: Ranged
+  -siege: Siege
+  +Player(name: String, health: int, deck: Deck, specialZone: SpecialZone, closeCombat: CloseCombat, ranged: Ranged, siege: Siege): Player
+  +getDiscardPile(): DiscardPile
+  +getHand(): Hand
+  +calculatePoints(): int
+}
+
+abstract class CardCollection <<abstract>> {
+  #cards: List<Card>
+  +CardCollection(): CardCollection
+  +getCards(): List<Card>
+  +addCard(card: Card): void
+  +insertCards(cards: List<Card>): void
+  +retrieveCard(card: Card): Card
+  +getCardCount(): int
+  +isEmpty(): boolean
+}
+
+class Hand {
+  +Hand(): Hand
+  +getNCardsFromDeck(deck: Deck, n: int): void
+}
+
+class DiscardPile {
+  +DiscardPile(): DiscardPile
+  +getLastCard(): Card
+  +addCard(card: Card): void
+  +insertCards(cards: List<Card>): void
+}
+
+class Deck {
+  +Deck(): Deck
+  +getUnitsCount(): long
+  +getSpecialsCount(): long
+  -validate(): void
+  +retrieveNRandomCards(n: int): List<Card>
+}
+
+interface DeckValidator <<interface>> {
+  +validate(cards: List<Card>): void
+}
+
+class Validate6SpecialCards {
+  -MIN_SPECIALS: int
+}
+
+class Validate15UnitsCards {
+  -MIN_UNITS: int
+}
+
+' =====================
+' SECTIONS
+' =====================
+interface Section <<interface>> {
+  +placeCard(card: Card): void
+}
+
+abstract class SectionType
+class CloseCombatType
+class RangedType
+class SiegeType
+class SpecialType
+
+abstract class Row <<abstract>> {
+  #cards: List<Card>
+  #lastCard: Card
+  #currentWeather: Weather
+  #sectionType: SectionType
+  +Row(sectionType: SectionType): Row
+  +placeCard(card: Card): void
+  +addCard(card: Card): void
+  +applyWeather(weather: Weather): void
+  +calculatePoints(): int
+  +discardCards(discardPile: DiscardPile): void
+  +getCards(): List<Card>
+}
+
+class Ranged {
+  +canBePlacedIn(unit: Unit): boolean
+}
+
+class CloseCombat {
+  +canBePlacedIn(unit: Unit): boolean
+}
+
+class Siege {
+  +canBePlacedIn(unit: Unit): boolean
+}
+
+class SpecialZone {
+  -closeCombatRows: List<Row>
+  -rangedRows: List<Row>
+  -siegeRows: List<Row>
+  -sectionType: SpecialType
+  +SpecialZone(closeCombatRows: List<Row>, rangedRows: List<Row>, siegeRows: List<Row>)
+  +placeCard(card: Card): void
+  +addCard(card: Card): void
+  +applyCloseCombatWeather(weather: Weather): void
+  +applyRangedWeather(weather: Weather): void
+  +applySiegeWeather(weather: Weather): void
+}
+
+' =====================
+' CARDS
+' =====================
+abstract class Card <<abstract>> {
+  #name: String
+  #description: String
+  #sectionTypes: List<SectionType>
+  +Card(name: String, description: String, sectionTypes: List<SectionType>): Card
+  +play(section: Section): void
+  +verifySectionType(sectionType: SectionType): void
+}
+
+class Unit {
+  -basePoints: int
+  -currentPoints: int
+  -modifiers: List<Modifier>
+  +Unit(name: String, description: String, points: int, sectionTypes: List<SectionType>, modifiers: List<Modifier>): Unit
+  +calculatePoints(): int
+  +resetPoints(): void
+  +setPoints(points: int): void
+  +haveModifier(modifier: Modifier): boolean
+  +play(section: Section): void
+  +verifySectionType(sectionType: SectionType): void
+}
+
+abstract class Special <<abstract>> {
+  +verifySectionType(sectionType: SectionType): void
+}
+
+interface Modifier <<interface>> {
+  +apply(row: Row): void
+}
+
+class TightBond {
+}
+
+class Agile {
+}
+
+class MoraleBoostModifier {
+}
+
+abstract class Weather <<abstract>> {
+  +verifySectionType(sectionType: SectionType): void
+  +play(section: Section): void
+  +apply(card: Card, row: Row): void
+}
+
+class TorrentialRain {
+  +TorrentialRain(name: String, description: String): TorrentialRain
+  +apply(card: Card, row: Row): void
+}
+
+class ImpenetrableFog {
+  +ImpenetrableFog(name: String, description: String): ImpenetrableFog
+  +apply(card: Card, row: Row): void
+}
+
+class BitingFrost {
+  +BitingFrost(name: String, description: String): BitingFrost
+  +apply(card: Card, row: Row): void
+}
+
+' =====================
+' EXCEPTIONS
+' =====================
+class InvalidCardAmountError {
+  +InvalidCardAmountError(message: String): InvalidCardAmountError
+}
+
+class SectionTypeMismatchError {
+  +SectionTypeMismatchError(message: String): SectionTypeMismatchError
+}
+
+class NotEnoughSpecialsCardsError {
+  +NotEnoughSpecialsCardsError(message: String): NotEnoughSpecialsCardsError
+}
+
+class NotEnoughCardsInDeckError {
+  +NotEnoughCardsInDeckError(message: String): NotEnoughCardsInDeckError
+}
+
+class NotEnoughUnitsCardsError {
+  +NotEnoughUnitsCardsError(message: String): NotEnoughUnitsCardsError
+}
+
+class TheCardWasNotFound {
+  +TheCardWasNotFound(message: String): TheCardWasNotFound
+}
+
+' =====================
+' RELATIONSHIPS
+' =====================
+' Game Relationships
+Player --> "3" CardCollection
+
+CardCollection --> "*" Card
+CardCollection <|-- Hand
+CardCollection <|-- DiscardPile
+CardCollection <|-- Deck
+
+Player --> "3" Row
+Player --> "1" SpecialZone
+
+Deck --> "*" DeckValidator
+DeckValidator <|.. Validate6SpecialCards
+DeckValidator <|.. Validate15UnitsCards
+
+' Section Relationships
+SpecialZone --> "6" Row
+
+Row <|-- Ranged
+Row <|-- CloseCombat
+Row <|-- Siege
+
+Row --> "*" Card
+
+Row ..|> Section
+SpecialZone ..|> Section
+
+SectionType <|-- SpecialType
+SectionType <|-- CloseCombatType
+SectionType <|-- RangedType
+SectionType <|-- SiegeType
+
+SpecialZone --> "1" SectionType
+Row --> "1" SectionType
+
+Ranged --> "1" RangedType
+CloseCombat --> "1" CloseCombatType
+Siege --> "1" SiegeType
+
+' Card Relationships
+Card <|-- Unit
+Card <|-- Special
+
+Card --> "*" SectionType
+
+Unit --> "*" Modifier
+
+Modifier <|.. TightBond
+Modifier <|.. Agile
+Modifier <|.. MoraleBoostModifier
+
+Special <|-- Weather
+
+Weather <|-- TorrentialRain
+Weather <|-- ImpenetrableFog
+Weather <|-- BitingFrost
+
+' Exceptions Relationships
+InvalidCardAmountError --|> RuntimeException
+NotEnoughSpecialsCardsError --|> RuntimeException
+NotEnoughCardsInDeckError --|> RuntimeException
+NotEnoughUnitsCardsError --|> RuntimeException
+TheCardWasNotFound --|> RuntimeException
+SectionTypeMismatchError --|> RuntimeException
+
+@enduml

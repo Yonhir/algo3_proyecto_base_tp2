@@ -1,0 +1,46 @@
+@startuml
+
+hide footbox
+title Aplicación del modificador TightBond a las unidades en una fila
+
+actor TestCase
+
+participant ":Row" as row
+participant "TightBondUnit:Unit" as tightBondUnit
+participant ":TightBond" as tightBond
+participant ":Unit" as otherUnits
+
+TestCase -> row: placeCard(unit)
+    activate row
+    row -> tightBondUnit: play(row)
+        activate tightBondUnit
+        tightBondUnit -> row: addCard(tightBondUnit)
+        tightBondUnit -> tightBond: apply(row)
+            activate tightBond
+            tightBond -> row: getCards()
+            row --> tightBond: cards
+
+            loop For each card in row
+                tightBond -> otherUnits: haveModifier(TightBond)
+                    activate otherUnits
+                    otherUnits --> tightBond: true
+                    deactivate otherUnits
+            end
+
+            loop For each unit with TightBond
+                tightBond -> otherUnits: calculatePoints()
+                    activate otherUnits
+                    otherUnits --> tightBond: points
+                    deactivate otherUnits
+            end
+
+            loop For each unit with TightBond
+                tightBond -> otherUnits: setPoints(newCardPoints * tightBondUnits.size())
+                    activate otherUnits
+                    deactivate otherUnits
+            end
+            deactivate tightBond
+        deactivate tightBondUnit
+    deactivate row
+
+@enduml
