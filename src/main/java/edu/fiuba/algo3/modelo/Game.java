@@ -1,13 +1,17 @@
 package edu.fiuba.algo3.modelo;
 
+import edu.fiuba.algo3.modelo.sections.SpecialZone;
+
 public class Game {
     private final Player player1;
     private final Player player2;
     private Round currentRound;
+    private final SpecialZone specialZone;
 
-    public Game(Player player1, Player player2) {
+    public Game(Player player1, Player player2, SpecialZone specialZone) {
         this.player1 = player1;
         this.player2 = player2;
+        this.specialZone = specialZone;
         startNewRound();
     }
 

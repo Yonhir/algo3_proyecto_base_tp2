@@ -22,8 +22,8 @@ public class RoundTest {
 
     @BeforeEach
     public void setUp() {
-        player1 = new Player("nombre1", new Deck(), new SpecialZone(List.of(), List.of(), List.of()), new CloseCombat(), new Ranged(), new Siege());
-        player2 = new Player("nombre2", new Deck(), new SpecialZone(List.of(), List.of(), List.of()), new CloseCombat(), new Ranged(), new Siege());
+        player1 = new Player("nombre1", new Deck(), new CloseCombat(), new Ranged(), new Siege());
+        player2 = new Player("nombre2", new Deck(), new CloseCombat(), new Ranged(), new Siege());
         round = new Round(player1, player2);
     }
 

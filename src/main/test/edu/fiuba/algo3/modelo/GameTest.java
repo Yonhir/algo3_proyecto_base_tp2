@@ -19,12 +19,13 @@ public class GameTest {
     private Game game;
     private Player player1;
     private Player player2;
+    SpecialZone specialZone = new SpecialZone(List.of(), List.of(), List.of());
 
     @BeforeEach
     public void setUp() {
-        player1 = new Player("nombre1", new Deck(), new SpecialZone(List.of(), List.of(), List.of()), new CloseCombat(), new Ranged(), new Siege());
-        player2 = new Player("nombre2", new Deck(), new SpecialZone(List.of(), List.of(), List.of()), new CloseCombat(), new Ranged(), new Siege());
-        game = new Game(player1, player2);
+        player1 = new Player("nombre1", new Deck(), new CloseCombat(), new Ranged(), new Siege());
+        player2 = new Player("nombre2", new Deck(), new CloseCombat(), new Ranged(), new Siege());
+        game = new Game(player1, player2, specialZone);
     }
 
     @Test
@@ -56,14 +57,16 @@ public class GameTest {
     public void testGameEndsInDrawAfterThreeRoundsWithOneWinEach() {
         Player p1 = mock(Player.class);
         Player p2 = mock(Player.class);
+        SpecialZone specialZone = mock(SpecialZone.class);
 
         when(p1.getRoundsWon()).thenReturn(1);
         when(p2.getRoundsWon()).thenReturn(1);
         when(p1.hasWonGame()).thenReturn(false);
         when(p2.hasWonGame()).thenReturn(false);
 
-        Game game = new Game(p1, p2);
+        Game game = new Game(p1, p2, specialZone);
 
         assertTrue(game.isDraw());
     }
+
 }

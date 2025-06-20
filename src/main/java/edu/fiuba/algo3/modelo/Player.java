@@ -17,19 +17,17 @@ public class Player {
     private final DiscardPile discardPile;
     private final Hand hand;
     private final Deck deck;
-    private final SpecialZone specialZone;
     private final CloseCombat closeCombat;
     private final Ranged ranged;
     private final Siege siege;
     private boolean hasPassed = false;
     private int roundsWon = 0;
 
-    public Player(String name, Deck deck, SpecialZone specialZone, CloseCombat closeCombat, Ranged ranged, Siege siege) {
+    public Player(String name, Deck deck, CloseCombat closeCombat, Ranged ranged, Siege siege) {
         this.name = name;
         discardPile = new DiscardPile();
         hand = new Hand();
         this.deck = deck;
-        this.specialZone = specialZone;
         this.closeCombat = closeCombat;
         this.ranged = ranged;
         this.siege = siege;
