@@ -15,9 +15,8 @@ public class HeroTest {
 
     @BeforeEach
     void setUp() {
-        cartaConLegendaria = new Unit("cerys", "descripcion", 10, List.of(new CloseCombatType()), List.of());
         estrategia = new HeroStrategy();
-        cartaConLegendaria.setStrategy(estrategia);
+        cartaConLegendaria = new Unit("cerys", "descripcion", 10, List.of(new CloseCombatType()), List.of(), estrategia);
         closeCombat = new CloseCombat();
         ranged = new Ranged();
         siege = new Siege();
@@ -35,8 +34,7 @@ public class HeroTest {
     @Test
     public void testCartaConModificadorLegendariaNoEsAfectadaPorOtroModificador() {
         MoraleBoostModifier modifierMoral = new MoraleBoostModifier();
-        Unit cardMoraleBoost = new Unit("Nombre", "Descripcion", 10, new CloseCombatType(), List.of(modifierMoral));
-        cardMoraleBoost.setStrategy(new CommonStrategy());
+        Unit cardMoraleBoost = new Unit("Nombre", "Descripcion", 10, new CloseCombatType(), List.of(modifierMoral), new CommonStrategy());
         int puntosEsperados = 10;
 
         closeCombat.placeCard(cartaConLegendaria);

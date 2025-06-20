@@ -22,21 +22,21 @@ public class SpyTest {
         r = new RangedType();
         s = new SiegeType();
         cards = new ArrayList<>(Arrays.asList(
-                new Unit("Nombre", "Descripcion", 4, cct, new ArrayList<>()),
-                new Unit("Nombre", "Descripcion", 5, cct, new ArrayList<>()),
-                new Unit("Nombre", "Descripcion", 6, r, new ArrayList<>()),
-                new Unit("Nombre", "Descripcion", 3, s, new ArrayList<>()),
-                new Unit("Nombre", "Descripcion", 2, cct, new ArrayList<>()),
-                new Unit("Nombre", "Descripcion", 0, s, new ArrayList<>()),
-                new Unit("Nombre", "Descripcion", 6, s, new ArrayList<>()),
-                new Unit("Nombre", "Descripcion", 8, r, new ArrayList<>()),
-                new Unit("Nombre", "Descripcion", 0, r, new ArrayList<>()),
-                new Unit("Nombre", "Descripcion", 10, cct, new ArrayList<>()),
-                new Unit("Nombre", "Descripcion", 2, r, new ArrayList<>()),
-                new Unit("Nombre", "Descripcion", 4, s, new ArrayList<>()),
-                new Unit("Nombre", "Descripcion", 8, s, new ArrayList<>()),
-                new Unit("Nombre", "Descripcion", 3, cct, new ArrayList<>()),
-                new Unit("Nombre", "Descripcion", 4, r, new ArrayList<>()),
+                new Unit("Nombre", "Descripcion", 4, cct, new ArrayList<>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 5, cct, new ArrayList<>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 6, r, new ArrayList<>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 3, s, new ArrayList<>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 2, cct, new ArrayList<>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 0, s, new ArrayList<>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 6, s, new ArrayList<>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 8, r, new ArrayList<>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 0, r, new ArrayList<>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 10, cct, new ArrayList<>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 2, r, new ArrayList<>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 4, s, new ArrayList<>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 8, s, new ArrayList<>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 3, cct, new ArrayList<>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 4, r, new ArrayList<>(), new CommonStrategy()),
                 new MoraleBoost("Nombre", "Descripcion", List.of(r)),
                 new MoraleBoost("Nombre", "Descripcion", List.of(r)),
                 new MoraleBoost("Nombre", "Descripcion", List.of(r)),
@@ -51,7 +51,7 @@ public class SpyTest {
         Hand hand = new Hand();
         RangedRowOpponent = new Ranged();
         RangedRowOwner = new Ranged();
-        Unit carta_espia = new Unit("Nombre", "Descripcion", 4, r, List.of(new Spy(deck, hand, RangedRowOwner)));
+        Unit carta_espia = new Unit("Nombre", "Descripcion", 4, r, List.of(new Spy(deck, hand, RangedRowOwner)), new CommonStrategy());
 
         RangedRowOwner.placeCard(carta_espia);
 
@@ -66,7 +66,7 @@ public class SpyTest {
         Hand hand = new Hand();
         RangedRowOpponent = new Ranged();
         RangedRowOwner = new Ranged();
-        Unit carta_espia = new Unit("Nombre", "Descripcion", 4, r, List.of(new Spy(deck, hand, RangedRowOwner)));
+        Unit carta_espia = new Unit("Nombre", "Descripcion", 4, r, List.of(new Spy(deck, hand, RangedRowOwner)), new CommonStrategy());
         int expectedCardsInHand = 2;
 
         RangedRowOpponent.placeCard(carta_espia);
@@ -81,7 +81,7 @@ public class SpyTest {
         Hand hand = new Hand();
         RangedRowOpponent = new Ranged();
         RangedRowOwner = new Ranged();
-        Unit carta_espia = new Unit("Nombre", "Descripcion", 4, r, List.of(new Spy(deck, hand, RangedRowOwner)));
+        Unit carta_espia = new Unit("Nombre", "Descripcion", 4, r, List.of(new Spy(deck, hand, RangedRowOwner)), new CommonStrategy());
         int expectedCardsInHand = deck.getCardCount() - 2;
 
         RangedRowOpponent.placeCard(carta_espia);
@@ -96,7 +96,7 @@ public class SpyTest {
         Hand hand = new Hand();
         RangedRowOpponent = new Ranged();
         RangedRowOwner = new Ranged();
-        Unit carta_espia = new Unit("Nombre", "Descripcion", 4, r, List.of(new Spy(deck, hand, RangedRowOwner)));
+        Unit carta_espia = new Unit("Nombre", "Descripcion", 4, r, List.of(new Spy(deck, hand, RangedRowOwner)), new CommonStrategy());
         int expectedCardsInHand = 0;
 
         RangedRowOwner.placeCard(carta_espia);
@@ -111,7 +111,7 @@ public class SpyTest {
         Hand hand = new Hand();
         RangedRowOpponent = new Ranged();
         RangedRowOwner = new Ranged();
-        Unit carta_espia = new Unit("Nombre", "Descripcion", 4, r, List.of(new Spy(deck, hand, RangedRowOwner)));
+        Unit carta_espia = new Unit("Nombre", "Descripcion", 4, r, List.of(new Spy(deck, hand, RangedRowOwner)), new CommonStrategy());
         int expectedCardsInDeck = deck.getCardCount();
 
         RangedRowOwner.placeCard(carta_espia);

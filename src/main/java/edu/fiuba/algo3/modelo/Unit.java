@@ -9,30 +9,32 @@ public class Unit extends Card {
     private List<Modifier> modifiers;
     private CalculatePointsStrategy pointsStrategy;
 
-    public Unit(String name, String description, int points, List<SectionType> sectionTypes, List<Modifier> modifiers) {
+    public Unit(String name, String description, int points, List<SectionType> sectionTypes, List<Modifier> modifiers, CalculatePointsStrategy strategy) {
         super(name, description, sectionTypes);
         this.basePoints = points;
         this.currentPoints = points;
         this.modifiers = modifiers;
+        this.pointsStrategy = strategy;
     }
 
-    public Unit(String name, String description, int points, SectionType sectionTypes, List<Modifier> modifiers) {
+    public Unit(String name, String description, int points, SectionType sectionTypes, List<Modifier> modifiers, CalculatePointsStrategy strategy) {
         super(name, description, List.of(sectionTypes));
         this.basePoints = points;
         this.currentPoints = points;
         this.modifiers = modifiers;
-    }
-
-    public void setStrategy(CalculatePointsStrategy strategy) {
         this.pointsStrategy = strategy;
     }
 
+//    public void setStrategy(CalculatePointsStrategy strategy) {
+//        this.pointsStrategy = strategy;
+//    }
+
     public void play(Section section) {
         Row row = (Row) section;
+        pointsStrategy.playIn(section, this);
         for (Modifier modifier : modifiers) {
             modifier.apply(row);
         }
-        pointsStrategy.playIn(section, this);
     }
 
     @Override
@@ -49,7 +51,11 @@ public class Unit extends Card {
     }
 
     public void setPoints(int points) {
-        pointsStrategy.affectPointsFrom(this);
+        pointsStrategy.affectPointsFromWith(this, points);
+    }
+
+    public void affectPointsWith(int points) {
+        currentPoints = points;
     }
 
     public boolean haveModifier(Modifier modifierInstance) {

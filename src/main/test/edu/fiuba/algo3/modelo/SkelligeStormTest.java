@@ -21,24 +21,24 @@ public class SkelligeStormTest {
         ranged = new Ranged();
         siege = new Siege();
 
-        ranged.addCard(new Unit("Nombre", "Descripcion", 6, new RangedType(), new ArrayList<>()));
-        ranged.addCard(new Unit("Nombre", "Descripcion", 8, new RangedType(), new ArrayList<>()));
-        ranged.addCard(new Unit("Nombre", "Descripcion", 0, new RangedType(), new ArrayList<>()));
+        ranged.addCard(new Unit("Nombre", "Descripcion", 6, new RangedType(), new ArrayList<>(), new CommonStrategy()));
+        ranged.addCard(new Unit("Nombre", "Descripcion", 8, new RangedType(), new ArrayList<>(), new CommonStrategy()));
+        ranged.addCard(new Unit("Nombre", "Descripcion", 0, new RangedType(), new ArrayList<>(), new CommonStrategy()));
 
-        siege.addCard(new Unit("Nombre", "Descripcion", 2, new SiegeType(), new ArrayList<>()));
-        siege.addCard(new Unit("Nombre", "Descripcion", 3, new SiegeType(), new ArrayList<>()));
-        siege.addCard(new Unit("Nombre", "Descripcion", 1, new SiegeType(), new ArrayList<>()));
+        siege.addCard(new Unit("Nombre", "Descripcion", 2, new SiegeType(), new ArrayList<>(), new CommonStrategy()));
+        siege.addCard(new Unit("Nombre", "Descripcion", 3, new SiegeType(), new ArrayList<>(), new CommonStrategy()));
+        siege.addCard(new Unit("Nombre", "Descripcion", 1, new SiegeType(), new ArrayList<>(), new CommonStrategy()));
 
         rangedOpponent = new Ranged();
         siegeOpponent = new Siege();
 
-        rangedOpponent.addCard(new Unit("Nombre", "Descripcion", 6, new RangedType(), new ArrayList<>()));
-        rangedOpponent.addCard(new Unit("Nombre", "Descripcion", 8, new RangedType(), new ArrayList<>()));
-        rangedOpponent.addCard(new Unit("Nombre", "Descripcion", 0, new RangedType(), new ArrayList<>()));
+        rangedOpponent.addCard(new Unit("Nombre", "Descripcion", 6, new RangedType(), new ArrayList<>(), new CommonStrategy()));
+        rangedOpponent.addCard(new Unit("Nombre", "Descripcion", 8, new RangedType(), new ArrayList<>(), new CommonStrategy()));
+        rangedOpponent.addCard(new Unit("Nombre", "Descripcion", 0, new RangedType(), new ArrayList<>(), new CommonStrategy()));
 
-        siegeOpponent.addCard(new Unit("Nombre", "Descripcion", 2, new SiegeType(), new ArrayList<>()));
-        siegeOpponent.addCard(new Unit("Nombre", "Descripcion", 3, new SiegeType(), new ArrayList<>()));
-        siegeOpponent.addCard(new Unit("Nombre", "Descripcion", 1, new SiegeType(), new ArrayList<>()));
+        siegeOpponent.addCard(new Unit("Nombre", "Descripcion", 2, new SiegeType(), new ArrayList<>(), new CommonStrategy()));
+        siegeOpponent.addCard(new Unit("Nombre", "Descripcion", 3, new SiegeType(), new ArrayList<>(), new CommonStrategy()));
+        siegeOpponent.addCard(new Unit("Nombre", "Descripcion", 1, new SiegeType(), new ArrayList<>(), new CommonStrategy()));
 
         specialZone = new SpecialZone(null , List.of(ranged, rangedOpponent), List.of(siege, siegeOpponent));
     }

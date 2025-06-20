@@ -3,11 +3,12 @@ package edu.fiuba.algo3.modelo;
 public class CommonStrategy implements CalculatePointsStrategy {
     @Override
     public void playIn(Section section, Unit unit) {
-
+        Row row = (Row) section;
+        row.addCard(unit);
     }
 
     @Override
-    public void affectPointsFrom(Unit unit) {
-
+    public void affectPointsFromWith(Unit unit, int points) {
+        unit.affectPointsWith(points);
     }
 }

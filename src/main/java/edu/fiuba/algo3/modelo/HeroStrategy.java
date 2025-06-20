@@ -8,7 +8,7 @@ public class HeroStrategy implements CalculatePointsStrategy {
     }
 
     @Override
-    public void affectPointsFrom(Unit unit) {
+    public void affectPointsFromWith(Unit unit, int points) {
         unit.resetPoints();
     }
 }

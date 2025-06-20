@@ -24,28 +24,28 @@ public class PlayerTest {
 
     @BeforeEach
     void setUp() {
-        siegeCard = new Unit("Nombre", "Descripcion", 3, new SiegeType(), new ArrayList<>());
-        rangedCard = new Unit("Nombre", "Descripcion", 6, new RangedType(), new ArrayList<>());
-        closeCombatCard = new Unit("Nombre", "Descripcion", 4, new CloseCombatType(), new ArrayList<>());
+        siegeCard = new Unit("Nombre", "Descripcion", 3, new SiegeType(), new ArrayList<>(), new CommonStrategy());
+        rangedCard = new Unit("Nombre", "Descripcion", 6, new RangedType(), new ArrayList<>(), new CommonStrategy());
+        closeCombatCard = new Unit("Nombre", "Descripcion", 4, new CloseCombatType(), new ArrayList<>(), new CommonStrategy());
 
                 // Create unit cards
         List<Card> unitCards = Arrays.asList(
 
-                new Unit("Nombre", "Descripcion", 4, new CloseCombatType(), new ArrayList<>()),
-                new Unit("Nombre", "Descripcion", 5, new CloseCombatType(), new ArrayList<>()),
-                new Unit("Nombre", "Descripcion", 6, new RangedType(), new ArrayList<>()),
-                new Unit("Nombre", "Descripcion", 3, new SiegeType(), new ArrayList<>()),
-                new Unit("Nombre", "Descripcion", 2, new CloseCombatType(), new ArrayList<>()),
-                new Unit("Nombre", "Descripcion", 0, new SiegeType(), new ArrayList<>()),
-                new Unit("Nombre", "Descripcion", 6, new SiegeType(), new ArrayList<>()),
-                new Unit("Nombre", "Descripcion", 8, new RangedType(), new ArrayList<>()),
-                new Unit("Nombre", "Descripcion", 0, new RangedType(), new ArrayList<>()),
-                new Unit("Nombre", "Descripcion", 10, new CloseCombatType(), new ArrayList<>()),
-                new Unit("Nombre", "Descripcion", 2, new RangedType(), new ArrayList<>()),
-                new Unit("Nombre", "Descripcion", 4, new SiegeType(), new ArrayList<>()),
-                new Unit("Nombre", "Descripcion", 8, new SiegeType(), new ArrayList<>()),
-                new Unit("Nombre", "Descripcion", 3, new CloseCombatType(), new ArrayList<>()),
-                new Unit("Nombre", "Descripcion", 4, new RangedType(), new ArrayList<>())
+                new Unit("Nombre", "Descripcion", 4, new CloseCombatType(), new ArrayList<>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 5, new CloseCombatType(), new ArrayList<>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 6, new RangedType(), new ArrayList<>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 3, new SiegeType(), new ArrayList<>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 2, new CloseCombatType(), new ArrayList<>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 0, new SiegeType(), new ArrayList<>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 6, new SiegeType(), new ArrayList<>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 8, new RangedType(), new ArrayList<>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 0, new RangedType(), new ArrayList<>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 10, new CloseCombatType(), new ArrayList<>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 2, new RangedType(), new ArrayList<>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 4, new SiegeType(), new ArrayList<>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 8, new SiegeType(), new ArrayList<>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 3, new CloseCombatType(), new ArrayList<>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 4, new RangedType(), new ArrayList<>(), new CommonStrategy())
 
         );
 

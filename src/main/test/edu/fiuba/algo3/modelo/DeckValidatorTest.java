@@ -14,21 +14,21 @@ public class DeckValidatorTest {
     public void testSeValidaCorrectamenteElMinimoDeCartasUnidades() {
         DeckValidator validador = new Validate15UnitsCards();
         List<Card> unidades = Arrays.asList(
-                new Unit("Nombre", "Descripcion", 4, new CloseCombatType(), new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 5, new CloseCombatType(), new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 6, new RangedType(), new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 3, new SiegeType(), new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 2, new CloseCombatType(), new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 0, new SiegeType(), new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 6, new SiegeType(), new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 8, new RangedType(), new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 0, new RangedType(), new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 10, new CloseCombatType(), new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 2, new RangedType(), new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 4, new SiegeType(), new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 8, new SiegeType(), new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 3, new CloseCombatType(), new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 4, new RangedType(), new ArrayList<Modifier>())
+                new Unit("Nombre", "Descripcion", 4, new CloseCombatType(), new ArrayList<Modifier>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 5, new CloseCombatType(), new ArrayList<Modifier>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 6, new RangedType(), new ArrayList<Modifier>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 3, new SiegeType(), new ArrayList<Modifier>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 2, new CloseCombatType(), new ArrayList<Modifier>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 0, new SiegeType(), new ArrayList<Modifier>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 6, new SiegeType(), new ArrayList<Modifier>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 8, new RangedType(), new ArrayList<Modifier>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 0, new RangedType(), new ArrayList<Modifier>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 10, new CloseCombatType(), new ArrayList<Modifier>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 2, new RangedType(), new ArrayList<Modifier>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 4, new SiegeType(), new ArrayList<Modifier>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 8, new SiegeType(), new ArrayList<Modifier>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 3, new CloseCombatType(), new ArrayList<Modifier>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 4, new RangedType(), new ArrayList<Modifier>(), new CommonStrategy())
         );
 
         assertDoesNotThrow(() -> validador.validate(unidades));
@@ -38,16 +38,16 @@ public class DeckValidatorTest {
     public void testSeLanzaExcepcionSiLaCantidadDeCartasUnidadesNoSuperaElMinimo() {
         DeckValidator validador = new Validate15UnitsCards();
         List<Card> unidades = Arrays.asList(
-                new Unit("Nombre", "Descripcion", 4, new CloseCombatType(), new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 5, new CloseCombatType(), new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 6, new RangedType(), new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 3, new SiegeType(), new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 2, new CloseCombatType(), new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 0, new SiegeType(), new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 6, new SiegeType(), new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 8, new RangedType(), new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 0, new RangedType(), new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 10, new CloseCombatType(), new ArrayList<Modifier>())
+                new Unit("Nombre", "Descripcion", 4, new CloseCombatType(), new ArrayList<Modifier>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 5, new CloseCombatType(), new ArrayList<Modifier>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 6, new RangedType(), new ArrayList<Modifier>(),new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 3, new SiegeType(), new ArrayList<Modifier>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 2, new CloseCombatType(), new ArrayList<Modifier>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 0, new SiegeType(), new ArrayList<Modifier>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 6, new SiegeType(), new ArrayList<Modifier>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 8, new RangedType(), new ArrayList<Modifier>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 0, new RangedType(), new ArrayList<Modifier>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 10, new CloseCombatType(), new ArrayList<Modifier>(),new CommonStrategy())
         );
 
         assertThrows(NotEnoughUnitsCardsError.class, () -> validador.validate(unidades));
@@ -57,23 +57,23 @@ public class DeckValidatorTest {
     public void testSeValidaCorrectamenteSiLaCantidadDeCartasUnidadesSuperaElMinimo() {
         DeckValidator validador = new Validate15UnitsCards();
         List<Card> unidades = Arrays.asList(
-                new Unit("Nombre", "Descripcion", 4, new CloseCombatType(), new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 5, new CloseCombatType(), new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 6, new RangedType(), new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 3, new SiegeType(), new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 2, new CloseCombatType(), new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 0, new SiegeType(), new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 6, new SiegeType(), new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 8, new RangedType(), new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 0, new RangedType(), new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 10, new CloseCombatType(), new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 2, new RangedType(), new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 4, new SiegeType(), new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 8, new SiegeType(), new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 3, new CloseCombatType(), new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 4, new RangedType(), new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 5, new CloseCombatType(), new ArrayList<Modifier>()),
-                new Unit("Nombre", "Descripcion", 6, new RangedType(), new ArrayList<Modifier>())
+                new Unit("Nombre", "Descripcion", 4, new CloseCombatType(), new ArrayList<Modifier>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 5, new CloseCombatType(), new ArrayList<Modifier>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 6, new RangedType(), new ArrayList<Modifier>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 3, new SiegeType(), new ArrayList<Modifier>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 2, new CloseCombatType(), new ArrayList<Modifier>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 0, new SiegeType(), new ArrayList<Modifier>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 6, new SiegeType(), new ArrayList<Modifier>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 8, new RangedType(), new ArrayList<Modifier>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 0, new RangedType(), new ArrayList<Modifier>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 10, new CloseCombatType(), new ArrayList<Modifier>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 2, new RangedType(), new ArrayList<Modifier>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 4, new SiegeType(), new ArrayList<Modifier>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 8, new SiegeType(), new ArrayList<Modifier>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 3, new CloseCombatType(), new ArrayList<Modifier>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 4, new RangedType(), new ArrayList<Modifier>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 5, new CloseCombatType(), new ArrayList<Modifier>(), new CommonStrategy()),
+                new Unit("Nombre", "Descripcion", 6, new RangedType(), new ArrayList<Modifier>(), new CommonStrategy())
         );
 
         assertDoesNotThrow(() -> validador.validate(unidades));
