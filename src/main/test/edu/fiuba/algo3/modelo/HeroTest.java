@@ -2,91 +2,89 @@ package edu.fiuba.algo3.modelo;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class HeroTest {
+    private Unit cartaConLegendaria;
+    private HeroStrategy estrategia;
+    private Row closeCombat;
+    private Row ranged;
+    private Row siege;
+
+    @BeforeEach
+    void setUp() {
+        cartaConLegendaria = new Unit("cerys", "descripcion", 10, List.of(new CloseCombatType()), List.of());
+        estrategia = new HeroStrategy();
+        cartaConLegendaria.setStrategy(estrategia);
+        closeCombat = new CloseCombat();
+        ranged = new Ranged();
+        siege = new Siege();
+    }
+
     @Test
     public void testSeJuegaUnaCartaConModificardorLegendariaCorrectamente() {
-        Card cartaConLegendaria = new Unit("cerys", "descripcion", 10, List.of(new CloseCombatType()), List.of(new Hero()));
-        Row closeCombat = new CloseCombat();
+        int puntosEsperados = 10;
 
         closeCombat.placeCard(cartaConLegendaria);
 
-        int obtenido = closeCombat.calculatePoints();
-
-        assertEquals(obtenido, 10);
+        assertEquals(puntosEsperados, closeCombat.calculatePoints());
     }
 
     @Test
     public void testCartaConModificadorLegendariaNoEsAfectadaPorOtroModificador() {
-        Card cartaConLegendaria = new Unit("cerys", "descripcion", 10, List.of(new CloseCombatType()), List.of(new Hero()));
-        Row closeCombat = new CloseCombat();
-        Card cartaConMoraleBoost = new Unit("Nombre", "Descripcion", 10, new CloseCombatType(), List.of(new MoraleBoostModifier()));
+        MoraleBoostModifier modifierMoral = new MoraleBoostModifier();
+        Unit cardMoraleBoost = new Unit("Nombre", "Descripcion", 10, new CloseCombatType(), List.of(modifierMoral));
+        cardMoraleBoost.setStrategy(new CommonStrategy());
+        int puntosEsperados = 10;
 
         closeCombat.placeCard(cartaConLegendaria);
-        closeCombat.placeCard(cartaConMoraleBoost);
+        closeCombat.placeCard(cardMoraleBoost);
 
-        int obtenido = closeCombat.calculatePoints();
-        assertEquals(obtenido, 20);
+        assertEquals(puntosEsperados, cartaConLegendaria.calculatePoints());
     }
 
     @Test
     public void testCartaConModificadorLegendariaNoEsAfectadaPorCartaEspecial() {
-        Card cartaConLegendaria = new Unit("cerys", "descripcion", 10, List.of(new CloseCombatType()), List.of(new Hero()));
-        Row closeCombat = new CloseCombat();
-        MoraleBoost moraleBoost = new MoraleBoost("MoraleBoost", "X2", List.of(new CloseCombatType(), new RangedType(), new SiegeType()));
+        MoraleBoost especial = new MoraleBoost("MoraleBoost", "X2", List.of(new CloseCombatType(), new RangedType(), new SiegeType()));
+        int puntosEsperados = 10;
 
         closeCombat.placeCard(cartaConLegendaria);
-        closeCombat.placeCard(moraleBoost);
+        especial.play(closeCombat);
 
-        int obtenido = closeCombat.calculatePoints();
-        assertEquals(obtenido, 10);
+        assertEquals(puntosEsperados, cartaConLegendaria.calculatePoints());
     }
 
     @Test
     public void testCartaConModificadorLegendariaNoEsAfectadaPorCartaClima() {
-        Unit cartaConLegendaria = new Unit("cerys", "descripcion", 10, List.of(new CloseCombatType()), List.of(new Hero()));
-        Row closeCombat = new CloseCombat();
-        Row ranged = new Ranged();
-        Row siege = new Siege();
-        Weather frostWeather = new BitingFrost("Escarcha", "Reduce todas las unidades cuerpo a cuerpo a 1 punto");
+        BitingFrost frostWeather = new BitingFrost("Escarcha", "Reduce todas las unidades cuerpo a cuerpo a 1 punto");
+        int puntosEsperados = 10;
 
-        SpecialZone specialZone = new SpecialZone(
+        closeCombat.placeCard(cartaConLegendaria);
+        frostWeather.play(new SpecialZone(
                 List.of(closeCombat),
                 List.of(ranged),
                 List.of(siege)
-        );
+        ));
 
-        closeCombat.placeCard(cartaConLegendaria);
-
-        frostWeather.play(specialZone);
-
-        assertEquals(cartaConLegendaria.calculatePoints(), 10);
+        assertEquals(puntosEsperados, cartaConLegendaria.calculatePoints());
     }
 
     @Test
     public void testCartaConModificadorLegendariaNoEsAfectadaPorCartasEspeciales() {
-        Unit cartaConLegendaria = new Unit("cerys", "descripcion", 10, List.of(new CloseCombatType()), List.of(new Hero()));
-        Row closeCombat = new CloseCombat();
-        Row ranged = new Ranged();
-        Row siege = new Siege();
-        MoraleBoost moraleBoost = new MoraleBoost("MoraleBoost", "X2", List.of(new CloseCombatType(), new RangedType(), new SiegeType()));
-        Weather frostWeather = new BitingFrost("Escarcha", "Reduce todas las unidades cuerpo a cuerpo a 1 punto");
+        int puntosEsperados = 10;
+        MoraleBoost especial = new MoraleBoost("MoraleBoost", "X2", List.of(new CloseCombatType(), new RangedType(), new SiegeType()));
+        BitingFrost frostWeather = new BitingFrost("Escarcha", "Reduce todas las unidades cuerpo a cuerpo a 1 punto");
 
-        SpecialZone specialZone = new SpecialZone(
+        closeCombat.placeCard(cartaConLegendaria);
+        especial.play(closeCombat);
+        frostWeather.play(new SpecialZone(
                 List.of(closeCombat),
                 List.of(ranged),
                 List.of(siege)
-        );
+        ));
 
-        closeCombat.placeCard(cartaConLegendaria);
-        closeCombat.placeCard(moraleBoost);
-        frostWeather.play(specialZone);
-
-        assertEquals(cartaConLegendaria.calculatePoints(), 10);
+        assertEquals(puntosEsperados, cartaConLegendaria.calculatePoints());
     }
 }
