@@ -10,9 +10,10 @@ import edu.fiuba.algo3.modelo.sections.rows.Ranged;
 import edu.fiuba.algo3.modelo.sections.rows.Row;
 import edu.fiuba.algo3.modelo.sections.rows.Siege;
 
+import java.util.Optional;
+
 public class Player {
     private final String name;
-    private int health;
     private final DiscardPile discardPile;
     private final Hand hand;
     private final Deck deck;
@@ -20,10 +21,11 @@ public class Player {
     private final CloseCombat closeCombat;
     private final Ranged ranged;
     private final Siege siege;
+    private boolean hasPassed = false;
+    private int roundsWon = 0;
 
-    public Player(String name, int health, Deck deck, SpecialZone specialZone, CloseCombat closeCombat, Ranged ranged, Siege siege) {
+    public Player(String name, Deck deck, SpecialZone specialZone, CloseCombat closeCombat, Ranged ranged, Siege siege) {
         this.name = name;
-        this.health = health;
         discardPile = new DiscardPile();
         hand = new Hand();
         this.deck = deck;
@@ -50,4 +52,48 @@ public class Player {
         row.placeCard(card);
         hand.getCard(card);
     }
+    public void passRound() {
+        this.hasPassed = true;
+    }
+
+    public boolean hasPassed() {
+        return hasPassed;
+    }
+
+    public void resetPass() {
+        this.hasPassed = false;
+    }
+
+    public void winRound() {
+        this.roundsWon++;
+    }
+
+    public boolean hasWonGame() {
+        return roundsWon >= 2;
+    }
+
+    public int getRoundsWon() {
+        return roundsWon;
+    }
+
+    public void discardAllRows() {
+        closeCombat.discardCards(discardPile);
+        ranged.discardCards(discardPile);
+        siege.discardCards(discardPile);
+    }
+
+    public Optional<Player> winner(Player other) {
+        int myPoints = this.calculatePoints();
+        int otherPoints = other.calculatePoints();
+
+        if (myPoints > otherPoints) {
+            return Optional.of(this);
+        } else if (myPoints < otherPoints) {
+            return Optional.of(other);
+        } else {
+            return Optional.empty();
+        }
+    }
+
+
 }
