@@ -32,10 +32,9 @@ public class Round {
         return player1.hasPassed() && player2.hasPassed();
     }
 
+
     public Player getWinner() {
-        int points1 = player1.calculatePoints();
-        int points2 = player2.calculatePoints();
-        return (points1 >= points2) ? player1 : player2;
+        return player1.hasMoreOrEqualPointsThan(player2) ? player1 : player2;
     }
 
     public void assignVictory() {

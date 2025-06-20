@@ -12,7 +12,6 @@ import edu.fiuba.algo3.modelo.sections.rows.Siege;
 
 public class Player {
     private final String name;
-    private int health;
     private final DiscardPile discardPile;
     private final Hand hand;
     private final Deck deck;
@@ -23,9 +22,8 @@ public class Player {
     private boolean hasPassed = false;
     private int roundsWon = 0;
 
-    public Player(String name, int health, Deck deck, SpecialZone specialZone, CloseCombat closeCombat, Ranged ranged, Siege siege) {
+    public Player(String name, Deck deck, SpecialZone specialZone, CloseCombat closeCombat, Ranged ranged, Siege siege) {
         this.name = name;
-        this.health = health;
         discardPile = new DiscardPile();
         hand = new Hand();
         this.deck = deck;
@@ -81,4 +79,9 @@ public class Player {
         ranged.discardCards(discardPile);
         siege.discardCards(discardPile);
     }
+
+    public boolean hasMoreOrEqualPointsThan(Player other) {
+        return this.calculatePoints() >= other.calculatePoints();
+    }
+
 }

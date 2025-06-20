@@ -90,7 +90,7 @@ public class PlayerTest {
                 List.of(ranged),
                 List.of(siege)
         );
-        player = new Player("Gabriel", 2, deck, specialZone, closeCombat, ranged, siege);
+        player = new Player("Gabriel", deck, specialZone, closeCombat, ranged, siege);
         Hand hand = player.getHand();
         deck.getCards().remove(siegeCard);
         deck.getCards().remove(closeCombatCard);
@@ -268,7 +268,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void discardAllRows_movesCardsToDiscardPile() {
+    public void testDiscardAllRowsMovesCardsToDiscardPile() {
         player.playCard(siegeCard, siege);
         player.playCard(closeCombatCard, closeCombat);
         player.playCard(rangedCard, ranged);
