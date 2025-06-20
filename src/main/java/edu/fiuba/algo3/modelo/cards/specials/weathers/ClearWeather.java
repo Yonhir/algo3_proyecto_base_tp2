@@ -2,9 +2,9 @@ package edu.fiuba.algo3.modelo.cards.specials.weathers;
 
 import edu.fiuba.algo3.modelo.cards.Card;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
-import edu.fiuba.algo3.modelo.sections.Row;
+import edu.fiuba.algo3.modelo.sections.rows.Row;
 import edu.fiuba.algo3.modelo.sections.Section;
-import edu.fiuba.algo3.modelo.sections.SpecialType;
+import edu.fiuba.algo3.modelo.sections.types.SpecialType;
 import edu.fiuba.algo3.modelo.sections.SpecialZone;
 
 import java.util.List;

@@ -8,9 +8,9 @@ import edu.fiuba.algo3.modelo.cards.units.modifiers.Modifier;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
 import edu.fiuba.algo3.modelo.errors.InvalidCardAmountError;
 import edu.fiuba.algo3.modelo.errors.NotEnoughCardsInDeckError;
-import edu.fiuba.algo3.modelo.sections.CloseCombatType;
-import edu.fiuba.algo3.modelo.sections.RangedType;
-import edu.fiuba.algo3.modelo.sections.SiegeType;
+import edu.fiuba.algo3.modelo.sections.types.CloseCombatType;
+import edu.fiuba.algo3.modelo.sections.types.RangedType;
+import edu.fiuba.algo3.modelo.sections.types.SiegeType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

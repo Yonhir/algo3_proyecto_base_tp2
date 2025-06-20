@@ -1,7 +1,7 @@
 package edu.fiuba.algo3.modelo.cards.specials;
 
 import edu.fiuba.algo3.modelo.cards.Card;
-import edu.fiuba.algo3.modelo.sections.SectionType;
+import edu.fiuba.algo3.modelo.sections.types.SectionType;
 
 import java.util.List;
 

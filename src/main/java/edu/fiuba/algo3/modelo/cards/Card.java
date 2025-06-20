@@ -2,7 +2,7 @@ package edu.fiuba.algo3.modelo.cards;
 
 import edu.fiuba.algo3.modelo.errors.SectionTypeMismatchError;
 import edu.fiuba.algo3.modelo.sections.Section;
-import edu.fiuba.algo3.modelo.sections.SectionType;
+import edu.fiuba.algo3.modelo.sections.types.SectionType;
 
 import java.util.List;
 

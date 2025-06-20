@@ -1,10 +1,12 @@
-package edu.fiuba.algo3.modelo.sections;
+package edu.fiuba.algo3.modelo.sections.rows;
 
 import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cards.Card;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.ClearWeather;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.Weather;
+import edu.fiuba.algo3.modelo.sections.Section;
+import edu.fiuba.algo3.modelo.sections.types.SectionType;
 
 import java.util.ArrayList;
 import java.util.List;

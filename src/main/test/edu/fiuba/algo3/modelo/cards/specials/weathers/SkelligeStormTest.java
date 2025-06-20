@@ -1,6 +1,13 @@
-package edu.fiuba.algo3.modelo;
+package edu.fiuba.algo3.modelo.cards.specials.weathers;
 
 
+import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
+import edu.fiuba.algo3.modelo.cards.units.Unit;
+import edu.fiuba.algo3.modelo.sections.*;
+import edu.fiuba.algo3.modelo.sections.rows.Ranged;
+import edu.fiuba.algo3.modelo.sections.rows.Siege;
+import edu.fiuba.algo3.modelo.sections.types.RangedType;
+import edu.fiuba.algo3.modelo.sections.types.SiegeType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

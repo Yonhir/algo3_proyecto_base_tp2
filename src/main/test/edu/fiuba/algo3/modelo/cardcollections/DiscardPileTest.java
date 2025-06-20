@@ -2,7 +2,13 @@ package edu.fiuba.algo3.modelo.cardcollections;
 
 import edu.fiuba.algo3.modelo.cards.Card;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
-import edu.fiuba.algo3.modelo.sections.*;
+import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
+import edu.fiuba.algo3.modelo.sections.rows.Ranged;
+import edu.fiuba.algo3.modelo.sections.rows.Row;
+import edu.fiuba.algo3.modelo.sections.rows.Siege;
+import edu.fiuba.algo3.modelo.sections.types.CloseCombatType;
+import edu.fiuba.algo3.modelo.sections.types.RangedType;
+import edu.fiuba.algo3.modelo.sections.types.SiegeType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
