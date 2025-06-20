@@ -32,15 +32,8 @@ public class Round {
         return player1.hasPassed() && player2.hasPassed();
     }
 
-
-    public Player getWinner() {
-        return player1.hasMoreOrEqualPointsThan(player2) ? player1 : player2;
-    }
-
     public void assignVictory() {
-        if (!isDraw()) {
-            getWinner().winRound();
-        }
+        player1.winner(player2).ifPresent(Player::winRound);
     }
 
     private void swapPlayers() {
@@ -49,7 +42,4 @@ public class Round {
         opponentPlayer = temp;
     }
 
-    public boolean isDraw() {
-        return player1.calculatePoints() == player2.calculatePoints();
-    }
 }

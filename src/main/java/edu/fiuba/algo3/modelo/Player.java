@@ -10,6 +10,8 @@ import edu.fiuba.algo3.modelo.sections.rows.Ranged;
 import edu.fiuba.algo3.modelo.sections.rows.Row;
 import edu.fiuba.algo3.modelo.sections.rows.Siege;
 
+import java.util.Optional;
+
 public class Player {
     private final String name;
     private final DiscardPile discardPile;
@@ -80,8 +82,18 @@ public class Player {
         siege.discardCards(discardPile);
     }
 
-    public boolean hasMoreOrEqualPointsThan(Player other) {
-        return this.calculatePoints() >= other.calculatePoints();
+    public Optional<Player> winner(Player other) {
+        int myPoints = this.calculatePoints();
+        int otherPoints = other.calculatePoints();
+
+        if (myPoints > otherPoints) {
+            return Optional.of(this);
+        } else if (myPoints < otherPoints) {
+            return Optional.of(other);
+        } else {
+            return Optional.empty();
+        }
     }
+
 
 }

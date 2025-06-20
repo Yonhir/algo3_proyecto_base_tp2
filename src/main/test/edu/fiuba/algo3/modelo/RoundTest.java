@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -49,20 +50,39 @@ public class RoundTest {
     }
 
     @Test
-    public void testAssignVictoryIncrementsPlayerWinCount() {
-        round.getWinner().winRound();
-        assertEquals(1, round.getWinner().getRoundsWon());
+    public void testAssignVictoryIncrementsWinnerRoundCount() {
+        Player winner = mock(Player.class);
+        Player loser = mock(Player.class);
+        Round round = new Round(winner, loser);
+
+        when(winner.calculatePoints()).thenReturn(15);
+        when(loser.calculatePoints()).thenReturn(10);
+
+
+        when(winner.winner(loser)).thenReturn(Optional.of(winner));
+        when(loser.winner(winner)).thenReturn(Optional.of(winner));
+
+        round.assignVictory();
+
+        verify(winner).winRound();
+        verify(loser, never()).winRound();
     }
+
+
     @Test
-    public void testRoundIsDrawWhenPlayersHaveSamePoints() {
+    public void testAssignVictoryDoesNothingOnDraw() {
         Player p1 = mock(Player.class);
         Player p2 = mock(Player.class);
+
         when(p1.calculatePoints()).thenReturn(10);
         when(p2.calculatePoints()).thenReturn(10);
 
         Round round = new Round(p1, p2);
 
-        assertTrue(round.isDraw());
+        round.assignVictory();
+
+        verify(p1, never()).winRound();
+        verify(p2, never()).winRound();
     }
 
     @Test
@@ -80,25 +100,6 @@ public class RoundTest {
         verify(p1, never()).winRound();
         verify(p2, never()).winRound();
     }
-
-    @Test
-    public void testAssignVictoryGivesRoundToWinner() {
-        Player p1 = mock(Player.class);
-        Player p2 = mock(Player.class);
-        Round round = new Round(p1, p2);
-
-        when(p1.calculatePoints()).thenReturn(15);
-        when(p2.calculatePoints()).thenReturn(10);
-
-        when(p1.hasMoreOrEqualPointsThan(p2)).thenCallRealMethod();
-
-
-        round.assignVictory();
-
-        verify(p1, times(1)).winRound();
-        verify(p2, never()).winRound();
-    }
-
 
 }
 
