@@ -53,7 +53,7 @@ public class ScorchTest {
         closeCombatRow1.placeCard(unidad2);
         tierraArrasada.play(specialZone);
 
-        assertFalse(closeCombatRow1.getCards().contains(unidad1));
+        assertFalse(closeCombatRow1.containsCard(unidad1));
     }
 
     @Test
@@ -65,7 +65,7 @@ public class ScorchTest {
         rangedRow2.placeCard(unidad2);
         tierraArrasada.play(specialZone);
 
-        assertFalse(rangedRow2.getCards().contains(unidad2));
+        assertFalse(rangedRow2.containsCard(unidad2));
     }
 
     @Test
@@ -79,7 +79,7 @@ public class ScorchTest {
         siegeRow1.placeCard(unidad3);
         tierraArrasada.play(specialZone);
 
-        assertFalse(siegeRow1.getCards().contains(unidad3));
+        assertFalse(siegeRow1.containsCard(unidad3));
     }
 
     @Test
@@ -92,8 +92,8 @@ public class ScorchTest {
         closeCombatRow1.placeCard(unidad2);
         tierraArrasada.play(specialZone);
 
-        assertFalse(closeCombatRow1.getCards().contains(unidad1));
-        assertFalse(closeCombatRow1.getCards().contains(unidad3));
+        assertFalse(closeCombatRow1.containsCard(unidad1));
+        assertFalse(closeCombatRow1.containsCard(unidad3));
     }
 
     @Test
@@ -106,8 +106,8 @@ public class ScorchTest {
         rangedRow1.placeCard(unidad2);
         tierraArrasada.play(specialZone);
 
-        assertFalse(rangedRow1.getCards().contains(unidad2));
-        assertFalse(rangedRow1.getCards().contains(unidad3));
+        assertFalse(rangedRow1.containsCard(unidad2));
+        assertFalse(rangedRow1.containsCard(unidad3));
     }
 
     @Test
@@ -121,8 +121,8 @@ public class ScorchTest {
         siegeRow1.placeCard(unidad3);
         tierraArrasada.play(specialZone);
 
-        assertFalse(siegeRow1.getCards().contains(unidad1));
-        assertFalse(siegeRow1.getCards().contains(unidad2));
+        assertFalse(siegeRow1.containsCard(unidad1));
+        assertFalse(siegeRow1.containsCard(unidad2));
     }
 
     @Test
@@ -140,9 +140,9 @@ public class ScorchTest {
         siegeRow1.placeCard(unidad5);
         tierraArrasada.play(specialZone);
 
-        assertFalse(siegeRow1.getCards().contains(unidad1));
-        assertTrue(rangedRow1.getCards().contains(unidad3));
-        assertTrue(closeCombatRow1.getCards().contains(unidad4));
+        assertFalse(siegeRow1.containsCard(unidad1));
+        assertTrue(rangedRow1.containsCard(unidad3));
+        assertTrue(closeCombatRow1.containsCard(unidad4));
     }
 
     @Test
@@ -166,12 +166,12 @@ public class ScorchTest {
 
         tierraArrasada.play(specialZone);
 
-        assertFalse(closeCombatRow1.getCards().contains(unidad1JugadorP));
-        assertFalse(rangedRow1.getCards().contains(unidad2JugadorP));
-        assertTrue(siegeRow1.getCards().contains(unidad3JugadorP));
+        assertFalse(closeCombatRow1.containsCard(unidad1JugadorP));
+        assertFalse(rangedRow1.containsCard(unidad2JugadorP));
+        assertTrue(siegeRow1.containsCard(unidad3JugadorP));
 
-        assertFalse(closeCombatRow2.getCards().contains(unidad1Oponente));
-        assertFalse(rangedRow2.getCards().contains(unidad2Oponente));
-        assertTrue(siegeRow2.getCards().contains(unidad3Oponente));
+        assertFalse(closeCombatRow2.containsCard(unidad1Oponente));
+        assertFalse(rangedRow2.containsCard(unidad2Oponente));
+        assertTrue(siegeRow2.containsCard(unidad3Oponente));
     }
 }

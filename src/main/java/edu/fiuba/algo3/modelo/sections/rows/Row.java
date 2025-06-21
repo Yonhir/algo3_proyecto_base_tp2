@@ -79,6 +79,10 @@ public abstract class Row implements Section {
         cards.remove(card);
     }
 
+    public boolean containsCard(Card card) {
+        return this.cards.contains(card);
+    }
+
     public int calculatePoints() {
         int total = 0;
         for (Card card : cards) {
