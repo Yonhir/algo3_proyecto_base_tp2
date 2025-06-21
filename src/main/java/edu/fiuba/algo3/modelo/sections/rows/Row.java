@@ -7,7 +7,8 @@ import edu.fiuba.algo3.modelo.cards.units.Unit;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.Weather;
 import edu.fiuba.algo3.modelo.sections.Section;
 import edu.fiuba.algo3.modelo.sections.types.SectionType;
-import edu.fiuba.algo3.modelo.Colors.Color;
+import edu.fiuba.algo3.modelo.Colors.PlayerColor;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,7 @@ public abstract class Row implements Section {
     protected Unit lastCard;
     protected Weather currentWeather;
     protected SectionType sectionType;
-    protected Color color;
+    protected PlayerColor playerColor;
 
     protected Row(SectionType sectionType) {
         this.currentWeather = new ClearWeather("Clima Despejado", "Elimina todos los efectos de clima");
@@ -27,6 +28,7 @@ public abstract class Row implements Section {
     @Override
     public void placeCard(Card card) {
         card.verifySectionType(this.sectionType);
+        card.verifyColor(playerColor);
         card.play(this);
     }
 
@@ -65,10 +67,8 @@ public abstract class Row implements Section {
     public Unit getLastCard() {
         return lastCard;
     }
-
-    public void setColor(Color color) {
-        this.color = color;
+  
+    public void setColor(PlayerColor playerColor) {
+        this.playerColor = playerColor;
     }
-
-    public boolean sameColor(Color color) { return this.color.equals(color);}
 }
