@@ -1,1 +1,24 @@
- 
+{
+    "player_one": {
+        "cards": [
+            {
+                "nombre": "Barclay Els",
+                "puntos": 6,
+                "modificador": [
+                    "Agil"
+                ],
+                "seccion": "Cuerpo a Cuerpo, Rango"
+            }
+        ]
+    },
+    "player_two": {
+        "cards": [
+            {
+                "nombre": "Berserker",
+                "puntos": 4,
+                "modificador": [],
+                "seccion": "Cuerpo a Cuerpo"
+            }
+        ]
+    }
+}

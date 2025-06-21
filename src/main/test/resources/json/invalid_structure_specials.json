@@ -1,1 +1,9 @@
- 
+{
+    "specials": [
+        {
+            "nombre": "Quemar",
+            "descripcion": "Elimina las cartas más fuertes del campo de batalla.",
+            "tipo": "Tierra arrasada"
+        }
+    ]
+}

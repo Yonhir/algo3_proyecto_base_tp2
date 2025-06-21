@@ -1,19 +1,18 @@
 package edu.fiuba.algo3.modelo.json;
 
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
-import edu.fiuba.algo3.modelo.cards.*;
 import edu.fiuba.algo3.modelo.cards.specials.MoraleBoost;
 import edu.fiuba.algo3.modelo.cards.specials.ScorchCard;
 import edu.fiuba.algo3.modelo.cards.specials.Special;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.*;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
+import edu.fiuba.algo3.modelo.cards.units.modifiers.Agile;
+import edu.fiuba.algo3.modelo.cards.units.modifiers.Hero;
 import edu.fiuba.algo3.modelo.errors.GwentFileInvalid;
 import edu.fiuba.algo3.modelo.errors.SpecialsFileInvalid;
 import edu.fiuba.algo3.modelo.errors.UnitsFileInvalid;
-import edu.fiuba.algo3.modelo.cards.units.modifiers.Agile;
-import edu.fiuba.algo3.modelo.cards.units.modifiers.Hero;
-import edu.fiuba.algo3.modelo.sections.CloseCombatType;
-import edu.fiuba.algo3.modelo.sections.RangedType;
+import edu.fiuba.algo3.modelo.sections.types.CloseCombatType;
+import edu.fiuba.algo3.modelo.sections.types.RangedType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -328,7 +327,7 @@ public class JsonCardLoaderTest {
             jsonCardLoader.loadGameFromResource(INVALID_STRUCTURE_GAME_JSON_PATH);
         }, "Should throw GwentFileInvalid when game file has invalid structure (missing required decks)");
 
-        assertEquals("Error reading or parsing file", exception.getMessage(), 
+        assertEquals("Error converting data", exception.getMessage(), 
             "Exception message should indicate file reading or parsing error");
     }
     
@@ -354,7 +353,7 @@ public class JsonCardLoaderTest {
             jsonCardLoader.loadUnitsFromResource(INVALID_UNITS_JSON_PATH);
         }, "Should throw UnitsFileInvalid when units file contains invalid JSON data types");
         
-        assertEquals("Error reading or parsing file", exception.getMessage(), 
+        assertEquals("Error converting data", exception.getMessage(), 
             "Exception message should indicate file reading or parsing error");
     }
     
@@ -398,7 +397,7 @@ public class JsonCardLoaderTest {
             jsonCardLoader.loadGameFromResource(INVALID_GAME_JSON_PATH);
         }, "Should throw GwentFileInvalid when game file contains invalid JSON data types");
 
-        assertEquals("Error reading or parsing file", exception.getMessage(), 
+        assertEquals("Error converting data", exception.getMessage(), 
             "Exception message should indicate file reading or parsing error");
     }
 
@@ -431,7 +430,7 @@ public class JsonCardLoaderTest {
             jsonCardLoader.loadGameFromResource(EMPTY_JSON_PATH);
         }, "Should throw GwentFileInvalid when game file is empty");
         
-        assertEquals("Error reading or parsing file", exception.getMessage(), 
+        assertEquals("Error converting data", exception.getMessage(),
             "Exception message should indicate file reading or parsing error");
     }
     
@@ -442,7 +441,7 @@ public class JsonCardLoaderTest {
             jsonCardLoader.loadUnitsFromResource(INVALID_STRUCTURE_UNITS_JSON_PATH);
         }, "Should throw UnitsFileInvalid when units file has invalid structure (JSONObject instead of JSONArray)");
         
-        assertEquals("Error reading or parsing file", exception.getMessage(), 
+        assertEquals("Error reading or parsing file", exception.getMessage(),
             "Exception message should indicate file reading or parsing error");
     }
     
@@ -453,7 +452,7 @@ public class JsonCardLoaderTest {
             jsonCardLoader.loadSpecialsFromResource(INVALID_STRUCTURE_SPECIALS_JSON_PATH);
         }, "Should throw SpecialsFileInvalid when specials file has invalid structure (JSONObject instead of JSONArray)");
         
-        assertEquals("Error reading or parsing file", exception.getMessage(), 
+        assertEquals("Error reading or parsing file", exception.getMessage(),
             "Exception message should indicate file reading or parsing error");
     }
     
