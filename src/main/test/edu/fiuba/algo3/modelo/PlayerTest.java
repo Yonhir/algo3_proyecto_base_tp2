@@ -86,11 +86,10 @@ public class PlayerTest {
         closeCombat = new CloseCombat();
         ranged = new Ranged();
         siege = new Siege();
-        specialZone = new SpecialZone(
-                List.of(closeCombat),
-                List.of(ranged),
-                List.of(siege)
-        );
+        CloseCombat aCloseCombat = new CloseCombat();
+        Ranged aRanged = new Ranged();
+        Siege aSiege = new Siege();
+        specialZone = new SpecialZone(aCloseCombat, aRanged, aSiege, closeCombat, ranged, siege);
         player = new Player("Gabriel", 2, deck, specialZone, closeCombat, ranged, siege, new Blue());
         Hand hand = player.getHand();
         deck.getCards().remove(siegeCard);
