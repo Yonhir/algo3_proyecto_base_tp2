@@ -2,7 +2,8 @@ package edu.fiuba.algo3.modelo.cards.specials;
 
 import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
-import edu.fiuba.algo3.modelo.sections.*;
+import edu.fiuba.algo3.modelo.sections.rows.*;
+import edu.fiuba.algo3.modelo.sections.types.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

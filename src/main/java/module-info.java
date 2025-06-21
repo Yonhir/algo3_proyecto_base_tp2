@@ -21,4 +21,10 @@ module edu.fiuba.algo3 {
     opens edu.fiuba.algo3.modelo.cards.specials;
     exports edu.fiuba.algo3.modelo.cards.specials.weathers;
     opens edu.fiuba.algo3.modelo.cards.specials.weathers;
+    exports edu.fiuba.algo3.modelo.sections.rows;
+    opens edu.fiuba.algo3.modelo.sections.rows;
+    exports edu.fiuba.algo3.modelo.sections.types;
+    opens edu.fiuba.algo3.modelo.sections.types;
+    exports edu.fiuba.algo3.modelo.Colors;
+    opens edu.fiuba.algo3.modelo.Colors;
 }
