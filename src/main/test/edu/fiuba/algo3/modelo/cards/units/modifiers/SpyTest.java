@@ -7,7 +7,6 @@ import edu.fiuba.algo3.modelo.cards.Card;
 import edu.fiuba.algo3.modelo.cards.specials.MoraleBoost;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
 import edu.fiuba.algo3.modelo.errors.SectionPlayerMismatchError;
-import edu.fiuba.algo3.modelo.errors.SectionTypeMismatchError;
 import edu.fiuba.algo3.modelo.sections.rows.Ranged;
 import edu.fiuba.algo3.modelo.sections.rows.Row;
 import edu.fiuba.algo3.modelo.sections.types.CloseCombatType;

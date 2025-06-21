@@ -12,7 +12,6 @@ import edu.fiuba.algo3.modelo.sections.rows.Ranged;
 import edu.fiuba.algo3.modelo.sections.rows.Row;
 import edu.fiuba.algo3.modelo.sections.rows.Siege;
 
-import java.util.List;
 
 public class Player {
     private final String name;

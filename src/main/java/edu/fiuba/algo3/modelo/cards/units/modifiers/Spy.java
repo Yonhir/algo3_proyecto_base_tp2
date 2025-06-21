@@ -7,8 +7,8 @@ import edu.fiuba.algo3.modelo.colors.PlayerColor;
 import edu.fiuba.algo3.modelo.sections.rows.Row;
 
 public class Spy implements Modifier {
-    private Deck deck;
-    private Hand hand;
+    private final Deck deck;
+    private final Hand hand;
     public Spy(Deck deck, Hand hand) {
         this.deck = deck;
         this.hand = hand;

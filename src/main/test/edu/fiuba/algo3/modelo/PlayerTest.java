@@ -36,7 +36,7 @@ public class PlayerTest {
     private Ranged ranged;
     private Siege siege;
 
-    private PlayerColor color = new Blue();
+    private final PlayerColor color = new Blue();
     private Card siegeCard;
     private Card rangedCard;
     private Card closeCombatCard;

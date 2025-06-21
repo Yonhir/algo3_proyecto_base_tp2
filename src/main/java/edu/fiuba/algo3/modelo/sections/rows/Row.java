@@ -70,8 +70,4 @@ public abstract class Row implements Section {
     public void setColor(PlayerColor playerColor) {
         this.playerColor = playerColor;
     }
-
-    public boolean sameColor(PlayerColor playerColor) { return this.playerColor.equals(playerColor);}
-
-    public boolean sameColor(Card card) {return card.sameColor(playerColor);}
 }
