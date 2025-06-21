@@ -1,8 +1,8 @@
 package edu.fiuba.algo3.modelo;
 
 
-import edu.fiuba.algo3.modelo.Colors.Green;
-import edu.fiuba.algo3.modelo.Colors.PlayerColor;
+import edu.fiuba.algo3.modelo.colors.Green;
+import edu.fiuba.algo3.modelo.colors.PlayerColor;
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
 import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cardcollections.Hand;

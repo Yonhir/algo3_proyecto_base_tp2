@@ -1,11 +1,11 @@
 package edu.fiuba.algo3.modelo.cards;
 
-import edu.fiuba.algo3.modelo.Colors.Green;
+import edu.fiuba.algo3.modelo.colors.Green;
 import edu.fiuba.algo3.modelo.errors.SectionPlayerMismatchError;
 import edu.fiuba.algo3.modelo.errors.SectionTypeMismatchError;
 import edu.fiuba.algo3.modelo.sections.Section;
 import edu.fiuba.algo3.modelo.sections.types.SectionType;
-import edu.fiuba.algo3.modelo.Colors.PlayerColor;
+import edu.fiuba.algo3.modelo.colors.PlayerColor;
 
 import java.util.List;
 

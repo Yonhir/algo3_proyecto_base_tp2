@@ -2,9 +2,9 @@ package edu.fiuba.algo3.modelo.cardcollections;
 
 import edu.fiuba.algo3.modelo.cards.Card;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
-import edu.fiuba.algo3.modelo.Colors.Green;
-import edu.fiuba.algo3.modelo.Colors.PlayerColor;
-import edu.fiuba.algo3.modelo.Colors.Red;
+import edu.fiuba.algo3.modelo.colors.Green;
+import edu.fiuba.algo3.modelo.colors.PlayerColor;
+import edu.fiuba.algo3.modelo.colors.Red;
 import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
 import edu.fiuba.algo3.modelo.sections.rows.Ranged;
 import edu.fiuba.algo3.modelo.sections.rows.Row;
