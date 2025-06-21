@@ -1,9 +1,9 @@
 package edu.fiuba.algo3.modelo.cards.specials.weathers;
 
 import edu.fiuba.algo3.modelo.cards.units.Unit;
-import edu.fiuba.algo3.modelo.colors.Blue;
-import edu.fiuba.algo3.modelo.colors.Green;
-import edu.fiuba.algo3.modelo.colors.PlayerColor;
+import edu.fiuba.algo3.modelo.Colors.Blue;
+import edu.fiuba.algo3.modelo.Colors.Green;
+import edu.fiuba.algo3.modelo.Colors.PlayerColor;
 import edu.fiuba.algo3.modelo.errors.SectionTypeMismatchError;
 import edu.fiuba.algo3.modelo.sections.*;
 import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;

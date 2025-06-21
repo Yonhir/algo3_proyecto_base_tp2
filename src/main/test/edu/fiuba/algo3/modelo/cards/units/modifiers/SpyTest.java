@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.modelo.cards.units.modifiers;
 
-import edu.fiuba.algo3.modelo.colors.*;
+import edu.fiuba.algo3.modelo.Colors.*;
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
 import edu.fiuba.algo3.modelo.cardcollections.Hand;
 import edu.fiuba.algo3.modelo.cards.Card;

@@ -2,8 +2,8 @@ package edu.fiuba.algo3.modelo.cards.units.modifiers;
 
 import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
-import edu.fiuba.algo3.modelo.colors.Blue;
-import edu.fiuba.algo3.modelo.colors.PlayerColor;
+import edu.fiuba.algo3.modelo.Colors.Blue;
+import edu.fiuba.algo3.modelo.Colors.PlayerColor;
 import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
 import edu.fiuba.algo3.modelo.sections.rows.Ranged;
 import edu.fiuba.algo3.modelo.sections.rows.Siege;
