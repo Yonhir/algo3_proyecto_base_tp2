@@ -28,10 +28,18 @@ class Unit {
   +haveModifier(modifier: Modifier): boolean
   +play(section: Section): void
   +verifySectionType(sectionType: SectionType): void
+  +strongerThan(unit : Unit) : Unit
+  +samePointsAs(unit : Unit) : boolean
 }
 
 abstract class Special <<abstract>> {
   +verifySectionType(sectionType: SectionType): void
+}
+
+class Scorch {
+  +play(section : Section) : void
+  +findStrongestCard(card : Unit, max : Unit) : Unit
+  +burnStrongestCardFrom(card : Card, row : Row) : void
 }
 
 interface Modifier <<interface>> {
@@ -76,10 +84,6 @@ class MoraleBoost{
 
 class TacticalAdvantage {
   +TacticalAdvantage(name: String, description: String): TacticalAdvantage
-}
-
-class Scorch {
-  +Scorch(name: String, description: String): Scorch
 }
 
 interface Modifier <<interface>> {
