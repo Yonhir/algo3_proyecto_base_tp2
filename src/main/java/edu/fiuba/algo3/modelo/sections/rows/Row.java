@@ -2,6 +2,7 @@ package edu.fiuba.algo3.modelo.sections.rows;
 
 import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cards.Card;
+import edu.fiuba.algo3.modelo.cards.specials.Scorch;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.ClearWeather;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.Weather;
@@ -45,6 +46,31 @@ public abstract class Row implements Section {
         for (Card card : cards) {
             currentWeather.apply(card, this);
         }
+    }
+
+    public void applyScorch(Scorch scorch) {
+        Unit max = lastCard;
+        for (Card card : cards) {
+            max = scorch.findStrongestCard((Unit) card, max);
+        }
+        List<Card> strongest = this.findAllWithSamePoints(max);
+        for (Card c : strongest) {
+            scorch.burnStrongestCardFrom(c, this);
+        }
+    }
+
+    public List<Card> findAllWithSamePoints(Unit max) {
+        List<Card> wanted = new ArrayList<>();
+        for (Card card : cards) {
+            if (max.samePointsAs((Unit) card)) {
+                wanted.add(card);
+            }
+        }
+        return wanted;
+    }
+
+    public void deleteCard(Card card) {
+        cards.remove(card);
     }
 
     public int calculatePoints() {
