@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo;
 
-import edu.fiuba.algo3.modelo.Colors.Color;
+import edu.fiuba.algo3.modelo.colors.Green;
+import edu.fiuba.algo3.modelo.colors.PlayerColor;
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
 import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cardcollections.Hand;
@@ -24,25 +25,22 @@ public class Player {
     private final Ranged ranged;
     private final Siege siege;
 
-    private void setColor(Color color) {
-        setColorToCards(color);
-        setColorToRows(color);
+    private void setColor(PlayerColor playerColor, Green bothPlayers) {
+        setColorToCards(playerColor, bothPlayers);
+        setColorToRows(playerColor);
     }
 
-    private void setColorToRows(Color color) {
-        closeCombat.setColor(color);
-        ranged.setColor(color);
-        siege.setColor(color);
+    private void setColorToRows(PlayerColor playerColor) {
+        closeCombat.setColor(playerColor);
+        ranged.setColor(playerColor);
+        siege.setColor(playerColor);
     }
 
-    private void setColorToCards(Color color) {
-        List<Card> cards = deck.getCards();
-        for (Card card : cards) {
-            card.setColor(color);
-        }
+    private void setColorToCards(PlayerColor playerColor, Green bothPlayers) {
+        deck.setColorToCards(playerColor, bothPlayers);
     }
 
-    public Player(String name, int health, Deck deck, SpecialZone specialZone, CloseCombat closeCombat, Ranged ranged, Siege siege, Color color) {
+    public Player(String name, int health, Deck deck, SpecialZone specialZone, CloseCombat closeCombat, Ranged ranged, Siege siege, PlayerColor playerColor, Green bothPlayers) {
         this.name = name;
         this.health = health;
         discardPile = new DiscardPile();
@@ -52,7 +50,7 @@ public class Player {
         this.closeCombat = closeCombat;
         this.ranged = ranged;
         this.siege = siege;
-        setColor(color);
+        setColor(playerColor, bothPlayers);
     }
 
     public DiscardPile getDiscardPile() {

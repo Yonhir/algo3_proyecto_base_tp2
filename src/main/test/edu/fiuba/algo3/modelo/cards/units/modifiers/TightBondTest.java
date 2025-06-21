@@ -2,6 +2,7 @@ package edu.fiuba.algo3.modelo.cards.units.modifiers;
 
 import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
+import edu.fiuba.algo3.modelo.colors.Blue;
 import edu.fiuba.algo3.modelo.sections.rows.Siege;
 import edu.fiuba.algo3.modelo.sections.types.SiegeType;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,11 +27,13 @@ public class TightBondTest {
     void setUp() {
         discardPile = new DiscardPile();
         siegeRow = new Siege();
-        
+        siegeRow.setColor(new Blue());
+
         // Create three different TightBond modifiers
         tightBondModifier1 = new TightBond();
         tightBondModifier2 = new TightBond();
         tightBondModifier3 = new TightBond();
+
 
         // Create three identical catapult units with base points of 8
         List<Modifier> modifiers1 = new ArrayList<>();
@@ -64,6 +67,11 @@ public class TightBondTest {
             new SiegeType(),
             new ArrayList<>()
         );
+
+        catapult1.setColor(new Blue());
+        catapult2.setColor(new Blue());
+        catapult3.setColor(new Blue());
+        regularUnit.setColor(new Blue());
     }
 
     @Test

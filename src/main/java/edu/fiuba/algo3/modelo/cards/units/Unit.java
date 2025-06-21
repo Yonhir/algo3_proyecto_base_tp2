@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.modelo.cards.units;
 
+import edu.fiuba.algo3.modelo.colors.Green;
+import edu.fiuba.algo3.modelo.colors.PlayerColor;
 import edu.fiuba.algo3.modelo.cards.Card;
 import edu.fiuba.algo3.modelo.cards.units.modifiers.Modifier;
 import edu.fiuba.algo3.modelo.sections.rows.Row;
@@ -25,6 +27,14 @@ public class Unit extends Card {
         this.basePoints = points;
         this.currentPoints = points;
         this.modifiers = modifiers;
+    }
+
+    @Override
+    public void setColor(PlayerColor playerColor, Green bothPlayers){
+        for (Modifier modifier : this.modifiers) {
+            modifier.setColor(this, playerColor);
+        }
+        if (modifiers.isEmpty()) setColor(playerColor);
     }
 
     public void play(Section section) {
@@ -60,4 +70,6 @@ public class Unit extends Card {
         }
         return false;
     }
+
+
 }

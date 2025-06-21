@@ -1,6 +1,9 @@
 package edu.fiuba.algo3.modelo.cards.specials.weathers;
 
 import edu.fiuba.algo3.modelo.cards.units.Unit;
+import edu.fiuba.algo3.modelo.colors.Blue;
+import edu.fiuba.algo3.modelo.colors.Green;
+import edu.fiuba.algo3.modelo.colors.PlayerColor;
 import edu.fiuba.algo3.modelo.errors.SectionTypeMismatchError;
 import edu.fiuba.algo3.modelo.sections.*;
 import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
@@ -29,6 +32,9 @@ public class WeatherTest {
     private Weather fogWeather;
     private Weather rainWeather;
     private Weather clearWeather;
+    private final PlayerColor color = new Blue();
+    private final PlayerColor green = new Green();
+
 
     @BeforeEach
     public void setup() {
@@ -36,7 +42,7 @@ public class WeatherTest {
         closeCombatRow = new CloseCombat();
         rangedRow = new Ranged();
         siegeRow = new Siege();
-        
+
         // Initialize weather zone
         specialZone = new SpecialZone(
             List.of(closeCombatRow),
@@ -48,12 +54,24 @@ public class WeatherTest {
         soldier = new Unit("soldado", "pelea de cerca", 10, new CloseCombatType(), List.of());
         archer = new Unit("arquero", "tira flechas", 8, new RangedType(), List.of());
         catapult = new Unit("catapulta", "arma de asedio", 12, new SiegeType(), List.of());
-        
+
+        soldier.setColor(color);
+        archer.setColor(color);
+        catapult.setColor(color);
+        closeCombatRow.setColor(color);
+        rangedRow.setColor(color);
+        siegeRow.setColor(color);
+
         // Initialize weather cards
         frostWeather = new BitingFrost("Escarcha", "Reduce todas las unidades cuerpo a cuerpo a 1 punto");
         fogWeather = new ImpenetrableFog("Niebla", "Reduce todas las unidades a distancia a 1 punto");
         rainWeather = new TorrentialRain("Lluvia", "Reduce todas las unidades de asedio a 1 punto");
         clearWeather = new ClearWeather("Clima Despejado", "Elimina todos los efectos de clima");
+        frostWeather.setColor(green);
+        fogWeather.setColor(green);
+        rainWeather.setColor(green);
+        clearWeather.setColor(green);
+
     }
 
     @Test

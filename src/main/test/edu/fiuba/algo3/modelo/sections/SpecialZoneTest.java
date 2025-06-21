@@ -3,6 +3,9 @@ package edu.fiuba.algo3.modelo.sections;
 import edu.fiuba.algo3.modelo.cards.specials.*;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.*;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
+import edu.fiuba.algo3.modelo.colors.Blue;
+import edu.fiuba.algo3.modelo.colors.Green;
+import edu.fiuba.algo3.modelo.colors.Red;
 import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
 import edu.fiuba.algo3.modelo.sections.rows.Ranged;
 import edu.fiuba.algo3.modelo.sections.rows.Row;
@@ -45,6 +48,12 @@ public class SpecialZoneTest {
         player2CloseCombatRow = new CloseCombat();
         player2RangedRow = new Ranged();
         player2SiegeRow = new Siege();
+        player1CloseCombatRow.setColor(new Blue());
+        player1RangedRow.setColor(new Blue());
+        player1SiegeRow.setColor(new Blue());
+        player2CloseCombatRow.setColor(new Red());
+        player2RangedRow.setColor(new Red());
+        player2SiegeRow.setColor(new Red());
 
         // Initialize weather zone with both players' rows
         specialZone = new SpecialZone(
@@ -60,11 +69,21 @@ public class SpecialZoneTest {
         player2Soldier = new Unit("soldado2", "pelea de cerca", 10, new CloseCombatType(), List.of());
         player2Archer = new Unit("arquero2", "tira flechas", 8, new RangedType(), List.of());
         player2Catapult = new Unit("catapulta2", "arma de asedio", 12, new SiegeType(), List.of());
-        
+
+        player1Soldier.setColor(new Blue());
+        player1Archer.setColor(new Blue());
+        player1Catapult.setColor(new Blue());
+        player2Soldier.setColor(new Red());
+        player2Archer.setColor(new Red());
+        player2Catapult.setColor(new Red());
+
         // Initialize weather cards
         frostWeather = new BitingFrost("Escarcha", "Reduce todas las unidades cuerpo a cuerpo a 1 punto");
         fogWeather = new ImpenetrableFog("Niebla", "Reduce todas las unidades a distancia a 1 punto");
         rainWeather = new TorrentialRain("Lluvia", "Reduce todas las unidades de asedio a 1 punto");
+        frostWeather.setColor(new Green());
+        fogWeather.setColor(new Green());
+        rainWeather.setColor(new Green());
     }
 
     private void setupAllWeatherEffects() {

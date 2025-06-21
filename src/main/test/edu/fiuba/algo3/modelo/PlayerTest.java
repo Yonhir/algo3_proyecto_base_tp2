@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.modelo;
 
-import edu.fiuba.algo3.modelo.Colors.Blue;
+import edu.fiuba.algo3.modelo.colors.Blue;
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
 import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cardcollections.Hand;
@@ -9,6 +9,8 @@ import edu.fiuba.algo3.modelo.cards.specials.weathers.BitingFrost;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.ImpenetrableFog;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.TorrentialRain;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
+import edu.fiuba.algo3.modelo.colors.Green;
+import edu.fiuba.algo3.modelo.colors.PlayerColor;
 import edu.fiuba.algo3.modelo.sections.*;
 import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
 import edu.fiuba.algo3.modelo.sections.rows.Ranged;
@@ -34,6 +36,7 @@ public class PlayerTest {
     private Ranged ranged;
     private Siege siege;
 
+    private PlayerColor color = new Blue();
     private Card siegeCard;
     private Card rangedCard;
     private Card closeCombatCard;
@@ -44,7 +47,11 @@ public class PlayerTest {
         rangedCard = new Unit("Nombre", "Descripcion", 6, new RangedType(), new ArrayList<>());
         closeCombatCard = new Unit("Nombre", "Descripcion", 4, new CloseCombatType(), new ArrayList<>());
 
-                // Create unit cards
+        siegeCard.setColor(color);
+        rangedCard.setColor(color);
+        closeCombatCard.setColor(color);
+
+        // Create unit cards
         List<Card> unitCards = Arrays.asList(
 
                 new Unit("Nombre", "Descripcion", 4, new CloseCombatType(), new ArrayList<>()),
@@ -83,19 +90,19 @@ public class PlayerTest {
         // Initialize game components
         deck = new Deck();
         deck.insertCards(cards);
+
         closeCombat = new CloseCombat();
         ranged = new Ranged();
         siege = new Siege();
+
         specialZone = new SpecialZone(
                 List.of(closeCombat),
                 List.of(ranged),
                 List.of(siege)
         );
-        player = new Player("Gabriel", 2, deck, specialZone, closeCombat, ranged, siege, new Blue());
+
+        player = new Player("Gabriel", 2, deck, specialZone, closeCombat, ranged, siege, color, new Green());
         Hand hand = player.getHand();
-        deck.getCards().remove(siegeCard);
-        deck.getCards().remove(closeCombatCard);
-        deck.getCards().remove(rangedCard);
 
         hand.insertCards(Arrays.asList(siegeCard, closeCombatCard, rangedCard));
         hand.getNCardsFromDeck(deck, 7);
@@ -230,4 +237,10 @@ public class PlayerTest {
         //ASSERT
         Assertions.assertEquals(expectedPoints, actualPoints);
     }
+
+    @Test
+    public void playerSetColorToCards(){
+        Assertions.assertTrue(deck.getCards().stream().allMatch(card -> card.sameColor(color)));
+    }
+
 }

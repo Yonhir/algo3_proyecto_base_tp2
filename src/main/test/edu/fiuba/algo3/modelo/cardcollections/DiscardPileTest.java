@@ -2,6 +2,9 @@ package edu.fiuba.algo3.modelo.cardcollections;
 
 import edu.fiuba.algo3.modelo.cards.Card;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
+import edu.fiuba.algo3.modelo.colors.Green;
+import edu.fiuba.algo3.modelo.colors.PlayerColor;
+import edu.fiuba.algo3.modelo.colors.Red;
 import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
 import edu.fiuba.algo3.modelo.sections.rows.Ranged;
 import edu.fiuba.algo3.modelo.sections.rows.Row;
@@ -122,17 +125,26 @@ public class DiscardPileTest {
     @Test
     public void cards_count_go_to_discardPile(){
         int expectedSize = 15;
+        PlayerColor green = new Green();
+        PlayerColor red = new Red();
+
         Row ranged = new Ranged();
+        ranged.setColor(red);
         Row closeCombat = new CloseCombat();
+        closeCombat.setColor(red);
         Row siege = new Siege();
+        siege.setColor(red);
 
         for (Card card : closeCombatUnits) {
+            card.setColor(green);
             closeCombat.placeCard(card);
         }
         for (Card card : rangedUnits) {
+            card.setColor(green);
             ranged.placeCard(card);
         }
         for (Card card : siegeUnits) {
+            card.setColor(green);
             siege.placeCard(card);
         }
 

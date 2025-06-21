@@ -2,6 +2,8 @@ package edu.fiuba.algo3.modelo.cards.units.modifiers;
 
 import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
+import edu.fiuba.algo3.modelo.colors.Blue;
+import edu.fiuba.algo3.modelo.colors.PlayerColor;
 import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
 import edu.fiuba.algo3.modelo.sections.rows.Ranged;
 import edu.fiuba.algo3.modelo.sections.rows.Siege;
@@ -21,13 +23,16 @@ public class MoraleBoostModifierTest {
     private Siege siege;
     private MoraleBoostModifier modifierMoral;
     private Unit cardMoraleBoost;
-
+    private final PlayerColor blue = new Blue();
 
     @BeforeEach
     void setUp() {
         closeCombat = new CloseCombat();
         ranged = new Ranged();
         siege = new Siege();
+        closeCombat.setColor(blue);
+        ranged.setColor(blue);
+        siege.setColor(blue);
 
         modifierMoral = new MoraleBoostModifier();
 
@@ -47,6 +52,7 @@ public class MoraleBoostModifierTest {
     @Test
     public void moral_boost_closeCombat() {
         cardMoraleBoost = new Unit("Nombre", "Descripcion", 10, new CloseCombatType(), List.of(modifierMoral));
+        cardMoraleBoost.setColor(blue);
         int expectedPoints = closeCombat.calculatePoints() + closeCombat.getCards().size() + cardMoraleBoost.calculatePoints();
 
         closeCombat.placeCard(cardMoraleBoost);
@@ -58,6 +64,7 @@ public class MoraleBoostModifierTest {
     @Test
     public void moral_boost_ranged() {
         cardMoraleBoost = new Unit("Nombre", "Descripcion", 10, new RangedType(), List.of(modifierMoral));
+        cardMoraleBoost.setColor(blue);
         int expectedPoints = ranged.calculatePoints() + ranged.getCards().size() + cardMoraleBoost.calculatePoints();
 
         ranged.placeCard(cardMoraleBoost);
@@ -69,6 +76,7 @@ public class MoraleBoostModifierTest {
     @Test
     public void moral_boost_siege() {
         cardMoraleBoost = new Unit("Nombre", "Descripcion", 10, new SiegeType(), List.of(modifierMoral));
+        cardMoraleBoost.setColor(blue);
         int expectedPoints = siege.calculatePoints() + siege.getCards().size() + cardMoraleBoost.calculatePoints();
 
         siege.placeCard(cardMoraleBoost);
@@ -80,6 +88,7 @@ public class MoraleBoostModifierTest {
     @Test
     public void moral_boost_empty_row() {
         cardMoraleBoost = new Unit("Nombre", "Descripcion", 10, new SiegeType(), List.of(modifierMoral));
+        cardMoraleBoost.setColor(blue);
         int expectedPoints = cardMoraleBoost.calculatePoints();
 
         siege.discardCards(new DiscardPile());
