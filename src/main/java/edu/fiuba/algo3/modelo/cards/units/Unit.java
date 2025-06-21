@@ -31,10 +31,6 @@ public class Unit extends Card {
         this.pointsStrategy = strategy;
     }
 
-//    public void setStrategy(CalculatePointsStrategy strategy) {
-//        this.pointsStrategy = strategy;
-//    }
-
     public void play(Section section) {
         Row row = (Row) section;
         pointsStrategy.playIn(section, this);
@@ -74,10 +70,7 @@ public class Unit extends Card {
     }
 
     public Unit strongerThan(Unit unit) {
-        if (this.currentPoints > unit.calculatePoints()) {
-            return this;
-        }
-        return unit;
+        return pointsStrategy.chooseStronger(this, unit);
     }
 
     public boolean samePointsAs(Unit card) {

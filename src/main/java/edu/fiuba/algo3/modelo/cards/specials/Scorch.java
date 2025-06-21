@@ -2,6 +2,7 @@ package edu.fiuba.algo3.modelo.cards.specials;
 
 import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cards.Card;
+import edu.fiuba.algo3.modelo.cards.units.CommonStrategy;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
 import edu.fiuba.algo3.modelo.sections.Section;
 import edu.fiuba.algo3.modelo.sections.SpecialZone;
@@ -17,7 +18,7 @@ public class Scorch extends Special {
     public Scorch(String name, String description, List<SectionType> sectionTypes, DiscardPile discardPile) {
         super(name, description, sectionTypes);
         this.discardPile = discardPile;
-        strongestCard = new Unit("", "", 0, List.of(), List.of());
+        strongestCard = new Unit("", "", 0, List.of(), List.of(), new CommonStrategy());
     }
 
     @Override

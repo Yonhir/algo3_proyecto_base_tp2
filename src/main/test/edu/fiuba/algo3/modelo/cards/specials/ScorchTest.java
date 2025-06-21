@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo.cards.specials;
 
 import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
+import edu.fiuba.algo3.modelo.cards.units.CommonStrategy;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
 import edu.fiuba.algo3.modelo.cards.units.modifiers.MoraleBoostModifier;
 import edu.fiuba.algo3.modelo.cards.units.modifiers.TightBond;
@@ -46,8 +47,8 @@ public class ScorchTest {
     }
     @Test
     public void testSeJuegaUnaTierraArrasadaSeEliminaLaCartaMasFuerteDeLaFilaCloseCombatCorrectamente() {
-        Unit unidad1 = new Unit("Nombre", "Descripcion", 6, new CloseCombatType(), List.of(new TightBond()));
-        Unit unidad2 = new Unit("Nombre", "Descripcion", 4, new CloseCombatType(), List.of(new MoraleBoostModifier()));
+        Unit unidad1 = new Unit("Nombre", "Descripcion", 6, new CloseCombatType(), List.of(new TightBond()), new CommonStrategy());
+        Unit unidad2 = new Unit("Nombre", "Descripcion", 4, new CloseCombatType(), List.of(new MoraleBoostModifier()), new CommonStrategy());
 
         closeCombatRow1.placeCard(unidad1);
         closeCombatRow1.placeCard(unidad2);
@@ -58,8 +59,8 @@ public class ScorchTest {
 
     @Test
     public void testSeJuegaUnaTierraArrasadaSeEliminaLaCartaMasFuerteDeLaFilaRangedCorrectamente() {
-        Unit unidad1 = new Unit("Nombre", "Descripcion", 4, new RangedType(), List.of(new TightBond()));
-        Unit unidad2 = new Unit("Nombre", "Descripcion", 6, new RangedType(), List.of(new MoraleBoostModifier()));
+        Unit unidad1 = new Unit("Nombre", "Descripcion", 4, new RangedType(), List.of(new TightBond()), new CommonStrategy());
+        Unit unidad2 = new Unit("Nombre", "Descripcion", 6, new RangedType(), List.of(new MoraleBoostModifier()), new CommonStrategy());
 
         rangedRow2.placeCard(unidad1);
         rangedRow2.placeCard(unidad2);
@@ -70,9 +71,9 @@ public class ScorchTest {
 
     @Test
     public void testSeJuegaUnaTierraArrasadaSeEliminaLaCartaMasFuerteDeLaFilaSiegeCorrectamente() {
-        Unit unidad1 = new Unit("Nombre", "Descripcion", 4, new SiegeType(), List.of(new TightBond()));
-        Unit unidad2 = new Unit("Nombre", "Descripcion", 6, new SiegeType(), List.of(new MoraleBoostModifier()));
-        Unit unidad3 = new Unit("Nombre", "Descripcion", 8, new SiegeType(), List.of());
+        Unit unidad1 = new Unit("Nombre", "Descripcion", 4, new SiegeType(), List.of(new TightBond()), new CommonStrategy());
+        Unit unidad2 = new Unit("Nombre", "Descripcion", 6, new SiegeType(), List.of(new MoraleBoostModifier()), new CommonStrategy());
+        Unit unidad3 = new Unit("Nombre", "Descripcion", 8, new SiegeType(), List.of(), new CommonStrategy());
 
         siegeRow1.placeCard(unidad1);
         siegeRow1.placeCard(unidad2);
@@ -84,9 +85,9 @@ public class ScorchTest {
 
     @Test
     public void testSeJuegaUnaTierraArrasadaSeQuemanLasCartasMasFuertesDeLaFilaCloseCombat() {
-        Unit unidad1 = new Unit("Nombre", "Descripcion", 6, new CloseCombatType(), List.of(new TightBond()));
-        Unit unidad2 = new Unit("Nombre", "Descripcion", 4, new CloseCombatType(), List.of(new MoraleBoostModifier()));
-        Unit unidad3 = new Unit("Nombre", "Descripcion", 6, new CloseCombatType(), List.of());
+        Unit unidad1 = new Unit("Nombre", "Descripcion", 6, new CloseCombatType(), List.of(new TightBond()), new CommonStrategy());
+        Unit unidad2 = new Unit("Nombre", "Descripcion", 4, new CloseCombatType(), List.of(new MoraleBoostModifier()), new CommonStrategy());
+        Unit unidad3 = new Unit("Nombre", "Descripcion", 6, new CloseCombatType(), List.of(), new CommonStrategy());
 
         closeCombatRow1.placeCard(unidad1);
         closeCombatRow1.placeCard(unidad2);
@@ -98,9 +99,9 @@ public class ScorchTest {
 
     @Test
     public void testSeJuegaUnaTierraArrasadaSeQuemanLasCartasMasFuertesDeLaFilaRanged() {
-        Unit unidad1 = new Unit("Nombre", "Descripcion", 4, new RangedType(), List.of(new TightBond()));
-        Unit unidad2 = new Unit("Nombre", "Descripcion", 8, new RangedType(), List.of(new MoraleBoostModifier()));
-        Unit unidad3 = new Unit("Nombre", "Descripcion", 8, new RangedType(), List.of());
+        Unit unidad1 = new Unit("Nombre", "Descripcion", 4, new RangedType(), List.of(new TightBond()), new CommonStrategy());
+        Unit unidad2 = new Unit("Nombre", "Descripcion", 8, new RangedType(), List.of(new MoraleBoostModifier()), new CommonStrategy());
+        Unit unidad3 = new Unit("Nombre", "Descripcion", 8, new RangedType(), List.of(), new CommonStrategy());
 
         rangedRow1.placeCard(unidad1);
         rangedRow1.placeCard(unidad2);
@@ -112,9 +113,9 @@ public class ScorchTest {
 
     @Test
     public void testSeJuegaUnaTierraArrasadaSeEliminanLasCartasMasFuertesDeLaFilaSiege() {
-        Unit unidad1 = new Unit("Nombre", "Descripcion", 8, new SiegeType(), List.of(new TightBond()));
-        Unit unidad2 = new Unit("Nombre", "Descripcion", 8, new SiegeType(), List.of());
-        Unit unidad3 = new Unit("Nombre", "Descripcion", 6, new SiegeType(), List.of(new MoraleBoostModifier()));
+        Unit unidad1 = new Unit("Nombre", "Descripcion", 8, new SiegeType(), List.of(new TightBond()), new CommonStrategy());
+        Unit unidad2 = new Unit("Nombre", "Descripcion", 8, new SiegeType(), List.of(), new CommonStrategy());
+        Unit unidad3 = new Unit("Nombre", "Descripcion", 6, new SiegeType(), List.of(new MoraleBoostModifier()), new CommonStrategy());
 
         siegeRow1.placeCard(unidad1);
         siegeRow1.placeCard(unidad2);
@@ -127,11 +128,11 @@ public class ScorchTest {
 
     @Test
     public void testSeJuegaUnaTierraArrasadaSeEliminanLasCartasMasFuertesDeTodasLasFilas() {
-        Unit unidad1 = new Unit("Nombre", "Descripcion", 8, new SiegeType(), List.of(new TightBond()));
-        Unit unidad5 = new Unit("Nombre", "Descripcion", 6, new SiegeType(), List.of(new MoraleBoostModifier()));
-        Unit unidad2 = new Unit("Nombre", "Descripcion", 4, new RangedType(), List.of(new TightBond()));
-        Unit unidad3 = new Unit("Nombre", "Descripcion", 8, new RangedType(), List.of());
-        Unit unidad4 = new Unit("Nombre", "Descripcion", 8, new CloseCombatType(), List.of(new MoraleBoostModifier()));
+        Unit unidad1 = new Unit("Nombre", "Descripcion", 8, new SiegeType(), List.of(new TightBond()), new CommonStrategy());
+        Unit unidad5 = new Unit("Nombre", "Descripcion", 6, new SiegeType(), List.of(new MoraleBoostModifier()), new CommonStrategy());
+        Unit unidad2 = new Unit("Nombre", "Descripcion", 4, new RangedType(), List.of(new TightBond()), new CommonStrategy());
+        Unit unidad3 = new Unit("Nombre", "Descripcion", 8, new RangedType(), List.of(), new CommonStrategy());
+        Unit unidad4 = new Unit("Nombre", "Descripcion", 8, new CloseCombatType(), List.of(new MoraleBoostModifier()), new CommonStrategy());
 
         closeCombatRow1.placeCard(unidad4);
         rangedRow1.placeCard(unidad2);
@@ -147,14 +148,14 @@ public class ScorchTest {
 
     @Test
     public void seJuegaUnaTierraArrasadaSeEliminanLasCartasMasFuertesTantoDelJugadorPrincipalComoDelOponente() {
-        Unit unidad1JugadorP = new Unit("Nombre", "Descripcion", 8, new CloseCombatType(), List.of(new MoraleBoostModifier()));
-        Unit unidad1Oponente = new Unit("Nombre", "Descripcion", 8, new CloseCombatType(), List.of(new TightBond()));
+        Unit unidad1JugadorP = new Unit("Nombre", "Descripcion", 8, new CloseCombatType(), List.of(new MoraleBoostModifier()), new CommonStrategy());
+        Unit unidad1Oponente = new Unit("Nombre", "Descripcion", 8, new CloseCombatType(), List.of(new TightBond()), new CommonStrategy());
 
-        Unit unidad2JugadorP = new Unit("Nombre", "Descripcion", 8, new RangedType(), List.of(new TightBond()));
-        Unit unidad2Oponente = new Unit("Nombre", "Descripcion", 8, new RangedType(), List.of(new TightBond()));
+        Unit unidad2JugadorP = new Unit("Nombre", "Descripcion", 8, new RangedType(), List.of(new TightBond()), new CommonStrategy());
+        Unit unidad2Oponente = new Unit("Nombre", "Descripcion", 8, new RangedType(), List.of(new TightBond()), new CommonStrategy());
 
-        Unit unidad3JugadorP = new Unit("Nombre", "Descripcion", 7, new SiegeType(), List.of(new TightBond()));
-        Unit unidad3Oponente = new Unit("Nombre", "Descripcion", 5, new SiegeType(), List.of(new MoraleBoostModifier()));
+        Unit unidad3JugadorP = new Unit("Nombre", "Descripcion", 7, new SiegeType(), List.of(new TightBond()), new CommonStrategy());
+        Unit unidad3Oponente = new Unit("Nombre", "Descripcion", 5, new SiegeType(), List.of(new MoraleBoostModifier()), new CommonStrategy());
 
         closeCombatRow1.placeCard(unidad1JugadorP);
         rangedRow1.placeCard(unidad2JugadorP);

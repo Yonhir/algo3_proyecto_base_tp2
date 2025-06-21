@@ -1,6 +1,8 @@
 package edu.fiuba.algo3.modelo;
 
+import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cards.specials.MoraleBoost;
+import edu.fiuba.algo3.modelo.cards.specials.Scorch;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.BitingFrost;
 import edu.fiuba.algo3.modelo.cards.units.CommonStrategy;
 import edu.fiuba.algo3.modelo.cards.units.HeroStrategy;
@@ -19,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class HeroTest {
     private Unit cartaConLegendaria;
@@ -98,5 +101,19 @@ public class HeroTest {
         ));
 
         assertEquals(puntosEsperados, cartaConLegendaria.calculatePoints());
+    }
+
+    @Test
+    public void testCartaConModificadorLegendariaNoEsQuemadaPorUnaTierraArrasada() {
+        Scorch tierraArrasada = new Scorch("Tierra arrasada", "Desscripcion", List.of(new CloseCombatType(), new RangedType(), new SiegeType()), new DiscardPile());
+
+        closeCombat.placeCard(cartaConLegendaria);
+        tierraArrasada.play(new SpecialZone(
+                List.of(closeCombat),
+                List.of(ranged),
+                List.of(siege)
+        ));
+
+        assertTrue(closeCombat.containsCard(cartaConLegendaria));
     }
 }

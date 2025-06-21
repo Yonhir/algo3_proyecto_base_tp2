@@ -4,6 +4,7 @@ import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cards.Card;
 import edu.fiuba.algo3.modelo.cards.specials.Scorch;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.ClearWeather;
+import edu.fiuba.algo3.modelo.cards.units.CommonStrategy;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.Weather;
 import edu.fiuba.algo3.modelo.sections.Section;
@@ -23,7 +24,7 @@ public abstract class Row implements Section {
     protected Row(SectionType sectionType) {
         this.currentWeather = new ClearWeather("Clima Despejado", "Elimina todos los efectos de clima");
         this.sectionType = sectionType;
-        this.lastCard = new Unit("", "", 0, List.of(), List.of());
+        this.lastCard = new Unit("", "", 0, List.of(), List.of(), new CommonStrategy());
     }
 
     @Override

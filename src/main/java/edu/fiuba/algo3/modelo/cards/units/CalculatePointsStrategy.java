@@ -6,4 +6,6 @@ interface CalculatePointsStrategy {
     void playIn(Section section, Unit unit);
 
     void affectPointsFromWith(Unit unit, int points);
+
+    Unit chooseStronger(Unit max, Unit actual);
 }

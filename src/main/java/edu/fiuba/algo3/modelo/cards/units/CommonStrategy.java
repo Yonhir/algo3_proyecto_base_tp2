@@ -14,4 +14,12 @@ public class CommonStrategy implements CalculatePointsStrategy {
     public void affectPointsFromWith(Unit unit, int points) {
         unit.affectPointsWith(points);
     }
+
+    @Override
+    public Unit chooseStronger(Unit max, Unit actual) {
+        if (max.calculatePoints() > actual.calculatePoints()) {
+            return max;
+        }
+        return actual;
+    }
 }
