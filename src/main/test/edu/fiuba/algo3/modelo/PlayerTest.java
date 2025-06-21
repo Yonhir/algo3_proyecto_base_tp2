@@ -31,7 +31,6 @@ public class PlayerTest {
     private List<Card> cards;
     private Player player;
     private Deck deck;
-    private SpecialZone specialZone;
 
     private CloseCombat closeCombat;
     private Ranged ranged;
@@ -96,12 +95,7 @@ public class PlayerTest {
         ranged = new Ranged();
         siege = new Siege();
 
-        specialZone = new SpecialZone(
-                List.of(closeCombat),
-                List.of(ranged),
-                List.of(siege)
-        );
-        player = new Player("Gabriel", 2, deck, specialZone, closeCombat, ranged, siege, color, new Green());
+        player = new Player("Gabriel", 2, deck, closeCombat, ranged, siege, color, new Green());
 
         Hand hand = player.getHand();
 

@@ -19,7 +19,6 @@ public class Player {
     private final DiscardPile discardPile;
     private final Hand hand;
     private final Deck deck;
-    private final SpecialZone specialZone;
     private final CloseCombat closeCombat;
     private final Ranged ranged;
     private final Siege siege;
@@ -39,14 +38,13 @@ public class Player {
         deck.setColorToCards(playerColor, bothPlayers);
     }
 
-    public Player(String name, int health, Deck deck, SpecialZone specialZone, CloseCombat closeCombat, Ranged ranged, Siege siege, PlayerColor playerColor, Green bothPlayers) {
+    public Player(String name, int health, Deck deck, CloseCombat closeCombat, Ranged ranged, Siege siege, PlayerColor playerColor, Green bothPlayers) {
 
         this.name = name;
         this.health = health;
         discardPile = new DiscardPile();
         hand = new Hand();
         this.deck = deck;
-        this.specialZone = specialZone;
         this.closeCombat = closeCombat;
         this.ranged = ranged;
         this.siege = siege;
