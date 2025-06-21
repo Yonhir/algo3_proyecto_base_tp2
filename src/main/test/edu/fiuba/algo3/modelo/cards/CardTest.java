@@ -60,13 +60,8 @@ public class CardTest {
         CloseCombat closeCombat = new CloseCombat();
         Ranged ranged = new Ranged();
         Siege siege = new Siege();
-        CloseCombat aCloseCombat = new CloseCombat();
-        Ranged aRanged = new Ranged();
-        Siege aSiege = new Siege();
-        
-        SpecialZone specialZone = new SpecialZone(aCloseCombat, aRanged, aSiege, closeCombat, ranged, siege);
-        
-        new Player("Gabriel", 2, deck, specialZone, closeCombat, ranged, siege, blue);
+
+        new Player("Gabriel", 2, deck, closeCombat, ranged, siege, blue);
 
         List<Card> cards = deck.getCards();
 
