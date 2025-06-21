@@ -28,6 +28,9 @@ public class SpecialsLoaderTest {
     // Invalid structure JSON files
     public static final String INVALID_STRUCTURE_SPECIALS_JSON_PATH = "json/invalid_structure_specials.json";
     
+    // Invalid weather name JSON files
+    public static final String INVALID_WEATHER_NAME_JSON_PATH = "json/invalid_weather_name.json";
+    
     private SpecialsLoader specialsLoader;
     
     @BeforeEach
@@ -169,5 +172,16 @@ public class SpecialsLoaderTest {
         
         assertEquals("Error reading or parsing file", exception.getMessage(),
             "Exception message should indicate file reading or parsing error");
+    }
+    
+    @Test
+    void testLoadFromResource_ShouldThrowSpecialsFileInvalid_WhenWeatherCardHasInvalidName() {
+        // Act & Assert
+        SpecialsFileInvalid exception = assertThrows(SpecialsFileInvalid.class, () -> {
+            specialsLoader.loadFromResource(INVALID_WEATHER_NAME_JSON_PATH);
+        }, "Should throw SpecialsFileInvalid when weather card has an invalid name");
+        
+        assertEquals("Error converting data", exception.getMessage(),
+            "Exception message should indicate data conversion error");
     }
 } 

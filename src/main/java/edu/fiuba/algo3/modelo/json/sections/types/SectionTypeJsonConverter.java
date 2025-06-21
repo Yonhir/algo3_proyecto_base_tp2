@@ -4,8 +4,6 @@ import edu.fiuba.algo3.modelo.sections.types.CloseCombatType;
 import edu.fiuba.algo3.modelo.sections.types.RangedType;
 import edu.fiuba.algo3.modelo.sections.types.SectionType;
 import edu.fiuba.algo3.modelo.sections.types.SiegeType;
-import edu.fiuba.algo3.modelo.sections.types.SpecialType;
-import org.json.simple.JSONArray;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,8 +42,6 @@ public class SectionTypeJsonConverter {
                 return new RangedType();
             case "Asedio":
                 return new SiegeType();
-            case "Especial":
-                return new SpecialType();
             default:
                 throw new IllegalArgumentException("Invalid section type: " + sectionString);
         }

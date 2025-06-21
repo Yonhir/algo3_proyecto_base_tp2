@@ -22,4 +22,4 @@ public class WeatherJsonConverter {
                 throw new IllegalArgumentException("Unknown weather card: " + name);
         }
     }
-} 
+}
