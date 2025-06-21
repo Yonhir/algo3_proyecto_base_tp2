@@ -27,4 +27,18 @@ module edu.fiuba.algo3 {
     opens edu.fiuba.algo3.modelo.sections.types;
     exports edu.fiuba.algo3.modelo.colors;
     opens edu.fiuba.algo3.modelo.colors;
+    exports edu.fiuba.algo3.modelo.json;
+    opens edu.fiuba.algo3.modelo.json;
+    exports edu.fiuba.algo3.modelo.json.cards.specials.weathers;
+    opens edu.fiuba.algo3.modelo.json.cards.specials.weathers;
+    exports edu.fiuba.algo3.modelo.json.cards.specials;
+    opens edu.fiuba.algo3.modelo.json.cards.specials;
+    exports edu.fiuba.algo3.modelo.json.cardcollections;
+    opens edu.fiuba.algo3.modelo.json.cardcollections;
+    exports edu.fiuba.algo3.modelo.json.cards.units.modifiers;
+    opens edu.fiuba.algo3.modelo.json.cards.units.modifiers;
+    exports edu.fiuba.algo3.modelo.json.cards.units;
+    opens edu.fiuba.algo3.modelo.json.cards.units;
+    exports edu.fiuba.algo3.modelo.json.cards;
+    opens edu.fiuba.algo3.modelo.json.cards;
 }
