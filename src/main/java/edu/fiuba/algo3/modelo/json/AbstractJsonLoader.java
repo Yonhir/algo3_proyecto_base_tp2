@@ -19,7 +19,7 @@ public abstract class AbstractJsonLoader {
         this.jsonParser = new JSONParser();
     }
     
-    public abstract <T> T loadFromResource(String resourcePath);
+    public abstract Object loadFromResource(String resourcePath);
     
     protected JSONArray parseJsonArrayFromResource(String resourcePath) throws IOException, ParseException {
         Object parsed = parseJsonFromResource(resourcePath);
