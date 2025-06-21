@@ -95,8 +95,9 @@ abstract class Row <<abstract>> {
   +discardCards(discardPile: DiscardPile): void
   +getCards(): List<Card>
   +applyScorch(scorch : Scorch) : void
-  +deleteCard(card : Card) : void
-  +findAllWithSamePoints(card : Unit) : List<Card>
+  +discardCard(card : Card, discardPile : DiscardPile) : void
+  +findAllWithSamePoints(scorch : Scorch) : List<Card>
+  +findStrongestCard() : Unit
 }
 
 class Ranged {
@@ -125,6 +126,7 @@ class SpecialZone {
   +applyScorchInCloseCombat(scorch : Scorch): void
   +applyScorchInRanged(scorch : Scorch): void
   +applyScorchInSiege(scorch : Scorch): void
+  +applyInAllRows(scorch : Scorch) : void
 }
 
 ' =====================
@@ -160,8 +162,9 @@ abstract class Special <<abstract>> {
 
 class Scorch {
   +play(section : Section) : void
-  +findStrongestCard(card : Unit, max : Unit) : Unit
+  +matchesStrongest(unit : Unit) : boolean
   +burnStrongestCardFrom(card : Card, row : Row) : void
+  +saveStrongest(unit : Unit) : void
 }
 
 interface Modifier <<interface>> {

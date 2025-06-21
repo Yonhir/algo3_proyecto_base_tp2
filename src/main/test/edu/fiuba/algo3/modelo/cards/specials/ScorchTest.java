@@ -174,6 +174,4 @@ public class ScorchTest {
         assertFalse(rangedRow2.getCards().contains(unidad2Oponente));
         assertTrue(siegeRow2.getCards().contains(unidad3Oponente));
     }
-
-    // falta test donde se juegue una Hero y esta no sea eliminada
 }

@@ -38,8 +38,9 @@ abstract class Special <<abstract>> {
 
 class Scorch {
   +play(section : Section) : void
-  +findStrongestCard(card : Unit, max : Unit) : Unit
+  +matchesStrongest(unit : Unit) : boolean
   +burnStrongestCardFrom(card : Card, row : Row) : void
+  +saveStrongest(unit : Unit) : void
 }
 
 interface Modifier <<interface>> {
@@ -84,16 +85,6 @@ class MoraleBoost{
 
 class TacticalAdvantage {
   +TacticalAdvantage(name: String, description: String): TacticalAdvantage
-}
-
-interface Modifier <<interface>> {
-  +apply(row: Row): void
-}
-
-class TightBond {
-}
-
-class Agil {
 }
 
 ' =====================
