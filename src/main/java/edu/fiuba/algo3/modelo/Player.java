@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo;
 
+
 import edu.fiuba.algo3.modelo.colors.Green;
 import edu.fiuba.algo3.modelo.colors.PlayerColor;
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
@@ -11,7 +12,6 @@ import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
 import edu.fiuba.algo3.modelo.sections.rows.Ranged;
 import edu.fiuba.algo3.modelo.sections.rows.Row;
 import edu.fiuba.algo3.modelo.sections.rows.Siege;
-
 
 public class Player {
     private final String name;
@@ -40,6 +40,7 @@ public class Player {
     }
 
     public Player(String name, int health, Deck deck, SpecialZone specialZone, CloseCombat closeCombat, Ranged ranged, Siege siege, PlayerColor playerColor, Green bothPlayers) {
+
         this.name = name;
         this.health = health;
         discardPile = new DiscardPile();
@@ -49,6 +50,7 @@ public class Player {
         this.closeCombat = closeCombat;
         this.ranged = ranged;
         this.siege = siege;
+
         setColor(playerColor, bothPlayers);
     }
 

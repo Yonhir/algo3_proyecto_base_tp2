@@ -14,6 +14,7 @@ public abstract class Card {
     protected final String name;
     protected final String description;
     protected PlayerColor playerColor;
+
     protected final List<SectionType> sectionTypes;
 
     public Card(String name, String description, List<SectionType> sectionTypes) {
@@ -45,5 +46,6 @@ public abstract class Card {
         boolean sameColor = playerColor.equals(this.playerColor);
         boolean cardColorGreen =  this.playerColor instanceof Green;
         if (!(sameColor || cardColorGreen)) throw new SectionPlayerMismatchError("Side does not match for this card.");
+
     }
 }
