@@ -1,24 +1,26 @@
 package edu.fiuba.algo3.modelo.cards.specials.weathers;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import edu.fiuba.algo3.modelo.cards.units.Unit;
 import edu.fiuba.algo3.modelo.errors.SectionTypeMismatchError;
 import edu.fiuba.algo3.modelo.sections.*;
 import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
 import edu.fiuba.algo3.modelo.sections.rows.Ranged;
-import edu.fiuba.algo3.modelo.sections.rows.Row;
 import edu.fiuba.algo3.modelo.sections.rows.Siege;
 import edu.fiuba.algo3.modelo.sections.types.CloseCombatType;
 import edu.fiuba.algo3.modelo.sections.types.RangedType;
 import edu.fiuba.algo3.modelo.sections.types.SiegeType;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import java.util.List;
-import static org.junit.jupiter.api.Assertions.*;
 
 public class WeatherTest {
-    private Row closeCombatRow;
-    private Row rangedRow;
-    private Row siegeRow;
+    private CloseCombat closeCombatRow;
+    private Ranged rangedRow;
+    private Siege siegeRow;
     private SpecialZone specialZone;
 
     private Unit soldier;
@@ -36,14 +38,13 @@ public class WeatherTest {
         closeCombatRow = new CloseCombat();
         rangedRow = new Ranged();
         siegeRow = new Siege();
+        CloseCombat aCloseCombat = new CloseCombat();
+        Ranged aRanged = new Ranged();
+        Siege aSiege = new Siege();
         
         // Initialize weather zone
-        specialZone = new SpecialZone(
-            List.of(closeCombatRow),
-            List.of(rangedRow),
-            List.of(siegeRow)
-        );
-        
+        specialZone = new SpecialZone(aCloseCombat, aRanged, aSiege, closeCombatRow, rangedRow, siegeRow);
+
         // Initialize units
         soldier = new Unit("soldado", "pelea de cerca", 10, new CloseCombatType(), List.of());
         archer = new Unit("arquero", "tira flechas", 8, new RangedType(), List.of());
