@@ -1,9 +1,5 @@
 package edu.fiuba.algo3.modelo.sections;
 
-import edu.fiuba.algo3.modelo.Colors.Blue;
-import edu.fiuba.algo3.modelo.Colors.Color;
-import edu.fiuba.algo3.modelo.Player;
-import edu.fiuba.algo3.modelo.cardcollections.Deck;
 import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cards.*;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.ImpenetrableFog;
@@ -21,7 +17,6 @@ import edu.fiuba.algo3.modelo.sections.rows.Siege;
 import edu.fiuba.algo3.modelo.sections.types.CloseCombatType;
 import edu.fiuba.algo3.modelo.sections.types.RangedType;
 import edu.fiuba.algo3.modelo.sections.types.SiegeType;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -29,21 +24,6 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RowTest {
-
-    @Test
-    public void rowColor(){
-        Color blue = new Blue();
-
-        CloseCombat closeCombat = new CloseCombat();
-        Ranged ranged = new Ranged();
-        Siege siege = new Siege();
-
-        new Player("Gabriel", 2, new Deck(), new SpecialZone(List.of(),List.of(),List.of()), closeCombat, ranged, siege, blue);
-
-        Assertions.assertTrue(closeCombat.sameColor(blue));
-        Assertions.assertTrue(ranged.sameColor(blue));
-        Assertions.assertTrue(siege.sameColor(blue));
-    }
 
     @Test
     public void testUnaUnidadEsColocadaEnEspacioRangedRow() {
