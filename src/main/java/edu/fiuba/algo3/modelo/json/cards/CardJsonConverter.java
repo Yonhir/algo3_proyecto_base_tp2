@@ -23,6 +23,7 @@ public abstract class CardJsonConverter {
     }
     
     protected List<SectionType> getSectionTypes(JSONObject jsonCard) {
-        return sectionTypeConverter.convertFromJson(jsonCard.get("seccion"));
+        String sectionString = (String) jsonCard.get("seccion");
+        return sectionTypeConverter.convertFromString(sectionString);
     }
 }

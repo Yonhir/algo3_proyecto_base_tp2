@@ -12,24 +12,13 @@ import java.util.List;
 
 public class SectionTypeJsonConverter {
     
-    public List<SectionType> convertFromJson(Object jsonSection) {
+    public List<SectionType> convertFromString(String sectionString) {
         List<SectionType> sectionTypes = new ArrayList<>();
+        List<String> sectionStrings = splitSectionString(sectionString);
         
-        if (jsonSection instanceof String) {
-            String sectionString = (String) jsonSection;
-            List<String> sectionStrings = splitSectionString(sectionString);
-            
-            for (String section : sectionStrings) {
-                SectionType sectionType = parseSingleSectionType(section);
-                sectionTypes.add(sectionType);
-            }
-        } else if (jsonSection instanceof JSONArray) {
-            JSONArray sectionsArray = (JSONArray) jsonSection;
-            for (Object sectionObj : sectionsArray) {
-                String sectionString = (String) sectionObj;
-                SectionType sectionType = parseSingleSectionType(sectionString);
-                sectionTypes.add(sectionType);
-            }
+        for (String section : sectionStrings) {
+            SectionType sectionType = parseSingleSectionType(section);
+            sectionTypes.add(sectionType);
         }
         
         return sectionTypes;
@@ -38,12 +27,10 @@ public class SectionTypeJsonConverter {
     private List<String> splitSectionString(String sectionString) {
         List<String> sections = new ArrayList<>();
         
-        String[] parts = sectionString.split(",", -1);
+        String[] parts = sectionString.split(",");
         for (String part : parts) {
             String trimmedPart = part.trim();
-            if (!trimmedPart.isEmpty()) {
-                sections.add(trimmedPart);
-            }
+            sections.add(trimmedPart);
         }
         
         return sections;
