@@ -7,7 +7,7 @@ import edu.fiuba.algo3.modelo.cards.units.Unit;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.Weather;
 import edu.fiuba.algo3.modelo.sections.Section;
 import edu.fiuba.algo3.modelo.sections.types.SectionType;
-import edu.fiuba.algo3.modelo.Colors.Color;
+import edu.fiuba.algo3.modelo.colors.Color;
 
 import java.util.ArrayList;
 import java.util.List;

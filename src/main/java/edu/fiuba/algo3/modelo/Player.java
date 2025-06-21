@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.modelo;
 
-import edu.fiuba.algo3.modelo.Colors.Color;
+import edu.fiuba.algo3.modelo.colors.Color;
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
 import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cardcollections.Hand;
@@ -64,7 +64,8 @@ public class Player {
     }
 
     public int calculatePoints() {
-        return closeCombat.calculatePoints() + ranged.calculatePoints() + siege.calculatePoints();
+        int points = closeCombat.calculatePoints() + ranged.calculatePoints() + siege.calculatePoints();
+        return points;
     }
 
     public void playCard(Card card, Row row) {

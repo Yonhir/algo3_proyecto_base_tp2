@@ -1,0 +1,7 @@
+[
+    {
+        "nombre": "Invalid Weather Name",
+        "descripcion": "This is a weather card with an invalid name",
+        "tipo": "Clima"
+    }
+]

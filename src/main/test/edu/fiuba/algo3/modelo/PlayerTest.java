@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.modelo;
 
-import edu.fiuba.algo3.modelo.Colors.Blue;
+import edu.fiuba.algo3.modelo.colors.Blue;
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
 import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cardcollections.Hand;
