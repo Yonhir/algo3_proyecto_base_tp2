@@ -6,30 +6,38 @@ import edu.fiuba.algo3.modelo.sections.rows.Row;
 import edu.fiuba.algo3.modelo.sections.Section;
 import edu.fiuba.algo3.modelo.sections.types.SectionType;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Unit extends Card {
     private final int basePoints;
     private int currentPoints;
     private List<Modifier> modifiers;
+    private CalculatePointsStrategy pointsStrategy;
 
-    public Unit(String name, String description, int points, List<SectionType> sectionTypes, List<Modifier> modifiers) {
+    public Unit(String name, String description, int points, List<SectionType> sectionTypes, List<Modifier> modifiers, CalculatePointsStrategy strategy) {
         super(name, description, sectionTypes);
         this.basePoints = points;
         this.currentPoints = points;
         this.modifiers = modifiers;
+        this.pointsStrategy = strategy;
     }
 
-    public Unit(String name, String description, int points, SectionType sectionType, List<Modifier> modifiers) {
-        super(name, description, List.of(sectionType));
+    public Unit(String name, String description, int points, SectionType sectionTypes, List<Modifier> modifiers, CalculatePointsStrategy strategy) {
+        super(name, description, List.of(sectionTypes));
         this.basePoints = points;
         this.currentPoints = points;
         this.modifiers = modifiers;
+        this.pointsStrategy = strategy;
     }
+
+//    public void setStrategy(CalculatePointsStrategy strategy) {
+//        this.pointsStrategy = strategy;
+//    }
 
     public void play(Section section) {
         Row row = (Row) section;
-        row.addCard(this);
+        pointsStrategy.playIn(section, this);
         for (Modifier modifier : modifiers) {
             modifier.apply(row);
         }
@@ -49,6 +57,10 @@ public class Unit extends Card {
     }
 
     public void setPoints(int points) {
+        pointsStrategy.affectPointsFromWith(this, points);
+    }
+
+    public void affectPointsWith(int points) {
         currentPoints = points;
     }
 

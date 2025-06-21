@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.cards.specials.weathers;
 
+import edu.fiuba.algo3.modelo.cards.units.CommonStrategy;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
 import edu.fiuba.algo3.modelo.errors.SectionTypeMismatchError;
 import edu.fiuba.algo3.modelo.sections.*;
@@ -45,9 +46,9 @@ public class WeatherTest {
         );
         
         // Initialize units
-        soldier = new Unit("soldado", "pelea de cerca", 10, new CloseCombatType(), List.of());
-        archer = new Unit("arquero", "tira flechas", 8, new RangedType(), List.of());
-        catapult = new Unit("catapulta", "arma de asedio", 12, new SiegeType(), List.of());
+        soldier = new Unit("soldado", "pelea de cerca", 10, new CloseCombatType(), List.of(), new CommonStrategy());
+        archer = new Unit("arquero", "tira flechas", 8, new RangedType(), List.of(), new CommonStrategy());
+        catapult = new Unit("catapulta", "arma de asedio", 12, new SiegeType(), List.of(), new CommonStrategy());
         
         // Initialize weather cards
         frostWeather = new BitingFrost("Escarcha", "Reduce todas las unidades cuerpo a cuerpo a 1 punto");

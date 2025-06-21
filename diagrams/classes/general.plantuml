@@ -137,7 +137,7 @@ class Unit {
   -basePoints: int
   -currentPoints: int
   -modifiers: List<Modifier>
-  +Unit(name: String, description: String, points: int, sectionTypes: List<SectionType>, modifiers: List<Modifier>): Unit
+  +Unit(name: String, description: String, points: int, sectionTypes: List<SectionType>, modifiers: List<Modifier>, strategy CalculatePointsStrategy): Unit
   +calculatePoints(): int
   +resetPoints(): void
   +setPoints(points: int): void
@@ -148,6 +148,17 @@ class Unit {
 
 abstract class Special <<abstract>> {
   +verifySectionType(sectionType: SectionType): void
+}
+
+interface CalculatePointsStrategy <<interface>> {
+    playIn(section : Section, unit : Unit)
+    affectPointsFromWith(unit : Unit, points : int)
+}
+
+class HeroStrategy {
+}
+
+class CommonStrategy {
 }
 
 interface Modifier <<interface>> {
@@ -260,6 +271,10 @@ Card <|-- Special
 Card --> "*" SectionType
 
 Unit --> "*" Modifier
+Unit o-- CalculatePointsStrategy
+
+CalculatePointsStrategy <|.. HeroStrategy
+CalculatePointsStrategy <|.. CommonStrategy
 
 Modifier <|.. TightBond
 Modifier <|.. Agile
