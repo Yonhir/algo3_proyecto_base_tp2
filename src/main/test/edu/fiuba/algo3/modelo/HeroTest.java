@@ -26,26 +26,32 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class HeroTest {
     private Unit cartaConLegendaria;
     private HeroStrategy estrategia;
-    private Row closeCombat;
-    private Row ranged;
-    private Row siege;
+    private Row closeCombat1;
+    private Row ranged1;
+    private Row siege1;
+    private Row closeCombat2;
+    private Row ranged2;
+    private Row siege2;
 
     @BeforeEach
     void setUp() {
         estrategia = new HeroStrategy();
         cartaConLegendaria = new Unit("cerys", "descripcion", 10, List.of(new CloseCombatType()), List.of(), estrategia);
-        closeCombat = new CloseCombat();
-        ranged = new Ranged();
-        siege = new Siege();
+        closeCombat1 = new CloseCombat();
+        ranged1 = new Ranged();
+        siege1 = new Siege();
+        closeCombat2 = new CloseCombat();
+        ranged2 = new Ranged();
+        siege2 = new Siege();
     }
 
     @Test
     public void testSeJuegaUnaCartaConModificardorLegendariaCorrectamente() {
         int puntosEsperados = 10;
 
-        closeCombat.placeCard(cartaConLegendaria);
+        closeCombat1.placeCard(cartaConLegendaria);
 
-        assertEquals(puntosEsperados, closeCombat.calculatePoints());
+        assertEquals(puntosEsperados, closeCombat1.calculatePoints());
     }
 
     @Test
@@ -54,8 +60,8 @@ public class HeroTest {
         Unit cardMoraleBoost = new Unit("Nombre", "Descripcion", 10, new CloseCombatType(), List.of(modifierMoral), new CommonStrategy());
         int puntosEsperados = 10;
 
-        closeCombat.placeCard(cartaConLegendaria);
-        closeCombat.placeCard(cardMoraleBoost);
+        closeCombat1.placeCard(cartaConLegendaria);
+        closeCombat1.placeCard(cardMoraleBoost);
 
         assertEquals(puntosEsperados, cartaConLegendaria.calculatePoints());
     }
@@ -65,8 +71,8 @@ public class HeroTest {
         MoraleBoost especial = new MoraleBoost("MoraleBoost", "X2", List.of(new CloseCombatType(), new RangedType(), new SiegeType()));
         int puntosEsperados = 10;
 
-        closeCombat.placeCard(cartaConLegendaria);
-        especial.play(closeCombat);
+        closeCombat1.placeCard(cartaConLegendaria);
+        especial.play(closeCombat1);
 
         assertEquals(puntosEsperados, cartaConLegendaria.calculatePoints());
     }
@@ -76,11 +82,11 @@ public class HeroTest {
         BitingFrost frostWeather = new BitingFrost("Escarcha", "Reduce todas las unidades cuerpo a cuerpo a 1 punto");
         int puntosEsperados = 10;
 
-        closeCombat.placeCard(cartaConLegendaria);
+        closeCombat1.placeCard(cartaConLegendaria);
         frostWeather.play(new SpecialZone(
-                List.of(closeCombat),
-                List.of(ranged),
-                List.of(siege)
+                List.of(closeCombat1, closeCombat2),
+                List.of(ranged1, ranged2),
+                List.of(siege1, siege2)
         ));
 
         assertEquals(puntosEsperados, cartaConLegendaria.calculatePoints());
@@ -92,12 +98,12 @@ public class HeroTest {
         MoraleBoost especial = new MoraleBoost("MoraleBoost", "X2", List.of(new CloseCombatType(), new RangedType(), new SiegeType()));
         BitingFrost frostWeather = new BitingFrost("Escarcha", "Reduce todas las unidades cuerpo a cuerpo a 1 punto");
 
-        closeCombat.placeCard(cartaConLegendaria);
-        especial.play(closeCombat);
+        closeCombat1.placeCard(cartaConLegendaria);
+        especial.play(closeCombat1);
         frostWeather.play(new SpecialZone(
-                List.of(closeCombat),
-                List.of(ranged),
-                List.of(siege)
+                List.of(closeCombat1, closeCombat2),
+                List.of(ranged1, ranged2),
+                List.of(siege1, siege2)
         ));
 
         assertEquals(puntosEsperados, cartaConLegendaria.calculatePoints());
@@ -107,14 +113,14 @@ public class HeroTest {
     public void testCartaConModificadorLegendariaNoEsQuemadaPorUnaTierraArrasada() {
         Scorch tierraArrasada = new Scorch("Tierra arrasada", "Desscripcion", List.of(new CloseCombatType(), new RangedType(), new SiegeType()), new DiscardPile());
 
-        closeCombat.placeCard(cartaConLegendaria);
+        closeCombat1.placeCard(cartaConLegendaria);
 
         tierraArrasada.play(new SpecialZone(
-                List.of(closeCombat),
-                List.of(ranged),
-                List.of(siege)
+                List.of(closeCombat1, closeCombat2),
+                List.of(ranged1, ranged2),
+                List.of(siege1, siege2)
         ));
 
-        assertTrue(closeCombat.containsCard(cartaConLegendaria));
+        assertTrue(closeCombat1.containsCard(cartaConLegendaria));
     }
 }
