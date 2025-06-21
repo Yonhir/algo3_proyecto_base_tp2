@@ -72,4 +72,15 @@ public class Unit extends Card {
         }
         return false;
     }
+
+    public Unit strongerThan(Unit unit) {
+        if (this.currentPoints > unit.calculatePoints()) {
+            return this;
+        }
+        return unit;
+    }
+
+    public boolean samePointsAs(Unit card) {
+        return this.currentPoints == card.calculatePoints();
+    }
 }

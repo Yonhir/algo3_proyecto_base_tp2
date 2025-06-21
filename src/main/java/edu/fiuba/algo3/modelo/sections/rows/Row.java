@@ -2,6 +2,7 @@ package edu.fiuba.algo3.modelo.sections.rows;
 
 import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cards.Card;
+import edu.fiuba.algo3.modelo.cards.specials.Scorch;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.ClearWeather;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.Weather;
@@ -22,6 +23,7 @@ public abstract class Row implements Section {
     protected Row(SectionType sectionType) {
         this.currentWeather = new ClearWeather("Clima Despejado", "Elimina todos los efectos de clima");
         this.sectionType = sectionType;
+        this.lastCard = new Unit("", "", 0, List.of(), List.of());
     }
 
     @Override
@@ -45,6 +47,40 @@ public abstract class Row implements Section {
         for (Card card : cards) {
             currentWeather.apply(card, this);
         }
+    }
+
+    public void applyScorch(Scorch scorch) {
+        List<Card> strongest = this.findAllWithSamePoints(scorch);
+        for (Card c : strongest) {
+            scorch.burnStrongestCardFrom(c, this);
+        }
+    }
+
+    public Unit findStrongestCard() {
+        Unit max = lastCard;
+        for (Card card : cards) {
+            max = max.strongerThan((Unit) card);
+        }
+        return max;
+    }
+
+    public List<Card> findAllWithSamePoints(Scorch scorch) {
+        List<Card> wanted = new ArrayList<>();
+        for (Card card : cards) {
+            if (scorch.matchesStrongest((Unit) card)) {
+                wanted.add(card);
+            }
+        }
+        return wanted;
+    }
+
+    public void discardCard(Card card, DiscardPile discardPile) {
+        discardPile.addCard(card);
+        cards.remove(card);
+    }
+
+    public boolean containsCard(Card card) {
+        return this.cards.contains(card);
     }
 
     public int calculatePoints() {

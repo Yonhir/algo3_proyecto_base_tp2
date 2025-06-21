@@ -94,18 +94,22 @@ abstract class Row <<abstract>> {
   +calculatePoints(): int
   +discardCards(discardPile: DiscardPile): void
   +getCards(): List<Card>
+  +applyScorch(scorch : Scorch) : void
+  +discardCard(card : Card, discardPile : DiscardPile) : void
+  +findAllWithSamePoints(scorch : Scorch) : List<Card>
+  +findStrongestCard() : Unit
 }
 
 class Ranged {
-  +canBePlacedIn(unit: Unit): boolean
+  +Ranged()
 }
 
 class CloseCombat {
-  +canBePlacedIn(unit: Unit): boolean
+  +CloseCombat()
 }
 
 class Siege {
-  +canBePlacedIn(unit: Unit): boolean
+  +Siege()
 }
 
 class SpecialZone {
@@ -119,6 +123,10 @@ class SpecialZone {
   +applyCloseCombatWeather(weather: Weather): void
   +applyRangedWeather(weather: Weather): void
   +applySiegeWeather(weather: Weather): void
+  +applyScorchInCloseCombat(scorch : Scorch): void
+  +applyScorchInRanged(scorch : Scorch): void
+  +applyScorchInSiege(scorch : Scorch): void
+  +applyInAllRows(scorch : Scorch) : void
 }
 
 ' =====================
@@ -144,10 +152,19 @@ class Unit {
   +haveModifier(modifier: Modifier): boolean
   +play(section: Section): void
   +verifySectionType(sectionType: SectionType): void
+  +strongerThan(unit : Unit) : Unit
+  +samePointsAs(unit : Unit) : boolean
 }
 
 abstract class Special <<abstract>> {
   +verifySectionType(sectionType: SectionType): void
+}
+
+class Scorch {
+  +play(section : Section) : void
+  +matchesStrongest(unit : Unit) : boolean
+  +burnStrongestCardFrom(card : Card, row : Row) : void
+  +saveStrongest(unit : Unit) : void
 }
 
 interface CalculatePointsStrategy <<interface>> {
@@ -267,6 +284,8 @@ Siege --> "1" SiegeType
 ' Card Relationships
 Card <|-- Unit
 Card <|-- Special
+
+Special <|-- Scorch
 
 Card --> "*" SectionType
 
