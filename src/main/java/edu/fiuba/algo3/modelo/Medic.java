@@ -1,7 +1,5 @@
 package edu.fiuba.algo3.modelo;
 
-import java.util.List;
-
 public class Medic implements Modifier{
     private DiscardPile discardPile;
 
@@ -10,8 +8,13 @@ public class Medic implements Modifier{
     }
     @Override
     public void apply(Row row) {
-        Card card = discardPile.getLastUnitCards();
-        row.placeCard(card);
+        try {
+            Card card = discardPile.getLastUnitCardFromType(row);
+            row.placeCard(card);
+        }
+        catch (NotUnitCardError e){
+            System.out.println(e.getMessage());
+        }
     }
 
 }

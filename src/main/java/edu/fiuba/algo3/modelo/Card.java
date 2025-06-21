@@ -23,4 +23,8 @@ public abstract class Card {
             throw new SectionTypeMismatchError("SectionType does not match for this card.");
         }
     }
+
+    public boolean haveSectionType(SectionType sectionType){
+        return sectionTypes.stream().anyMatch(type -> type.getClass().equals(sectionType.getClass()));
+    }
 }

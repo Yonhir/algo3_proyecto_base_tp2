@@ -59,4 +59,14 @@ public abstract class Row implements Section {
     public Unit getLastCard() {
         return lastCard;
     }
+
+    public boolean haveSameSectionType(Card card){
+        return card.haveSectionType(sectionType);
+    }
+
+/*
+    public void haveSameSectionType(Card card){
+        card.verifySectionType(sectionType);
+    }
+ */
 }
