@@ -1,4 +1,7 @@
-package edu.fiuba.algo3.modelo;
+package edu.fiuba.algo3.modelo.cards.units;
+
+import edu.fiuba.algo3.modelo.sections.Section;
+import edu.fiuba.algo3.modelo.sections.rows.Row;
 
 public class HeroStrategy implements CalculatePointsStrategy {
     @Override

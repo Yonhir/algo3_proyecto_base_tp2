@@ -8,6 +8,7 @@ import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cards.*;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.ImpenetrableFog;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.Weather;
+import edu.fiuba.algo3.modelo.cards.units.CommonStrategy;
 import edu.fiuba.algo3.modelo.cards.units.modifiers.Agile;
 import edu.fiuba.algo3.modelo.cards.units.modifiers.Modifier;
 import edu.fiuba.algo3.modelo.cards.units.Unit;

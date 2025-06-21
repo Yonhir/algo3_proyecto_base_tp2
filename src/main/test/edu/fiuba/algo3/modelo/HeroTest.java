@@ -1,5 +1,19 @@
 package edu.fiuba.algo3.modelo;
 
+import edu.fiuba.algo3.modelo.cards.specials.MoraleBoost;
+import edu.fiuba.algo3.modelo.cards.specials.weathers.BitingFrost;
+import edu.fiuba.algo3.modelo.cards.units.CommonStrategy;
+import edu.fiuba.algo3.modelo.cards.units.HeroStrategy;
+import edu.fiuba.algo3.modelo.cards.units.Unit;
+import edu.fiuba.algo3.modelo.cards.units.modifiers.MoraleBoostModifier;
+import edu.fiuba.algo3.modelo.sections.SpecialZone;
+import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
+import edu.fiuba.algo3.modelo.sections.rows.Ranged;
+import edu.fiuba.algo3.modelo.sections.rows.Row;
+import edu.fiuba.algo3.modelo.sections.rows.Siege;
+import edu.fiuba.algo3.modelo.sections.types.CloseCombatType;
+import edu.fiuba.algo3.modelo.sections.types.RangedType;
+import edu.fiuba.algo3.modelo.sections.types.SiegeType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.List;

@@ -2,6 +2,7 @@ package edu.fiuba.algo3.modelo.cards.specials.weathers;
 
 
 import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
+import edu.fiuba.algo3.modelo.cards.units.CommonStrategy;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
 import edu.fiuba.algo3.modelo.sections.*;
 import edu.fiuba.algo3.modelo.sections.rows.Ranged;
