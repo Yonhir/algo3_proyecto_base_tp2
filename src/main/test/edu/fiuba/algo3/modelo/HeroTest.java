@@ -108,6 +108,7 @@ public class HeroTest {
         Scorch tierraArrasada = new Scorch("Tierra arrasada", "Desscripcion", List.of(new CloseCombatType(), new RangedType(), new SiegeType()), new DiscardPile());
 
         closeCombat.placeCard(cartaConLegendaria);
+
         tierraArrasada.play(new SpecialZone(
                 List.of(closeCombat),
                 List.of(ranged),

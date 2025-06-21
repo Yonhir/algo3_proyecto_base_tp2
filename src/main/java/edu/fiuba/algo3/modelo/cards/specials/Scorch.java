@@ -32,7 +32,7 @@ public class Scorch extends Special {
     }
 
     public void saveStrongest(Unit unit) {
-        if(strongestCard.calculatePoints() <= unit.calculatePoints()) {
+        if (strongestCard.calculatePoints() <= unit.calculatePoints()) {
             this.strongestCard = unit;
         }
     }

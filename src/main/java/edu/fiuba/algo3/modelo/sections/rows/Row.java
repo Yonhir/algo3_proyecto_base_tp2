@@ -24,7 +24,6 @@ public abstract class Row implements Section {
     protected Row(SectionType sectionType) {
         this.currentWeather = new ClearWeather("Clima Despejado", "Elimina todos los efectos de clima");
         this.sectionType = sectionType;
-        this.lastCard = new Unit("", "", 0, List.of(), List.of(), new CommonStrategy());
     }
 
     @Override
@@ -57,12 +56,14 @@ public abstract class Row implements Section {
         }
     }
 
-    public Unit findStrongestCard() {
-        Unit max = lastCard;
-        for (Card card : cards) {
-            max = max.strongerThan((Unit) card);
+    public void findStrongestCard(Scorch scorch) {
+        if (!cards.isEmpty()) {
+            Unit max = (Unit) cards.get(0);
+            for (Card card : cards) {
+                max = max.strongerThan((Unit) card);
+            }
+            scorch.saveStrongest(max);
         }
-        return max;
     }
 
     public List<Card> findAllWithSamePoints(Scorch scorch) {
