@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.cards.specials;
 
+import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
 import edu.fiuba.algo3.modelo.cards.units.modifiers.MoraleBoostModifier;
 import edu.fiuba.algo3.modelo.cards.units.modifiers.TightBond;
@@ -17,6 +18,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ScorchTest {
     private Special tierraArrasada;
@@ -26,7 +28,7 @@ public class ScorchTest {
     private SpecialZone specialZone;
     @BeforeEach
     void setUp() {
-        tierraArrasada = new Scorch("Tierra arrasada", "Desscripcion", List.of(new CloseCombatType(), new RangedType(), new SiegeType()));
+        tierraArrasada = new Scorch("Tierra arrasada", "Desscripcion", List.of(new CloseCombatType(), new RangedType(), new SiegeType()), new DiscardPile());
         closeCombatRow = new CloseCombat();
         rangedRow = new Ranged();
         siegeRow = new Siege();
@@ -115,6 +117,26 @@ public class ScorchTest {
 
         assertFalse(siegeRow.getCards().contains(unidad1));
         assertFalse(siegeRow.getCards().contains(unidad2));
+    }
+
+    @Test
+    public void testSeJuegaUnaTierraArrasadaSeEliminanLasCartasMasFuertesDeTodasLasFilas() {
+        Unit unidad1 = new Unit("Nombre", "Descripcion", 8, new SiegeType(), List.of(new TightBond()));
+        Unit unidad5 = new Unit("Nombre", "Descripcion", 6, new SiegeType(), List.of(new MoraleBoostModifier()));
+        Unit unidad2 = new Unit("Nombre", "Descripcion", 4, new RangedType(), List.of(new TightBond()));
+        Unit unidad3 = new Unit("Nombre", "Descripcion", 8, new RangedType(), List.of());
+        Unit unidad4 = new Unit("Nombre", "Descripcion", 8, new CloseCombatType(), List.of(new MoraleBoostModifier()));
+
+        closeCombatRow.placeCard(unidad4);
+        rangedRow.placeCard(unidad2);
+        rangedRow.placeCard(unidad3);
+        siegeRow.placeCard(unidad1);
+        siegeRow.placeCard(unidad5);
+        tierraArrasada.play(specialZone);
+
+        assertFalse(siegeRow.getCards().contains(unidad1));
+        assertTrue(rangedRow.getCards().contains(unidad3));
+        assertTrue(closeCombatRow.getCards().contains(unidad4));
     }
 
     // falta test donde se juegue una Hero y esta no sea eliminada

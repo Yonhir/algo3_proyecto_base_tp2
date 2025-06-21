@@ -23,6 +23,7 @@ public abstract class Row implements Section {
     protected Row(SectionType sectionType) {
         this.currentWeather = new ClearWeather("Clima Despejado", "Elimina todos los efectos de clima");
         this.sectionType = sectionType;
+        this.lastCard = new Unit("", "", 0, List.of(), List.of());
     }
 
     @Override
@@ -49,27 +50,32 @@ public abstract class Row implements Section {
     }
 
     public void applyScorch(Scorch scorch) {
-        Unit max = lastCard;
-        for (Card card : cards) {
-            max = scorch.findStrongestCard((Unit) card, max);
-        }
-        List<Card> strongest = this.findAllWithSamePoints(max);
+        List<Card> strongest = this.findAllWithSamePoints(scorch);
         for (Card c : strongest) {
             scorch.burnStrongestCardFrom(c, this);
         }
     }
 
-    public List<Card> findAllWithSamePoints(Unit max) {
+    public Unit findStrongestCard() {
+        Unit max = lastCard;
+        for (Card card : cards) {
+            max = max.strongerThan((Unit) card);
+        }
+        return max;
+    }
+
+    public List<Card> findAllWithSamePoints(Scorch scorch) {
         List<Card> wanted = new ArrayList<>();
         for (Card card : cards) {
-            if (max.samePointsAs((Unit) card)) {
+            if (scorch.matchesStrongest((Unit) card)) {
                 wanted.add(card);
             }
         }
         return wanted;
     }
 
-    public void deleteCard(Card card) {
+    public void discardCard(Card card, DiscardPile discardPile) {
+        discardPile.addCard(card);
         cards.remove(card);
     }
 

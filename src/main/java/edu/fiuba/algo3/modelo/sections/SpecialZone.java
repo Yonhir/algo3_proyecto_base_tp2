@@ -3,6 +3,7 @@ package edu.fiuba.algo3.modelo.sections;
 import edu.fiuba.algo3.modelo.cards.Card;
 import edu.fiuba.algo3.modelo.cards.specials.Scorch;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.Weather;
+import edu.fiuba.algo3.modelo.cards.units.Unit;
 import edu.fiuba.algo3.modelo.sections.rows.Row;
 import edu.fiuba.algo3.modelo.sections.types.SpecialType;
 
@@ -61,5 +62,26 @@ public class SpecialZone implements Section {
         for (Row row : siegeRows) {
             row.applyScorch(scorch);
         }
+    }
+
+    public void applyInAllRows(Scorch scorch) {
+        for (Row row : closeCombatRows) {
+            Unit strongest = row.findStrongestCard();
+            scorch.saveStrongest(strongest);
+        }
+
+        for (Row row : rangedRows) {
+            Unit strongest = row.findStrongestCard();
+            scorch.saveStrongest(strongest);
+        }
+
+        for (Row row : siegeRows) {
+            Unit strongest = row.findStrongestCard();
+            scorch.saveStrongest(strongest);
+        }
+
+        applyScorchInCloseCombat(scorch);
+        applyScorchInRanged(scorch);
+        applyScorchInSiege(scorch);
     }
 } 
