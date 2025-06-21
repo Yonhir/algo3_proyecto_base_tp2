@@ -93,7 +93,7 @@ public class GameLoaderTest {
         }, "Should throw GwentFileInvalid when game file has invalid structure (missing required decks)");
 
         assertEquals("Error converting data", exception.getMessage(), 
-            "Exception message should indicate file reading or parsing error");
+            "Exception message should be 'Error converting data'");
     }
     
     // ============================================================================
@@ -108,7 +108,7 @@ public class GameLoaderTest {
         }, "Should throw GwentFileInvalid when game file is not found");
         
         assertEquals("Error reading or parsing file", exception.getMessage(), 
-            "Exception message should indicate file reading or parsing error");
+            "Exception message should be 'Error reading or parsing file'");
     }
     
     @Test
@@ -119,7 +119,7 @@ public class GameLoaderTest {
         }, "Should throw GwentFileInvalid when game file contains invalid JSON data types");
 
         assertEquals("Error converting data", exception.getMessage(), 
-            "Exception message should indicate file reading or parsing error");
+            "Exception message should be 'Error converting data'");
     }
     
     @Test
@@ -130,6 +130,6 @@ public class GameLoaderTest {
         }, "Should throw GwentFileInvalid when game file is empty");
         
         assertEquals("Error converting data", exception.getMessage(),
-            "Exception message should indicate file reading or parsing error");
+            "Exception message should be 'Error converting data'");
     }
 } 

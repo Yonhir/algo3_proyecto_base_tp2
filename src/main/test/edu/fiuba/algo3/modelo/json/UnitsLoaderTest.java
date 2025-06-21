@@ -176,7 +176,7 @@ public class UnitsLoaderTest {
         }, "Should throw UnitsFileInvalid when units file is not found");
         
         assertEquals("Error reading or parsing file", exception.getMessage(), 
-            "Exception message should indicate file reading or parsing error");
+            "Exception message should be 'Error reading or parsing file'");
     }
     
     @Test
@@ -187,7 +187,7 @@ public class UnitsLoaderTest {
         }, "Should throw UnitsFileInvalid when units file contains invalid JSON data types");
         
         assertEquals("Error converting data", exception.getMessage(), 
-            "Exception message should indicate file reading or parsing error");
+            "Exception message should be 'Error converting data'");
     }
 
     @Test
@@ -198,7 +198,7 @@ public class UnitsLoaderTest {
         }, "Should throw UnitsFileInvalid when units file is empty");
         
         assertEquals("Error reading or parsing file", exception.getMessage(), 
-            "Exception message should indicate file reading or parsing error");
+            "Exception message should be 'Error reading or parsing file'");
     }
     
     @Test
@@ -209,7 +209,7 @@ public class UnitsLoaderTest {
         }, "Should throw UnitsFileInvalid when units file has invalid structure (JSONObject instead of JSONArray)");
         
         assertEquals("Error reading or parsing file", exception.getMessage(),
-            "Exception message should indicate file reading or parsing error");
+            "Exception message should be 'Error reading or parsing file'");
     }
     
     // ============================================================================

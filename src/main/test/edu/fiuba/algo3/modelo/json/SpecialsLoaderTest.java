@@ -138,7 +138,7 @@ public class SpecialsLoaderTest {
         }, "Should throw SpecialsFileInvalid when specials file is not found");
         
         assertEquals("Error reading or parsing file", exception.getMessage(), 
-            "Exception message should indicate file reading or parsing error");
+            "Exception message should be 'Error reading or parsing file'");
     }
     
     @Test
@@ -149,7 +149,7 @@ public class SpecialsLoaderTest {
         }, "Should throw SpecialsFileInvalid when specials file contains invalid special card types");
         
         assertEquals("Error converting data", exception.getMessage(), 
-            "Exception message should indicate data conversion error");
+            "Exception message should be 'Error converting data'");
     }
     
     @Test
@@ -160,7 +160,7 @@ public class SpecialsLoaderTest {
         }, "Should throw SpecialsFileInvalid when specials file is empty");
         
         assertEquals("Error reading or parsing file", exception.getMessage(), 
-            "Exception message should indicate file reading or parsing error");
+            "Exception message should be 'Error reading or parsing file'");
     }
     
     @Test
@@ -171,7 +171,7 @@ public class SpecialsLoaderTest {
         }, "Should throw SpecialsFileInvalid when specials file has invalid structure (JSONObject instead of JSONArray)");
         
         assertEquals("Error reading or parsing file", exception.getMessage(),
-            "Exception message should indicate file reading or parsing error");
+            "Exception message should be 'Error reading or parsing file'");
     }
     
     @Test
@@ -182,6 +182,6 @@ public class SpecialsLoaderTest {
         }, "Should throw SpecialsFileInvalid when weather card has an invalid name");
         
         assertEquals("Error converting data", exception.getMessage(),
-            "Exception message should indicate data conversion error");
+            "Exception message should be 'Error converting data'");
     }
 } 
