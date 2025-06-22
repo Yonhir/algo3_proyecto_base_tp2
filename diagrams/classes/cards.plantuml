@@ -27,7 +27,6 @@ class Unit {
   +setPoints(points: int): void
   +haveModifier(modifier: Modifier): boolean
   +play(section: Section): void
-  +verifySectionType(sectionType: SectionType): void
   +strongerThan(unit : Unit) : Unit
   +samePointsAs(unit : Unit) : boolean
 }

@@ -97,7 +97,7 @@ abstract class Row <<abstract>> {
   +applyScorch(scorch : Scorch) : void
   +discardCard(card : Card, discardPile : DiscardPile) : void
   +findAllWithSamePoints(scorch : Scorch) : List<Card>
-  +findStrongestCard() : Unit
+  +findStrongestCard(Scorch scorch) : void
 }
 
 class Ranged {
@@ -151,7 +151,6 @@ class Unit {
   +setPoints(points: int): void
   +haveModifier(modifier: Modifier): boolean
   +play(section: Section): void
-  +verifySectionType(sectionType: SectionType): void
   +strongerThan(unit : Unit) : Unit
   +samePointsAs(unit : Unit) : boolean
 }
