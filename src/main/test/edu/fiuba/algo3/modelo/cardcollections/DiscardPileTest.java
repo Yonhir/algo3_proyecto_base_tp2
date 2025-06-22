@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.modelo.cardcollections;
 
 import edu.fiuba.algo3.modelo.cards.Card;
-import edu.fiuba.algo3.modelo.cards.units.CommonStrategy;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
 import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
 import edu.fiuba.algo3.modelo.sections.rows.Ranged;
@@ -32,29 +31,29 @@ public class DiscardPileTest {
     @BeforeEach
     void setUp() {
         discardPile = new DiscardPile();
-        unit1 = new Unit("Unit1", "Description1", 5, List.of(new CloseCombatType()), new ArrayList<>(), new CommonStrategy());
-        unit2 = new Unit("Unit2", "Description2", 7, List.of(new RangedType()), new ArrayList<>(), new CommonStrategy());
-        unit3 = new Unit("Nombre", "Descripcion3", 3, List.of(new SiegeType()), new ArrayList<>(), new CommonStrategy());
+        unit1 = new Unit("Unit1", "Description1", 5, List.of(new CloseCombatType()), new ArrayList<>());
+        unit2 = new Unit("Unit2", "Description2", 7, List.of(new RangedType()), new ArrayList<>());
+        unit3 = new Unit("Nombre", "Descripcion3", 3, List.of(new SiegeType()), new ArrayList<>());
         closeCombatUnits = Arrays.asList(
-            new Unit("Nombre", "Descripcion", 4, List.of(new CloseCombatType()), new ArrayList<>(), new CommonStrategy()),
-            new Unit("Nombre", "Descripcion", 5, List.of(new CloseCombatType()), new ArrayList<>(), new CommonStrategy()),
-            new Unit("Nombre", "Descripcion", 2, List.of(new CloseCombatType()), new ArrayList<>(), new CommonStrategy()),
-            new Unit("Nombre", "Descripcion", 10, List.of(new CloseCombatType()), new ArrayList<>(), new CommonStrategy()),
-            new Unit("Nombre", "Descripcion", 3, List.of(new CloseCombatType()), new ArrayList<>(), new CommonStrategy())
+            new Unit("Nombre", "Descripcion", 4, List.of(new CloseCombatType()), new ArrayList<>()),
+            new Unit("Nombre", "Descripcion", 5, List.of(new CloseCombatType()), new ArrayList<>()),
+            new Unit("Nombre", "Descripcion", 2, List.of(new CloseCombatType()), new ArrayList<>()),
+            new Unit("Nombre", "Descripcion", 10, List.of(new CloseCombatType()), new ArrayList<>()),
+            new Unit("Nombre", "Descripcion", 3, List.of(new CloseCombatType()), new ArrayList<>())
         );
         rangedUnits = Arrays.asList(
-            new Unit("Nombre", "Descripcion", 6, List.of(new RangedType()), new ArrayList<>(), new CommonStrategy()),
-            new Unit("Nombre", "Descripcion", 8, List.of(new RangedType()), new ArrayList<>(), new CommonStrategy()),
-            new Unit("Nombre", "Descripcion", 0, List.of(new RangedType()), new ArrayList<>(), new CommonStrategy()),
-            new Unit("Nombre", "Descripcion", 2, List.of(new RangedType()), new ArrayList<>(), new CommonStrategy()),
-            new Unit("Nombre", "Descripcion", 4, List.of(new RangedType()), new ArrayList<>(), new CommonStrategy())
+            new Unit("Nombre", "Descripcion", 6, List.of(new RangedType()), new ArrayList<>()),
+            new Unit("Nombre", "Descripcion", 8, List.of(new RangedType()), new ArrayList<>()),
+            new Unit("Nombre", "Descripcion", 0, List.of(new RangedType()), new ArrayList<>()),
+            new Unit("Nombre", "Descripcion", 2, List.of(new RangedType()), new ArrayList<>()),
+            new Unit("Nombre", "Descripcion", 4, List.of(new RangedType()), new ArrayList<>())
         );
         siegeUnits = Arrays.asList(
-            new Unit("Nombre", "Descripcion", 3, List.of(new SiegeType()), new ArrayList<>(), new CommonStrategy()),
-            new Unit("Nombre", "Descripcion", 0, List.of(new SiegeType()), new ArrayList<>(), new CommonStrategy()),
-            new Unit("Nombre", "Descripcion", 6, List.of(new SiegeType()), new ArrayList<>(), new CommonStrategy()),
-            new Unit("Nombre", "Descripcion", 4, List.of(new SiegeType()), new ArrayList<>(), new CommonStrategy()),
-            new Unit("Nombre", "Descripcion", 8, List.of(new SiegeType()), new ArrayList<>(), new CommonStrategy())
+            new Unit("Nombre", "Descripcion", 3, List.of(new SiegeType()), new ArrayList<>()),
+            new Unit("Nombre", "Descripcion", 0, List.of(new SiegeType()), new ArrayList<>()),
+            new Unit("Nombre", "Descripcion", 6, List.of(new SiegeType()), new ArrayList<>()),
+            new Unit("Nombre", "Descripcion", 4, List.of(new SiegeType()), new ArrayList<>()),
+            new Unit("Nombre", "Descripcion", 8, List.of(new SiegeType()), new ArrayList<>())
         );
         cards = new ArrayList<>();
         cards.addAll(closeCombatUnits);

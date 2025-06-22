@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.modelo.cards.units.modifiers;
 
 import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
-import edu.fiuba.algo3.modelo.cards.units.CommonStrategy;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
 import edu.fiuba.algo3.modelo.sections.rows.Siege;
 import edu.fiuba.algo3.modelo.sections.types.SiegeType;
@@ -46,28 +45,24 @@ public class TightBondTest {
         catapult1 = new Unit(
             "Catapult", "Siege unit", 8,
             new SiegeType(),
-            modifiers1,
-            new CommonStrategy()
+            modifiers1
         );
         catapult2 = new Unit(
             "Catapult", "Siege unit", 8,
             new SiegeType(),
-            modifiers2,
-            new CommonStrategy()
+            modifiers2
         );
         catapult3 = new Unit(
             "Catapult", "Siege unit", 8,
             new SiegeType(),
-            modifiers3,
-            new CommonStrategy()
+            modifiers3
         );
 
         // Create a regular unit without TightBond modifier
         regularUnit = new Unit(
             "Regular Unit", "Regular unit", 6,
             new SiegeType(),
-            new ArrayList<>(),
-            new CommonStrategy()
+            new ArrayList<>()
         );
     }
 

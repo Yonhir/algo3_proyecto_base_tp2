@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.modelo.cards.specials;
 
 import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
-import edu.fiuba.algo3.modelo.cards.units.CommonStrategy;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
 import edu.fiuba.algo3.modelo.sections.rows.*;
 import edu.fiuba.algo3.modelo.sections.types.*;
@@ -28,17 +27,17 @@ public class MoraleBoostTest {
 
         moraleBoost = new MoraleBoost("MoraleBoost", "X2", List.of(new CloseCombatType(), new RangedType(), new SiegeType()));
 
-        closeCombat.addCard(new Unit("Nombre", "Descripcion", 4, new CloseCombatType(), new ArrayList<>(), new CommonStrategy()));
-        closeCombat.addCard(new Unit("Nombre", "Descripcion", 4, new CloseCombatType(), new ArrayList<>(), new CommonStrategy()));
-        closeCombat.addCard(new Unit("Nombre", "Descripcion", 5, new CloseCombatType(), new ArrayList<>(), new CommonStrategy()));
+        closeCombat.addCard(new Unit("Nombre", "Descripcion", 4, new CloseCombatType(), new ArrayList<>()));
+        closeCombat.addCard(new Unit("Nombre", "Descripcion", 4, new CloseCombatType(), new ArrayList<>()));
+        closeCombat.addCard(new Unit("Nombre", "Descripcion", 5, new CloseCombatType(), new ArrayList<>()));
 
-        ranged.addCard(new Unit("Nombre", "Descripcion", 6, new RangedType(), new ArrayList<>(), new CommonStrategy()));
-        ranged.addCard(new Unit("Nombre", "Descripcion", 8, new RangedType(), new ArrayList<>(), new CommonStrategy()));
-        ranged.addCard(new Unit("Nombre", "Descripcion", 0, new RangedType(), new ArrayList<>(), new CommonStrategy()));
+        ranged.addCard(new Unit("Nombre", "Descripcion", 6, new RangedType(), new ArrayList<>()));
+        ranged.addCard(new Unit("Nombre", "Descripcion", 8, new RangedType(), new ArrayList<>()));
+        ranged.addCard(new Unit("Nombre", "Descripcion", 0, new RangedType(), new ArrayList<>()));
 
-        siege.addCard(new Unit("Nombre", "Descripcion", 2, new SiegeType(), new ArrayList<>(), new CommonStrategy()));
-        siege.addCard(new Unit("Nombre", "Descripcion", 3, new SiegeType(), new ArrayList<>(), new CommonStrategy()));
-        siege.addCard(new Unit("Nombre", "Descripcion", 1, new SiegeType(), new ArrayList<>(), new CommonStrategy()));
+        siege.addCard(new Unit("Nombre", "Descripcion", 2, new SiegeType(), new ArrayList<>()));
+        siege.addCard(new Unit("Nombre", "Descripcion", 3, new SiegeType(), new ArrayList<>()));
+        siege.addCard(new Unit("Nombre", "Descripcion", 1, new SiegeType(), new ArrayList<>()));
     }
 
     @Test

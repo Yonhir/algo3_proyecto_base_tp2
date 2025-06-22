@@ -1,13 +1,10 @@
-package edu.fiuba.algo3.modelo;
+package edu.fiuba.algo3.modelo.cards.units.modifiers;
 
 import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cards.specials.MoraleBoost;
 import edu.fiuba.algo3.modelo.cards.specials.Scorch;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.BitingFrost;
-import edu.fiuba.algo3.modelo.cards.units.CommonStrategy;
-import edu.fiuba.algo3.modelo.cards.units.HeroStrategy;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
-import edu.fiuba.algo3.modelo.cards.units.modifiers.MoraleBoostModifier;
 import edu.fiuba.algo3.modelo.sections.SpecialZone;
 import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
 import edu.fiuba.algo3.modelo.sections.rows.Ranged;
@@ -25,7 +22,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class HeroTest {
     private Unit cartaConLegendaria;
-    private HeroStrategy estrategia;
     private Row closeCombat1;
     private Row ranged1;
     private Row siege1;
@@ -35,8 +31,7 @@ public class HeroTest {
 
     @BeforeEach
     void setUp() {
-        estrategia = new HeroStrategy();
-        cartaConLegendaria = new Unit("cerys", "descripcion", 10, List.of(new CloseCombatType()), List.of(), estrategia);
+        cartaConLegendaria = new Unit("cerys", "descripcion", 10, List.of(new CloseCombatType()), List.of(new Hero()));
         closeCombat1 = new CloseCombat();
         ranged1 = new Ranged();
         siege1 = new Siege();
@@ -57,7 +52,7 @@ public class HeroTest {
     @Test
     public void testCartaConModificadorLegendariaNoEsAfectadaPorOtroModificador() {
         MoraleBoostModifier modifierMoral = new MoraleBoostModifier();
-        Unit cardMoraleBoost = new Unit("Nombre", "Descripcion", 10, new CloseCombatType(), List.of(modifierMoral), new CommonStrategy());
+        Unit cardMoraleBoost = new Unit("Nombre", "Descripcion", 10, new CloseCombatType(), List.of(modifierMoral));
         int puntosEsperados = 10;
 
         closeCombat1.placeCard(cartaConLegendaria);

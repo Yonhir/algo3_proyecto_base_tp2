@@ -4,7 +4,6 @@ import edu.fiuba.algo3.modelo.cards.*;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.BitingFrost;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.ImpenetrableFog;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.TorrentialRain;
-import edu.fiuba.algo3.modelo.cards.units.CommonStrategy;
 import edu.fiuba.algo3.modelo.cards.units.modifiers.Modifier;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
 import edu.fiuba.algo3.modelo.errors.InvalidCardAmountError;
@@ -30,21 +29,21 @@ public class DeckTest {
     @BeforeEach
     void setUp() {
         unidades = Arrays.asList(
-                new Unit("Nombre", "Descripcion", 4, new CloseCombatType(), new ArrayList<Modifier>(), new CommonStrategy()),
-                new Unit("Nombre", "Descripcion", 5, new CloseCombatType(), new ArrayList<Modifier>(), new CommonStrategy()),
-                new Unit("Nombre", "Descripcion", 6, new RangedType(), new ArrayList<Modifier>(), new CommonStrategy()),
-                new Unit("Nombre", "Descripcion", 3, new SiegeType(), new ArrayList<Modifier>(), new CommonStrategy()),
-                new Unit("Nombre", "Descripcion", 2, new CloseCombatType(), new ArrayList<Modifier>(), new CommonStrategy()),
-                new Unit("Nombre", "Descripcion", 0, new SiegeType(), new ArrayList<Modifier>(), new CommonStrategy()),
-                new Unit("Nombre", "Descripcion", 6, new SiegeType(), new ArrayList<Modifier>(), new CommonStrategy()),
-                new Unit("Nombre", "Descripcion", 8, new RangedType(), new ArrayList<Modifier>(), new CommonStrategy()),
-                new Unit("Nombre", "Descripcion", 0, new RangedType(), new ArrayList<Modifier>(), new CommonStrategy()),
-                new Unit("Nombre", "Descripcion", 10, new CloseCombatType(), new ArrayList<Modifier>(), new CommonStrategy()),
-                new Unit("Nombre", "Descripcion", 2, new RangedType(), new ArrayList<Modifier>(), new CommonStrategy()),
-                new Unit("Nombre", "Descripcion", 4, new SiegeType(), new ArrayList<Modifier>(), new CommonStrategy()),
-                new Unit("Nombre", "Descripcion", 8, new SiegeType(), new ArrayList<Modifier>(), new CommonStrategy()),
-                new Unit("Nombre", "Descripcion", 3, new CloseCombatType(), new ArrayList<Modifier>(), new CommonStrategy()),
-                new Unit("Nombre", "Descripcion", 4, new RangedType(), new ArrayList<Modifier>(), new CommonStrategy())
+                new Unit("Nombre", "Descripcion", 4, new CloseCombatType(), new ArrayList<Modifier>()),
+                new Unit("Nombre", "Descripcion", 5, new CloseCombatType(), new ArrayList<Modifier>()),
+                new Unit("Nombre", "Descripcion", 6, new RangedType(), new ArrayList<Modifier>()),
+                new Unit("Nombre", "Descripcion", 3, new SiegeType(), new ArrayList<Modifier>()),
+                new Unit("Nombre", "Descripcion", 2, new CloseCombatType(), new ArrayList<Modifier>()),
+                new Unit("Nombre", "Descripcion", 0, new SiegeType(), new ArrayList<Modifier>()),
+                new Unit("Nombre", "Descripcion", 6, new SiegeType(), new ArrayList<Modifier>()),
+                new Unit("Nombre", "Descripcion", 8, new RangedType(), new ArrayList<Modifier>()),
+                new Unit("Nombre", "Descripcion", 0, new RangedType(), new ArrayList<Modifier>()),
+                new Unit("Nombre", "Descripcion", 10, new CloseCombatType(), new ArrayList<Modifier>()),
+                new Unit("Nombre", "Descripcion", 2, new RangedType(), new ArrayList<Modifier>()),
+                new Unit("Nombre", "Descripcion", 4, new SiegeType(), new ArrayList<Modifier>()),
+                new Unit("Nombre", "Descripcion", 8, new SiegeType(), new ArrayList<Modifier>()),
+                new Unit("Nombre", "Descripcion", 3, new CloseCombatType(), new ArrayList<Modifier>()),
+                new Unit("Nombre", "Descripcion", 4, new RangedType(), new ArrayList<Modifier>())
         );
 
         especiales = Arrays.asList(
@@ -149,7 +148,7 @@ public class DeckTest {
         cartas.addAll(especiales);
         Deck mazo = new Deck();
         mazo.insertCards(cartas);
-        Card carta = new Unit("Arquero", "Descripcion", 4, new RangedType(), new ArrayList<Modifier>(), new CommonStrategy());
+        Card carta = new Unit("Arquero", "Descripcion", 4, new RangedType(), new ArrayList<Modifier>());
 
         assertThrows(TheCardWasNotFound.class, () -> {
            mazo.retrieveCard(carta);

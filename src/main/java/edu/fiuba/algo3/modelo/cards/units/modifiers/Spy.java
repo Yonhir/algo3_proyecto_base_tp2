@@ -8,6 +8,7 @@ public class Spy implements Modifier {
     private Deck deck;
     private Row row;
     private Hand hand;
+
     public Spy(Deck deck, Hand hand, Row row) {
         this.deck = deck;
         this.hand = hand;

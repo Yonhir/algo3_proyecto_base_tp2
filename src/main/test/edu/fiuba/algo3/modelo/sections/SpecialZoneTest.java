@@ -2,7 +2,6 @@ package edu.fiuba.algo3.modelo.sections;
 
 import edu.fiuba.algo3.modelo.cards.specials.*;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.*;
-import edu.fiuba.algo3.modelo.cards.units.CommonStrategy;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
 import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
 import edu.fiuba.algo3.modelo.sections.rows.Ranged;
@@ -55,12 +54,12 @@ public class SpecialZoneTest {
         );
         
         // Initialize units for both players
-        player1Soldier = new Unit("soldado1", "pelea de cerca", 10, new CloseCombatType(), List.of(), new CommonStrategy());
-        player1Archer = new Unit("arquero1", "tira flechas", 8, new RangedType(), List.of(), new CommonStrategy());
-        player1Catapult = new Unit("catapulta1", "arma de asedio", 12, new SiegeType(), List.of(), new CommonStrategy());
-        player2Soldier = new Unit("soldado2", "pelea de cerca", 10, new CloseCombatType(), List.of(), new CommonStrategy());
-        player2Archer = new Unit("arquero2", "tira flechas", 8, new RangedType(), List.of(), new CommonStrategy());
-        player2Catapult = new Unit("catapulta2", "arma de asedio", 12, new SiegeType(), List.of(), new CommonStrategy());
+        player1Soldier = new Unit("soldado1", "pelea de cerca", 10, new CloseCombatType(), List.of());
+        player1Archer = new Unit("arquero1", "tira flechas", 8, new RangedType(), List.of());
+        player1Catapult = new Unit("catapulta1", "arma de asedio", 12, new SiegeType(), List.of());
+        player2Soldier = new Unit("soldado2", "pelea de cerca", 10, new CloseCombatType(), List.of());
+        player2Archer = new Unit("arquero2", "tira flechas", 8, new RangedType(), List.of());
+        player2Catapult = new Unit("catapulta2", "arma de asedio", 12, new SiegeType(), List.of());
         
         // Initialize weather cards
         frostWeather = new BitingFrost("Escarcha", "Reduce todas las unidades cuerpo a cuerpo a 1 punto");

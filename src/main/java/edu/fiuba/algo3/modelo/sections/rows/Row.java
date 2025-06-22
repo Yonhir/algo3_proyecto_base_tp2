@@ -4,7 +4,6 @@ import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cards.Card;
 import edu.fiuba.algo3.modelo.cards.specials.Scorch;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.ClearWeather;
-import edu.fiuba.algo3.modelo.cards.units.CommonStrategy;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.Weather;
 import edu.fiuba.algo3.modelo.sections.Section;
@@ -13,6 +12,8 @@ import edu.fiuba.algo3.modelo.Colors.Color;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public abstract class Row implements Section {
     protected List<Card> cards = new ArrayList<>();
@@ -57,9 +58,10 @@ public abstract class Row implements Section {
     }
 
     public void findStrongestCard(Scorch scorch) {
-        if (!cards.isEmpty()) {
-            Unit max = (Unit) cards.get(0);
-            for (Card card : cards) {
+        List<Card> cardsWithoutHeroModifier = cards.stream().filter(c -> !((Unit) c).hasHeroModifier()).collect(Collectors.toList());
+        if (!cardsWithoutHeroModifier.isEmpty()) {
+            Unit max = (Unit) cardsWithoutHeroModifier.get(0);
+            for (Card card : cardsWithoutHeroModifier) {
                 max = max.strongerThan((Unit) card);
             }
             scorch.saveStrongest(max);
@@ -68,7 +70,8 @@ public abstract class Row implements Section {
 
     public List<Card> findAllWithSamePoints(Scorch scorch) {
         List<Card> wanted = new ArrayList<>();
-        for (Card card : cards) {
+        List<Card> cardsWithoutHeroModifier = cards.stream().filter(c -> !((Unit) c).hasHeroModifier()).collect(Collectors.toList());
+        for (Card card : cardsWithoutHeroModifier) {
             if (scorch.matchesStrongest((Unit) card)) {
                 wanted.add(card);
             }
