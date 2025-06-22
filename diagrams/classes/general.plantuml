@@ -145,15 +145,17 @@ class Unit {
   -basePoints: int
   -currentPoints: int
   -modifiers: List<Modifier>
-  +Unit(name: String, description: String, points: int, sectionTypes: List<SectionType>, modifiers: List<Modifier>, strategy CalculatePointsStrategy): Unit
+  -hasHeroModifier : boolean
+  +Unit(name: String, description: String, points: int, sectionTypes: List<SectionType>, modifiers: List<Modifier>): Unit
   +calculatePoints(): int
   +resetPoints(): void
   +setPoints(points: int): void
   +haveModifier(modifier: Modifier): boolean
   +play(section: Section): void
-  +verifySectionType(sectionType: SectionType): void
   +strongerThan(unit : Unit) : Unit
   +samePointsAs(unit : Unit) : boolean
+  +hasHeroAsModifier() : boolean
+  +heroModifier() : void
 }
 
 abstract class Special <<abstract>> {
@@ -165,17 +167,6 @@ class Scorch {
   +matchesStrongest(unit : Unit) : boolean
   +burnStrongestCardFrom(card : Card, row : Row) : void
   +saveStrongest(unit : Unit) : void
-}
-
-interface CalculatePointsStrategy <<interface>> {
-    playIn(section : Section, unit : Unit)
-    affectPointsFromWith(unit : Unit, points : int)
-}
-
-class HeroStrategy {
-}
-
-class CommonStrategy {
 }
 
 interface Modifier <<interface>> {
@@ -290,10 +281,6 @@ Special <|-- Scorch
 Card --> "*" SectionType
 
 Unit --> "*" Modifier
-Unit o-- CalculatePointsStrategy
-
-CalculatePointsStrategy <|.. HeroStrategy
-CalculatePointsStrategy <|.. CommonStrategy
 
 Modifier <|.. TightBond
 Modifier <|.. Agile

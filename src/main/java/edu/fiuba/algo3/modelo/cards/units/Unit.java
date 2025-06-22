@@ -56,7 +56,7 @@ public class Unit extends Card {
         }
     }
 
-    public boolean hasHeroModifier() {
+    public boolean hasHeroAsModifier() {
         return hasHeroModifier;
     }
 

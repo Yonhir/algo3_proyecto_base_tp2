@@ -58,7 +58,7 @@ public abstract class Row implements Section {
     }
 
     public void findStrongestCard(Scorch scorch) {
-        List<Card> cardsWithoutHeroModifier = cards.stream().filter(c -> !((Unit) c).hasHeroModifier()).collect(Collectors.toList());
+        List<Card> cardsWithoutHeroModifier = cards.stream().filter(c -> !((Unit) c).hasHeroAsModifier()).collect(Collectors.toList());
         if (!cardsWithoutHeroModifier.isEmpty()) {
             Unit max = (Unit) cardsWithoutHeroModifier.get(0);
             for (Card card : cardsWithoutHeroModifier) {
@@ -70,7 +70,7 @@ public abstract class Row implements Section {
 
     public List<Card> findAllWithSamePoints(Scorch scorch) {
         List<Card> wanted = new ArrayList<>();
-        List<Card> cardsWithoutHeroModifier = cards.stream().filter(c -> !((Unit) c).hasHeroModifier()).collect(Collectors.toList());
+        List<Card> cardsWithoutHeroModifier = cards.stream().filter(c -> !((Unit) c).hasHeroAsModifier()).collect(Collectors.toList());
         for (Card card : cardsWithoutHeroModifier) {
             if (scorch.matchesStrongest((Unit) card)) {
                 wanted.add(card);
