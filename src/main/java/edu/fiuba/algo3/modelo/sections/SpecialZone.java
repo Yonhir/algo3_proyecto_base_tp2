@@ -66,18 +66,15 @@ public class SpecialZone implements Section {
 
     public void applyInAllRows(Scorch scorch) {
         for (Row row : closeCombatRows) {
-            Unit strongest = row.findStrongestCard();
-            scorch.saveStrongest(strongest);
+            row.findStrongestCard(scorch);
         }
 
         for (Row row : rangedRows) {
-            Unit strongest = row.findStrongestCard();
-            scorch.saveStrongest(strongest);
+            row.findStrongestCard(scorch);
         }
 
         for (Row row : siegeRows) {
-            Unit strongest = row.findStrongestCard();
-            scorch.saveStrongest(strongest);
+            row.findStrongestCard(scorch);
         }
 
         applyScorchInCloseCombat(scorch);

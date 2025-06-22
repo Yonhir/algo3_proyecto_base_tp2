@@ -17,7 +17,6 @@ public class Scorch extends Special {
     public Scorch(String name, String description, List<SectionType> sectionTypes, DiscardPile discardPile) {
         super(name, description, sectionTypes);
         this.discardPile = discardPile;
-        strongestCard = new Unit("", "", 0, List.of(), List.of());
     }
 
     @Override
@@ -31,8 +30,10 @@ public class Scorch extends Special {
     }
 
     public void saveStrongest(Unit unit) {
-        if(strongestCard.calculatePoints() <= unit.calculatePoints()) {
+        if (this.strongestCard == null) {
             this.strongestCard = unit;
+        } else {
+            this.strongestCard = unit.strongerThan(strongestCard);
         }
     }
 
