@@ -263,9 +263,9 @@ public class PlayerTest {
 
     @Test
     public void testDiscardAllRowsMovesCardsToDiscardPile() {
-        player.playCard(siegeCard, siege);
-        player.playCard(closeCombatCard, closeCombat);
-        player.playCard(rangedCard, ranged);
+        siege.placeCard(siegeCard);
+        closeCombat.placeCard(closeCombatCard);
+        ranged.placeCard(rangedCard);
 
         int expectedDiscardCount = 3;
 
