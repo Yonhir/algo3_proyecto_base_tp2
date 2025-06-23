@@ -67,6 +67,6 @@ public class Player {
 
     public void playCard(Card card, Row row) {
         row.placeCard(card);
-        hand.getCard(card);
+        hand.retrieveCard(card);
     }
 }
