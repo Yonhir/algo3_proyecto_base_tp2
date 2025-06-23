@@ -2,6 +2,9 @@ package edu.fiuba.algo3.modelo.sections;
 
 import edu.fiuba.algo3.modelo.Player;
 import edu.fiuba.algo3.modelo.Round;
+import edu.fiuba.algo3.modelo.Colors.Blue;
+import edu.fiuba.algo3.modelo.Colors.Color;
+import edu.fiuba.algo3.modelo.Player;
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
 import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cardcollections.Hand;
@@ -20,6 +23,7 @@ import edu.fiuba.algo3.modelo.sections.types.CloseCombatType;
 import edu.fiuba.algo3.modelo.sections.types.RangedType;
 import edu.fiuba.algo3.modelo.sections.types.SiegeType;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -47,6 +51,21 @@ public class RowTest {
         opponent = new Player("Juan", deck, closeCombat, ranged, siege);
         Hand hand = player.getHand();
         round = new Round(player, opponent);
+    }
+
+    @Test
+    public void rowColor(){
+        Color blue = new Blue();
+
+        CloseCombat closeCombat = new CloseCombat();
+        Ranged ranged = new Ranged();
+        Siege siege = new Siege();
+
+        new Player("Gabriel", 2, new Deck(), closeCombat, ranged, siege, blue);
+
+        Assertions.assertTrue(closeCombat.sameColor(blue));
+        Assertions.assertTrue(ranged.sameColor(blue));
+        Assertions.assertTrue(siege.sameColor(blue));
     }
 
     @Test

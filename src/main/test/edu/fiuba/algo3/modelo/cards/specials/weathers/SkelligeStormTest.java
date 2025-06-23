@@ -1,19 +1,22 @@
 package edu.fiuba.algo3.modelo.cards.specials.weathers;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
-import edu.fiuba.algo3.modelo.cards.units.Unit;
-import edu.fiuba.algo3.modelo.sections.*;
-import edu.fiuba.algo3.modelo.sections.rows.Ranged;
-import edu.fiuba.algo3.modelo.sections.rows.Siege;
-import edu.fiuba.algo3.modelo.sections.types.RangedType;
-import edu.fiuba.algo3.modelo.sections.types.SiegeType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
+import edu.fiuba.algo3.modelo.cards.units.Unit;
+import edu.fiuba.algo3.modelo.sections.*;
+import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
+import edu.fiuba.algo3.modelo.sections.rows.Ranged;
+import edu.fiuba.algo3.modelo.sections.rows.Siege;
+import edu.fiuba.algo3.modelo.sections.types.RangedType;
+import edu.fiuba.algo3.modelo.sections.types.SiegeType;
+
 import java.util.ArrayList;
-import java.util.List;
 
 public class SkelligeStormTest {
     private Ranged ranged;
@@ -25,6 +28,11 @@ public class SkelligeStormTest {
     private SpecialZone specialZone;
     @BeforeEach
     void setUp() {
+        CloseCombat closeCombatOpponent = new CloseCombat();
+        rangedOpponent = new Ranged();
+        siegeOpponent = new Siege();
+
+        CloseCombat closeCombat = new CloseCombat();
         ranged = new Ranged();
         siege = new Siege();
 
@@ -36,9 +44,6 @@ public class SkelligeStormTest {
         siege.addCard(new Unit("Nombre", "Descripcion", 3, new SiegeType(), new ArrayList<>()));
         siege.addCard(new Unit("Nombre", "Descripcion", 1, new SiegeType(), new ArrayList<>()));
 
-        rangedOpponent = new Ranged();
-        siegeOpponent = new Siege();
-
         rangedOpponent.addCard(new Unit("Nombre", "Descripcion", 6, new RangedType(), new ArrayList<>()));
         rangedOpponent.addCard(new Unit("Nombre", "Descripcion", 8, new RangedType(), new ArrayList<>()));
         rangedOpponent.addCard(new Unit("Nombre", "Descripcion", 0, new RangedType(), new ArrayList<>()));
@@ -47,7 +52,7 @@ public class SkelligeStormTest {
         siegeOpponent.addCard(new Unit("Nombre", "Descripcion", 3, new SiegeType(), new ArrayList<>()));
         siegeOpponent.addCard(new Unit("Nombre", "Descripcion", 1, new SiegeType(), new ArrayList<>()));
 
-        specialZone = new SpecialZone(null , List.of(ranged, rangedOpponent), List.of(siege, siegeOpponent));
+        specialZone = new SpecialZone(closeCombat, ranged, siege, closeCombatOpponent, rangedOpponent, siegeOpponent);
     }
 
     @Test

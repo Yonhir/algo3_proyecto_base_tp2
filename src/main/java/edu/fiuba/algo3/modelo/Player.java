@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo;
 
+import edu.fiuba.algo3.modelo.Colors.Color;
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
 import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cardcollections.Hand;
@@ -10,7 +11,9 @@ import edu.fiuba.algo3.modelo.sections.rows.Ranged;
 import edu.fiuba.algo3.modelo.sections.rows.Row;
 import edu.fiuba.algo3.modelo.sections.rows.Siege;
 
+
 import java.util.Optional;
+import java.util.List;
 
 public class Player {
     private final String name;
@@ -22,7 +25,8 @@ public class Player {
     private final Siege siege;
     private int roundsWon = 0;
 
-    public Player(String name, Deck deck, CloseCombat closeCombat, Ranged ranged, Siege siege) {
+    public Player(String name, Deck deck, CloseCombat closeCombat, Ranged ranged, Siege siege, Color color) {
+
         this.name = name;
         discardPile = new DiscardPile();
         hand = new Hand();
@@ -30,6 +34,25 @@ public class Player {
         this.closeCombat = closeCombat;
         this.ranged = ranged;
         this.siege = siege;
+        setColor(color);
+    }
+  
+    private void setColorToCards(Color color) {
+        List<Card> cards = deck.getCards();
+        for (Card card : cards) {
+            card.setColor(color);
+        }
+    }
+  
+    private void setColorToRows(Color color) {
+        closeCombat.setColor(color);
+        ranged.setColor(color);
+        siege.setColor(color);
+    }
+  
+    private void setColor(Color color) {
+        setColorToCards(color);
+        setColorToRows(color);
     }
 
     public DiscardPile getDiscardPile() {
@@ -41,8 +64,7 @@ public class Player {
     }
 
     public int calculatePoints() {
-        int points = closeCombat.calculatePoints() + ranged.calculatePoints() + siege.calculatePoints();
-        return points;
+        return closeCombat.calculatePoints() + ranged.calculatePoints() + siege.calculatePoints();
     }
 
     public void playCard(Card card, Row row, Round round) {

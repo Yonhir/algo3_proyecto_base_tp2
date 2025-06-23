@@ -1,32 +1,34 @@
 package edu.fiuba.algo3.modelo.sections;
 
+
 import edu.fiuba.algo3.modelo.Player;
 import edu.fiuba.algo3.modelo.Round;
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import edu.fiuba.algo3.modelo.cards.specials.*;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.*;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
 import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
 import edu.fiuba.algo3.modelo.sections.rows.Ranged;
-import edu.fiuba.algo3.modelo.sections.rows.Row;
 import edu.fiuba.algo3.modelo.sections.rows.Siege;
 import edu.fiuba.algo3.modelo.sections.types.CloseCombatType;
 import edu.fiuba.algo3.modelo.sections.types.RangedType;
 import edu.fiuba.algo3.modelo.sections.types.SiegeType;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class SpecialZoneTest {
     private SpecialZone specialZone;
-    private Row player1CloseCombatRow;
-    private Row player1RangedRow;
-    private Row player1SiegeRow;
-    private Row player2CloseCombatRow;
-    private Row player2RangedRow;
-    private Row player2SiegeRow;
+    private CloseCombat player1CloseCombatRow;
+    private Ranged player1RangedRow;
+    private Siege player1SiegeRow;
+    private CloseCombat player2CloseCombatRow;
+    private Ranged player2RangedRow;
+    private Siege player2SiegeRow;
     
     private Unit player1Soldier;
     private Unit player1Archer;
@@ -63,9 +65,8 @@ public class SpecialZoneTest {
 
         // Initialize weather zone with both players' rows
         specialZone = new SpecialZone(
-            List.of(player1CloseCombatRow, player2CloseCombatRow),
-            List.of(player1RangedRow, player2RangedRow),
-            List.of(player1SiegeRow, player2SiegeRow)
+            player1CloseCombatRow, player1RangedRow, player1SiegeRow,
+            player2CloseCombatRow, player2RangedRow, player2SiegeRow
         );
         
         // Initialize units for both players
@@ -355,5 +356,75 @@ public class SpecialZoneTest {
         assertEquals(10, player2Soldier.calculatePoints(), "Las unidades cuerpo a cuerpo del jugador 2 deberían volver a sus puntos originales");
         assertEquals(8, player2Archer.calculatePoints(), "Las unidades a distancia del jugador 2 deberían volver a sus puntos originales");
         assertEquals(12, player2Catapult.calculatePoints(), "Las unidades de asedio del jugador 2 deberían volver a sus puntos originales");
+    }
+
+    @Test
+    public void testSpecialZoneConstructor_ShouldThrowException_WhenCloseCombatRowsAreRepeated() {
+        // Arrange
+        CloseCombat sharedCloseCombatRow = new CloseCombat();
+        
+        // Act & Assert
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            new SpecialZone(
+                sharedCloseCombatRow, player1RangedRow, player1SiegeRow,
+                sharedCloseCombatRow, player2RangedRow, player2SiegeRow
+            );
+        }, "Should throw IllegalArgumentException when close combat rows are repeated");
+        
+        assertEquals("Close combat, ranged and siege rows must be different", exception.getMessage(),
+            "Exception message should indicate that rows must be different");
+    }
+
+    @Test
+    public void testSpecialZoneConstructor_ShouldThrowException_WhenRangedRowsAreRepeated() {
+        // Arrange
+        Ranged sharedRangedRow = new Ranged();
+        
+        // Act & Assert
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            new SpecialZone(
+                player1CloseCombatRow, sharedRangedRow, player1SiegeRow,
+                player2CloseCombatRow, sharedRangedRow, player2SiegeRow
+            );
+        }, "Should throw IllegalArgumentException when ranged rows are repeated");
+        
+        assertEquals("Close combat, ranged and siege rows must be different", exception.getMessage(),
+            "Exception message should indicate that rows must be different");
+    }
+
+    @Test
+    public void testSpecialZoneConstructor_ShouldThrowException_WhenSiegeRowsAreRepeated() {
+        // Arrange
+        Siege sharedSiegeRow = new Siege();
+        
+        // Act & Assert
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            new SpecialZone(
+                player1CloseCombatRow, player1RangedRow, sharedSiegeRow,
+                player2CloseCombatRow, player2RangedRow, sharedSiegeRow
+            );
+        }, "Should throw IllegalArgumentException when siege rows are repeated");
+        
+        assertEquals("Close combat, ranged and siege rows must be different", exception.getMessage(),
+            "Exception message should indicate that rows must be different");
+    }
+
+    @Test
+    public void testSpecialZoneConstructor_ShouldThrowException_WhenMultipleRowsAreRepeated() {
+        // Arrange
+        CloseCombat sharedCloseCombatRow = new CloseCombat();
+        Ranged sharedRangedRow = new Ranged();
+        Siege sharedSiegeRow = new Siege();
+        
+        // Act & Assert
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            new SpecialZone(
+                sharedCloseCombatRow, sharedRangedRow, sharedSiegeRow,
+                sharedCloseCombatRow, sharedRangedRow, sharedSiegeRow
+            );
+        }, "Should throw IllegalArgumentException when multiple rows are repeated");
+        
+        assertEquals("Close combat, ranged and siege rows must be different", exception.getMessage(),
+            "Exception message should indicate that rows must be different");
     }
 }
