@@ -136,15 +136,15 @@ public class DiscardPileTest {
         siege.setColor(red);
 
         for (Card card : closeCombatUnits) {
-            card.setColor(green);
+            card.setColor(red);
             closeCombat.placeCard(card);
         }
         for (Card card : rangedUnits) {
-            card.setColor(green);
+            card.setColor(red);
             ranged.placeCard(card);
         }
         for (Card card : siegeUnits) {
-            card.setColor(green);
+            card.setColor(red);
             siege.placeCard(card);
         }
 

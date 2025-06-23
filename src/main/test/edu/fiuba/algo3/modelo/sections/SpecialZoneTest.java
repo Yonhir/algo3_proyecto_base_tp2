@@ -260,6 +260,7 @@ public class SpecialZoneTest {
         
         // Act
         Special clearWeather = new ClearWeather("Clima Despejado", "Elimina todos los efectos de clima");
+        clearWeather.setColor(new Green());
         specialZone.placeCard(clearWeather);
         
         // Assert
@@ -273,6 +274,7 @@ public class SpecialZoneTest {
         
         // Act
         Special clearWeather = new ClearWeather("Clima Despejado", "Elimina todos los efectos de clima");
+        clearWeather.setColor(new Green());
         specialZone.placeCard(clearWeather);
         
         // Assert
@@ -286,6 +288,7 @@ public class SpecialZoneTest {
         
         // Act
         Special clearWeather = new ClearWeather("Clima Despejado", "Elimina todos los efectos de clima");
+        clearWeather.setColor(new Green());
         specialZone.placeCard(clearWeather);
         
         // Assert
@@ -351,6 +354,7 @@ public class SpecialZoneTest {
         
         // Act
         Special clearWeather = new ClearWeather("Clima Despejado", "Elimina todos los efectos de clima");
+        clearWeather.setColor(new Green());
         specialZone.placeCard(clearWeather);
         
         // Assert
