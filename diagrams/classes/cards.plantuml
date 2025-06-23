@@ -82,16 +82,6 @@ class Scorch {
   +Scorch(name: String, description: String): Scorch
 }
 
-interface Modifier <<interface>> {
-  +apply(row: Row): void
-}
-
-class TightBond {
-}
-
-class Agil {
-}
-
 ' =====================
 ' RELATIONSHIPS
 ' =====================
