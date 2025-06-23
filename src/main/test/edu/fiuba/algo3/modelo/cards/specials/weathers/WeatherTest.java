@@ -3,6 +3,7 @@ package edu.fiuba.algo3.modelo.cards.specials.weathers;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -34,13 +35,15 @@ public class WeatherTest {
 
     @BeforeEach
     public void setup() {
+        DiscardPile discardPile1 = new DiscardPile();
+        DiscardPile discardPile2 = new DiscardPile();
         // Initialize rows
-        closeCombatRow = new CloseCombat();
-        rangedRow = new Ranged();
-        siegeRow = new Siege();
-        CloseCombat aCloseCombat = new CloseCombat();
-        Ranged aRanged = new Ranged();
-        Siege aSiege = new Siege();
+        closeCombatRow = new CloseCombat(discardPile2);
+        rangedRow = new Ranged(discardPile2);
+        siegeRow = new Siege(discardPile2);
+        CloseCombat aCloseCombat = new CloseCombat(discardPile1);
+        Ranged aRanged = new Ranged(discardPile1);
+        Siege aSiege = new Siege(discardPile1);
         
         // Initialize weather zone
         specialZone = new SpecialZone(aCloseCombat, aRanged, aSiege, closeCombatRow, rangedRow, siegeRow);

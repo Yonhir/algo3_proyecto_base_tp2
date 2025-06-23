@@ -4,6 +4,7 @@ import edu.fiuba.algo3.modelo.Colors.Blue;
 import edu.fiuba.algo3.modelo.Colors.Color;
 import edu.fiuba.algo3.modelo.Player;
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
+import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.BitingFrost;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.ImpenetrableFog;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.TorrentialRain;
@@ -56,10 +57,10 @@ public class CardTest {
     @Test
     public void cardsHaveColor() {
         Color blue = new Blue();
-
-        CloseCombat closeCombat = new CloseCombat();
-        Ranged ranged = new Ranged();
-        Siege siege = new Siege();
+        DiscardPile discardPile = new DiscardPile();
+        CloseCombat closeCombat = new CloseCombat(discardPile);
+        Ranged ranged = new Ranged(discardPile);
+        Siege siege = new Siege(discardPile);
 
         new Player("Gabriel", 2, deck, closeCombat, ranged, siege, blue);
 

@@ -31,10 +31,10 @@ public class RowTest {
     @Test
     public void rowColor(){
         Color blue = new Blue();
-
-        CloseCombat closeCombat = new CloseCombat();
-        Ranged ranged = new Ranged();
-        Siege siege = new Siege();
+        DiscardPile discardPile = new DiscardPile();
+        CloseCombat closeCombat = new CloseCombat(discardPile);
+        Ranged ranged = new Ranged(discardPile);
+        Siege siege = new Siege(discardPile);
 
         new Player("Gabriel", 2, new Deck(), closeCombat, ranged, siege, blue);
 
@@ -45,7 +45,8 @@ public class RowTest {
 
     @Test
     public void testUnaUnidadEsColocadaEnEspacioRangedRow() {
-        Row rangedRow = new Ranged();
+        DiscardPile discardPile = new DiscardPile();
+        Row rangedRow = new Ranged(discardPile);
         int puntosBase = 5;
         Unit arquero = new Unit("arquero", "tira flechas", puntosBase, List.of(new RangedType()), List.of() );
 
@@ -56,7 +57,8 @@ public class RowTest {
 
     @Test
     public void testVariasCartasSonColocadasEnEspacioCloseCombat() {
-        Row closeCombat = new CloseCombat();
+        DiscardPile discardPile = new DiscardPile();
+        Row closeCombat = new CloseCombat(discardPile);
         Unit soldado1 = new Unit("soldado1", "pelea de cerca", 10, List.of(new CloseCombatType()), List.of());
         Unit soldado2 = new Unit("soldado2", "pelea de cerca", 10, List.of(new CloseCombatType()), List.of());
         int cantidadCartasEsperadas = 2;
@@ -73,14 +75,16 @@ public class RowTest {
     @Test
     public void TestUnaUnidadNoPuedeSerJugadaEnUnaFilaIncorrecta() {
         Unit arquero = new Unit("arquero", "tira flechas", 5, List.of(new RangedType()), List.of()); // Solo Ranged
-        Row closeCombatRow = new CloseCombat();
+        DiscardPile discardPile = new DiscardPile();
+        Row closeCombatRow = new CloseCombat(discardPile);
 
         assertThrows(SectionTypeMismatchError.class, () -> closeCombatRow.placeCard(arquero));
     }
 
     @Test
     public void testUnaUnidadEsColocadaEnEspacioSiegeRow() {
-        Row siegeRow = new Siege();
+        DiscardPile discardPile = new DiscardPile();
+        Row siegeRow = new Siege(discardPile);
         int puntosBase = 8;
         Unit catapulta = new Unit("catapulta", "dispara desde lejos", puntosBase, List.of(new SiegeType()), List.of());
 
@@ -93,7 +97,8 @@ public class RowTest {
     public void testUnidadAgilPuedeSerColocadaEnFilaRanged() {
         Modifier agil = new Agile();
         Unit unitConAgil = new Unit("ágil", "puede ir a melee o rango", 6, List.of(new CloseCombatType(), new RangedType()), List.of(agil));
-        Row ranged = new Ranged();
+        DiscardPile discardPile = new DiscardPile();
+        Row ranged = new Ranged(discardPile);
 
         ranged.placeCard(unitConAgil);
 
@@ -104,7 +109,8 @@ public class RowTest {
     public void testUnidadAgilPuedeSerColocadaEnFilaCloseCombat() {
         Modifier agile = new Agile();
         Unit unitConAgil = new Unit("ágil", "puede ir a melee o rango", 6, List.of(new CloseCombatType(), new RangedType()), List.of(agile));
-        Row closeCombat = new CloseCombat();
+        DiscardPile discardPile = new DiscardPile();
+        Row closeCombat = new CloseCombat(discardPile);
 
         closeCombat.placeCard(unitConAgil);
 
@@ -113,7 +119,8 @@ public class RowTest {
 
     @Test
     public void testCalcularPuntosDeUnaFila() {
-        Row closeCombat = new CloseCombat();
+        DiscardPile discardPile = new DiscardPile();
+        Row closeCombat = new CloseCombat(discardPile);
         Unit soldado1 = new Unit("soldado1", "pelea de cerca", 10, List.of(new CloseCombatType()), List.of());
         Unit soldado2 = new Unit("soldado2", "pelea de cerca", 15, List.of(new CloseCombatType()), List.of());
         int puntosEsperados = 25;
@@ -126,7 +133,8 @@ public class RowTest {
 
     @Test
     public void testAgregarClimaAUnaFila() {
-        Row ranged = new Ranged();
+        DiscardPile discardPile = new DiscardPile();
+        Row ranged = new Ranged(discardPile);
         Unit arquero = new Unit("arquero", "tira flechas", 5, List.of(new RangedType()), List.of());
         Weather niebla = new ImpenetrableFog("Niebla Impenetrable", "Reduce la fuerza de las unidades a 1");
 
@@ -138,14 +146,14 @@ public class RowTest {
 
     @Test
     public void testDescartarCartasDeUnaFila() {
-        Row siege = new Siege();
+        DiscardPile discardPile = new DiscardPile();
+        Row siege = new Siege(discardPile);
         Unit catapulta1 = new Unit("catapulta1", "dispara desde lejos", 8, List.of(new SiegeType()), List.of());
         Unit catapulta2 = new Unit("catapulta2", "dispara desde lejos", 8, List.of(new SiegeType()), List.of());
-        DiscardPile discardPile = new DiscardPile();
 
         siege.placeCard(catapulta1);
         siege.placeCard(catapulta2);
-        siege.discardCards(discardPile);
+        siege.discardCards();
 
         assertTrue(siege.getCards().isEmpty());
         assertEquals(2, discardPile.getCardCount());

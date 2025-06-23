@@ -29,15 +29,20 @@ public class ScorchTest {
     private Ranged rangedRow2;
     private Siege siegeRow2;
     private SpecialZone specialZone;
+    private DiscardPile discardPile1;
+    private DiscardPile discardPile2;
+
     @BeforeEach
     void setUp() {
-        tierraArrasada = new Scorch("Tierra arrasada", "Desscripcion", List.of(new CloseCombatType(), new RangedType(), new SiegeType()), new DiscardPile());
-        closeCombatRow1 = new CloseCombat();
-        rangedRow1 = new Ranged();
-        siegeRow1 = new Siege();
-        closeCombatRow2 = new CloseCombat();
-        rangedRow2 = new Ranged();
-        siegeRow2 = new Siege();
+        tierraArrasada = new Scorch("Tierra arrasada", "Desscripcion", List.of(new CloseCombatType(), new RangedType(), new SiegeType()));
+        discardPile1 = new DiscardPile();
+        discardPile2 = new DiscardPile();
+        closeCombatRow1 = new CloseCombat(discardPile1);
+        rangedRow1 = new Ranged(discardPile1);
+        siegeRow1 = new Siege(discardPile1);
+        closeCombatRow2 = new CloseCombat(discardPile2);
+        rangedRow2 = new Ranged(discardPile2);
+        siegeRow2 = new Siege(discardPile2);
         specialZone = new SpecialZone(closeCombatRow1, rangedRow1, siegeRow1, closeCombatRow2, rangedRow2, siegeRow2);
     }
     @Test

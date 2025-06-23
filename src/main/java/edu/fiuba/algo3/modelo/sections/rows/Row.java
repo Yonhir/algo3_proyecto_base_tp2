@@ -19,10 +19,12 @@ public abstract class Row implements Section {
     protected Weather currentWeather;
     protected SectionType sectionType;
     protected Color color;
+    protected DiscardPile discardPile;
 
-    protected Row(SectionType sectionType) {
+    protected Row(SectionType sectionType, DiscardPile discardPile) {
         this.currentWeather = new ClearWeather("Clima Despejado", "Elimina todos los efectos de clima");
         this.sectionType = sectionType;
+        this.discardPile = discardPile;
     }
 
     @Override
@@ -75,7 +77,7 @@ public abstract class Row implements Section {
         return wanted;
     }
 
-    public void discardCard(Card card, DiscardPile discardPile) {
+    public void discardCard(Card card) {
         discardPile.addCard(card);
         cards.remove(card);
     }
@@ -94,7 +96,7 @@ public abstract class Row implements Section {
         return total;
     }
 
-    public void discardCards(DiscardPile discardPile) {
+    public void discardCards() {
         discardPile.insertCards(cards);
         cards.clear();
     }

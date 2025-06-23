@@ -25,7 +25,7 @@ public class TightBondTest {
     @BeforeEach
     void setUp() {
         discardPile = new DiscardPile();
-        siegeRow = new Siege();
+        siegeRow = new Siege(discardPile);
         
         // Create three different TightBond modifiers
         tightBondModifier1 = new TightBond();
@@ -102,7 +102,7 @@ public class TightBondTest {
         siegeRow.placeCard(catapult1);
         siegeRow.placeCard(catapult2);
         // End of round
-        siegeRow.discardCards(discardPile);
+        siegeRow.discardCards();
         siegeRow.placeCard(regularUnit);
         int pointsAfterNewRound = siegeRow.calculatePoints();
 

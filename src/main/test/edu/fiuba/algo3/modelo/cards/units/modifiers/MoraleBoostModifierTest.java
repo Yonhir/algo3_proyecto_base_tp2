@@ -25,9 +25,10 @@ public class MoraleBoostModifierTest {
 
     @BeforeEach
     void setUp() {
-        closeCombat = new CloseCombat();
-        ranged = new Ranged();
-        siege = new Siege();
+        DiscardPile discardPile = new DiscardPile();
+        closeCombat = new CloseCombat(discardPile);
+        ranged = new Ranged(discardPile);
+        siege = new Siege(discardPile);
 
         modifierMoral = new MoraleBoostModifier();
 
@@ -82,7 +83,7 @@ public class MoraleBoostModifierTest {
         cardMoraleBoost = new Unit("Nombre", "Descripcion", 10, new SiegeType(), List.of(modifierMoral));
         int expectedPoints = cardMoraleBoost.calculatePoints();
 
-        siege.discardCards(new DiscardPile());
+        siege.discardCards();
         siege.placeCard(cardMoraleBoost);
 
         int actualPoints = siege.calculatePoints();

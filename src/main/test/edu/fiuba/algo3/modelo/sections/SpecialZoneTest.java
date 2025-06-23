@@ -3,6 +3,7 @@ package edu.fiuba.algo3.modelo.sections;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cards.specials.*;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.*;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
@@ -40,13 +41,15 @@ public class SpecialZoneTest {
 
     @BeforeEach
     public void setup() {
+        DiscardPile discardPile1 = new DiscardPile();
+        DiscardPile discardPile2 = new DiscardPile();
         // Initialize rows for both players
-        player1CloseCombatRow = new CloseCombat();
-        player1RangedRow = new Ranged();
-        player1SiegeRow = new Siege();
-        player2CloseCombatRow = new CloseCombat();
-        player2RangedRow = new Ranged();
-        player2SiegeRow = new Siege();
+        player1CloseCombatRow = new CloseCombat(discardPile1);
+        player1RangedRow = new Ranged(discardPile1);
+        player1SiegeRow = new Siege(discardPile1);
+        player2CloseCombatRow = new CloseCombat(discardPile2);
+        player2RangedRow = new Ranged(discardPile2);
+        player2SiegeRow = new Siege(discardPile2);
 
         // Initialize weather zone with both players' rows
         specialZone = new SpecialZone(
@@ -346,7 +349,8 @@ public class SpecialZoneTest {
     @Test
     public void testSpecialZoneConstructor_ShouldThrowException_WhenCloseCombatRowsAreRepeated() {
         // Arrange
-        CloseCombat sharedCloseCombatRow = new CloseCombat();
+        DiscardPile discardPile = new DiscardPile();
+        CloseCombat sharedCloseCombatRow = new CloseCombat(discardPile);
         
         // Act & Assert
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -363,7 +367,8 @@ public class SpecialZoneTest {
     @Test
     public void testSpecialZoneConstructor_ShouldThrowException_WhenRangedRowsAreRepeated() {
         // Arrange
-        Ranged sharedRangedRow = new Ranged();
+        DiscardPile discardPile = new DiscardPile();
+        Ranged sharedRangedRow = new Ranged(discardPile);
         
         // Act & Assert
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -380,7 +385,8 @@ public class SpecialZoneTest {
     @Test
     public void testSpecialZoneConstructor_ShouldThrowException_WhenSiegeRowsAreRepeated() {
         // Arrange
-        Siege sharedSiegeRow = new Siege();
+        DiscardPile discardPile = new DiscardPile();
+        Siege sharedSiegeRow = new Siege(discardPile);
         
         // Act & Assert
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -397,9 +403,10 @@ public class SpecialZoneTest {
     @Test
     public void testSpecialZoneConstructor_ShouldThrowException_WhenMultipleRowsAreRepeated() {
         // Arrange
-        CloseCombat sharedCloseCombatRow = new CloseCombat();
-        Ranged sharedRangedRow = new Ranged();
-        Siege sharedSiegeRow = new Siege();
+        DiscardPile discardPile = new DiscardPile();
+        CloseCombat sharedCloseCombatRow = new CloseCombat(discardPile);
+        Ranged sharedRangedRow = new Ranged(discardPile);
+        Siege sharedSiegeRow = new Siege(discardPile);
         
         // Act & Assert
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {

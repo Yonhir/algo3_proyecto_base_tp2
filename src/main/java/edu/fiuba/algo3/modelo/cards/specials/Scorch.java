@@ -12,11 +12,9 @@ import java.util.List;
 
 public class Scorch extends Special {
     private Unit strongestCard;
-    private DiscardPile discardPile;
 
-    public Scorch(String name, String description, List<SectionType> sectionTypes, DiscardPile discardPile) {
+    public Scorch(String name, String description, List<SectionType> sectionTypes) {
         super(name, description, sectionTypes);
-        this.discardPile = discardPile;
     }
 
     @Override
@@ -26,7 +24,7 @@ public class Scorch extends Special {
     }
 
     public void burnStrongestCardFrom(Card card, Row row) {
-        row.discardCard(card, discardPile);
+        row.discardCard(card);
     }
 
     public void saveStrongest(Unit unit) {

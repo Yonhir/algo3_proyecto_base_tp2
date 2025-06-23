@@ -83,9 +83,10 @@ public class PlayerTest {
         // Initialize game components
         deck = new Deck();
         deck.insertCards(cards);
-        closeCombat = new CloseCombat();
-        ranged = new Ranged();
-        siege = new Siege();
+        DiscardPile discardPile = new DiscardPile();
+        closeCombat = new CloseCombat(discardPile);
+        ranged = new Ranged(discardPile);
+        siege = new Siege(discardPile);
         player = new Player("Gabriel", 2, deck, closeCombat, ranged, siege, new Blue());
         Hand hand = player.getHand();
         deck.getCards().remove(siegeCard);
