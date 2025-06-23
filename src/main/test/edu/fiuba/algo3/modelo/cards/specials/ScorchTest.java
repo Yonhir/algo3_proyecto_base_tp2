@@ -17,8 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ScorchTest {
     private Special tierraArrasada;
@@ -174,5 +173,30 @@ public class ScorchTest {
         assertFalse(closeCombatRow2.containsCard(unidad1Oponente));
         assertFalse(rangedRow2.containsCard(unidad2Oponente));
         assertTrue(siegeRow2.containsCard(unidad3Oponente));
+    }
+
+    @Test
+    public void testSeJuegaUnaTierraArrasadaLasCartasQuemadasVanALaPilaDeDescarteCorrespondiente() {
+        Unit unidad1JugadorP = new Unit("Nombre", "Descripcion", 8, new CloseCombatType(), List.of(new MoraleBoostModifier()));
+        Unit unidad1Oponente = new Unit("Nombre", "Descripcion", 8, new CloseCombatType(), List.of(new TightBond()));
+
+        Unit unidad2JugadorP = new Unit("Nombre", "Descripcion", 8, new RangedType(), List.of(new TightBond()));
+        Unit unidad2Oponente = new Unit("Nombre", "Descripcion", 8, new RangedType(), List.of(new TightBond()));
+
+        Unit unidad3JugadorP = new Unit("Nombre", "Descripcion", 7, new SiegeType(), List.of(new TightBond()));
+        Unit unidad3Oponente = new Unit("Nombre", "Descripcion", 5, new SiegeType(), List.of(new MoraleBoostModifier()));
+
+        closeCombatRow1.placeCard(unidad1JugadorP);
+        rangedRow1.placeCard(unidad2JugadorP);
+        siegeRow1.placeCard(unidad3JugadorP);
+
+        closeCombatRow2.placeCard(unidad1Oponente);
+        rangedRow2.placeCard(unidad2Oponente);
+        siegeRow2.placeCard(unidad3Oponente);
+
+        tierraArrasada.play(specialZone);
+
+        assertEquals(2, discardPile1.getCardCount());
+        assertEquals(2, discardPile2.getCardCount());
     }
 }
