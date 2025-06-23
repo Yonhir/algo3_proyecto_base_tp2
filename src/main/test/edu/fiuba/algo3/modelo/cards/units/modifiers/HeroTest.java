@@ -22,12 +22,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class HeroTest {
     private Unit cartaConLegendaria;
-    private Row closeCombat1;
-    private Row ranged1;
-    private Row siege1;
-    private Row closeCombat2;
-    private Row ranged2;
-    private Row siege2;
+    private CloseCombat closeCombat1;
+    private Ranged ranged1;
+    private Siege siege1;
+    private CloseCombat closeCombat2;
+    private Ranged ranged2;
+    private Siege siege2;
 
     @BeforeEach
     void setUp() {
@@ -79,9 +79,8 @@ public class HeroTest {
 
         closeCombat1.placeCard(cartaConLegendaria);
         frostWeather.play(new SpecialZone(
-                List.of(closeCombat1, closeCombat2),
-                List.of(ranged1, ranged2),
-                List.of(siege1, siege2)
+                closeCombat1, ranged1, siege1,
+                closeCombat2, ranged2, siege2
         ));
 
         assertEquals(puntosEsperados, cartaConLegendaria.calculatePoints());
@@ -96,9 +95,8 @@ public class HeroTest {
         closeCombat1.placeCard(cartaConLegendaria);
         especial.play(closeCombat1);
         frostWeather.play(new SpecialZone(
-                List.of(closeCombat1, closeCombat2),
-                List.of(ranged1, ranged2),
-                List.of(siege1, siege2)
+                closeCombat1, ranged1, siege1,
+                closeCombat2, ranged2, siege2
         ));
 
         assertEquals(puntosEsperados, cartaConLegendaria.calculatePoints());
@@ -111,9 +109,8 @@ public class HeroTest {
         closeCombat1.placeCard(cartaConLegendaria);
 
         tierraArrasada.play(new SpecialZone(
-                List.of(closeCombat1, closeCombat2),
-                List.of(ranged1, ranged2),
-                List.of(siege1, siege2)
+                closeCombat1, ranged1, siege1,
+                closeCombat2, ranged2, siege2
         ));
 
         assertTrue(closeCombat1.containsCard(cartaConLegendaria));

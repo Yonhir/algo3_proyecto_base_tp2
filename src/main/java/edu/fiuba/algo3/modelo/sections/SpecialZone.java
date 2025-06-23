@@ -5,20 +5,26 @@ import edu.fiuba.algo3.modelo.cards.specials.Scorch;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.Weather;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
 import edu.fiuba.algo3.modelo.sections.rows.Row;
+import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
+import edu.fiuba.algo3.modelo.sections.rows.Ranged;
+import edu.fiuba.algo3.modelo.sections.rows.Siege;
 import edu.fiuba.algo3.modelo.sections.types.SpecialType;
 
 import java.util.List;
 
 public class SpecialZone implements Section {
-    private final List<Row> closeCombatRows;
-    private final List<Row> rangedRows;
-    private final List<Row> siegeRows;
+    private final List<CloseCombat> closeCombatRows;
+    private final List<Ranged> rangedRows;
+    private final List<Siege> siegeRows;
     private final SpecialType sectionType;
 
-    public SpecialZone(List<Row> closeCombatRows, List<Row> rangedRows, List<Row> siegeRows) {
-        this.closeCombatRows = closeCombatRows;
-        this.rangedRows = rangedRows;
-        this.siegeRows = siegeRows;
+    public SpecialZone(CloseCombat aPlayerCloseCombat, Ranged aPlayerRangedRow, Siege aPlayerSiegeRow, CloseCombat otherPlayerCloseCombat, Ranged otherPlayerRangedRow, Siege otherPlayerSiegeRow) {
+        if(aPlayerCloseCombat.equals(otherPlayerCloseCombat) || aPlayerRangedRow.equals(otherPlayerRangedRow) || aPlayerSiegeRow.equals(otherPlayerSiegeRow)) {
+            throw new IllegalArgumentException("Close combat, ranged and siege rows must be different");
+        }
+        this.closeCombatRows = List.of(aPlayerCloseCombat, otherPlayerCloseCombat);
+        this.rangedRows = List.of(aPlayerRangedRow, otherPlayerRangedRow);
+        this.siegeRows = List.of(aPlayerSiegeRow, otherPlayerSiegeRow);
         this.sectionType = new SpecialType();
     }
 
@@ -29,19 +35,19 @@ public class SpecialZone implements Section {
     }
 
     public void applyCloseCombatWeather(Weather weather) {
-        for (Row row : closeCombatRows) {
+        for (CloseCombat row : closeCombatRows) {
             row.applyWeather(weather);
         }
     }
 
     public void applyRangedWeather(Weather weather) {
-        for (Row row : rangedRows) {
+        for (Ranged row : rangedRows) {
             row.applyWeather(weather);
         }
     }
 
     public void applySiegeWeather(Weather weather) {
-        for (Row row : siegeRows) {
+        for (Siege row : siegeRows) {
             row.applyWeather(weather);
         }
     }
@@ -81,4 +87,4 @@ public class SpecialZone implements Section {
         applyScorchInRanged(scorch);
         applyScorchInSiege(scorch);
     }
-} 
+}

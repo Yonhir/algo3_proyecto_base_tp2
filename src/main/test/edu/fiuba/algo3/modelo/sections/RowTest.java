@@ -36,7 +36,7 @@ public class RowTest {
         Ranged ranged = new Ranged();
         Siege siege = new Siege();
 
-        new Player("Gabriel", 2, new Deck(), new SpecialZone(List.of(),List.of(),List.of()), closeCombat, ranged, siege, blue);
+        new Player("Gabriel", 2, new Deck(), closeCombat, ranged, siege, blue);
 
         Assertions.assertTrue(closeCombat.sameColor(blue));
         Assertions.assertTrue(ranged.sameColor(blue));

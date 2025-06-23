@@ -56,7 +56,12 @@ public class CardTest {
     @Test
     public void cardsHaveColor() {
         Color blue = new Blue();
-        new Player("Gabriel", 2, deck, new SpecialZone(List.of(),List.of(),List.of()), new CloseCombat(), new Ranged(), new Siege(), blue);
+
+        CloseCombat closeCombat = new CloseCombat();
+        Ranged ranged = new Ranged();
+        Siege siege = new Siege();
+
+        new Player("Gabriel", 2, deck, closeCombat, ranged, siege, blue);
 
         List<Card> cards = deck.getCards();
 

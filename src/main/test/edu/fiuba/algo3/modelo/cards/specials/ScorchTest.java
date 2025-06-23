@@ -22,26 +22,25 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ScorchTest {
     private Special tierraArrasada;
-    private Row closeCombatRow1;
-    private Row rangedRow1;
-    private Row siegeRow1;
-    private Row closeCombatRow2;
-    private Row rangedRow2;
-    private Row siegeRow2;
+    private CloseCombat closeCombat1;
+    private Ranged ranged1;
+    private Siege siege1;
+    private CloseCombat closeCombat2;
+    private Ranged ranged2;
+    private Siege siege2;
     private SpecialZone specialZone;
     @BeforeEach
     void setUp() {
         tierraArrasada = new Scorch("Tierra arrasada", "Desscripcion", List.of(new CloseCombatType(), new RangedType(), new SiegeType()), new DiscardPile());
-        closeCombatRow1 = new CloseCombat();
-        rangedRow1 = new Ranged();
-        siegeRow1 = new Siege();
-        closeCombatRow2 = new CloseCombat();
-        rangedRow2 = new Ranged();
-        siegeRow2 = new Siege();
+        closeCombat1 = new CloseCombat();
+        ranged1 = new Ranged();
+        siege1 = new Siege();
+        closeCombat2 = new CloseCombat();
+        ranged2 = new Ranged();
+        siege2 = new Siege();
         specialZone = new SpecialZone(
-                List.of(closeCombatRow1, closeCombatRow2),
-                List.of(rangedRow1, rangedRow2),
-                List.of(siegeRow1, siegeRow2)
+                closeCombat1, ranged1, siege1,
+                closeCombat2, ranged2, siege2
         );
     }
     @Test
@@ -49,11 +48,11 @@ public class ScorchTest {
         Unit unidad1 = new Unit("Nombre", "Descripcion", 6, new CloseCombatType(), List.of(new TightBond()));
         Unit unidad2 = new Unit("Nombre", "Descripcion", 4, new CloseCombatType(), List.of(new MoraleBoostModifier()));
 
-        closeCombatRow1.placeCard(unidad1);
-        closeCombatRow1.placeCard(unidad2);
+        closeCombat1.placeCard(unidad1);
+        closeCombat1.placeCard(unidad2);
         tierraArrasada.play(specialZone);
 
-        assertFalse(closeCombatRow1.containsCard(unidad1));
+        assertFalse(closeCombat1.containsCard(unidad1));
     }
 
     @Test
@@ -61,11 +60,11 @@ public class ScorchTest {
         Unit unidad1 = new Unit("Nombre", "Descripcion", 4, new RangedType(), List.of(new TightBond()));
         Unit unidad2 = new Unit("Nombre", "Descripcion", 6, new RangedType(), List.of(new MoraleBoostModifier()));
 
-        rangedRow2.placeCard(unidad1);
-        rangedRow2.placeCard(unidad2);
+        ranged2.placeCard(unidad1);
+        ranged2.placeCard(unidad2);
         tierraArrasada.play(specialZone);
 
-        assertFalse(rangedRow2.containsCard(unidad2));
+        assertFalse(ranged2.containsCard(unidad2));
     }
 
     @Test
@@ -74,12 +73,12 @@ public class ScorchTest {
         Unit unidad2 = new Unit("Nombre", "Descripcion", 6, new SiegeType(), List.of(new MoraleBoostModifier()));
         Unit unidad3 = new Unit("Nombre", "Descripcion", 8, new SiegeType(), List.of());
 
-        siegeRow1.placeCard(unidad1);
-        siegeRow1.placeCard(unidad2);
-        siegeRow1.placeCard(unidad3);
+        siege1.placeCard(unidad1);
+        siege1.placeCard(unidad2);
+        siege1.placeCard(unidad3);
         tierraArrasada.play(specialZone);
 
-        assertFalse(siegeRow1.containsCard(unidad3));
+        assertFalse(siege1.containsCard(unidad3));
     }
 
     @Test
@@ -88,12 +87,12 @@ public class ScorchTest {
         Unit unidad2 = new Unit("Nombre", "Descripcion", 4, new CloseCombatType(), List.of(new MoraleBoostModifier()));
         Unit unidad3 = new Unit("Nombre", "Descripcion", 6, new CloseCombatType(), List.of());
 
-        closeCombatRow1.placeCard(unidad1);
-        closeCombatRow1.placeCard(unidad2);
+        closeCombat1.placeCard(unidad1);
+        closeCombat1.placeCard(unidad2);
         tierraArrasada.play(specialZone);
 
-        assertFalse(closeCombatRow1.containsCard(unidad1));
-        assertFalse(closeCombatRow1.containsCard(unidad3));
+        assertFalse(closeCombat1.containsCard(unidad1));
+        assertFalse(closeCombat1.containsCard(unidad3));
     }
 
     @Test
@@ -102,12 +101,12 @@ public class ScorchTest {
         Unit unidad2 = new Unit("Nombre", "Descripcion", 8, new RangedType(), List.of(new MoraleBoostModifier()));
         Unit unidad3 = new Unit("Nombre", "Descripcion", 8, new RangedType(), List.of());
 
-        rangedRow1.placeCard(unidad1);
-        rangedRow1.placeCard(unidad2);
+        ranged1.placeCard(unidad1);
+        ranged1.placeCard(unidad2);
         tierraArrasada.play(specialZone);
 
-        assertFalse(rangedRow1.containsCard(unidad2));
-        assertFalse(rangedRow1.containsCard(unidad3));
+        assertFalse(ranged1.containsCard(unidad2));
+        assertFalse(ranged1.containsCard(unidad3));
     }
 
     @Test
@@ -116,13 +115,13 @@ public class ScorchTest {
         Unit unidad2 = new Unit("Nombre", "Descripcion", 8, new SiegeType(), List.of());
         Unit unidad3 = new Unit("Nombre", "Descripcion", 6, new SiegeType(), List.of(new MoraleBoostModifier()));
 
-        siegeRow1.placeCard(unidad1);
-        siegeRow1.placeCard(unidad2);
-        siegeRow1.placeCard(unidad3);
+        siege1.placeCard(unidad1);
+        siege1.placeCard(unidad2);
+        siege1.placeCard(unidad3);
         tierraArrasada.play(specialZone);
 
-        assertFalse(siegeRow1.containsCard(unidad1));
-        assertFalse(siegeRow1.containsCard(unidad2));
+        assertFalse(siege1.containsCard(unidad1));
+        assertFalse(siege1.containsCard(unidad2));
     }
 
     @Test
@@ -133,16 +132,16 @@ public class ScorchTest {
         Unit unidad3 = new Unit("Nombre", "Descripcion", 8, new RangedType(), List.of());
         Unit unidad4 = new Unit("Nombre", "Descripcion", 8, new CloseCombatType(), List.of(new MoraleBoostModifier()));
 
-        closeCombatRow1.placeCard(unidad4);
-        rangedRow1.placeCard(unidad2);
-        rangedRow1.placeCard(unidad3);
-        siegeRow1.placeCard(unidad1);
-        siegeRow1.placeCard(unidad5);
+        closeCombat1.placeCard(unidad4);
+        ranged1.placeCard(unidad2);
+        ranged1.placeCard(unidad3);
+        siege1.placeCard(unidad1);
+        siege1.placeCard(unidad5);
         tierraArrasada.play(specialZone);
 
-        assertFalse(siegeRow1.containsCard(unidad1));
-        assertTrue(rangedRow1.containsCard(unidad3));
-        assertTrue(closeCombatRow1.containsCard(unidad4));
+        assertFalse(siege1.containsCard(unidad1));
+        assertTrue(ranged1.containsCard(unidad3));
+        assertTrue(closeCombat1.containsCard(unidad4));
     }
 
     @Test
@@ -156,22 +155,22 @@ public class ScorchTest {
         Unit unidad3JugadorP = new Unit("Nombre", "Descripcion", 7, new SiegeType(), List.of(new TightBond()));
         Unit unidad3Oponente = new Unit("Nombre", "Descripcion", 5, new SiegeType(), List.of(new MoraleBoostModifier()));
 
-        closeCombatRow1.placeCard(unidad1JugadorP);
-        rangedRow1.placeCard(unidad2JugadorP);
-        siegeRow1.placeCard(unidad3JugadorP);
+        closeCombat1.placeCard(unidad1JugadorP);
+        ranged1.placeCard(unidad2JugadorP);
+        siege1.placeCard(unidad3JugadorP);
 
-        closeCombatRow2.placeCard(unidad1Oponente);
-        rangedRow2.placeCard(unidad2Oponente);
-        siegeRow2.placeCard(unidad3Oponente);
+        closeCombat2.placeCard(unidad1Oponente);
+        ranged2.placeCard(unidad2Oponente);
+        siege2.placeCard(unidad3Oponente);
 
         tierraArrasada.play(specialZone);
 
-        assertFalse(closeCombatRow1.containsCard(unidad1JugadorP));
-        assertFalse(rangedRow1.containsCard(unidad2JugadorP));
-        assertTrue(siegeRow1.containsCard(unidad3JugadorP));
+        assertFalse(closeCombat1.containsCard(unidad1JugadorP));
+        assertFalse(ranged1.containsCard(unidad2JugadorP));
+        assertTrue(siege1.containsCard(unidad3JugadorP));
 
-        assertFalse(closeCombatRow2.containsCard(unidad1Oponente));
-        assertFalse(rangedRow2.containsCard(unidad2Oponente));
-        assertTrue(siegeRow2.containsCard(unidad3Oponente));
+        assertFalse(closeCombat2.containsCard(unidad1Oponente));
+        assertFalse(ranged2.containsCard(unidad2Oponente));
+        assertTrue(siege2.containsCard(unidad3Oponente));
     }
 }
