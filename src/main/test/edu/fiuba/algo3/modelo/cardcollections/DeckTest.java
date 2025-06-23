@@ -97,9 +97,9 @@ public class DeckTest {
 
     @Test
     public void testNoSeCreaElMazoSiNoHaySuficientesCartasUnidadesParaEmpezarElJuego() {
+        Deck mazo = new Deck();
         cartas.addAll(unidades.subList(5, 15));
         cartas.addAll(especiales);
-        Deck mazo = new Deck();
 
         mazo.insertCards(cartas);
 
@@ -108,9 +108,9 @@ public class DeckTest {
 
     @Test
     public void testNoSeCreaElMazoSiNoHaySuficientesCartasEspecialesParaEmpezarElJuego() {
+        Deck mazo = new Deck();
         cartas.addAll(especiales.subList(3, 6));
         cartas.addAll(unidades);
-        Deck mazo = new Deck();
 
         mazo.insertCards(cartas);
 
@@ -119,9 +119,9 @@ public class DeckTest {
 
     @Test
     public void testSeObtiene5CartasAleatoriasDelMazo(){
+        Deck mazo = new Deck();
         cartas.addAll(unidades);
         cartas.addAll(especiales);
-        Deck mazo = new Deck();
         int cartasEsperadas = 5;
 
         mazo.insertCards(cartas);
@@ -133,9 +133,9 @@ public class DeckTest {
 
     @Test
     public void testSeEliminanLasCartasDelMazoDespuesDeRepartir(){
+        Deck mazo = new Deck();
         cartas.addAll(unidades);
         cartas.addAll(especiales);
-        Deck mazo = new Deck();
         int cartasEsperadas = 15;
 
         mazo.insertCards(cartas);
@@ -148,9 +148,9 @@ public class DeckTest {
 
     @Test
     public void testNoSePuedePedirCartasDelMazoConNumerosMenoresACero(){
+        Deck mazo = new Deck();
         cartas.addAll(unidades);
         cartas.addAll(especiales);
-        Deck mazo = new Deck();
 
         mazo.insertCards(cartas);
 
@@ -161,9 +161,9 @@ public class DeckTest {
 
     @Test
     public void testNoSePuedePedirCartasDelMazoConNumeroIgualACero(){
+        Deck mazo = new Deck();
         cartas.addAll(unidades);
         cartas.addAll(especiales);
-        Deck mazo = new Deck();
 
         mazo.insertCards(cartas);
 
