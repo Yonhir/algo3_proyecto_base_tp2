@@ -81,5 +81,10 @@ public class Player {
         }
     }
 
-
+    public Player getWinnerAgainst(Player other) {
+        if (this.hasWonGame()) {
+            return this;
+        }
+        return other;
+    }
 }

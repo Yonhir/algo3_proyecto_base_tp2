@@ -28,7 +28,7 @@ public class Game {
         if (!isGameOver()) {
             throw new IllegalStateException("Game is not over yet.");
         }
-        return player1.hasWonGame() ? player1 : player2;
+        return player1.getWinnerAgainst(player2);
     }
 
     public void clearBoard() {
