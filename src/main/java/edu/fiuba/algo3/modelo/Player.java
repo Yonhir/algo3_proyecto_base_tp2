@@ -46,8 +46,8 @@ public class Player {
         return points;
     }
 
-    public void playCard(Card card, Row row) {
-        row.placeCard(card);
+    public void playCard(Card card, Row row, Round round) {
+        row.placeCard(card, round);
         hand.getCard(card);
     }
     public void passRound() {

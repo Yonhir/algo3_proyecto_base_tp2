@@ -31,6 +31,9 @@ public class PlayerTest {
     private CloseCombat closeCombat;
     private Ranged ranged;
     private Siege siege;
+    private Player opponent;
+    private Round round;
+
 
     private Card siegeCard;
     private Card rangedCard;
@@ -85,6 +88,7 @@ public class PlayerTest {
         ranged = new Ranged();
         siege = new Siege();
         player = new Player("Gabriel", deck, closeCombat, ranged, siege);
+        opponent = new Player("Juan", deck, closeCombat, ranged, siege);
         Hand hand = player.getHand();
         deck.getCards().remove(siegeCard);
         deck.getCards().remove(closeCombatCard);
@@ -92,13 +96,14 @@ public class PlayerTest {
 
         hand.insertCards(Arrays.asList(siegeCard, closeCombatCard, rangedCard));
         hand.getNCardsFromDeck(deck, 7);
+        round = new Round(player, opponent);
     }
 
     @Test
     public void countCardsInHandAfterPlayingCard() {
         int expected_cards = player.getHand().getCardCount() - 1;
 
-        player.playCard(siegeCard, siege);
+        player.playCard(siegeCard, siege, round);
 
         int actual_cards = player.getHand().getCardCount();
 
@@ -109,7 +114,7 @@ public class PlayerTest {
     public void countCardsInRowAfterPlayingCard() {
         int expected_cards = siege.getCards().size() + 1;
 
-        player.playCard(siegeCard, siege);
+        player.playCard(siegeCard, siege, round);
 
         int actual_cards = siege.getCards().size();
 
@@ -118,14 +123,14 @@ public class PlayerTest {
 
     @Test
     public void CardNotInHandAfterPlayingCard() {
-        player.playCard(siegeCard, siege);
+        player.playCard(siegeCard, siege, round);
 
         Assertions.assertFalse(player.getHand().getCards().contains(siegeCard));
     }
 
     @Test
     public void CardInRowAfterPlayingCard() {
-        player.playCard(siegeCard, siege);
+        player.playCard(siegeCard, siege, round);
 
         Assertions.assertTrue(siege.getCards().contains(siegeCard));
     }
@@ -134,7 +139,7 @@ public class PlayerTest {
     public void PointsInRowAfterPlayingCard() {
         int expected_points = ((Unit) siegeCard).calculatePoints();
 
-        player.playCard(siegeCard, siege);
+        player.playCard(siegeCard, siege, round);
 
         int actual_points = ((Unit) siege.getCards().get(0)).calculatePoints();
 
@@ -147,9 +152,9 @@ public class PlayerTest {
                               ((Unit) closeCombatCard).calculatePoints() +
                               ((Unit) rangedCard).calculatePoints();
 
-        player.playCard(siegeCard, siege);
-        player.playCard(closeCombatCard, closeCombat);
-        player.playCard(rangedCard, ranged);
+        player.playCard(siegeCard, siege, round);
+        player.playCard(closeCombatCard, closeCombat, round);
+        player.playCard(rangedCard, ranged, round);
 
         int actual_points = player.calculatePoints();
 
@@ -159,9 +164,9 @@ public class PlayerTest {
 
     @Test
     public void RowsAfterPlayingSomeCards() {
-        player.playCard(siegeCard, siege);
-        player.playCard(closeCombatCard, closeCombat);
-        player.playCard(rangedCard, ranged);
+        player.playCard(siegeCard, siege, round);
+        player.playCard(closeCombatCard, closeCombat, round);
+        player.playCard(rangedCard, ranged, round);
 
         Assertions.assertTrue(
                 siege.getCards().contains(siegeCard) &&
@@ -172,9 +177,9 @@ public class PlayerTest {
 
     @Test
     public void HandAfterPlayingSomeCards() {
-        player.playCard(siegeCard, siege);
-        player.playCard(closeCombatCard, closeCombat);
-        player.playCard(rangedCard, ranged);
+        player.playCard(siegeCard, siege, round);
+        player.playCard(closeCombatCard, closeCombat, round);
+        player.playCard(rangedCard, ranged, round);
 
         Assertions.assertFalse(player.getHand().getCards().containsAll(Arrays.asList(siegeCard, closeCombatCard, rangedCard)));
     }
@@ -201,9 +206,9 @@ public class PlayerTest {
         Unit rangedUnit = (Unit) cards.get(2);
         Unit siegeUnit = (Unit) cards.get(3);
         int expectedPoints = 13; // 4 + 6 + 3
-        closeCombat.placeCard(closeCombatUnit);
-        ranged.placeCard(rangedUnit);
-        siege.placeCard(siegeUnit);
+        closeCombat.placeCard(closeCombatUnit, round);
+        ranged.placeCard(rangedUnit, round);
+        siege.placeCard(siegeUnit, round);
         
         //ACT
         int actualPoints = player.calculatePoints();
@@ -263,9 +268,9 @@ public class PlayerTest {
 
     @Test
     public void testDiscardAllRowsMovesCardsToDiscardPile() {
-        siege.placeCard(siegeCard);
-        closeCombat.placeCard(closeCombatCard);
-        ranged.placeCard(rangedCard);
+        siege.placeCard(siegeCard, round);
+        closeCombat.placeCard(closeCombatCard, round);
+        ranged.placeCard(rangedCard, round);
 
         int expectedDiscardCount = 3;
 

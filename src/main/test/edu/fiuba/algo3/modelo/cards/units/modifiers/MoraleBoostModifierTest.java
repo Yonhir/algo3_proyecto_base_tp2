@@ -1,5 +1,8 @@
 package edu.fiuba.algo3.modelo.cards.units.modifiers;
 
+import edu.fiuba.algo3.modelo.Player;
+import edu.fiuba.algo3.modelo.Round;
+import edu.fiuba.algo3.modelo.cardcollections.Deck;
 import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
 import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
@@ -21,6 +24,10 @@ public class MoraleBoostModifierTest {
     private Siege siege;
     private MoraleBoostModifier modifierMoral;
     private Unit cardMoraleBoost;
+    private Player player;
+    private Player opponent;
+    private Round round;
+    private Deck deck;
 
 
     @BeforeEach
@@ -28,6 +35,9 @@ public class MoraleBoostModifierTest {
         closeCombat = new CloseCombat();
         ranged = new Ranged();
         siege = new Siege();
+        player = new Player("Gabriel", deck, closeCombat, ranged, siege);
+        opponent = new Player("Juan", deck, closeCombat, ranged, siege);
+        round = new Round(player, opponent);
 
         modifierMoral = new MoraleBoostModifier();
 
@@ -49,7 +59,7 @@ public class MoraleBoostModifierTest {
         cardMoraleBoost = new Unit("Nombre", "Descripcion", 10, new CloseCombatType(), List.of(modifierMoral));
         int expectedPoints = closeCombat.calculatePoints() + closeCombat.getCards().size() + cardMoraleBoost.calculatePoints();
 
-        closeCombat.placeCard(cardMoraleBoost);
+        closeCombat.placeCard(cardMoraleBoost, round);
 
         int actualPoints = closeCombat.calculatePoints();
         Assertions.assertEquals(expectedPoints, actualPoints);
@@ -60,7 +70,7 @@ public class MoraleBoostModifierTest {
         cardMoraleBoost = new Unit("Nombre", "Descripcion", 10, new RangedType(), List.of(modifierMoral));
         int expectedPoints = ranged.calculatePoints() + ranged.getCards().size() + cardMoraleBoost.calculatePoints();
 
-        ranged.placeCard(cardMoraleBoost);
+        ranged.placeCard(cardMoraleBoost, round);
 
         int actualPoints = ranged.calculatePoints();
         Assertions.assertEquals(expectedPoints, actualPoints);
@@ -71,7 +81,7 @@ public class MoraleBoostModifierTest {
         cardMoraleBoost = new Unit("Nombre", "Descripcion", 10, new SiegeType(), List.of(modifierMoral));
         int expectedPoints = siege.calculatePoints() + siege.getCards().size() + cardMoraleBoost.calculatePoints();
 
-        siege.placeCard(cardMoraleBoost);
+        siege.placeCard(cardMoraleBoost, round);
 
         int actualPoints = siege.calculatePoints();
         Assertions.assertEquals(expectedPoints, actualPoints);
@@ -83,7 +93,7 @@ public class MoraleBoostModifierTest {
         int expectedPoints = cardMoraleBoost.calculatePoints();
 
         siege.discardCards(new DiscardPile());
-        siege.placeCard(cardMoraleBoost);
+        siege.placeCard(cardMoraleBoost, round);
 
         int actualPoints = siege.calculatePoints();
         Assertions.assertEquals(expectedPoints, actualPoints);

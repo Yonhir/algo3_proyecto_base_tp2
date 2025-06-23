@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.sections.rows;
 
+import edu.fiuba.algo3.modelo.Round;
 import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cards.Card;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.ClearWeather;
@@ -23,9 +24,10 @@ public abstract class Row implements Section {
     }
 
     @Override
-    public void placeCard(Card card) {
+    public void placeCard(Card card, Round round) {
         card.verifySectionType(this.sectionType);
         card.play(this);
+        round.endTurn();
     }
 
     public List<Card> getCards() {

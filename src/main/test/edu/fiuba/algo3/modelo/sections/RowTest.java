@@ -1,6 +1,10 @@
 package edu.fiuba.algo3.modelo.sections;
 
+import edu.fiuba.algo3.modelo.Player;
+import edu.fiuba.algo3.modelo.Round;
+import edu.fiuba.algo3.modelo.cardcollections.Deck;
 import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
+import edu.fiuba.algo3.modelo.cardcollections.Hand;
 import edu.fiuba.algo3.modelo.cards.*;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.ImpenetrableFog;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.Weather;
@@ -15,13 +19,35 @@ import edu.fiuba.algo3.modelo.sections.rows.Siege;
 import edu.fiuba.algo3.modelo.sections.types.CloseCombatType;
 import edu.fiuba.algo3.modelo.sections.types.RangedType;
 import edu.fiuba.algo3.modelo.sections.types.SiegeType;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RowTest {
+    private Player player;
+    private Player opponent;
+    private Round round;
+    private Deck deck;
+
+    private CloseCombat closeCombat;
+    private Ranged ranged;
+    private Siege siege;
+
+    @BeforeEach
+    void setUp() {
+        deck = new Deck();
+        closeCombat = new CloseCombat();
+        ranged = new Ranged();
+        siege = new Siege();
+        player = new Player("Gabriel", deck, closeCombat, ranged, siege);
+        opponent = new Player("Juan", deck, closeCombat, ranged, siege);
+        Hand hand = player.getHand();
+        round = new Round(player, opponent);
+    }
 
     @Test
     public void testUnaUnidadEsColocadaEnEspacioRangedRow() {
@@ -29,7 +55,7 @@ public class RowTest {
         int puntosBase = 5;
         Unit arquero = new Unit("arquero", "tira flechas", puntosBase, List.of(new RangedType()), List.of() );
 
-        rangedRow.placeCard(arquero);
+        rangedRow.placeCard(arquero, round);
 
         assertTrue(rangedRow.getCards().contains(arquero));
     }
@@ -41,8 +67,8 @@ public class RowTest {
         Unit soldado2 = new Unit("soldado2", "pelea de cerca", 10, List.of(new CloseCombatType()), List.of());
         int cantidadCartasEsperadas = 2;
 
-        closeCombat.placeCard(soldado1);
-        closeCombat.placeCard(soldado2);
+        closeCombat.placeCard(soldado1, round);
+        closeCombat.placeCard(soldado2, round);
 
         List<Card> cartasEnLaFila = closeCombat.getCards();
         assertTrue(cartasEnLaFila.contains(soldado1));
@@ -55,7 +81,7 @@ public class RowTest {
         Unit arquero = new Unit("arquero", "tira flechas", 5, List.of(new RangedType()), List.of()); // Solo Ranged
         Row closeCombatRow = new CloseCombat();
 
-        assertThrows(SectionTypeMismatchError.class, () -> closeCombatRow.placeCard(arquero));
+        assertThrows(SectionTypeMismatchError.class, () -> closeCombatRow.placeCard(arquero, round));
     }
 
     @Test
@@ -64,7 +90,7 @@ public class RowTest {
         int puntosBase = 8;
         Unit catapulta = new Unit("catapulta", "dispara desde lejos", puntosBase, List.of(new SiegeType()), List.of());
 
-        siegeRow.placeCard(catapulta);
+        siegeRow.placeCard(catapulta, round);
 
         assertTrue(siegeRow.getCards().contains(catapulta));
     }
@@ -75,7 +101,7 @@ public class RowTest {
         Unit unitConAgil = new Unit("ágil", "puede ir a melee o rango", 6, List.of(new CloseCombatType(), new RangedType()), List.of(agil));
         Row ranged = new Ranged();
 
-        ranged.placeCard(unitConAgil);
+        ranged.placeCard(unitConAgil, round);
 
         assertTrue(ranged.getCards().contains(unitConAgil));
     }
@@ -86,7 +112,7 @@ public class RowTest {
         Unit unitConAgil = new Unit("ágil", "puede ir a melee o rango", 6, List.of(new CloseCombatType(), new RangedType()), List.of(agile));
         Row closeCombat = new CloseCombat();
 
-        closeCombat.placeCard(unitConAgil);
+        closeCombat.placeCard(unitConAgil, round);
 
         assertTrue(closeCombat.getCards().contains(unitConAgil));
     }
@@ -98,8 +124,8 @@ public class RowTest {
         Unit soldado2 = new Unit("soldado2", "pelea de cerca", 15, List.of(new CloseCombatType()), List.of());
         int puntosEsperados = 25;
 
-        closeCombat.placeCard(soldado1);
-        closeCombat.placeCard(soldado2);
+        closeCombat.placeCard(soldado1, round);
+        closeCombat.placeCard(soldado2, round);
 
         assertEquals(puntosEsperados, closeCombat.calculatePoints());
     }
@@ -110,7 +136,7 @@ public class RowTest {
         Unit arquero = new Unit("arquero", "tira flechas", 5, List.of(new RangedType()), List.of());
         Weather niebla = new ImpenetrableFog("Niebla Impenetrable", "Reduce la fuerza de las unidades a 1");
 
-        ranged.placeCard(arquero);
+        ranged.placeCard(arquero, round);
         ranged.applyWeather(niebla);
 
         assertEquals(1, arquero.calculatePoints());
@@ -123,8 +149,8 @@ public class RowTest {
         Unit catapulta2 = new Unit("catapulta2", "dispara desde lejos", 8, List.of(new SiegeType()), List.of());
         DiscardPile discardPile = new DiscardPile();
 
-        siege.placeCard(catapulta1);
-        siege.placeCard(catapulta2);
+        siege.placeCard(catapulta1, round);
+        siege.placeCard(catapulta2, round);
         siege.discardCards(discardPile);
 
         assertTrue(siege.getCards().isEmpty());

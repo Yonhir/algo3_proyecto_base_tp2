@@ -1,7 +1,8 @@
 package edu.fiuba.algo3.modelo.sections;
 
+import edu.fiuba.algo3.modelo.Round;
 import edu.fiuba.algo3.modelo.cards.Card;
 
 public interface Section {
-    void placeCard(Card card);
+    void placeCard(Card card, Round round);
 }
