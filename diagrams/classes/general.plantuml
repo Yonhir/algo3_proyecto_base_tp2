@@ -87,7 +87,8 @@ abstract class Row <<abstract>> {
   #lastCard: Card
   #currentWeather: Weather
   #sectionType: SectionType
-  +Row(sectionType: SectionType): Row
+  #discardPile : DiscardPile
+  +Row(sectionType: SectionType, discardPile : DiscardPile): Row
   +placeCard(card: Card): void
   +addCard(card: Card): void
   +applyWeather(weather: Weather): void
@@ -97,19 +98,19 @@ abstract class Row <<abstract>> {
   +applyScorch(scorch : Scorch) : void
   +discardCard(card : Card, discardPile : DiscardPile) : void
   +findAllWithSamePoints(scorch : Scorch) : List<Card>
-  +findStrongestCard(Scorch scorch) : void
+  +findStrongestCard(scorch : Scorch) : void
 }
 
 class Ranged {
-  +Ranged()
+  +Ranged(discardPile : DiscardPile)
 }
 
 class CloseCombat {
-  +CloseCombat()
+  +CloseCombat(discardPile : DiscardPile)
 }
 
 class Siege {
-  +Siege()
+  +Siege(discardPile : DiscardPile)
 }
 
 class SpecialZone {
