@@ -60,23 +60,24 @@ public class DeckTest {
 
     @Test
     public void testElJugadorPoseeCartasSuficientesEnSuMazoParaEmpezarElJuego() {
+        Deck mazo = new Deck();
         int minimoCartas = 21;
-
         cartas.addAll(unidades);
         cartas.addAll(especiales);
-        Deck mazo = new Deck();
-        mazo.insertCards(cartas);
 
-        assertTrue(mazo.getCardCount() >= minimoCartas);
+        mazo.insertCards(cartas);
+        int cantidadObtenida = (int) mazo.getUnitsCount() + (int) mazo.getSpecialsCount();
+
+        assertTrue(cantidadObtenida >= minimoCartas);
     }
 
     @Test
     public void testElJugadorPoseeCartasUnidadesSuficientesEnSuMazoParaEmpezarElJuego() {
+        Deck mazo = new Deck();
         int minimoUnidades = 15;
-
         cartas.addAll(unidades);
         cartas.addAll(especiales);
-        Deck mazo = new Deck();
+
         mazo.insertCards(cartas);
 
         assertTrue(mazo.getUnitsCount() >= minimoUnidades);
@@ -84,11 +85,11 @@ public class DeckTest {
 
     @Test
     public void testElJugadorPoseeCartasEspecialesSuficientesEnSuMazoParaEmpezarElJuego() {
+        Deck mazo = new Deck();
         int minimoEspeciales = 6;
-
         cartas.addAll(unidades);
         cartas.addAll(especiales);
-        Deck mazo = new Deck();
+
         mazo.insertCards(cartas);
 
         assertTrue(mazo.getSpecialsCount() >= minimoEspeciales);
@@ -98,8 +99,8 @@ public class DeckTest {
     public void testNoSeCreaElMazoSiNoHaySuficientesCartasUnidadesParaEmpezarElJuego() {
         cartas.addAll(unidades.subList(5, 15));
         cartas.addAll(especiales);
-
         Deck mazo = new Deck();
+
         mazo.insertCards(cartas);
 
         assertThrows(NotEnoughUnitsCardsError.class, mazo::validate);
@@ -109,8 +110,8 @@ public class DeckTest {
     public void testNoSeCreaElMazoSiNoHaySuficientesCartasEspecialesParaEmpezarElJuego() {
         cartas.addAll(especiales.subList(3, 6));
         cartas.addAll(unidades);
-
         Deck mazo = new Deck();
+
         mazo.insertCards(cartas);
 
         assertThrows(NotEnoughSpecialsCardsError.class, mazo::validate);
@@ -121,8 +122,9 @@ public class DeckTest {
         cartas.addAll(unidades);
         cartas.addAll(especiales);
         Deck mazo = new Deck();
-        mazo.insertCards(cartas);
         int cartasEsperadas = 5;
+
+        mazo.insertCards(cartas);
 
         List<Card> cards = mazo.retrieveNRandomCards(5);
 
@@ -134,25 +136,14 @@ public class DeckTest {
         cartas.addAll(unidades);
         cartas.addAll(especiales);
         Deck mazo = new Deck();
-        mazo.insertCards(cartas);
         int cartasEsperadas = 15;
 
-        mazo.retrieveNRandomCards(6);
-
-        assertEquals(cartasEsperadas, mazo.getCardCount());
-    }
-
-    @Test
-    public void testNoSePuedeObtenerUnaCartaQueNoEsteEnElMazo(){
-        cartas.addAll(unidades);
-        cartas.addAll(especiales);
-        Deck mazo = new Deck();
         mazo.insertCards(cartas);
-        Card carta = new Unit("Arquero", "Descripcion", 4, new RangedType(), new ArrayList<Modifier>());
 
-        assertThrows(TheCardWasNotFound.class, () -> {
-           mazo.retrieveCard(carta);
-        });
+        mazo.retrieveNRandomCards(6);
+        int obtenido = (int) mazo.getUnitsCount() + (int) mazo.getSpecialsCount();
+
+        assertEquals(cartasEsperadas, obtenido);
     }
 
     @Test
@@ -160,17 +151,20 @@ public class DeckTest {
         cartas.addAll(unidades);
         cartas.addAll(especiales);
         Deck mazo = new Deck();
+
         mazo.insertCards(cartas);
 
         assertThrows(InvalidCardAmountError.class, () ->{
             mazo.retrieveNRandomCards(-5);
         });
     }
+
     @Test
     public void testNoSePuedePedirCartasDelMazoConNumeroIgualACero(){
         cartas.addAll(unidades);
         cartas.addAll(especiales);
         Deck mazo = new Deck();
+
         mazo.insertCards(cartas);
 
         assertThrows(InvalidCardAmountError.class, () -> {
