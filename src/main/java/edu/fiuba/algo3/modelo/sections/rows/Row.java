@@ -71,4 +71,8 @@ public abstract class Row implements Section {
     }
 
     public boolean sameColor(Color color) { return this.color.equals(color);}
+
+    public boolean containsCard(Card card) {
+        return this.cards.contains(card);
+    }
 }
