@@ -31,12 +31,8 @@ public class Round {
         state.playCard(this);
     }
 
-    public void passTurn() {
-        state.passTurn(this);
-    }
-
-    public boolean isOver() {
-        return state.isOver();
+    public void passTurn(Game game) {
+        state.passTurn(this, game);
     }
 
     public void assignVictory() {
@@ -47,6 +43,10 @@ public class Round {
         Player temp = currentPlayer;
         currentPlayer = opponentPlayer;
         opponentPlayer = temp;
+    }
+
+    public RoundState getState() {
+        return this.state;
     }
 
 }

@@ -7,12 +7,7 @@ public class BothPassedState implements RoundState {
     }
 
     @Override
-    public void passTurn(Round round) {
+    public void passTurn(Round round, Game game) {
         throw new IllegalStateException("La ronda ha terminado.");
-    }
-
-    @Override
-    public boolean isOver() {
-        return true;
     }
 }

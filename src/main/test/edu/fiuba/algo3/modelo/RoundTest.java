@@ -8,6 +8,7 @@ import edu.fiuba.algo3.modelo.sections.rows.Siege;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+
 import java.util.List;
 import java.util.Optional;
 
@@ -19,12 +20,14 @@ public class RoundTest {
     private Player player1;
     private Player player2;
     private Round round;
+    private Game game;
 
     @BeforeEach
     public void setUp() {
         player1 = new Player("nombre1", new Deck(), new CloseCombat(), new Ranged(), new Siege());
         player2 = new Player("nombre2", new Deck(), new CloseCombat(), new Ranged(), new Siege());
         round = new Round(player1, player2);
+        game = new Game(player1, player2);
     }
 
     @Test
@@ -36,17 +39,18 @@ public class RoundTest {
 
     @Test
     public void testCurrentPlayerDoesNotSwitchIfOpponentHasPassed() {
-        round.passTurn();
+        round.passTurn(game);
         Player current = round.getCurrentPlayer();
-        round.passTurn();
+        round.passTurn(game);
         assertSame(current, round.getCurrentPlayer());
     }
 
     @Test
     public void testRoundEndsWhenBothPlayersPass() {
-        round.passTurn();
-        round.passTurn();
-        assertTrue(round.isOver());
+        round.passTurn(game);
+        round.passTurn(game);
+
+        assertTrue(round.getState() instanceof BothPassedState);
     }
 
     @Test
@@ -99,17 +103,6 @@ public class RoundTest {
 
         verify(p1, never()).winRound();
         verify(p2, never()).winRound();
-    }
-
-    @Test
-    public void testRoundEndsAfterBothPlayersPass() {
-        Round round = new Round(player1, player2);
-        assertFalse(round.isOver());
-
-        round.passTurn();
-        round.passTurn();
-
-        assertTrue(round.isOver());
     }
 
     @Test

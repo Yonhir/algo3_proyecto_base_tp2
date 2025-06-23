@@ -13,12 +13,12 @@ public class OnePassedState implements RoundState{
     }
 
     @Override
-    public void passTurn(Round round) {
+    public void passTurn(Round round, Game game) {
         round.setState(new BothPassedState());
-    }
-
-    @Override
-    public boolean isOver() {
-        return false;
+        round.assignVictory();
+        game.clearBoard();
+        if (!game.isGameOver()) {
+            game.startNewRound();
+        }
     }
 }

@@ -7,13 +7,8 @@ public class BothPlayingState implements RoundState{
     }
 
     @Override
-    public void passTurn(Round round) {
+    public void passTurn(Round round, Game game) {
         round.setState(new OnePassedState(round.getOpponent()));
         round.swapPlayers();
-    }
-
-    @Override
-    public boolean isOver() {
-        return false;
     }
 }

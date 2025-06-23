@@ -16,8 +16,7 @@ public class Game {
     }
 
     public void passRound() {
-        currentRound.passTurn();
-        checkRoundEnd();
+        currentRound.passTurn(this);
     }
 
     public boolean isGameOver() {
@@ -32,17 +31,7 @@ public class Game {
         return player1.hasWonGame() ? player1 : player2;
     }
 
-    private void checkRoundEnd() {
-        if (currentRound.isOver()) {
-            currentRound.assignVictory();
-            clearBoard();
-            if (!isGameOver()) {
-                startNewRound();
-            }
-        }
-    }
-
-    private void clearBoard() {
+    public void clearBoard() {
         player1.discardAllRows();
         player2.discardAllRows();
     }
