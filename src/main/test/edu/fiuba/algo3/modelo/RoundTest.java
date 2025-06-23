@@ -3,14 +3,17 @@ package edu.fiuba.algo3.modelo;
 import edu.fiuba.algo3.modelo.Colors.Blue;
 import edu.fiuba.algo3.modelo.Colors.Red;
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
+import edu.fiuba.algo3.modelo.cards.units.Unit;
 import edu.fiuba.algo3.modelo.sections.SpecialZone;
 import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
 import edu.fiuba.algo3.modelo.sections.rows.Ranged;
 import edu.fiuba.algo3.modelo.sections.rows.Siege;
+import edu.fiuba.algo3.modelo.sections.types.CloseCombatType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,11 +26,19 @@ public class RoundTest {
     private Player player2;
     private Round round;
     private Game game;
+    private Unit unidad;
+    private CloseCombat closeCombat;
+    private Ranged ranged;
+    private Siege siege;
 
     @BeforeEach
     public void setUp() {
-        player1 = new Player("nombre1", new Deck(), new CloseCombat(), new Ranged(), new Siege(), new Blue());
+        closeCombat = new CloseCombat();
+        ranged = new Ranged();
+        siege = new Siege();
+        player1 = new Player("nombre1", new Deck(), closeCombat, ranged, siege, new Blue());
         player2 = new Player("nombre2", new Deck(), new CloseCombat(), new Ranged(), new Siege(), new Red());
+        unidad = new Unit("Nombre", "Descripcion", 4, new CloseCombatType(), new ArrayList<>());
         round = new Round(player1, player2);
         game = new Game(player1, player2);
     }
@@ -57,21 +68,12 @@ public class RoundTest {
 
     @Test
     public void testAssignVictoryIncrementsWinnerRoundCount() {
-        Player winner = mock(Player.class);
-        Player loser = mock(Player.class);
-        Round round = new Round(winner, loser);
-
-        when(winner.calculatePoints()).thenReturn(15);
-        when(loser.calculatePoints()).thenReturn(10);
-
-
-        when(winner.winner(loser)).thenReturn(Optional.of(winner));
-        when(loser.winner(winner)).thenReturn(Optional.of(winner));
+        player1.playCard(unidad, closeCombat , round);
 
         round.assignVictory();
 
-        verify(winner).winRound();
-        verify(loser, never()).winRound();
+        assertEquals(1, player1.getRoundsWon());
+        assertEquals(0, player2.getRoundsWon());
     }
 
 

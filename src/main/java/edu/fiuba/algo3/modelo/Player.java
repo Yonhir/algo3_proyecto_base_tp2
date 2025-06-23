@@ -90,18 +90,17 @@ public class Player {
         siege.discardCards(discardPile);
     }
 
-    public Optional<Player> winner(Player other) {
+    public void assignRoundVictoryToBetterPlayer(Player other) {
         int myPoints = this.calculatePoints();
         int otherPoints = other.calculatePoints();
 
         if (myPoints > otherPoints) {
-            return Optional.of(this);
+            this.winRound();
         } else if (myPoints < otherPoints) {
-            return Optional.of(other);
-        } else {
-            return Optional.empty();
+            other.winRound();
         }
     }
+
 
     public Player getWinnerAgainst(Player other) {
         if (this.hasWonGame()) {

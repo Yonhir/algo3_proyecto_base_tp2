@@ -36,7 +36,7 @@ public class Round {
     }
 
     public void assignVictory() {
-        player1.winner(player2).ifPresent(Player::winRound);
+        player1.assignRoundVictoryToBetterPlayer(player2);
     }
 
     public void swapPlayers() {
