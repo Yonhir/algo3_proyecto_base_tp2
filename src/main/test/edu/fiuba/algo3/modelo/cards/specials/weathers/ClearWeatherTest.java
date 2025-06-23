@@ -80,6 +80,8 @@ public class ClearWeatherTest {
     @Test
     public void testLaCartaClearWeatherSeAplicaSobreTodoElTablero() {
         Weather clear = new ClearWeather("nombre", "descripcion");
+        Weather bitingFrost = new BitingFrost("nombre", "descripcion");
+        Weather fog = new ImpenetrableFog("nombre", "descripcion");
         Weather rain = new TorrentialRain("nombre", "descripcion");
         CloseCombat closeCombat1 = new CloseCombat();
         CloseCombat closeCombat2 = new CloseCombat();
@@ -99,6 +101,8 @@ public class ClearWeatherTest {
         siege1.placeCard(cartaS);
         siege2.placeCard(cartaS);
 
+        bitingFrost.play(specialZone);
+        fog.play(specialZone);
         rain.play(specialZone);
         clear.play(specialZone);
 
