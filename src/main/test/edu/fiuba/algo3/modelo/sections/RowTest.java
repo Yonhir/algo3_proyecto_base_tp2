@@ -11,6 +11,7 @@ import edu.fiuba.algo3.modelo.cards.specials.weathers.Weather;
 import edu.fiuba.algo3.modelo.cards.units.modifiers.Agile;
 import edu.fiuba.algo3.modelo.cards.units.modifiers.Modifier;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
+import edu.fiuba.algo3.modelo.cards.units.modifiers.MoraleBoostModifier;
 import edu.fiuba.algo3.modelo.errors.SectionTypeMismatchError;
 import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
 import edu.fiuba.algo3.modelo.sections.rows.Ranged;
@@ -90,7 +91,7 @@ public class RowTest {
 
         siegeRow.placeCard(catapulta);
 
-        assertTrue(siegeRow.getCards().contains(catapulta));
+        assertTrue(siegeRow.containsCard(catapulta));
     }
 
     @Test
@@ -102,7 +103,7 @@ public class RowTest {
 
         ranged.placeCard(unitConAgil);
 
-        assertTrue(ranged.getCards().contains(unitConAgil));
+        assertTrue(ranged.containsCard(unitConAgil));
     }
 
     @Test
@@ -114,7 +115,7 @@ public class RowTest {
 
         closeCombat.placeCard(unitConAgil);
 
-        assertTrue(closeCombat.getCards().contains(unitConAgil));
+        assertTrue(closeCombat.containsCard(unitConAgil));
     }
 
     @Test
@@ -157,5 +158,17 @@ public class RowTest {
 
         assertTrue(siege.getCards().isEmpty());
         assertEquals(2, discardPile.getCardCount());
+    }
+
+    @Test
+    public void testAlJugarUnaCartaEnLaFilaSeLaPuedeDescartar() {
+        DiscardPile discardPile = new DiscardPile();
+        Row ranged = new Ranged(discardPile);
+        Unit unidadConMoraleBoost = new Unit("nombre", "descripcion", 8, List.of(new RangedType()), List.of(new MoraleBoostModifier()));
+
+        ranged.placeCard(unidadConMoraleBoost);
+        ranged.discardCard(unidadConMoraleBoost);
+
+        assertFalse(ranged.containsCard(unidadConMoraleBoost));
     }
 }
