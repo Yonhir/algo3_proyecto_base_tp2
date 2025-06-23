@@ -16,26 +16,26 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ImpenetrableFogTest {
+public class BitingFrostTest {
     @Test
-    public void testLaCartaImpenetrableFogSeAplicaCorrectamenteEnLasFilasRanged() {
-        Weather fog = new ImpenetrableFog("niebla", "impenetrable");
-        Ranged ranged1 = new Ranged();
-        Ranged ranged2 = new Ranged();
-        Unit carta = new Unit("carta", "comun", 6, new RangedType(), List.of(new MoraleBoostModifier()));
+    public void testLaCartaTorrentialRainSeAplicaCorrectamenteEnLasFilasCloseCombat() {
+        Weather frost = new BitingFrost("escarcha", "wow");
+        CloseCombat closeCombat1 = new CloseCombat();
+        CloseCombat closeCombat2 = new CloseCombat();
+        Unit carta = new Unit("carta", "comun", 8, new CloseCombatType(), List.of(new MoraleBoostModifier()));
 
-        ranged1.placeCard(carta);
-        ranged2.placeCard(carta);
+        closeCombat1.placeCard(carta);
+        closeCombat2.placeCard(carta);
 
-        fog.apply(carta, ranged1);
-        fog.apply(carta, ranged2);
+        frost.apply(carta, closeCombat1);
+        frost.apply(carta, closeCombat2);
 
         assertEquals(1, carta.calculatePoints());
     }
 
     @Test
-    public void testLaCartaTorrentialRainUnicamenteAfectaALasFilasRanged() {
-        Weather fog = new ImpenetrableFog("niebla", "impenetrable");
+    public void testLaCartaTorrentialRainUnicamenteAfectaALasFilasCloseCombat() {
+        Weather frost = new BitingFrost("escarcha", "wow");
         CloseCombat closeCombat1 = new CloseCombat();
         CloseCombat closeCombat2 = new CloseCombat();
         Ranged ranged1 = new Ranged();
@@ -43,9 +43,9 @@ public class ImpenetrableFogTest {
         Siege siege1 = new Siege();
         Siege siege2 = new Siege();
         Section specialZone = new SpecialZone(closeCombat1, ranged1, siege1, closeCombat2, ranged2, siege2);
-        Unit carta1 = new Unit("carta", "comun", 6, new SiegeType(), List.of(new MoraleBoostModifier()));
-        Unit carta2 = new Unit("nombre", "descripcion", 7, new CloseCombatType(), List.of(new MoraleBoostModifier()));
-        Unit carta3 = new Unit("nombre", "descripcion", 5, new RangedType(), List.of(new MoraleBoostModifier()));
+        Unit carta1 = new Unit("carta", "comun", 2, new SiegeType(), List.of(new MoraleBoostModifier()));
+        Unit carta2 = new Unit("nombre", "descripcion", 4, new CloseCombatType(), List.of(new MoraleBoostModifier()));
+        Unit carta3 = new Unit("nombre", "descripcion", 8, new RangedType(), List.of(new MoraleBoostModifier()));
 
         closeCombat1.placeCard(carta2);
         closeCombat2.placeCard(carta2);
@@ -53,10 +53,10 @@ public class ImpenetrableFogTest {
         ranged2.placeCard(carta3);
         siege1.placeCard(carta1);
         siege2.placeCard(carta1);
-        fog.play(specialZone);
+        frost.play(specialZone);
 
-        assertEquals(6, carta1.calculatePoints());
-        assertEquals(7, carta2.calculatePoints());
-        assertEquals(1, carta3.calculatePoints());
+        assertEquals(2, carta1.calculatePoints());
+        assertEquals(8, carta3.calculatePoints());
+        assertEquals(1, carta2.calculatePoints());
     }
 }
