@@ -2,7 +2,6 @@ package edu.fiuba.algo3.modelo.cards.specials.weathers;
 
 import edu.fiuba.algo3.modelo.cards.units.Unit;
 import edu.fiuba.algo3.modelo.cards.units.modifiers.MoraleBoostModifier;
-import edu.fiuba.algo3.modelo.cards.units.modifiers.TightBond;
 import edu.fiuba.algo3.modelo.sections.Section;
 import edu.fiuba.algo3.modelo.sections.SpecialZone;
 import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
