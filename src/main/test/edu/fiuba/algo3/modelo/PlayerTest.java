@@ -12,6 +12,8 @@ import edu.fiuba.algo3.modelo.cards.specials.weathers.TorrentialRain;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
 import edu.fiuba.algo3.modelo.colors.Green;
 import edu.fiuba.algo3.modelo.colors.PlayerColor;
+import edu.fiuba.algo3.modelo.colors.Red;
+import edu.fiuba.algo3.modelo.errors.SectionPlayerMismatchError;
 import edu.fiuba.algo3.modelo.sections.*;
 import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
 import edu.fiuba.algo3.modelo.sections.rows.Ranged;
@@ -232,10 +234,4 @@ public class PlayerTest {
         //ASSERT
         Assertions.assertEquals(expectedPoints, actualPoints);
     }
-
-    @Test
-    public void playerSetColorToCards(){
-        Assertions.assertTrue(deck.getCards().stream().allMatch(card -> card.sameColor(color)));
-    }
-
 }

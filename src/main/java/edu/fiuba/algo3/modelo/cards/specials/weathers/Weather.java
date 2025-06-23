@@ -4,6 +4,7 @@ import edu.fiuba.algo3.modelo.cards.Card;
 import edu.fiuba.algo3.modelo.cards.specials.Special;
 import edu.fiuba.algo3.modelo.colors.Green;
 import edu.fiuba.algo3.modelo.colors.PlayerColor;
+import edu.fiuba.algo3.modelo.errors.SectionPlayerMismatchError;
 import edu.fiuba.algo3.modelo.sections.rows.Row;
 import edu.fiuba.algo3.modelo.sections.types.SectionType;
 
@@ -17,6 +18,13 @@ public abstract class Weather extends Special {
     @Override
     public void setColor(PlayerColor playerColor, Green bothPlayers){
         this.setColor(bothPlayers);
+    }
+
+    @Override
+    public void verifyColor(PlayerColor playerColor) {
+        boolean cardColorGreen =  this.playerColor instanceof Green;
+        if (!cardColorGreen) throw new SectionPlayerMismatchError("Side does not match for this card.");
+
     }
 
     public abstract void apply(Card card, Row row);

@@ -64,7 +64,7 @@ public class Player {
         return closeCombat.calculatePoints() + ranged.calculatePoints() + siege.calculatePoints();
     }
 
-    public void playCard(Card card, Row row) {
+    public void playCard(Card card, Section row) {
         row.placeCard(card);
         hand.getCard(card);
     }

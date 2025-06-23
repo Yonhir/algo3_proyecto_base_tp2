@@ -38,14 +38,5 @@ public abstract class Card {
         this.playerColor = playerColor;
     }
 
-    public boolean sameColor(PlayerColor playerColor) {
-        return (playerColor.equals(this.playerColor) || this.playerColor instanceof Green);
-    }
-
-    public void verifyColor(PlayerColor playerColor) {
-        boolean sameColor = playerColor.equals(this.playerColor);
-        boolean cardColorGreen =  this.playerColor instanceof Green;
-        if (!(sameColor || cardColorGreen)) throw new SectionPlayerMismatchError("Side does not match for this card.");
-
-    }
+    public abstract void verifyColor(PlayerColor playerColor);
 }
