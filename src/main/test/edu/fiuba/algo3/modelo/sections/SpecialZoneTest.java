@@ -1,6 +1,8 @@
 package edu.fiuba.algo3.modelo.sections;
 
 
+import edu.fiuba.algo3.modelo.Colors.Blue;
+import edu.fiuba.algo3.modelo.Colors.Red;
 import edu.fiuba.algo3.modelo.Player;
 import edu.fiuba.algo3.modelo.Round;
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
@@ -52,6 +54,11 @@ public class SpecialZoneTest {
 
     @BeforeEach
     public void setup() {
+
+        deck = new Deck();
+        closeCombat = new CloseCombat();
+        ranged = new Ranged();
+        siege = new Siege();
         // Initialize rows for both players
         player1CloseCombatRow = new CloseCombat();
         player1RangedRow = new Ranged();
@@ -59,8 +66,8 @@ public class SpecialZoneTest {
         player2CloseCombatRow = new CloseCombat();
         player2RangedRow = new Ranged();
         player2SiegeRow = new Siege();
-        player = new Player("Gabriel", deck, closeCombat, ranged, siege);
-        opponent = new Player("Juan", deck, closeCombat, ranged, siege);
+        player = new Player("Gabriel", deck, closeCombat, ranged, siege, new Blue());
+        opponent = new Player("Juan", deck, closeCombat, ranged, siege, new Red());
         round = new Round(player, opponent);
 
         // Initialize weather zone with both players' rows

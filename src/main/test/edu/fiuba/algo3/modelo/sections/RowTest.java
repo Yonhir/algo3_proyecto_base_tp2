@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.sections;
 
+import edu.fiuba.algo3.modelo.Colors.Red;
 import edu.fiuba.algo3.modelo.Player;
 import edu.fiuba.algo3.modelo.Round;
 import edu.fiuba.algo3.modelo.Colors.Blue;
@@ -47,8 +48,8 @@ public class RowTest {
         closeCombat = new CloseCombat();
         ranged = new Ranged();
         siege = new Siege();
-        player = new Player("Gabriel", deck, closeCombat, ranged, siege);
-        opponent = new Player("Juan", deck, closeCombat, ranged, siege);
+        player = new Player("Gabriel", deck, closeCombat, ranged, siege, new Blue());
+        opponent = new Player("Juan", deck, closeCombat, ranged, siege, new Red());
         Hand hand = player.getHand();
         round = new Round(player, opponent);
     }
@@ -61,7 +62,7 @@ public class RowTest {
         Ranged ranged = new Ranged();
         Siege siege = new Siege();
 
-        new Player("Gabriel", 2, new Deck(), closeCombat, ranged, siege, blue);
+        new Player("Gabriel", new Deck(), closeCombat, ranged, siege, blue);
 
         Assertions.assertTrue(closeCombat.sameColor(blue));
         Assertions.assertTrue(ranged.sameColor(blue));

@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.modelo.cards.specials.weathers;
 
+import edu.fiuba.algo3.modelo.Colors.Blue;
+import edu.fiuba.algo3.modelo.Colors.Red;
 import edu.fiuba.algo3.modelo.Player;
 import edu.fiuba.algo3.modelo.Round;
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
@@ -44,9 +46,13 @@ public class WeatherTest {
 
     @BeforeEach
     public void setup() {
+        deck = new Deck();
+        closeCombat = new CloseCombat();
+        ranged = new Ranged();
+        siege = new Siege();
 
-        player = new Player("Gabriel", deck, closeCombat, ranged, siege);
-        opponent = new Player("Juan", deck, closeCombat, ranged, siege);
+        player = new Player("Gabriel", deck, closeCombat, ranged, siege, new Blue());
+        opponent = new Player("Juan", deck, closeCombat, ranged, siege, new Red());
         round = new Round(player, opponent);
         // Initialize rows
         closeCombatRow = new CloseCombat();

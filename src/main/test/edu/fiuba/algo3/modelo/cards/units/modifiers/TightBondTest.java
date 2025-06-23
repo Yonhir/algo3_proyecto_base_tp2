@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.modelo.cards.units.modifiers;
 
+import edu.fiuba.algo3.modelo.Colors.Blue;
+import edu.fiuba.algo3.modelo.Colors.Red;
 import edu.fiuba.algo3.modelo.Player;
 import edu.fiuba.algo3.modelo.Round;
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
@@ -44,8 +46,8 @@ public class TightBondTest {
         ranged = new Ranged();
         siegeRow = new Siege();
         deck = new Deck();
-        player = new Player("Gabriel", deck, closeCombat, ranged, siegeRow);
-        opponent = new Player("Juan", deck, closeCombat, ranged, siegeRow);
+        player = new Player("Gabriel", deck, closeCombat, ranged, siegeRow, new Blue());
+        opponent = new Player("Juan", deck, closeCombat, ranged, siegeRow, new Red());
         round = new Round(player, opponent);
 
         // Create three different TightBond modifiers

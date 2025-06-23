@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.modelo.cards.units.modifiers;
 
+import edu.fiuba.algo3.modelo.Colors.Blue;
+import edu.fiuba.algo3.modelo.Colors.Red;
 import edu.fiuba.algo3.modelo.Player;
 import edu.fiuba.algo3.modelo.Round;
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
@@ -40,11 +42,15 @@ public class SpyTest {
     private List<Card> cards;
     @BeforeEach
     void setUp(){
+        deck = new Deck();
+        closeCombat = new CloseCombat();
+        ranged = new Ranged();
+        siege = new Siege();
         cct = new CloseCombatType();
         r = new RangedType();
         s = new SiegeType();
-        player = new Player("Gabriel", deck, closeCombat, ranged, siege);
-        opponent = new Player("Juan", deck, closeCombat, ranged, siege);
+        player = new Player("Gabriel", deck, closeCombat, ranged, siege, new Blue());
+        opponent = new Player("Juan", deck, closeCombat, ranged, siege, new Red());
         round = new Round(player, opponent);
         cards = new ArrayList<>(Arrays.asList(
                 new Unit("Nombre", "Descripcion", 4, cct, new ArrayList<>()),

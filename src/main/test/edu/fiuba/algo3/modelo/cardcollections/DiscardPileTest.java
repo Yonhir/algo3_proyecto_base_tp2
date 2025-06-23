@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.modelo.cardcollections;
 
+import edu.fiuba.algo3.modelo.Colors.Blue;
+import edu.fiuba.algo3.modelo.Colors.Red;
 import edu.fiuba.algo3.modelo.Player;
 import edu.fiuba.algo3.modelo.Round;
 import edu.fiuba.algo3.modelo.cards.Card;
@@ -42,8 +44,12 @@ public class DiscardPileTest {
     @BeforeEach
     void setUp() {
         discardPile = new DiscardPile();
-        player = new Player("Gabriel", deck, closeCombat, ranged, siegeRow);
-        opponent = new Player("Juan", deck, closeCombat, ranged, siegeRow);
+        deck = new Deck();
+        closeCombat = new CloseCombat();
+        ranged = new Ranged();
+        siegeRow = new Siege();
+        player = new Player("Gabriel", deck, closeCombat, ranged, siegeRow, new Blue());
+        opponent = new Player("Juan", deck, closeCombat, ranged, siegeRow, new Red());
         round = new Round(player, opponent);
 
         unit1 = new Unit("Unit1", "Description1", 5, List.of(new CloseCombatType()), new ArrayList<>());

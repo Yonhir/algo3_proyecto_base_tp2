@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.modelo;
 
+import edu.fiuba.algo3.modelo.Colors.Blue;
+import edu.fiuba.algo3.modelo.Colors.Red;
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
 import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
 import edu.fiuba.algo3.modelo.sections.rows.Ranged;
@@ -18,8 +20,8 @@ public class GameTest {
 
     @BeforeEach
     public void setUp() {
-        player1 = new Player("nombre1", new Deck(), new CloseCombat(), new Ranged(), new Siege());
-        player2 = new Player("nombre2", new Deck(), new CloseCombat(), new Ranged(), new Siege());
+        player1 = new Player("nombre1", new Deck(), new CloseCombat(), new Ranged(), new Siege(), new Blue());
+        player2 = new Player("nombre2", new Deck(), new CloseCombat(), new Ranged(), new Siege(), new Red());
         game = new Game(player1, player2);
     }
 
