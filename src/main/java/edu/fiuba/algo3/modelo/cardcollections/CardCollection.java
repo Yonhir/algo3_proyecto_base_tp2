@@ -12,6 +12,7 @@ public abstract class CardCollection {
     public CardCollection() {
         this.cards = new ArrayList<>();
     }
+
     public void addCard(Card card) {
         this.cards.add(card);
     }
@@ -36,9 +37,5 @@ public abstract class CardCollection {
         if (!cards.remove(card)) {
             throw new TheCardWasNotFound("The card is not in the deck");
         }
-    }
-
-    public void getCard(Card card){
-        cards.remove(card);
     }
 }
