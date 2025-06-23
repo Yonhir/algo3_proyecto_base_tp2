@@ -27,7 +27,7 @@ public abstract class Row implements Section {
     public void placeCard(Card card, Round round) {
         card.verifySectionType(this.sectionType);
         card.play(this);
-        round.endTurn();
+        round.playerPlayedCard();
     }
 
     public List<Card> getCards() {

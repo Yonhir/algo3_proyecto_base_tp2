@@ -20,7 +20,6 @@ public class Player {
     private final CloseCombat closeCombat;
     private final Ranged ranged;
     private final Siege siege;
-    private boolean hasPassed = false;
     private int roundsWon = 0;
 
     public Player(String name, Deck deck, CloseCombat closeCombat, Ranged ranged, Siege siege) {
@@ -49,17 +48,6 @@ public class Player {
     public void playCard(Card card, Row row, Round round) {
         row.placeCard(card, round);
         hand.getCard(card);
-    }
-    public void passRound() {
-        this.hasPassed = true;
-    }
-
-    public boolean hasPassed() {
-        return hasPassed;
-    }
-
-    public void resetPass() {
-        this.hasPassed = false;
     }
 
     public void winRound() {

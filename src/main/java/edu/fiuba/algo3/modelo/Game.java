@@ -12,8 +12,6 @@ public class Game {
     }
 
     public void startNewRound() {
-        player1.resetPass();
-        player2.resetPass();
         currentRound = new Round(player1, player2);
     }
 

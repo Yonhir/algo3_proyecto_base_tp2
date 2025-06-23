@@ -8,8 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class GameTest {
 
@@ -41,12 +40,19 @@ public class GameTest {
 
     @Test
     public void testClearBoardCallsDiscardAllRows() {
-        player1.passRound();
-        player2.passRound();
-        game.startNewRound();
+        Player mock1 = mock(Player.class);
+        Player mock2 = mock(Player.class);
 
-        assertTrue(player1.getDiscardPile().getCards().isEmpty());
-        assertTrue(player2.getDiscardPile().getCards().isEmpty());
+        when(mock1.getRoundsWon()).thenReturn(0);
+        when(mock2.getRoundsWon()).thenReturn(0);
+
+        Game game = new Game(mock1, mock2);
+
+        game.passRound();
+        game.passRound();
+
+        verify(mock1).discardAllRows();
+        verify(mock2).discardAllRows();
     }
 
     @Test

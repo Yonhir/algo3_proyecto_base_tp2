@@ -230,21 +230,6 @@ public class PlayerTest {
     }
 
     @Test
-    public void testPlayerPassesRoundHasPassedIsTrue() {
-        player.passRound();
-
-        Assertions.assertTrue(player.hasPassed());
-    }
-
-    @Test
-    public void testPlayerResetsPassHasPassedIsFalse() {
-        player.passRound();
-        player.resetPass();
-
-        Assertions.assertFalse(player.hasPassed());
-    }
-
-    @Test
     public void testPlayerWinsOneRoundRoundsWonIncreases() {
         player.winRound();
 

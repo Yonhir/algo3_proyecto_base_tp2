@@ -25,7 +25,7 @@ public class SpecialZone implements Section {
     public void placeCard(Card card, Round round) {
         card.verifySectionType(this.sectionType);
         card.play(this);
-        round.endTurn();
+        round.playerPlayedCard();
     }
 
     public void applyCloseCombatWeather(Weather weather) {
