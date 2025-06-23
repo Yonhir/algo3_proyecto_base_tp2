@@ -10,6 +10,7 @@ import edu.fiuba.algo3.modelo.sections.rows.Siege;
 import edu.fiuba.algo3.modelo.sections.types.CloseCombatType;
 import edu.fiuba.algo3.modelo.sections.types.RangedType;
 import edu.fiuba.algo3.modelo.sections.types.SiegeType;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -17,11 +18,27 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ImpenetrableFogTest {
+    Weather fog;
+    CloseCombat closeCombat1;
+    CloseCombat closeCombat2;
+    Ranged ranged1;
+    Ranged ranged2;
+    Siege siege1;
+    Siege siege2;
+
+    @BeforeEach
+    void setUp() {
+        fog = new ImpenetrableFog("niebla", "impenetrable");
+        closeCombat1 = new CloseCombat();
+        closeCombat2 = new CloseCombat();
+        ranged1 = new Ranged();
+        ranged2 = new Ranged();
+        siege1 = new Siege();
+        siege2 = new Siege();
+    }
+
     @Test
     public void testLaCartaImpenetrableFogSeAplicaCorrectamenteEnLasFilasRanged() {
-        Weather fog = new ImpenetrableFog("niebla", "impenetrable");
-        Ranged ranged1 = new Ranged();
-        Ranged ranged2 = new Ranged();
         Unit carta = new Unit("carta", "comun", 6, new RangedType(), List.of(new MoraleBoostModifier()));
 
         ranged1.placeCard(carta);
@@ -35,13 +52,6 @@ public class ImpenetrableFogTest {
 
     @Test
     public void testLaCartaTorrentialRainUnicamenteAfectaALasFilasRanged() {
-        Weather fog = new ImpenetrableFog("niebla", "impenetrable");
-        CloseCombat closeCombat1 = new CloseCombat();
-        CloseCombat closeCombat2 = new CloseCombat();
-        Ranged ranged1 = new Ranged();
-        Ranged ranged2 = new Ranged();
-        Siege siege1 = new Siege();
-        Siege siege2 = new Siege();
         Section specialZone = new SpecialZone(closeCombat1, ranged1, siege1, closeCombat2, ranged2, siege2);
         Unit carta1 = new Unit("carta", "comun", 6, new SiegeType(), List.of(new MoraleBoostModifier()));
         Unit carta2 = new Unit("nombre", "descripcion", 7, new CloseCombatType(), List.of(new MoraleBoostModifier()));
