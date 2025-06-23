@@ -22,12 +22,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ScorchTest {
     private Special tierraArrasada;
-    private Row closeCombatRow1;
-    private Row rangedRow1;
-    private Row siegeRow1;
-    private Row closeCombatRow2;
-    private Row rangedRow2;
-    private Row siegeRow2;
+    private CloseCombat closeCombatRow1;
+    private Ranged rangedRow1;
+    private Siege siegeRow1;
+    private CloseCombat closeCombatRow2;
+    private Ranged rangedRow2;
+    private Siege siegeRow2;
     private SpecialZone specialZone;
     @BeforeEach
     void setUp() {
@@ -38,11 +38,7 @@ public class ScorchTest {
         closeCombatRow2 = new CloseCombat();
         rangedRow2 = new Ranged();
         siegeRow2 = new Siege();
-        specialZone = new SpecialZone(
-                List.of(closeCombatRow1, closeCombatRow2),
-                List.of(rangedRow1, rangedRow2),
-                List.of(siegeRow1, siegeRow2)
-        );
+        specialZone = new SpecialZone(closeCombatRow1, rangedRow1, siegeRow1, closeCombatRow2, rangedRow2, siegeRow2);
     }
     @Test
     public void testSeJuegaUnaTierraArrasadaSeEliminaLaCartaMasFuerteDeLaFilaCloseCombatCorrectamente() {
