@@ -3,7 +3,7 @@ package edu.fiuba.algo3.modelo.cards;
 import edu.fiuba.algo3.modelo.Colors.Blue;
 import edu.fiuba.algo3.modelo.Colors.Red;
 import edu.fiuba.algo3.modelo.Colors.Color;
-import edu.fiuba.algo3.modelo.Player;
+import edu.fiuba.algo3.modelo.turnManagement.Player;
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.BitingFrost;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.ImpenetrableFog;
@@ -65,7 +65,7 @@ public class CardTest {
         Ranged ranged = new Ranged();
         Siege siege = new Siege();
 
-        new Player("Gabriel", 2, deck, closeCombat, ranged, siege, blue);
+        new Player("Gabriel", deck, closeCombat, ranged, siege, blue);
 
         List<Card> cards = deck.getCards();
 
