@@ -69,7 +69,7 @@ public class Player {
 
     public void playCard(Card card, Row row, Round round) {
         row.placeCard(card, round);
-        hand.getCard(card);
+        hand.retrieveCard(card);
     }
 
     public void winRound() {

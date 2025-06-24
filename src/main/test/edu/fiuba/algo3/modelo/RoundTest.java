@@ -68,6 +68,7 @@ public class RoundTest {
 
     @Test
     public void testAssignVictoryIncrementsWinnerRoundCount() {
+        player1.getHand().addCard(unidad);
         player1.playCard(unidad, closeCombat , round);
 
         round.assignVictory();
