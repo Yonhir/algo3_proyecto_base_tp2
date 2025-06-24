@@ -1,5 +1,8 @@
 package edu.fiuba.algo3.modelo.cards.specials.weathers;
 
+import edu.fiuba.algo3.modelo.Colors.Blue;
+import edu.fiuba.algo3.modelo.Colors.Red;
+import edu.fiuba.algo3.modelo.cardcollections.Deck;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
 import edu.fiuba.algo3.modelo.sections.Section;
 import edu.fiuba.algo3.modelo.sections.SpecialZone;
@@ -9,6 +12,8 @@ import edu.fiuba.algo3.modelo.sections.rows.Siege;
 import edu.fiuba.algo3.modelo.sections.types.CloseCombatType;
 import edu.fiuba.algo3.modelo.sections.types.RangedType;
 import edu.fiuba.algo3.modelo.sections.types.SiegeType;
+import edu.fiuba.algo3.modelo.turnManagement.Player;
+import edu.fiuba.algo3.modelo.turnManagement.Round;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -28,6 +33,9 @@ public class ClearWeatherTest {
     Siege siege1;
     Siege siege2;
 
+    Player player1;
+    Player player2;
+
     @BeforeEach
     void setUp() {
         clear = new ClearWeather("nombre", "descripcion");
@@ -40,14 +48,17 @@ public class ClearWeatherTest {
         bitingFrost = new BitingFrost("nombre", "descripcion");
         fog = new ImpenetrableFog("nombre", "descripcion");
         rain = new TorrentialRain("nombre", "descripcion");
+
+        player1 = new Player("nombre", new Deck(), closeCombat1, ranged1, siege1, new Blue());
+        player2 = new Player("nombre", new Deck(), closeCombat2, ranged2, siege2, new Red());
     }
 
     @Test
     public void testSeAplicaElClimaClearWeatherCorrectamenteEnLasFilasCloseCombat() {
         Unit carta = new Unit("nombre", "descripcion", 5, new CloseCombatType(), List.of());
 
-        closeCombat1.placeCard(carta);
-        closeCombat2.placeCard(carta);
+        closeCombat1.placeCard(carta, new Round(player1, player2));
+        closeCombat2.placeCard(carta, new Round(player1, player2));
 
         bitingFrost.apply(carta, closeCombat1);
         bitingFrost.apply(carta, closeCombat2);
@@ -62,8 +73,8 @@ public class ClearWeatherTest {
     public void testSeAplicaElClimaClearWeatherCorrectamenteEnLasFilasRanged() {
         Unit carta = new Unit("nombre", "descripcion", 5, new RangedType(), List.of());
 
-        ranged1.placeCard(carta);
-        ranged2.placeCard(carta);
+        ranged1.placeCard(carta, new Round(player1, player2));
+        ranged2.placeCard(carta, new Round(player1, player2));
 
         fog.apply(carta, ranged1);
         fog.apply(carta, ranged2);
@@ -78,8 +89,8 @@ public class ClearWeatherTest {
     public void testSeAplicaElClimaClearWeatherCorrectamenteEnLasFilasSiege() {
         Unit carta = new Unit("nombre", "descripcion", 7, new SiegeType(), List.of());
 
-        siege1.placeCard(carta);
-        siege2.placeCard(carta);
+        siege1.placeCard(carta, new Round(player1, player2));
+        siege2.placeCard(carta, new Round(player1, player2));
 
         rain.apply(carta, siege1);
         rain.apply(carta, siege2);
@@ -97,12 +108,12 @@ public class ClearWeatherTest {
         Unit cartaR = new Unit("nombre", "descripcion", 5, new RangedType(), List.of());
         Unit cartaS = new Unit("nombre", "descripcion", 6, new SiegeType(), List.of());
 
-        closeCombat1.placeCard(cartaCC);
-        closeCombat2.placeCard(cartaCC);
-        ranged1.placeCard(cartaR);
-        ranged2.placeCard(cartaR);
-        siege1.placeCard(cartaS);
-        siege2.placeCard(cartaS);
+        closeCombat1.placeCard(cartaCC, new Round(player1, player2));
+        closeCombat2.placeCard(cartaCC, new Round(player1, player2));
+        ranged1.placeCard(cartaR, new Round(player1, player2));
+        ranged2.placeCard(cartaR, new Round(player1, player2));
+        siege1.placeCard(cartaS, new Round(player1, player2));
+        siege2.placeCard(cartaS, new Round(player1, player2));
 
         bitingFrost.play(specialZone);
         fog.play(specialZone);
