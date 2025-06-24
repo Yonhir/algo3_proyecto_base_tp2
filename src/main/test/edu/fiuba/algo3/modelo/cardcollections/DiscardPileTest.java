@@ -1,5 +1,9 @@
 package edu.fiuba.algo3.modelo.cardcollections;
 
+import edu.fiuba.algo3.modelo.Colors.Blue;
+import edu.fiuba.algo3.modelo.Colors.Red;
+import edu.fiuba.algo3.modelo.turnManagement.Player;
+import edu.fiuba.algo3.modelo.turnManagement.Round;
 import edu.fiuba.algo3.modelo.cards.Card;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
 import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
@@ -27,10 +31,27 @@ public class DiscardPileTest {
     private List<Card> siegeUnits;
     private List<Card> cards;
 
+    private Player player;
+    private Player opponent;
+    private Round round;
+    private Deck deck;
+
+    private CloseCombat closeCombat;
+    private Ranged ranged;
+    private Siege siegeRow;
+
 
     @BeforeEach
     void setUp() {
         discardPile = new DiscardPile();
+        deck = new Deck();
+        closeCombat = new CloseCombat();
+        ranged = new Ranged();
+        siegeRow = new Siege();
+        player = new Player("Gabriel", deck, closeCombat, ranged, siegeRow, new Blue());
+        opponent = new Player("Juan", deck, closeCombat, ranged, siegeRow, new Red());
+        round = new Round(player, opponent);
+
         unit1 = new Unit("Unit1", "Description1", 5, List.of(new CloseCombatType()), new ArrayList<>());
         unit2 = new Unit("Unit2", "Description2", 7, List.of(new RangedType()), new ArrayList<>());
         unit3 = new Unit("Nombre", "Descripcion3", 3, List.of(new SiegeType()), new ArrayList<>());
@@ -120,13 +141,13 @@ public class DiscardPileTest {
         Row siege = new Siege();
 
         for (Card card : closeCombatUnits) {
-            closeCombat.placeCard(card);
+            closeCombat.placeCard(card, round);
         }
         for (Card card : rangedUnits) {
-            ranged.placeCard(card);
+            ranged.placeCard(card, round);
         }
         for (Card card : siegeUnits) {
-            siege.placeCard(card);
+            siege.placeCard(card, round);
         }
 
         siege.discardCards(discardPile);
