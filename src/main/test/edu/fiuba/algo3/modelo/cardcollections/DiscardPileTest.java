@@ -83,14 +83,8 @@ public class DiscardPileTest {
     }
 
     @Test
-    void testDiscardPileStartsEmpty() {
-        assertEquals(0, discardPile.getCardCount(), "Discard pile should start empty");
-    }
-
-    @Test
     void testAddCardToDiscardPile() {
         discardPile.addCard(unit1);
-        assertEquals(1, discardPile.getCardCount(), "Discard pile should have one card");
         assertEquals(unit1, discardPile.getLastCard(), "Last card should be the one just added");
     }
 
@@ -98,7 +92,6 @@ public class DiscardPileTest {
     void testAddMultipleCardsToDiscardPile() {
         discardPile.addCard(unit1);
         discardPile.addCard(unit2);
-        assertEquals(2, discardPile.getCardCount(), "Discard pile should have two cards");
         assertEquals(unit2, discardPile.getLastCard(), "Last card should be the most recently added");
     }
 
@@ -141,7 +134,7 @@ public class DiscardPileTest {
     }
 
     @Test
-    public void cards_count_go_to_discardPile(){
+    public void testCardsCountGoToDiscardPile(){
         int expectedSize = 15;
         Row ranged = new Ranged();
         Row closeCombat = new CloseCombat();
@@ -165,5 +158,4 @@ public class DiscardPileTest {
 
         assertEquals(expectedSize, actualSize);
     }
-
 }

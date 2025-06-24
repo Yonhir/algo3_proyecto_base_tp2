@@ -12,6 +12,7 @@ public abstract class CardCollection {
     public CardCollection() {
         this.cards = new ArrayList<>();
     }
+
     public void addCard(Card card) {
         this.cards.add(card);
     }
