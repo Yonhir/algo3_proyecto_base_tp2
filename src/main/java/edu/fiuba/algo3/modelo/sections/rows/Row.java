@@ -37,6 +37,7 @@ public abstract class Row implements Section {
     }
 
     public void addCard(Card card) {
+        card.verifySectionType(this.sectionType);
         cards.add(card);
         currentWeather.apply(card, this);
         lastCard = (Unit) card;
