@@ -1,8 +1,10 @@
 module edu.fiuba.algo3 {
     requires javafx.controls;
+    requires javafx.graphics;
     requires json.simple;
     exports edu.fiuba.algo3;
     exports edu.fiuba.algo3.vistas;
+    exports edu.fiuba.algo3.vistas.components;
     exports edu.fiuba.algo3.modelo;
     opens edu.fiuba.algo3.modelo;
     exports edu.fiuba.algo3.modelo.errors;
