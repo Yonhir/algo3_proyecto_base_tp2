@@ -9,6 +9,7 @@ import edu.fiuba.algo3.modelo.sections.rows.Siege;
 import edu.fiuba.algo3.modelo.sections.types.CloseCombatType;
 import edu.fiuba.algo3.modelo.sections.types.RangedType;
 import edu.fiuba.algo3.modelo.sections.types.SiegeType;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -16,33 +17,37 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class AgileTest {
+    Card cartaConAgile;
+    Row closeCombat;
+    Row ranged;
+    Row siege;
+
+    @BeforeEach
+    void setUp() {
+        cartaConAgile = new Unit("carta con agile", "con agile", 4, List.of(new CloseCombatType(), new RangedType(), new SiegeType()), List.of(new Agile()));
+        closeCombat = new CloseCombat();
+        ranged = new Ranged();
+        siege = new Siege();
+    }
 
     @Test
-    public void testLaCartaConModificadorAgileSePuedeUbicarEnLaFilaCloseCombatYRanged() {
-        Row closeCombat = new CloseCombat();
-        Row ranged = new Ranged();
-        Card cartaConAgile = new Unit("carta con agile", "con agile", 4, List.of(new CloseCombatType(), new RangedType()), List.of(new Agile()));
-
+    public void testLaCartaConModificadorAgileSePuedeUbicarEnLaFilaCloseCombat() {
         cartaConAgile.play(closeCombat);
-        cartaConAgile.play(ranged);
 
         assertTrue(closeCombat.containsCard(cartaConAgile));
+    }
+
+    @Test
+    public void testLaCartaConModificadorAgileSePuedeUbicarEnLaFilaRanged() {
+        cartaConAgile.play(ranged);
+
         assertTrue(ranged.containsCard(cartaConAgile));
     }
 
     @Test
-    public void testLaCartaConModificadorAgileSePuedeUbicarEnLasTresFilas() {
-        Row closeCombat = new CloseCombat();
-        Row ranged = new Ranged();
-        Row siege = new Siege();
-        Card cartaConAgile = new Unit("carta con agile", "con agile", 4, List.of(new CloseCombatType(), new RangedType(), new SiegeType()), List.of(new Agile()));
-
-        cartaConAgile.play(closeCombat);
-        cartaConAgile.play(ranged);
+    public void testLaCartaConModificadorAgileSePuedeUbicarEnLaFilaSiege() {
         cartaConAgile.play(siege);
 
-        assertTrue(closeCombat.containsCard(cartaConAgile));
-        assertTrue(ranged.containsCard(cartaConAgile));
         assertTrue(siege.containsCard(cartaConAgile));
     }
 }
