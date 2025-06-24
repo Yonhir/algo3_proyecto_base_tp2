@@ -4,18 +4,19 @@ import edu.fiuba.algo3.modelo.Colors.Blue;
 import edu.fiuba.algo3.modelo.Colors.Red;
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
-import edu.fiuba.algo3.modelo.sections.SpecialZone;
 import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
 import edu.fiuba.algo3.modelo.sections.rows.Ranged;
 import edu.fiuba.algo3.modelo.sections.rows.Siege;
 import edu.fiuba.algo3.modelo.sections.types.CloseCombatType;
+import edu.fiuba.algo3.modelo.turnManagement.BothPassedState;
+import edu.fiuba.algo3.modelo.turnManagement.Game;
+import edu.fiuba.algo3.modelo.turnManagement.Player;
+import edu.fiuba.algo3.modelo.turnManagement.Round;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;

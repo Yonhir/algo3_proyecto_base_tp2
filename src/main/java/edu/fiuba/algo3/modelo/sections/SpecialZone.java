@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.modelo.sections;
 
-import edu.fiuba.algo3.modelo.Round;
+import edu.fiuba.algo3.modelo.turnManagement.Round;
 import edu.fiuba.algo3.modelo.cards.Card;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.Weather;
 import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;

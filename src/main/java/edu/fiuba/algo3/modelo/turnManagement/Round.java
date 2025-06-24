@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.modelo;
+package edu.fiuba.algo3.modelo.turnManagement;
 
 public class Round {
     private final Player player1;

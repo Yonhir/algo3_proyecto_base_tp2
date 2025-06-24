@@ -1,6 +1,6 @@
-package edu.fiuba.algo3.modelo;
+package edu.fiuba.algo3.modelo.turnManagement;
 
-public class OnePassedState implements RoundState{
+public class OnePassedState implements RoundState {
     private final Player passedPlayer;
 
     public OnePassedState(Player passedPlayer) {

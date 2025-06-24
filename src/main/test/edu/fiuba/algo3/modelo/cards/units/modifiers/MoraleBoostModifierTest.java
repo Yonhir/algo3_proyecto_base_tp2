@@ -2,8 +2,8 @@ package edu.fiuba.algo3.modelo.cards.units.modifiers;
 
 import edu.fiuba.algo3.modelo.Colors.Blue;
 import edu.fiuba.algo3.modelo.Colors.Red;
-import edu.fiuba.algo3.modelo.Player;
-import edu.fiuba.algo3.modelo.Round;
+import edu.fiuba.algo3.modelo.turnManagement.Player;
+import edu.fiuba.algo3.modelo.turnManagement.Round;
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
 import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
