@@ -19,16 +19,16 @@ public class Game {
         currentRound.passTurn(this);
     }
 
-    public boolean isGameOver() {
+    public boolean gameFinished() {
         int totalRoundsPlayed = player1.getRoundsWon() + player2.getRoundsWon();
         return player1.hasWonGame() || player2.hasWonGame() || totalRoundsPlayed == 2;
     }
 
-    public Player getGameWinner() {
-        if (!isGameOver()) {
+    public Player gameWinner() {
+        if (!gameFinished()) {
             throw new IllegalStateException("Game is not over yet.");
         }
-        return player1.getWinnerAgainst(player2);
+        return player1.chooseWinnerAgainst(player2);
     }
 
     public void clearBoard() {
@@ -36,8 +36,8 @@ public class Game {
         player2.discardAllRows();
     }
 
-    public boolean isDraw() {
-        return player1.getRoundsWon() == 1 && player2.getRoundsWon() == 1 && isGameOver();
+    public boolean bothPlayersWonARound() {
+        return player1.getRoundsWon() == 1 && player2.getRoundsWon() == 1 && gameFinished();
     }
 }
 

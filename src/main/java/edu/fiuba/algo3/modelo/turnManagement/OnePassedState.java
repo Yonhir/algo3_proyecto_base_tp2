@@ -17,7 +17,7 @@ public class OnePassedState implements RoundState {
         round.setState(new BothPassedState());
         round.assignVictory();
         game.clearBoard();
-        if (!game.isGameOver()) {
+        if (!game.gameFinished()) {
             game.startNewRound();
         }
     }

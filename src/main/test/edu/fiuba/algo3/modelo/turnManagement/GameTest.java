@@ -29,15 +29,15 @@ public class GameTest {
     public void testPlayersCanPassAndRoundEnds() {
         game.passRound();
         game.passRound();
-        assertFalse(game.isGameOver());
+        assertFalse(game.gameFinished());
     }
 
     @Test
     public void testGameEndsAfterTwoWins() {
         player1.winRound();
         player1.winRound();
-        assertTrue(game.isGameOver());
-        assertEquals(player1, game.getGameWinner());
+        assertTrue(game.gameFinished());
+        assertEquals(player1, game.gameWinner());
     }
 
     @Test
@@ -69,7 +69,7 @@ public class GameTest {
 
         Game game = new Game(p1, p2);
 
-        assertTrue(game.isDraw());
+        assertTrue(game.bothPlayersWonARound());
     }
 
 }
