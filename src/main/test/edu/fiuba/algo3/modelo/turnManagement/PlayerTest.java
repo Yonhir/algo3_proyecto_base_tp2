@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.modelo;
+package edu.fiuba.algo3.modelo.turnManagement;
 
 import edu.fiuba.algo3.modelo.Colors.Blue;
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
@@ -15,8 +15,6 @@ import edu.fiuba.algo3.modelo.sections.rows.Siege;
 import edu.fiuba.algo3.modelo.sections.types.CloseCombatType;
 import edu.fiuba.algo3.modelo.sections.types.RangedType;
 import edu.fiuba.algo3.modelo.sections.types.SiegeType;
-import edu.fiuba.algo3.modelo.turnManagement.Player;
-import edu.fiuba.algo3.modelo.turnManagement.Round;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

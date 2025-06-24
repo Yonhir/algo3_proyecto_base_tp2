@@ -26,5 +26,5 @@ module edu.fiuba.algo3 {
     exports edu.fiuba.algo3.modelo.Colors;
     opens edu.fiuba.algo3.modelo.Colors;
     exports edu.fiuba.algo3.modelo.turnManagement;
-    opens edu.fiuba.algo3.modelo.turnManagement to org.junit.platform.commons;
+    opens edu.fiuba.algo3.modelo.turnManagement;
 }
