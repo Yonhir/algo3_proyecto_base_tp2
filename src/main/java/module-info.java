@@ -3,8 +3,6 @@ module edu.fiuba.algo3 {
     requires json.simple;
     exports edu.fiuba.algo3;
     exports edu.fiuba.algo3.vistas;
-    exports edu.fiuba.algo3.modelo;
-    opens edu.fiuba.algo3.modelo;
     exports edu.fiuba.algo3.modelo.errors;
     opens edu.fiuba.algo3.modelo.errors;
     exports edu.fiuba.algo3.modelo.sections;
@@ -27,4 +25,6 @@ module edu.fiuba.algo3 {
     opens edu.fiuba.algo3.modelo.sections.types;
     exports edu.fiuba.algo3.modelo.Colors;
     opens edu.fiuba.algo3.modelo.Colors;
+    exports edu.fiuba.algo3.modelo.turnManagement;
+    opens edu.fiuba.algo3.modelo.turnManagement;
 }
