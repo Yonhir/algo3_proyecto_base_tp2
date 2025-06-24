@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.modelo.cards.specials.weathers;
 
 import edu.fiuba.algo3.modelo.cards.units.Unit;
-import edu.fiuba.algo3.modelo.cards.units.modifiers.MoraleBoostModifier;
 import edu.fiuba.algo3.modelo.sections.Section;
 import edu.fiuba.algo3.modelo.sections.SpecialZone;
 import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
@@ -38,8 +37,8 @@ public class BitingFrostTest {
     }
 
     @Test
-    public void testLaCartaTorrentialRainSeAplicaCorrectamenteEnLasFilasCloseCombat() {
-        Unit carta = new Unit("carta", "comun", 8, new CloseCombatType(), List.of(new MoraleBoostModifier()));
+    public void testLaCartaBitingFrostSeAplicaCorrectamenteEnLasFilasCloseCombat() {
+        Unit carta = new Unit("carta", "comun", 8, new CloseCombatType(), List.of());
 
         closeCombat1.placeCard(carta);
         closeCombat2.placeCard(carta);
@@ -51,11 +50,11 @@ public class BitingFrostTest {
     }
 
     @Test
-    public void testLaCartaTorrentialRainUnicamenteAfectaALasFilasCloseCombat() {
+    public void testLaCartaBitingFrostUnicamenteAfectaALasFilasCloseCombat() {
         Section specialZone = new SpecialZone(closeCombat1, ranged1, siege1, closeCombat2, ranged2, siege2);
-        Unit carta1 = new Unit("carta", "comun", 2, new SiegeType(), List.of(new MoraleBoostModifier()));
-        Unit carta2 = new Unit("nombre", "descripcion", 4, new CloseCombatType(), List.of(new MoraleBoostModifier()));
-        Unit carta3 = new Unit("nombre", "descripcion", 8, new RangedType(), List.of(new MoraleBoostModifier()));
+        Unit carta1 = new Unit("carta", "comun", 2, new SiegeType(), List.of());
+        Unit carta2 = new Unit("nombre", "descripcion", 4, new CloseCombatType(), List.of());
+        Unit carta3 = new Unit("nombre", "descripcion", 8, new RangedType(), List.of());
 
         closeCombat1.placeCard(carta2);
         closeCombat2.placeCard(carta2);

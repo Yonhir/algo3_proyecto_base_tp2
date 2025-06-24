@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.modelo.cards.specials.weathers;
 
 import edu.fiuba.algo3.modelo.cards.units.Unit;
-import edu.fiuba.algo3.modelo.cards.units.modifiers.MoraleBoostModifier;
 import edu.fiuba.algo3.modelo.sections.Section;
 import edu.fiuba.algo3.modelo.sections.SpecialZone;
 import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
@@ -45,7 +44,7 @@ public class ClearWeatherTest {
 
     @Test
     public void testSeAplicaElClimaClearWeatherCorrectamenteEnLasFilasCloseCombat() {
-        Unit carta = new Unit("nombre", "descripcion", 5, new CloseCombatType(), List.of(new MoraleBoostModifier()));
+        Unit carta = new Unit("nombre", "descripcion", 5, new CloseCombatType(), List.of());
 
         closeCombat1.placeCard(carta);
         closeCombat2.placeCard(carta);
@@ -61,7 +60,7 @@ public class ClearWeatherTest {
 
     @Test
     public void testSeAplicaElClimaClearWeatherCorrectamenteEnLasFilasRanged() {
-        Unit carta = new Unit("nombre", "descripcion", 5, new RangedType(), List.of(new MoraleBoostModifier()));
+        Unit carta = new Unit("nombre", "descripcion", 5, new RangedType(), List.of());
 
         ranged1.placeCard(carta);
         ranged2.placeCard(carta);
@@ -77,7 +76,7 @@ public class ClearWeatherTest {
 
     @Test
     public void testSeAplicaElClimaClearWeatherCorrectamenteEnLasFilasSiege() {
-        Unit carta = new Unit("nombre", "descripcion", 7, new SiegeType(), List.of(new MoraleBoostModifier()));
+        Unit carta = new Unit("nombre", "descripcion", 7, new SiegeType(), List.of());
 
         siege1.placeCard(carta);
         siege2.placeCard(carta);
@@ -94,9 +93,9 @@ public class ClearWeatherTest {
     @Test
     public void testLaCartaClearWeatherSeAplicaSobreTodoElTablero() {
         Section specialZone = new SpecialZone(closeCombat1, ranged1, siege1, closeCombat2, ranged2, siege2);
-        Unit cartaCC = new Unit("nombre", "descripcion", 7, new CloseCombatType(), List.of(new MoraleBoostModifier()));
-        Unit cartaR = new Unit("nombre", "descripcion", 5, new RangedType(), List.of(new MoraleBoostModifier()));
-        Unit cartaS = new Unit("nombre", "descripcion", 6, new SiegeType(), List.of(new MoraleBoostModifier()));
+        Unit cartaCC = new Unit("nombre", "descripcion", 7, new CloseCombatType(), List.of());
+        Unit cartaR = new Unit("nombre", "descripcion", 5, new RangedType(), List.of());
+        Unit cartaS = new Unit("nombre", "descripcion", 6, new SiegeType(), List.of());
 
         closeCombat1.placeCard(cartaCC);
         closeCombat2.placeCard(cartaCC);
