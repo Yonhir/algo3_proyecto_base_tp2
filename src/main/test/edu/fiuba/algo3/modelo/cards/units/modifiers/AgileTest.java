@@ -2,6 +2,7 @@ package edu.fiuba.algo3.modelo.cards.units.modifiers;
 
 import edu.fiuba.algo3.modelo.cards.Card;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
+import edu.fiuba.algo3.modelo.errors.SectionTypeMismatchError;
 import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
 import edu.fiuba.algo3.modelo.sections.rows.Ranged;
 import edu.fiuba.algo3.modelo.sections.rows.Row;
@@ -14,10 +15,12 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class AgileTest {
     Card cartaConAgile;
+    Card cartaConAgileDosFilas;
     Row closeCombat;
     Row ranged;
     Row siege;
@@ -25,6 +28,7 @@ public class AgileTest {
     @BeforeEach
     void setUp() {
         cartaConAgile = new Unit("carta con agile", "con agile", 4, List.of(new CloseCombatType(), new RangedType(), new SiegeType()), List.of(new Agile()));
+        cartaConAgileDosFilas = new Unit("carta con agile", "con agile", 2, List.of(new RangedType(), new SiegeType()), List.of(new Agile()));
         closeCombat = new CloseCombat();
         ranged = new Ranged();
         siege = new Siege();
@@ -49,5 +53,13 @@ public class AgileTest {
         cartaConAgile.play(siege);
 
         assertTrue(siege.containsCard(cartaConAgile));
+    }
+
+    @Test
+    public void testSeLanzaExcepcionSiSeQuiereJugarLaCartaConModificadorAgileEnUnaFilaQueNoCorresponde() {
+        cartaConAgileDosFilas.play(ranged);
+
+        assertTrue(ranged.containsCard(cartaConAgileDosFilas));
+        assertThrows(SectionTypeMismatchError.class, () -> cartaConAgileDosFilas.play(closeCombat));
     }
 }
