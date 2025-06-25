@@ -23,9 +23,9 @@ public class Player {
     private final Siege siege;
     private int roundsWon = 0;
 
-    public Player(String name, Deck deck, CloseCombat closeCombat, Ranged ranged, Siege siege, Color color) {
+    public Player(String name, Deck deck, DiscardPile discardPile, CloseCombat closeCombat, Ranged ranged, Siege siege, Color color) {
         this.name = name;
-        discardPile = new DiscardPile();
+        this.discardPile = discardPile;
         hand = new Hand();
         this.deck = deck;
         this.closeCombat = closeCombat;

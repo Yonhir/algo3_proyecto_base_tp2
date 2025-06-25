@@ -66,7 +66,7 @@ public class CardTest {
         Ranged ranged = new Ranged(discardPile);
         Siege siege = new Siege(discardPile);
 
-        new Player("Gabriel", deck, closeCombat, ranged, siege, blue);
+        new Player("Gabriel", deck, discardPile, closeCombat, ranged, siege, blue);
 
         List<Card> cards = deck.getCards();
 

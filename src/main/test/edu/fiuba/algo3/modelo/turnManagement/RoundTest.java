@@ -32,11 +32,12 @@ public class RoundTest {
     @BeforeEach
     public void setUp() {
         DiscardPile discardPile = new DiscardPile();
+        DiscardPile otherDiscardPile = new DiscardPile();
         closeCombat = new CloseCombat(discardPile);
         ranged = new Ranged(discardPile);
         siege = new Siege(discardPile);
-        player1 = new Player("nombre1", new Deck(), closeCombat, ranged, siege, new Blue());
-        player2 = new Player("nombre2", new Deck(), new CloseCombat(new DiscardPile()), new Ranged(new DiscardPile()), new Siege(new DiscardPile()), new Red());
+        player1 = new Player("nombre1", new Deck(), discardPile, closeCombat, ranged, siege, new Blue());
+        player2 = new Player("nombre2", new Deck(), otherDiscardPile, new CloseCombat(otherDiscardPile), new Ranged(otherDiscardPile), new Siege(otherDiscardPile), new Red());
         unidad = new Unit("Nombre", "Descripcion", 4, new CloseCombatType(), new ArrayList<>());
         round = new Round(player1, player2);
         game = new Game(player1, player2);

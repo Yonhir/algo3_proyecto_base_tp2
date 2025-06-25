@@ -55,8 +55,8 @@ public class WeatherTest {
         Ranged aRanged = new Ranged(discardPile1);
         Siege aSiege = new Siege(discardPile1);
 
-        player = new Player("Gabriel", deck, aCloseCombat, aRanged, aSiege, new Blue());
-        opponent = new Player("Juan", deck, closeCombatRow, rangedRow, siegeRow, new Red());
+        player = new Player("Gabriel", deck, discardPile1, aCloseCombat, aRanged, aSiege, new Blue());
+        opponent = new Player("Juan", deck, discardPile2, closeCombatRow, rangedRow, siegeRow, new Red());
         round = new Round(player, opponent);
         // Initialize weather zone
         specialZone = new SpecialZone(aCloseCombat, aRanged, aSiege, closeCombatRow, rangedRow, siegeRow);

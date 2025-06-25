@@ -21,8 +21,10 @@ public class GameTest {
 
     @BeforeEach
     public void setUp() {
-        player1 = new Player("nombre1", new Deck(), new CloseCombat(new DiscardPile()), new Ranged(new DiscardPile()), new Siege(new DiscardPile()), new Blue());
-        player2 = new Player("nombre2", new Deck(), new CloseCombat(new DiscardPile()), new Ranged(new DiscardPile()), new Siege(new DiscardPile()), new Red());
+        DiscardPile discardPile1 = new DiscardPile();
+        DiscardPile discardPile2 = new DiscardPile();
+        player1 = new Player("nombre1", new Deck(), discardPile1, new CloseCombat(discardPile1), new Ranged(discardPile1), new Siege(discardPile1), new Blue());
+        player2 = new Player("nombre2", new Deck(), discardPile2, new CloseCombat(discardPile2), new Ranged(discardPile2), new Siege(discardPile2), new Red());
         game = new Game(player1, player2);
     }
 

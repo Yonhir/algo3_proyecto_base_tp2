@@ -37,32 +37,40 @@ public class RowTest {
     private Round round;
     private Deck deck;
 
-    private CloseCombat closeCombat;
-    private Ranged ranged;
-    private Siege siege;
+    private CloseCombat closeCombat1;
+    private Ranged ranged1;
+    private Siege siege1;
+
+    private CloseCombat closeCombat2;
+    private Ranged ranged2;
+    private Siege siege2;
 
     @BeforeEach
     void setUp() {
         deck = new Deck();
-        DiscardPile discardPile = new DiscardPile();
-        closeCombat = new CloseCombat(discardPile);
-        ranged = new Ranged(discardPile);
-        siege = new Siege(discardPile);
-        player = new Player("Gabriel", deck, closeCombat, ranged, siege, new Blue());
-        opponent = new Player("Juan", deck, closeCombat, ranged, siege, new Red());
-        Hand hand = player.getHand();
+        DiscardPile discardPile1 = new DiscardPile();
+        DiscardPile discardPile2 = new DiscardPile();
+        closeCombat1 = new CloseCombat(discardPile1);
+        ranged1 = new Ranged(discardPile1);
+        siege1 = new Siege(discardPile1);
+        closeCombat2 = new CloseCombat(discardPile2);
+        ranged2 = new Ranged(discardPile2);
+        siege2 = new Siege(discardPile2);
+
+        player = new Player("Gabriel", deck, discardPile1, closeCombat1, ranged1, siege1, new Blue());
+        opponent = new Player("Juan", deck, discardPile2, closeCombat2, ranged2, siege2, new Red());
         round = new Round(player, opponent);
     }
 
     @Test
-    public void rowColor(){
+    public void testLasFilasTienenElMismoColorQueElJugador(){
         Color blue = new Blue();
         DiscardPile discardPile = new DiscardPile();
         CloseCombat closeCombat = new CloseCombat(discardPile);
         Ranged ranged = new Ranged(discardPile);
         Siege siege = new Siege(discardPile);
 
-        new Player("Gabriel", new Deck(), closeCombat, ranged, siege, blue);
+        new Player("Gabriel", new Deck(), discardPile, closeCombat, ranged, siege, blue);
 
         Assertions.assertTrue(closeCombat.sameColor(blue));
         Assertions.assertTrue(ranged.sameColor(blue));

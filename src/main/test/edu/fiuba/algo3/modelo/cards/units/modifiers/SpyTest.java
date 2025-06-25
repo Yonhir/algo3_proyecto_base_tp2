@@ -58,8 +58,8 @@ public class SpyTest {
         rangedType = new RangedType();
         siegeType = new SiegeType();
         deck = new Deck();
-        player = new Player("Gabriel", deck, closeCombat1, ranged1, siege1, new Blue());
-        opponent = new Player("Juan", deck, closeCombat2, ranged2, siege2, new Red());
+        player = new Player("Gabriel", deck, discardPile1, closeCombat1, ranged1, siege1, new Blue());
+        opponent = new Player("Juan", deck, discardPile2, closeCombat2, ranged2, siege2, new Red());
         round = new Round(player, opponent);
         cards = new ArrayList<>(Arrays.asList(
                 new Unit("Nombre", "Descripcion", 4, closeCombatType, new ArrayList<>()),
