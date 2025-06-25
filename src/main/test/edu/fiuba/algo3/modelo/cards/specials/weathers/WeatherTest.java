@@ -9,6 +9,7 @@ import edu.fiuba.algo3.modelo.cardcollections.Deck;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -62,11 +63,10 @@ public class WeatherTest {
         player2CloseCombatRow = new CloseCombat(discardPile2);
         player2RangedRow = new Ranged(discardPile2);
         player2SiegeRow = new Siege(discardPile2);
-
-        player = new Player("Gabriel", deck, player1CloseCombatRow, player1RangedRow, player1SiegeRow, new Blue());
-        opponent = new Player("Juan", deck, player2CloseCombatRow, player2RangedRow, player2SiegeRow, new Red());
+        player = new Player("Gabriel", deck, discardPile1, aCloseCombat, aRanged, aSiege, new Blue());
+        opponent = new Player("Juan", deck, discardPile2, closeCombatRow, rangedRow, siegeRow, new Red());
         round = new Round(player, opponent);
-        
+
         // Initialize weather zone
         specialZone = new SpecialZone(player1CloseCombatRow, player1RangedRow, player1SiegeRow,
                 player2CloseCombatRow, player2RangedRow, player2SiegeRow,

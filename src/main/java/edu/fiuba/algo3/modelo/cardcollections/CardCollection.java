@@ -38,4 +38,7 @@ public abstract class CardCollection {
             throw new TheCardWasNotFound("The card is not in the deck");
         }
     }
+    public boolean containsCard(Card card) {
+        return this.cards.contains(card);
+    }
 }

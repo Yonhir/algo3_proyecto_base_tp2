@@ -4,6 +4,7 @@ import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.ClearWeather;
 import edu.fiuba.algo3.modelo.turnManagement.Round;
 import edu.fiuba.algo3.modelo.cards.Card;
+import edu.fiuba.algo3.modelo.cards.specials.Scorch;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.Weather;
 import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
 import edu.fiuba.algo3.modelo.sections.rows.Ranged;
@@ -62,6 +63,7 @@ public class SpecialZone implements Section {
         }
     }
 
+
     public void addCard(Card card){
         this.weathersCards.add(card);
     }
@@ -72,5 +74,42 @@ public class SpecialZone implements Section {
         }
         weathersCards.clear();
         new ClearWeather("Clima Despejado", "Elimina todos los efectos de clima").play(this);
+    }
+}
+
+    public void applyScorchInCloseCombat(Scorch scorch) {
+        for (CloseCombat row : closeCombatRows) {
+            row.applyScorch(scorch);
+        }
+    }
+
+    public void applyScorchInRanged(Scorch scorch) {
+        for (Ranged row : rangedRows) {
+            row.applyScorch(scorch);
+        }
+    }
+
+    public void applyScorchInSiege(Scorch scorch) {
+        for (Siege row : siegeRows) {
+            row.applyScorch(scorch);
+        }
+    }
+
+    public void applyScorchInAllRows(Scorch scorch) {
+        for (CloseCombat row : closeCombatRows) {
+            row.findStrongestCard(scorch);
+        }
+
+        for (Ranged row : rangedRows) {
+            row.findStrongestCard(scorch);
+        }
+
+        for (Siege row : siegeRows) {
+            row.findStrongestCard(scorch);
+        }
+
+        applyScorchInCloseCombat(scorch);
+        applyScorchInRanged(scorch);
+        applyScorchInSiege(scorch);
     }
 }

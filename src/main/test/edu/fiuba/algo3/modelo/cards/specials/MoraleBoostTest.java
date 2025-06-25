@@ -81,7 +81,7 @@ public class MoraleBoostTest {
     public void use_moralBost_in_empty_row() {
         int expectedPoints = 0;
 
-        siege.discardCards(new DiscardPile());
+        siege.discardCards();
 
         moraleBoost.play(siege);
 

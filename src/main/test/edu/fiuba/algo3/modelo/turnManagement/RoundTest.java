@@ -43,25 +43,13 @@ public class RoundTest {
     private DiscardPile discardPile2;
     @BeforeEach
     public void setUp() {
-        discardPile1 = new DiscardPile();
-        discardPile2 = new DiscardPile();
-        player1CloseCombatRow = new CloseCombat(discardPile);
-        player1RangedRow = new Ranged(discardPile);
-        player1SiegeRow = new Siege(discardPile);
-        player2CloseCombatRow = new CloseCombat(discardPile);
-        player2RangedRow = new Ranged(discardPile);
-        player2SiegeRow = new Siege(discardPile);
-        specialZone = new SpecialZone(
-                player1CloseCombatRow, player1RangedRow, player1SiegeRow,
-                player2CloseCombatRow, player2RangedRow, player2SiegeRow,
-                discardPile1, discardPile2
-        );
-
+        DiscardPile discardPile = new DiscardPile();
+        DiscardPile otherDiscardPile = new DiscardPile();
         closeCombat = new CloseCombat(discardPile);
         ranged = new Ranged(discardPile);
         siege = new Siege(discardPile);
-        player1 = new Player("nombre1", new Deck(), closeCombat, ranged, siege, new Blue());
-        player2 = new Player("nombre2", new Deck(), new CloseCombat(discardPile), new Ranged(discardPile), new Siege(discardPile), new Red());
+        player1 = new Player("nombre1", new Deck(), discardPile, closeCombat, ranged, siege, new Blue());
+        player2 = new Player("nombre2", new Deck(), otherDiscardPile, new CloseCombat(otherDiscardPile), new Ranged(otherDiscardPile), new Siege(otherDiscardPile), new Red());
         unidad = new Unit("Nombre", "Descripcion", 4, new CloseCombatType(), new ArrayList<>());
         round = new Round(player1, player2);
         game = new Game(player1, player2, specialZone);
@@ -100,7 +88,6 @@ public class RoundTest {
         assertEquals(1, player1.getRoundsWon());
         assertEquals(0, player2.getRoundsWon());
     }
-
 
     @Test
     public void testAssignVictoryDoesNothingOnDraw() {
@@ -143,6 +130,5 @@ public class RoundTest {
 
         assertNotSame(first, round.getCurrentPlayer());
     }
-
 }
 

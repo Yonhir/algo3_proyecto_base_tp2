@@ -45,25 +45,23 @@ public class GameTest {
     public void setUp() {
         discardPile1 = new DiscardPile();
         discardPile2 = new DiscardPile();
-        player1CloseCombatRow = new CloseCombat(discardPile);
-        player1RangedRow = new Ranged(discardPile);
-        player1SiegeRow = new Siege(discardPile);
-        player2CloseCombatRow = new CloseCombat(discardPile);
-        player2RangedRow = new Ranged(discardPile);
-        player2SiegeRow = new Siege(discardPile);
+        player1CloseCombatRow = new CloseCombat(discardPile1);
+        player1RangedRow = new Ranged(discardPile1);
+        player1SiegeRow = new Siege(discardPile1);
+        player2CloseCombatRow = new CloseCombat(discardPile2);
+        player2RangedRow = new Ranged(discardPile2);
+        player2SiegeRow = new Siege(discardPile2);
         specialZone = new SpecialZone(
                 player1CloseCombatRow, player1RangedRow, player1SiegeRow,
                 player2CloseCombatRow, player2RangedRow, player2SiegeRow,
                 discardPile1, discardPile2
         );
 
-        discardPile = new DiscardPile();
-        player1 = new Player("nombre1", new Deck(), player1CloseCombatRow, player1RangedRow, player1SiegeRow, new Blue());
-        player2 = new Player("nombre2", new Deck(), player2CloseCombatRow, player2RangedRow, player2SiegeRow, new Red());
 
         round = new Round(player1, player2);
         game = new Game(player1, player2, specialZone);
-
+        player1 = new Player("nombre1", new Deck(), discardPile1, player1CloseCombatRow, player1RangedRow, player1SiegeRow, new Blue());
+        player2 = new Player("nombre2", new Deck(), discardPile2, player2CloseCombatRow, player2RangedRow, player2SiegeRow, new Red());
     }
 
     @Test
