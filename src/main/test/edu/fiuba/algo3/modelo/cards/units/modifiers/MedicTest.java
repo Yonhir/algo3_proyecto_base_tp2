@@ -36,7 +36,7 @@ public class MedicTest {
         closeCombat.discardCards(discardPile);
         closeCombat.placeCard(medicCard);
 
-        assertTrue(closeCombat.getCards().containsAll(List.of(unit1, medicCard))); //CloseCombat queda con Medico y la unitCard descartada
+        assertTrue(closeCombat.containsCards(List.of(medicCard,unit1)));;
         assertTrue(discardPile.isEmpty());
     }
 
@@ -47,7 +47,7 @@ public class MedicTest {
         discardPile.addCard(specialCard1);
         closeCombat.placeCard(medicCard);
 
-        assertTrue(closeCombat.getCards().contains( medicCard)); //CloseCombat queda solo con Medico
+        assertTrue(closeCombat.containsCard(medicCard)); //CloseCombat queda solo con Medico
         assertEquals(discardPile.getCardCount(),1);
     }
 
@@ -55,7 +55,7 @@ public class MedicTest {
     public void testSiLaDiscardPileEstaVaciaUnaMedicCardNoDevuelveNada(){
         closeCombat.placeCard(medicCard);
         assertTrue(discardPile.isEmpty());
-        assertTrue(closeCombat.getCards().contains( medicCard));
+        assertTrue(closeCombat.containsCard(medicCard));
     }
 
 
@@ -74,7 +74,7 @@ public class MedicTest {
         closeCombat.placeCard(medicCard);
 
         assertEquals(expectedPoints, closeCombat.calculatePoints());
-        assertTrue(closeCombat.getCards().containsAll(List.of(unit1, unit2, unit3, medicCard)));
+        assertTrue(closeCombat.containsCards(List.of(unit1, unit2, unit3, medicCard)));
         assertTrue(discardPile.isEmpty());
     }
 
@@ -87,8 +87,8 @@ public class MedicTest {
         siege.discardCards(discardPile);
         closeCombat.placeCard(medicCard);
 
-        assertTrue(closeCombat.getCards().contains(medicCard));
-        assertTrue(discardPile.getCards().contains(unit1));
+        assertTrue(closeCombat.containsCard(medicCard));
+        assertTrue(discardPile.containsCard(unit1));
         assertTrue(siege.getCards().isEmpty());
     }
 
@@ -103,7 +103,7 @@ public class MedicTest {
         discardPile.addCard(unit3);
         closeCombat.placeCard(medicCard);
 
-        assertTrue(closeCombat.getCards().containsAll(List.of(unit1, medicCard)));
+        assertTrue(closeCombat.containsCards(List.of(unit1, medicCard)));
         assertEquals(discardPile.getCardCount(),2);
     }
 
