@@ -74,10 +74,9 @@ public class RowTest {
         closeCombat.placeCard(soldado1, round);
         closeCombat.placeCard(soldado2, round);
 
-        List<Card> cartasEnLaFila = closeCombat.getCards();
-        assertTrue(cartasEnLaFila.contains(soldado1));
-        assertTrue(cartasEnLaFila.contains(soldado2));
-        assertEquals(cantidadCartasEsperadas, cartasEnLaFila.size());
+        assertTrue(closeCombat.containsCard(soldado1));
+        assertTrue(closeCombat.containsCard(soldado2));
+        assertEquals(cantidadCartasEsperadas, closeCombat.getCardCount());
     }
 
     @Test
@@ -96,7 +95,7 @@ public class RowTest {
 
         siege.placeCard(catapulta, round);
 
-        assertTrue(siege.getCards().contains(catapulta));
+        assertTrue(siege.containsCard(catapulta));
     }
 
     @Test

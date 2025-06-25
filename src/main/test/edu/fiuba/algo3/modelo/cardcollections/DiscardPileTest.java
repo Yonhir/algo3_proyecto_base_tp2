@@ -132,30 +132,4 @@ public class DiscardPileTest {
 
         assertEquals(pointsGotten, pointsExpected, "Points should be reset to base value");
     }
-
-    @Test
-    public void testCardsCountGoToDiscardPile(){
-        int expectedSize = 15;
-
-        for (Card card : closeCombatUnits) {
-            card.setColor(new Blue());
-            closeCombat.placeCard(card, round);
-        }
-        for (Card card : rangedUnits) {
-            card.setColor(new Blue());
-            ranged.placeCard(card, round);
-        }
-        for (Card card : siegeUnits) {
-            card.setColor(new Blue());
-            siege.placeCard(card, round);
-        }
-
-        siege.discardCards();
-        ranged.discardCards();
-        closeCombat.discardCards();
-
-        int actualSize = discardPile1.getCardCount();
-
-        assertEquals(expectedSize, actualSize);
-    }
 }

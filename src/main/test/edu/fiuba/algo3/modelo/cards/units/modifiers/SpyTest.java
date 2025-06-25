@@ -86,7 +86,7 @@ public class SpyTest {
         round = new Round(player, opponent);
     }
     @Test
-    public void play_card_in_my_row() {
+    public void testLaCartaSeJuegaEnLasFilasPropiasException() {
         Assertions.assertThrows(SectionPlayerMismatchError.class, () -> RangedRowOwner.placeCard(carta_espia, round));
     }
 

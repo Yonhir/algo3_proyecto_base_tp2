@@ -64,7 +64,7 @@ public class MoraleBoostModifierTest {
     }
 
     @Test
-    public void moral_boost_closeCombat() {
+    public void testSeUsaLaCartaMoraleBoostEnLaFilaCloseCombat() {
         cardMoraleBoost = new Unit("Nombre", "Descripcion", 10, new CloseCombatType(), List.of(modifierMoral));
         cardMoraleBoost.setColor(new Blue());
         int expectedPoints = closeCombat.calculatePoints() + closeCombat.getCards().size() + cardMoraleBoost.calculatePoints();
@@ -76,7 +76,7 @@ public class MoraleBoostModifierTest {
     }
 
     @Test
-    public void moral_boost_ranged() {
+    public void testSeUsaLaCartaMoraleBoostEnLaFilaRanged() {
         cardMoraleBoost = new Unit("Nombre", "Descripcion", 10, new RangedType(), List.of(modifierMoral));
         cardMoraleBoost.setColor(new Blue());
         int expectedPoints = ranged.calculatePoints() + ranged.getCards().size() + cardMoraleBoost.calculatePoints();
@@ -88,7 +88,7 @@ public class MoraleBoostModifierTest {
     }
 
     @Test
-    public void moral_boost_siege() {
+    public void testSeUsaLaCartaMoraleBoostEnLaFilaSiege() {
         cardMoraleBoost = new Unit("Nombre", "Descripcion", 10, new SiegeType(), List.of(modifierMoral));
         cardMoraleBoost.setColor(new Blue());
         int expectedPoints = siege.calculatePoints() + siege.getCards().size() + cardMoraleBoost.calculatePoints();
@@ -100,7 +100,7 @@ public class MoraleBoostModifierTest {
     }
 
     @Test
-    public void moral_boost_empty_row() {
+    public void testSeUsaLaCartaMoraleBoostEnUnaFilaVacia() {
         cardMoraleBoost = new Unit("Nombre", "Descripcion", 10, new SiegeType(), List.of(modifierMoral));
         cardMoraleBoost.setColor(new Blue());
         int expectedPoints = cardMoraleBoost.calculatePoints();

@@ -1,6 +1,8 @@
 package edu.fiuba.algo3.modelo.cards;
 
+import edu.fiuba.algo3.modelo.cards.specials.Special;
 import edu.fiuba.algo3.modelo.colors.*;
+import edu.fiuba.algo3.modelo.errors.SectionPlayerMismatchError;
 import edu.fiuba.algo3.modelo.turnManagement.Player;
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
 import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;

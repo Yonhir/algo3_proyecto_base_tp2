@@ -126,4 +126,6 @@ public abstract class Row implements Section {
     public boolean containsCards(List<Card> cards){
         return this.cards.containsAll(cards);
     }
+
+    public int getCardCount() { return cards.size(); }
 }
