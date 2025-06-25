@@ -8,6 +8,7 @@ import edu.fiuba.algo3.modelo.cardcollections.Deck;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -40,28 +41,23 @@ public class WeatherTest {
     private Player opponent;
     private Round round;
     private Deck deck;
-    private CloseCombat closeCombat;
-    private Ranged ranged;
-    private Siege siege;
 
     @BeforeEach
     public void setup() {
+        DiscardPile discardPile1 = new DiscardPile();
+        DiscardPile discardPile2 = new DiscardPile();
         deck = new Deck();
-        closeCombat = new CloseCombat();
-        ranged = new Ranged();
-        siege = new Siege();
-
-        player = new Player("Gabriel", deck, closeCombat, ranged, siege, new Blue());
-        opponent = new Player("Juan", deck, closeCombat, ranged, siege, new Red());
-        round = new Round(player, opponent);
         // Initialize rows
-        closeCombatRow = new CloseCombat();
-        rangedRow = new Ranged();
-        siegeRow = new Siege();
-        CloseCombat aCloseCombat = new CloseCombat();
-        Ranged aRanged = new Ranged();
-        Siege aSiege = new Siege();
-        
+        closeCombatRow = new CloseCombat(discardPile2);
+        rangedRow = new Ranged(discardPile2);
+        siegeRow = new Siege(discardPile2);
+        CloseCombat aCloseCombat = new CloseCombat(discardPile1);
+        Ranged aRanged = new Ranged(discardPile1);
+        Siege aSiege = new Siege(discardPile1);
+
+        player = new Player("Gabriel", deck, discardPile1, aCloseCombat, aRanged, aSiege, new Blue());
+        opponent = new Player("Juan", deck, discardPile2, closeCombatRow, rangedRow, siegeRow, new Red());
+        round = new Round(player, opponent);
         // Initialize weather zone
         specialZone = new SpecialZone(aCloseCombat, aRanged, aSiege, closeCombatRow, rangedRow, siegeRow);
 
