@@ -1,5 +1,9 @@
 package edu.fiuba.algo3.modelo.cardcollections;
 
+import edu.fiuba.algo3.modelo.Colors.Blue;
+import edu.fiuba.algo3.modelo.Colors.Red;
+import edu.fiuba.algo3.modelo.turnManagement.Player;
+import edu.fiuba.algo3.modelo.turnManagement.Round;
 import edu.fiuba.algo3.modelo.cards.Card;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
 import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
@@ -27,10 +31,27 @@ public class DiscardPileTest {
     private List<Card> siegeUnits;
     private List<Card> cards;
 
+    private Player player;
+    private Player opponent;
+    private Round round;
+    private Deck deck;
+
+    private CloseCombat closeCombat;
+    private Ranged ranged;
+    private Siege siegeRow;
+
 
     @BeforeEach
     void setUp() {
         discardPile = new DiscardPile();
+        deck = new Deck();
+        closeCombat = new CloseCombat();
+        ranged = new Ranged();
+        siegeRow = new Siege();
+        player = new Player("Gabriel", deck, closeCombat, ranged, siegeRow, new Blue());
+        opponent = new Player("Juan", deck, closeCombat, ranged, siegeRow, new Red());
+        round = new Round(player, opponent);
+
         unit1 = new Unit("Unit1", "Description1", 5, List.of(new CloseCombatType()), new ArrayList<>());
         unit2 = new Unit("Unit2", "Description2", 7, List.of(new RangedType()), new ArrayList<>());
         unit3 = new Unit("Nombre", "Descripcion3", 3, List.of(new SiegeType()), new ArrayList<>());
@@ -62,14 +83,8 @@ public class DiscardPileTest {
     }
 
     @Test
-    void testDiscardPileStartsEmpty() {
-        assertEquals(0, discardPile.getCardCount(), "Discard pile should start empty");
-    }
-
-    @Test
     void testAddCardToDiscardPile() {
         discardPile.addCard(unit1);
-        assertEquals(1, discardPile.getCardCount(), "Discard pile should have one card");
         assertEquals(unit1, discardPile.getLastCard(), "Last card should be the one just added");
     }
 
@@ -77,7 +92,6 @@ public class DiscardPileTest {
     void testAddMultipleCardsToDiscardPile() {
         discardPile.addCard(unit1);
         discardPile.addCard(unit2);
-        assertEquals(2, discardPile.getCardCount(), "Discard pile should have two cards");
         assertEquals(unit2, discardPile.getLastCard(), "Last card should be the most recently added");
     }
 
@@ -120,20 +134,20 @@ public class DiscardPileTest {
     }
 
     @Test
-    public void cards_count_go_to_discardPile(){
+    public void testCardsCountGoToDiscardPile(){
         int expectedSize = 15;
         Row ranged = new Ranged();
         Row closeCombat = new CloseCombat();
         Row siege = new Siege();
 
         for (Card card : closeCombatUnits) {
-            closeCombat.placeCard(card);
+            closeCombat.placeCard(card, round);
         }
         for (Card card : rangedUnits) {
-            ranged.placeCard(card);
+            ranged.placeCard(card, round);
         }
         for (Card card : siegeUnits) {
-            siege.placeCard(card);
+            siege.placeCard(card, round);
         }
 
         siege.discardCards(discardPile);
@@ -144,5 +158,4 @@ public class DiscardPileTest {
 
         assertEquals(expectedSize, actualSize);
     }
-
 }

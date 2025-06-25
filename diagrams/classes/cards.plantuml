@@ -27,7 +27,6 @@ class Unit {
   +setPoints(points: int): void
   +haveModifier(modifier: Modifier): boolean
   +play(section: Section): void
-  +verifySectionType(sectionType: SectionType): void
 }
 
 abstract class Special <<abstract>> {
@@ -80,16 +79,6 @@ class TacticalAdvantage {
 
 class Scorch {
   +Scorch(name: String, description: String): Scorch
-}
-
-interface Modifier <<interface>> {
-  +apply(row: Row): void
-}
-
-class TightBond {
-}
-
-class Agil {
 }
 
 ' =====================
