@@ -47,10 +47,14 @@ public class Player {
         ranged.setColor(color);
         siege.setColor(color);
     }
+    private void setColorDiscardPile(Color color){
+        discardPile.setColor(color);
+    }
   
     private void setColor(Color color) {
         setColorToCards(color);
         setColorToRows(color);
+        setColorDiscardPile(color);
     }
 
     public DiscardPile getDiscardPile() {

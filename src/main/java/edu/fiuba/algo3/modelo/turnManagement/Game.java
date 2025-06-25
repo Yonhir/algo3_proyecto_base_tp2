@@ -1,13 +1,17 @@
 package edu.fiuba.algo3.modelo.turnManagement;
 
+import edu.fiuba.algo3.modelo.sections.SpecialZone;
+
 public class Game {
     private final Player player1;
     private final Player player2;
+    private SpecialZone specialZone;
     private Round currentRound;
 
-    public Game(Player player1, Player player2) {
+    public Game(Player player1, Player player2, SpecialZone specialZone) {
         this.player1 = player1;
         this.player2 = player2;
+        this.specialZone = specialZone;
         startNewRound();
     }
 
@@ -32,6 +36,7 @@ public class Game {
     }
 
     public void clearBoard() {
+        specialZone.clear();
         player1.discardAllRows();
         player2.discardAllRows();
     }

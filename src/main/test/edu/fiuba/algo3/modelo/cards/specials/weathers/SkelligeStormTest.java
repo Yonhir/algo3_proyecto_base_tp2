@@ -26,15 +26,19 @@ public class SkelligeStormTest {
     private Siege siegeOpponent;
 
     private SpecialZone specialZone;
+    private DiscardPile discardPile1;
+    private DiscardPile discardPile2;
     @BeforeEach
     void setUp() {
-        CloseCombat closeCombatOpponent = new CloseCombat();
-        rangedOpponent = new Ranged();
-        siegeOpponent = new Siege();
+        discardPile1 = new DiscardPile();
+        discardPile2 = new DiscardPile();
+        CloseCombat closeCombatOpponent = new CloseCombat(discardPile2);
+        rangedOpponent = new Ranged(discardPile2);
+        siegeOpponent = new Siege(discardPile2);
 
-        CloseCombat closeCombat = new CloseCombat();
-        ranged = new Ranged();
-        siege = new Siege();
+        CloseCombat closeCombat = new CloseCombat(discardPile1);
+        ranged = new Ranged(discardPile1);
+        siege = new Siege(discardPile1);
 
         ranged.addCard(new Unit("Nombre", "Descripcion", 6, new RangedType(), new ArrayList<>()));
         ranged.addCard(new Unit("Nombre", "Descripcion", 8, new RangedType(), new ArrayList<>()));
@@ -52,7 +56,7 @@ public class SkelligeStormTest {
         siegeOpponent.addCard(new Unit("Nombre", "Descripcion", 3, new SiegeType(), new ArrayList<>()));
         siegeOpponent.addCard(new Unit("Nombre", "Descripcion", 1, new SiegeType(), new ArrayList<>()));
 
-        specialZone = new SpecialZone(closeCombat, ranged, siege, closeCombatOpponent, rangedOpponent, siegeOpponent);
+        specialZone = new SpecialZone(closeCombat, ranged, siege, closeCombatOpponent, rangedOpponent, siegeOpponent, discardPile1, discardPile2);
     }
 
     @Test

@@ -2,6 +2,7 @@ package edu.fiuba.algo3.modelo.cards.units.modifiers;
 
 import edu.fiuba.algo3.modelo.Colors.Blue;
 import edu.fiuba.algo3.modelo.Colors.Red;
+import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.turnManagement.Player;
 import edu.fiuba.algo3.modelo.turnManagement.Round;
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
@@ -20,6 +21,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.security.interfaces.DSAKey;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -40,12 +42,14 @@ public class SpyTest {
     private Siege siege;
 
     private List<Card> cards;
+    private DiscardPile discardPile;
     @BeforeEach
     void setUp(){
+        discardPile = new DiscardPile();
         deck = new Deck();
-        closeCombat = new CloseCombat();
-        ranged = new Ranged();
-        siege = new Siege();
+        closeCombat = new CloseCombat(discardPile);
+        ranged = new Ranged(discardPile);
+        siege = new Siege(discardPile);
         cct = new CloseCombatType();
         r = new RangedType();
         s = new SiegeType();
@@ -80,8 +84,8 @@ public class SpyTest {
         Deck deck = new Deck();
         deck.insertCards(cards);
         Hand hand = new Hand();
-        RangedRowOpponent = new Ranged();
-        RangedRowOwner = new Ranged();
+        RangedRowOpponent = new Ranged(discardPile);
+        RangedRowOwner = new Ranged(discardPile);
         Unit carta_espia = new Unit("Nombre", "Descripcion", 4, r, List.of(new Spy(deck, hand, RangedRowOwner)));
 
         RangedRowOwner.placeCard(carta_espia, round);
@@ -95,8 +99,8 @@ public class SpyTest {
         Deck deck = new Deck();
         deck.insertCards(cards);
         Hand hand = new Hand();
-        RangedRowOpponent = new Ranged();
-        RangedRowOwner = new Ranged();
+        RangedRowOpponent = new Ranged(discardPile);
+        RangedRowOwner = new Ranged(discardPile);
         Unit carta_espia = new Unit("Nombre", "Descripcion", 4, r, List.of(new Spy(deck, hand, RangedRowOwner)));
         int expectedCardsInHand = 2;
 
@@ -110,8 +114,8 @@ public class SpyTest {
         Deck deck = new Deck();
         deck.insertCards(cards);
         Hand hand = new Hand();
-        RangedRowOpponent = new Ranged();
-        RangedRowOwner = new Ranged();
+        RangedRowOpponent = new Ranged(discardPile);
+        RangedRowOwner = new Ranged(discardPile);
         Unit carta_espia = new Unit("Nombre", "Descripcion", 4, r, List.of(new Spy(deck, hand, RangedRowOwner)));
         int expectedCardsInHand = deck.getCardCount() - 2;
 
@@ -125,8 +129,8 @@ public class SpyTest {
         Deck deck = new Deck();
         deck.insertCards(cards);
         Hand hand = new Hand();
-        RangedRowOpponent = new Ranged();
-        RangedRowOwner = new Ranged();
+        RangedRowOpponent = new Ranged(discardPile);
+        RangedRowOwner = new Ranged(discardPile);
         Unit carta_espia = new Unit("Nombre", "Descripcion", 4, r, List.of(new Spy(deck, hand, RangedRowOwner)));
         int expectedCardsInHand = 0;
 
@@ -140,8 +144,8 @@ public class SpyTest {
         Deck deck = new Deck();
         deck.insertCards(cards);
         Hand hand = new Hand();
-        RangedRowOpponent = new Ranged();
-        RangedRowOwner = new Ranged();
+        RangedRowOpponent = new Ranged(discardPile);
+        RangedRowOwner = new Ranged(discardPile);
         Unit carta_espia = new Unit("Nombre", "Descripcion", 4, r, List.of(new Spy(deck, hand, RangedRowOwner)));
         int expectedCardsInDeck = deck.getCardCount();
 

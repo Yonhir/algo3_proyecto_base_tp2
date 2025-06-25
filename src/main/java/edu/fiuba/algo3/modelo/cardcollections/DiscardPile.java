@@ -1,12 +1,13 @@
 package edu.fiuba.algo3.modelo.cardcollections;
 
+import edu.fiuba.algo3.modelo.Colors.Color;
 import edu.fiuba.algo3.modelo.cards.Card;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
 
 import java.util.List;
 
 public class DiscardPile extends CardCollection {
-
+    private Color color;
     @Override
     public void addCard(Card card) {
         if (card instanceof Unit) {
@@ -28,5 +29,14 @@ public class DiscardPile extends CardCollection {
         }
         int lastCard = (cards.size() - 1);
         return cards.remove(lastCard);
+    }
+
+    public void setColor(Color color){
+        this.color = color;
+    }
+    public void addCardIfHasSameColor(Card card){
+         if (card.sameColor(color)){
+             addCard(card);
+         }
     }
 }

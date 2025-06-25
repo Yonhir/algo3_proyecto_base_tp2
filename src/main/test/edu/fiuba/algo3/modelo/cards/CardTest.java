@@ -2,6 +2,7 @@ package edu.fiuba.algo3.modelo.cards;
 
 import edu.fiuba.algo3.modelo.Colors.Blue;
 import edu.fiuba.algo3.modelo.Colors.Color;
+import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.turnManagement.Player;
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.BitingFrost;
@@ -24,9 +25,11 @@ import java.util.List;
 
 public class CardTest {
     private final Deck deck = new Deck();
+    private DiscardPile discardPile;
 
     @BeforeEach
     void setUp() {
+        discardPile = new DiscardPile();
         List<Card> cards = Arrays.asList(
                 new Unit("Nombre", "Descripcion", 4, new CloseCombatType(), new ArrayList<>()),
                 new Unit("Nombre", "Descripcion", 5, new CloseCombatType(), new ArrayList<>()),
@@ -56,9 +59,9 @@ public class CardTest {
     public void cardsHaveColor() {
         Color blue = new Blue();
 
-        CloseCombat closeCombat = new CloseCombat();
-        Ranged ranged = new Ranged();
-        Siege siege = new Siege();
+        CloseCombat closeCombat = new CloseCombat(discardPile);
+        Ranged ranged = new Ranged(discardPile);
+        Siege siege = new Siege(discardPile);
 
         new Player("Gabriel", deck, closeCombat, ranged, siege, blue);
 

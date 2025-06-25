@@ -30,14 +30,16 @@ public class MoraleBoostModifierTest {
     private Player opponent;
     private Round round;
     private Deck deck;
+    private DiscardPile discardPile;
 
 
     @BeforeEach
     void setUp() {
+        discardPile = new DiscardPile();
         deck = new Deck();
-        closeCombat = new CloseCombat();
-        ranged = new Ranged();
-        siege = new Siege();
+        closeCombat = new CloseCombat(discardPile);
+        ranged = new Ranged(discardPile);
+        siege = new Siege(discardPile);
         player = new Player("Gabriel", deck, closeCombat, ranged, siege, new Blue());
         opponent = new Player("Juan", deck, closeCombat, ranged, siege, new Red());
         round = new Round(player, opponent);

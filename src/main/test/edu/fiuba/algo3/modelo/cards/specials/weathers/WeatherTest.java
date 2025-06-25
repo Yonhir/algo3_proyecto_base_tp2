@@ -2,6 +2,7 @@ package edu.fiuba.algo3.modelo.cards.specials.weathers;
 
 import edu.fiuba.algo3.modelo.Colors.Blue;
 import edu.fiuba.algo3.modelo.Colors.Red;
+import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.turnManagement.Player;
 import edu.fiuba.algo3.modelo.turnManagement.Round;
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
@@ -20,12 +21,14 @@ import edu.fiuba.algo3.modelo.sections.rows.Siege;
 import edu.fiuba.algo3.modelo.sections.types.CloseCombatType;
 import edu.fiuba.algo3.modelo.sections.types.RangedType;
 import edu.fiuba.algo3.modelo.sections.types.SiegeType;
+
+import java.io.DataInputStream;
 import java.util.List;
 
 public class WeatherTest {
-    private CloseCombat closeCombatRow;
-    private Ranged rangedRow;
-    private Siege siegeRow;
+    private CloseCombat player1CloseCombatRow;
+    private Ranged player1RangedRow;
+    private Siege player1SiegeRow;
     private SpecialZone specialZone;
 
     private Unit soldier;
@@ -40,30 +43,34 @@ public class WeatherTest {
     private Player opponent;
     private Round round;
     private Deck deck;
-    private CloseCombat closeCombat;
-    private Ranged ranged;
-    private Siege siege;
+    private CloseCombat player2CloseCombatRow;
+    private Ranged player2RangedRow;
+    private Siege player2SiegeRow;
+    private DiscardPile discardPile1;
+    private DiscardPile discardPile2;
 
     @BeforeEach
     public void setup() {
+        discardPile1 = new DiscardPile();
+        discardPile2 = new DiscardPile();
         deck = new Deck();
-        closeCombat = new CloseCombat();
-        ranged = new Ranged();
-        siege = new Siege();
 
-        player = new Player("Gabriel", deck, closeCombat, ranged, siege, new Blue());
-        opponent = new Player("Juan", deck, closeCombat, ranged, siege, new Red());
+
+        player1CloseCombatRow = new CloseCombat(discardPile1);
+        player1RangedRow = new Ranged(discardPile1);
+        player1SiegeRow = new Siege(discardPile1);
+        player2CloseCombatRow = new CloseCombat(discardPile2);
+        player2RangedRow = new Ranged(discardPile2);
+        player2SiegeRow = new Siege(discardPile2);
+
+        player = new Player("Gabriel", deck, player1CloseCombatRow, player1RangedRow, player1SiegeRow, new Blue());
+        opponent = new Player("Juan", deck, player2CloseCombatRow, player2RangedRow, player2SiegeRow, new Red());
         round = new Round(player, opponent);
-        // Initialize rows
-        closeCombatRow = new CloseCombat();
-        rangedRow = new Ranged();
-        siegeRow = new Siege();
-        CloseCombat aCloseCombat = new CloseCombat();
-        Ranged aRanged = new Ranged();
-        Siege aSiege = new Siege();
         
         // Initialize weather zone
-        specialZone = new SpecialZone(aCloseCombat, aRanged, aSiege, closeCombatRow, rangedRow, siegeRow);
+        specialZone = new SpecialZone(player1CloseCombatRow, player1RangedRow, player1SiegeRow,
+                player2CloseCombatRow, player2RangedRow, player2SiegeRow,
+                discardPile1, discardPile2);
 
         // Initialize units
         soldier = new Unit("soldado", "pelea de cerca", 10, new CloseCombatType(), List.of());
@@ -80,7 +87,7 @@ public class WeatherTest {
     @Test
     public void testWeatherPlayAppliesEffectToTarget() {
         // Arrange
-        closeCombatRow.placeCard(soldier, round);
+        player1CloseCombatRow.placeCard(soldier, round);
         
         // Act
         frostWeather.play(specialZone);
@@ -92,8 +99,8 @@ public class WeatherTest {
     @Test
     public void testBitingFrostReducesCloseCombatUnitPoints() {
         // Act
-        closeCombatRow.placeCard(soldier, round);
-        closeCombatRow.applyWeather(frostWeather);
+        player1CloseCombatRow.placeCard(soldier, round);
+        player1CloseCombatRow.applyWeather(frostWeather);
 
         // Assert
         assertEquals(1, soldier.calculatePoints(), "La escarcha debería reducir los puntos de la unidad cuerpo a cuerpo a 1");
@@ -102,8 +109,8 @@ public class WeatherTest {
     @Test
     public void testBitingFrostDoesNotAffectRangedUnits() {
         // Act
-        rangedRow.placeCard(archer, round);
-        rangedRow.applyWeather(frostWeather);
+        player1RangedRow.placeCard(archer, round);
+        player1CloseCombatRow.applyWeather(frostWeather);
         
         // Assert
         assertEquals(8, archer.calculatePoints(), "La escarcha no debería afectar a las unidades a distancia");
@@ -112,8 +119,8 @@ public class WeatherTest {
     @Test
     public void testImpenetrableFogReducesRangedUnitPoints() {
         // Act
-        rangedRow.placeCard(archer, round);
-        rangedRow.applyWeather(fogWeather);
+        player1RangedRow.placeCard(archer, round);
+        player1RangedRow.applyWeather(fogWeather);
         
         // Assert
         assertEquals(1, archer.calculatePoints(), "La niebla debería reducir los puntos de la unidad a distancia a 1");
@@ -122,8 +129,8 @@ public class WeatherTest {
     @Test
     public void testImpenetrableFogDoesNotAffectCloseCombatUnits() {
         // Act
-        closeCombatRow.placeCard(soldier, round);
-        closeCombatRow.applyWeather(fogWeather);
+        player1CloseCombatRow.placeCard(soldier, round);
+        player1CloseCombatRow.applyWeather(fogWeather);
         
         // Assert
         assertEquals(10, soldier.calculatePoints(), "La niebla no debería afectar a las unidades cuerpo a cuerpo");
@@ -132,8 +139,8 @@ public class WeatherTest {
     @Test
     public void testTorrentialRainReducesSiegeUnitPoints() {
         // Act
-        siegeRow.placeCard(catapult, round);
-        siegeRow.applyWeather(rainWeather);
+        player1SiegeRow.placeCard(catapult, round);
+        player1SiegeRow.applyWeather(rainWeather);
         
         // Assert
         assertEquals(1, catapult.calculatePoints(), "La lluvia debería reducir los puntos de la unidad de asedio a 1");
@@ -142,8 +149,8 @@ public class WeatherTest {
     @Test
     public void testTorrentialRainDoesNotAffectCloseCombatUnits() {
         // Act
-        closeCombatRow.placeCard(soldier, round);
-        closeCombatRow.applyWeather(rainWeather);
+        player1CloseCombatRow.placeCard(soldier, round);
+        player1CloseCombatRow.applyWeather(rainWeather);
         
         // Assert
         assertEquals(10, soldier.calculatePoints(), "La lluvia no debería afectar a las unidades cuerpo a cuerpo");
@@ -152,8 +159,8 @@ public class WeatherTest {
     @Test
     public void testBitingFrostAffectsNewCloseCombatUnit() {
         // Act
-        closeCombatRow.applyWeather(frostWeather);
-        closeCombatRow.placeCard(soldier, round);
+        player1CloseCombatRow.applyWeather(frostWeather);
+        player1CloseCombatRow.placeCard(soldier, round);
         
         // Assert
         assertEquals(1, soldier.calculatePoints(), "La escarcha debería afectar a las nuevas unidades cuerpo a cuerpo");
@@ -162,8 +169,8 @@ public class WeatherTest {
     @Test
     public void testImpenetrableFogAffectsNewRangedUnit() {
         // Act
-        rangedRow.applyWeather(fogWeather);
-        rangedRow.placeCard(archer, round);
+        player1RangedRow.applyWeather(fogWeather);
+        player1RangedRow.placeCard(archer, round);
         
         // Assert
         assertEquals(1, archer.calculatePoints(), "La niebla debería afectar a las nuevas unidades a distancia");
@@ -172,8 +179,8 @@ public class WeatherTest {
     @Test
     public void testTorrentialRainAffectsNewSiegeUnit() {
         // Act
-        siegeRow.applyWeather(rainWeather);
-        siegeRow.placeCard(catapult, round);
+        player1SiegeRow.applyWeather(rainWeather);
+        player1SiegeRow.placeCard(catapult, round);
         
         // Assert
         assertEquals(1, catapult.calculatePoints(), "La lluvia debería afectar a las nuevas unidades de asedio");
@@ -182,11 +189,11 @@ public class WeatherTest {
     @Test
     public void testClearWeatherRemovesFrostEffect() {
         // Arrange
-        closeCombatRow.placeCard(soldier, round);
-        closeCombatRow.applyWeather(frostWeather);
+        player1CloseCombatRow.placeCard(soldier, round);
+        player1CloseCombatRow.applyWeather(frostWeather);
         
         // Act
-        closeCombatRow.applyWeather(clearWeather);
+        player1CloseCombatRow.applyWeather(clearWeather);
         
         // Assert
         assertEquals(10, soldier.calculatePoints(), "Las unidades cuerpo a cuerpo deberían volver a sus puntos originales");
@@ -195,11 +202,11 @@ public class WeatherTest {
     @Test
     public void testClearWeatherRemovesFogEffect() {
         // Arrange
-        rangedRow.placeCard(archer, round);
-        rangedRow.applyWeather(fogWeather);
+        player1RangedRow.placeCard(archer, round);
+        player1RangedRow.applyWeather(fogWeather);
         
         // Act
-        rangedRow.applyWeather(clearWeather);
+        player1RangedRow.applyWeather(clearWeather);
         
         // Assert
         assertEquals(8, archer.calculatePoints(), "Las unidades a distancia deberían volver a sus puntos originales");
@@ -208,11 +215,11 @@ public class WeatherTest {
     @Test
     public void testClearWeatherRemovesRainEffect() {
         // Arrange
-        siegeRow.placeCard(catapult, round);
-        siegeRow.applyWeather(rainWeather);
+        player1SiegeRow.placeCard(catapult, round);
+        player1SiegeRow.applyWeather(rainWeather);
         
         // Act
-        siegeRow.applyWeather(clearWeather);
+        player1SiegeRow.applyWeather(clearWeather);
         
         // Assert
         assertEquals(12, catapult.calculatePoints(), "Las unidades de asedio deberían volver a sus puntos originales");
@@ -221,7 +228,7 @@ public class WeatherTest {
     @Test
     public void testMultipleWeatherEffectsDoNotInterfereWithCloseCombat() {
         // Act
-        closeCombatRow.placeCard(soldier, round);
+        player1CloseCombatRow.placeCard(soldier, round);
         specialZone.placeCard(fogWeather, round);
         specialZone.placeCard(rainWeather, round);
         specialZone.placeCard(frostWeather, round);
@@ -233,7 +240,7 @@ public class WeatherTest {
     @Test
     public void testMultipleWeatherEffectsDoNotInterfereWithRanged() {
         // Act
-        rangedRow.placeCard(archer, round);
+        player1RangedRow.placeCard(archer, round);
         specialZone.placeCard(frostWeather, round);
         specialZone.placeCard(rainWeather, round);
         specialZone.placeCard(fogWeather, round);
@@ -245,7 +252,7 @@ public class WeatherTest {
     @Test
     public void testMultipleWeatherEffectsDoNotInterfereWithSiege() {
         // Act
-        siegeRow.placeCard(catapult, round);
+        player1SiegeRow.placeCard(catapult, round);
         specialZone.placeCard(frostWeather, round);
         specialZone.placeCard(fogWeather, round);
         specialZone.placeCard(rainWeather, round);
@@ -257,35 +264,35 @@ public class WeatherTest {
     @Test
     public void testWeatherCannotBePlacedInInvalidTarget() {
         // Act
-        assertThrows(SectionTypeMismatchError.class, () -> closeCombatRow.placeCard(frostWeather, round),
+        assertThrows(SectionTypeMismatchError.class, () -> player1CloseCombatRow.placeCard(frostWeather, round),
             "Debería lanzar una excepción al intentar colocar clima en una fila normal");
     }
 
     @Test
     public void testClearWeatherCannotBePlacedInRow() {
         // Act & Assert
-        assertThrows(SectionTypeMismatchError.class, () -> closeCombatRow.placeCard(clearWeather, round),
+        assertThrows(SectionTypeMismatchError.class, () -> player1CloseCombatRow.placeCard(clearWeather, round),
             "Debería lanzar una excepción al intentar colocar ClearWeather en una fila normal");
     }
 
     @Test
     public void testBitingFrostCannotBePlacedInRow() {
         // Act & Assert
-        assertThrows(SectionTypeMismatchError.class, () -> closeCombatRow.placeCard(frostWeather, round),
+        assertThrows(SectionTypeMismatchError.class, () -> player1CloseCombatRow.placeCard(frostWeather, round),
             "Debería lanzar una excepción al intentar colocar BitingFrost en una fila normal");
     }
 
     @Test
     public void testImpenetrableFogCannotBePlacedInRow() {
         // Act & Assert
-        assertThrows(SectionTypeMismatchError.class, () -> closeCombatRow.placeCard(fogWeather, round),
+        assertThrows(SectionTypeMismatchError.class, () -> player1CloseCombatRow.placeCard(fogWeather, round),
             "Debería lanzar una excepción al intentar colocar ImpenetrableFog en una fila normal");
     }
 
     @Test
     public void testTorrentialRainCannotBePlacedInRow() {
         // Act & Assert
-        assertThrows(SectionTypeMismatchError.class, () -> closeCombatRow.placeCard(rainWeather, round),
+        assertThrows(SectionTypeMismatchError.class, () -> player1CloseCombatRow.placeCard(rainWeather, round),
             "Debería lanzar una excepción al intentar colocar TorrentialRain en una fila normal");
     }
 }

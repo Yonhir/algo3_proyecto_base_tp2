@@ -20,9 +20,12 @@ public abstract class Row implements Section {
     protected SectionType sectionType;
     protected Color color;
 
-    protected Row(SectionType sectionType) {
+    protected DiscardPile discardPile;
+
+    protected Row(SectionType sectionType, DiscardPile discardPile) {
         this.currentWeather = new ClearWeather("Clima Despejado", "Elimina todos los efectos de clima");
         this.sectionType = sectionType;
+        this.discardPile = discardPile;
     }
 
     @Override

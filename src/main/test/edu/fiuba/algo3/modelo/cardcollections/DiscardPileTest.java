@@ -45,9 +45,9 @@ public class DiscardPileTest {
     void setUp() {
         discardPile = new DiscardPile();
         deck = new Deck();
-        closeCombat = new CloseCombat();
-        ranged = new Ranged();
-        siegeRow = new Siege();
+        closeCombat = new CloseCombat(discardPile);
+        ranged = new Ranged(discardPile);
+        siegeRow = new Siege(discardPile);
         player = new Player("Gabriel", deck, closeCombat, ranged, siegeRow, new Blue());
         opponent = new Player("Juan", deck, closeCombat, ranged, siegeRow, new Red());
         round = new Round(player, opponent);
@@ -136,9 +136,9 @@ public class DiscardPileTest {
     @Test
     public void testCardsCountGoToDiscardPile(){
         int expectedSize = 15;
-        Row ranged = new Ranged();
-        Row closeCombat = new CloseCombat();
-        Row siege = new Siege();
+        Row ranged = new Ranged(discardPile);
+        Row closeCombat = new CloseCombat(discardPile);
+        Row siege = new Siege(discardPile);
 
         for (Card card : closeCombatUnits) {
             closeCombat.placeCard(card, round);

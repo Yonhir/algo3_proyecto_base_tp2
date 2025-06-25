@@ -40,9 +40,9 @@ public class TightBondTest {
     @BeforeEach
     void setUp() {
         discardPile = new DiscardPile();
-        closeCombat = new CloseCombat();
-        ranged = new Ranged();
-        siegeRow = new Siege();
+        closeCombat = new CloseCombat(discardPile);
+        ranged = new Ranged(discardPile);
+        siegeRow = new Siege(discardPile);
         deck = new Deck();
         player = new Player("Gabriel", deck, closeCombat, ranged, siegeRow, new Blue());
         opponent = new Player("Juan", deck, closeCombat, ranged, siegeRow, new Red());

@@ -38,6 +38,7 @@ public class PlayerTest {
     private Card siegeCard;
     private Card rangedCard;
     private Card closeCombatCard;
+    private DiscardPile discardPile;
 
     @BeforeEach
     void setUp() {
@@ -84,9 +85,9 @@ public class PlayerTest {
         // Initialize game components
         deck = new Deck();
         deck.insertCards(cards);
-        closeCombat = new CloseCombat();
-        ranged = new Ranged();
-        siege = new Siege();
+        closeCombat = new CloseCombat(discardPile);
+        ranged = new Ranged(discardPile);
+        siege = new Siege(discardPile);
 
         player = new Player("Gabriel", deck, closeCombat, ranged, siege, new Blue());
         opponent = new Player("Juan", deck, closeCombat, ranged, siege, new Blue());
