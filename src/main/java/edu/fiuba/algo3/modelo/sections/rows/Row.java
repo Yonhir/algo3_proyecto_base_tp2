@@ -37,6 +37,7 @@ public abstract class Row implements Section {
     }
 
     public void addCard(Card card) {
+        card.verifySectionType(this.sectionType);
         cards.add(card);
         currentWeather.apply(card, this);
         lastCard = (Unit) card;
@@ -73,4 +74,8 @@ public abstract class Row implements Section {
     }
 
     public boolean sameColor(Color color) { return this.color.equals(color);}
+
+    public boolean containsCard(Card card) {
+        return this.cards.contains(card);
+    }
 }
