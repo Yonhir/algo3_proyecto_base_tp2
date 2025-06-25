@@ -48,7 +48,7 @@ public class ScorchTest {
         closeCombatRow2 = new CloseCombat(discardPile2);
         rangedRow2 = new Ranged(discardPile2);
         siegeRow2 = new Siege(discardPile2);
-        specialZone = new SpecialZone(closeCombatRow1, rangedRow1, siegeRow1, closeCombatRow2, rangedRow2, siegeRow2);
+        specialZone = new SpecialZone(closeCombatRow1, rangedRow1, siegeRow1, closeCombatRow2, rangedRow2, siegeRow2, discardPile1, discardPile2);
         Player player1 = new Player("nombre", new Deck(), discardPile1, closeCombatRow1, rangedRow1, siegeRow1, new Blue());
         Player player2 = new Player("nombre", new Deck(), discardPile2, closeCombatRow2, rangedRow2, siegeRow2, new Red());
         round = new Round(player1, player2);

@@ -378,7 +378,7 @@ public class SpecialZoneTest {
     public void testSpecialZoneConstructor_ShouldThrowException_WhenCloseCombatRowsAreRepeated() {
         // Arrange
 
-        CloseCombat sharedCloseCombatRow = new CloseCombat(discardPile);
+        CloseCombat sharedCloseCombatRow = new CloseCombat(discardPile1);
         
         // Act & Assert
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {

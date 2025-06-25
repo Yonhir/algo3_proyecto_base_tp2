@@ -172,10 +172,10 @@ public class DiscardPileTest {
         Color colorRed = new Red();
 
         unirCard.setColor(colorBlue);
-        discardPile.setColor(colorRed);
-        discardPile.addCardIfHasSameColor(unirCard);
+        discardPile1.setColor(colorRed);
+        discardPile1.addCardIfHasSameColor(unirCard);
 
-        assertTrue(discardPile.isEmpty());
+        assertTrue(discardPile1.isEmpty());
     }
 
     @Test
@@ -188,11 +188,11 @@ public class DiscardPileTest {
 
         unirCard1.setColor(colorRed);
         unirCard2.setColor(colorBlue);
-        discardPile.setColor(colorRed);
-        discardPile.addCardIfHasSameColor(unirCard1);
-        discardPile.addCardIfHasSameColor(unirCard2);
+        discardPile1.setColor(colorRed);
+        discardPile1.addCardIfHasSameColor(unirCard1);
+        discardPile1.addCardIfHasSameColor(unirCard2);
 
-        assertFalse(discardPile.isEmpty());
-        assertEquals(discardPile.getCardCount(), expectedCards);
+        assertFalse(discardPile1.isEmpty());
+        assertEquals(discardPile1.getCardCount(), expectedCards);
     }
 }

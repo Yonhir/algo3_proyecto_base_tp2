@@ -59,9 +59,9 @@ public class GameTest {
 
 
         round = new Round(player1, player2);
-        game = new Game(player1, player2, specialZone);
         player1 = new Player("nombre1", new Deck(), discardPile1, player1CloseCombatRow, player1RangedRow, player1SiegeRow, new Blue());
         player2 = new Player("nombre2", new Deck(), discardPile2, player2CloseCombatRow, player2RangedRow, player2SiegeRow, new Red());
+        game = new Game(player1, player2, specialZone);
     }
 
     @Test

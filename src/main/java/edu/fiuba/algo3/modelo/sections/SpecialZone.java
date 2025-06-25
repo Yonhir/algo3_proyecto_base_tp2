@@ -75,7 +75,7 @@ public class SpecialZone implements Section {
         weathersCards.clear();
         new ClearWeather("Clima Despejado", "Elimina todos los efectos de clima").play(this);
     }
-}
+
 
     public void applyScorchInCloseCombat(Scorch scorch) {
         for (CloseCombat row : closeCombatRows) {

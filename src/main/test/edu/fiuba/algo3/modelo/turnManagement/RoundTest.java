@@ -27,10 +27,6 @@ public class RoundTest {
     private Round round;
     private Game game;
     private Unit unidad;
-    private CloseCombat closeCombat;
-    private Ranged ranged;
-    private Siege siege;
-    private DiscardPile discardPile;
 
     private SpecialZone specialZone;
     private CloseCombat player1CloseCombatRow;
@@ -43,15 +39,22 @@ public class RoundTest {
     private DiscardPile discardPile2;
     @BeforeEach
     public void setUp() {
-        DiscardPile discardPile = new DiscardPile();
-        DiscardPile otherDiscardPile = new DiscardPile();
-        closeCombat = new CloseCombat(discardPile);
-        ranged = new Ranged(discardPile);
-        siege = new Siege(discardPile);
-        player1 = new Player("nombre1", new Deck(), discardPile, closeCombat, ranged, siege, new Blue());
-        player2 = new Player("nombre2", new Deck(), otherDiscardPile, new CloseCombat(otherDiscardPile), new Ranged(otherDiscardPile), new Siege(otherDiscardPile), new Red());
+        discardPile1 = new DiscardPile();
+        discardPile2 = new DiscardPile();
+        player1CloseCombatRow = new CloseCombat(discardPile1);
+        player1RangedRow = new Ranged(discardPile1);
+        player1SiegeRow = new Siege(discardPile1);
+        player2CloseCombatRow = new CloseCombat(discardPile2);
+        player2RangedRow = new Ranged(discardPile2);
+        player2SiegeRow = new Siege(discardPile2);
+
+        player1 = new Player("nombre1", new Deck(), discardPile1, player1CloseCombatRow, player1RangedRow, player1SiegeRow, new Blue());
+        player2 = new Player("nombre2", new Deck(), discardPile2, player2CloseCombatRow, player2RangedRow, player2SiegeRow, new Red());
         unidad = new Unit("Nombre", "Descripcion", 4, new CloseCombatType(), new ArrayList<>());
         round = new Round(player1, player2);
+        specialZone = new SpecialZone(player1CloseCombatRow, player1RangedRow, player1SiegeRow,
+                player2CloseCombatRow, player2RangedRow, player2SiegeRow,
+                discardPile1, discardPile2);
         game = new Game(player1, player2, specialZone);
     }
 
@@ -81,7 +84,7 @@ public class RoundTest {
     @Test
     public void testAssignVictoryIncrementsWinnerRoundCount() {
         player1.getHand().addCard(unidad);
-        player1.playCard(unidad, closeCombat , round);
+        player1.playCard(unidad, player1CloseCombatRow , round);
 
         round.assignVictory();
 
