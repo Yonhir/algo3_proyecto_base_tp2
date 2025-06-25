@@ -43,21 +43,4 @@ public class DiscardPile extends CardCollection {
         }
        throw new NotUnitCardError("No unit card found in discard pile");
     }
-
-    /*
-    public Card getLastUnitCardFromType(Row row){
-        for (int i = cards.size() - 1; i >= 0; i--) {
-            Card card = cards.get(i);
-            try {
-                if (card instanceof Unit ) {
-                    row.haveSameSectionType(card);
-                    cards.remove(i);
-                    return card;
-                }
-            }catch (SectionTypeMismatchError ignored){
-            }
-        }
-        throw new NotUnitCardError("No unit card found in discard pile");
-    }
-     */
 }

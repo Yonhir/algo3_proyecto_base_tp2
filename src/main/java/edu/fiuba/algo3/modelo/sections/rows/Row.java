@@ -76,11 +76,4 @@ public abstract class Row implements Section {
     public boolean haveSameSectionType(Card card){
         return card.haveSectionType(sectionType);
     }
-
-    /*
-    public void haveSameSectionType(Card card){
-        card.verifySectionType(sectionType);
-    }
-    */
-
 }

@@ -18,7 +18,6 @@ public class Medic implements Modifier{
             row.placeCard(card);
         }
         catch (NotUnitCardError e){
-           // System.out.println(e.getMessage());
         }
     }
 }
