@@ -24,8 +24,7 @@ public abstract class Card {
     }
 
     public void verifySectionType(SectionType sectionType) {
-        boolean matches = sectionTypes.stream().anyMatch(type -> type.getClass().equals(sectionType.getClass()));
-        if (!matches) {
+        if (!haveSectionType(sectionType)) {
             throw new SectionTypeMismatchError("SectionType does not match for this card.");
         }
     }
