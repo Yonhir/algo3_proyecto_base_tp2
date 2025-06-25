@@ -70,7 +70,7 @@ public class SpecialZone implements Section {
         }
     }
 
-    public void applyInAllRows(Scorch scorch) {
+    public void applyScorchInAllRows(Scorch scorch) {
         for (CloseCombat row : closeCombatRows) {
             row.findStrongestCard(scorch);
         }

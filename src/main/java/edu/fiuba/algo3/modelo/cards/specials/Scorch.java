@@ -1,6 +1,5 @@
 package edu.fiuba.algo3.modelo.cards.specials;
 
-import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cards.Card;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
 import edu.fiuba.algo3.modelo.sections.Section;
@@ -20,7 +19,7 @@ public class Scorch extends Special {
     @Override
     public void play(Section section) {
         SpecialZone specialZone = (SpecialZone) section;
-        specialZone.applyInAllRows(this);
+        specialZone.applyScorchInAllRows(this);
     }
 
     public void burnStrongestCardFrom(Card card, Row row) {
