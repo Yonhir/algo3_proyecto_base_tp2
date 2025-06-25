@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.cards.units;
 
+import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cards.units.modifiers.Agile;
 import edu.fiuba.algo3.modelo.cards.units.modifiers.MoraleBoostModifier;
 import edu.fiuba.algo3.modelo.sections.rows.Ranged;
@@ -23,7 +24,8 @@ public class UnitTest {
 
     @Test
     public void testLaCartaEsJugadaCorrectamente() {
-        Ranged ranged = new Ranged();
+        DiscardPile discardPile = new DiscardPile();
+        Ranged ranged = new Ranged(discardPile);
         Unit unidad = new Unit("nombre", "descripcion", 6, new RangedType(), List.of(new MoraleBoostModifier()));
 
         unidad.play(ranged);
@@ -33,7 +35,8 @@ public class UnitTest {
 
     @Test
     public void testElPuntajeDeLaCartaEsModificadoDebidoAOtraCartaJugada() {
-        Ranged ranged = new Ranged();
+        DiscardPile discardPile = new DiscardPile();
+        Ranged ranged = new Ranged(discardPile);
         Unit unidad = new Unit("nombre", "descripcion", 6, new RangedType(), List.of(new MoraleBoostModifier()));
         Unit otraUnidad = new Unit("nombre", "descripcion", 5, new RangedType(), List.of(new MoraleBoostModifier()));
 
@@ -47,7 +50,8 @@ public class UnitTest {
 
     @Test
     public void testElPuntajeDeLaCartaEsReseteadoASuPuntajeInicialCorrectamente() {
-        Ranged ranged = new Ranged();
+        DiscardPile discardPile = new DiscardPile();
+        Ranged ranged = new Ranged(discardPile);
         Unit unidad = new Unit("nombre", "descripcion", 6, new RangedType(), List.of(new MoraleBoostModifier()));
         Unit otraUnidad = new Unit("nombre", "descripcion", 5, new RangedType(), List.of(new MoraleBoostModifier()));
 

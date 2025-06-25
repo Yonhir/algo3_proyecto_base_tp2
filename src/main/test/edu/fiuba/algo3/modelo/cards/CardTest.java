@@ -5,6 +5,7 @@ import edu.fiuba.algo3.modelo.Colors.Red;
 import edu.fiuba.algo3.modelo.Colors.Color;
 import edu.fiuba.algo3.modelo.turnManagement.Player;
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
+import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.BitingFrost;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.ImpenetrableFog;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.TorrentialRain;
@@ -60,12 +61,12 @@ public class CardTest {
     @Test
     public void testTodasLasCartasTienenElMismoColor() {
         Color blue = new Blue();
+        DiscardPile discardPile = new DiscardPile();
+        CloseCombat closeCombat = new CloseCombat(discardPile);
+        Ranged ranged = new Ranged(discardPile);
+        Siege siege = new Siege(discardPile);
 
-        CloseCombat closeCombat = new CloseCombat();
-        Ranged ranged = new Ranged();
-        Siege siege = new Siege();
-
-        new Player("Gabriel", deck, closeCombat, ranged, siege, blue);
+        new Player("Gabriel", deck, discardPile, closeCombat, ranged, siege, blue);
 
         List<Card> cards = deck.getCards();
 

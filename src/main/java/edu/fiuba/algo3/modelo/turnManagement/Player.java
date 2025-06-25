@@ -23,10 +23,9 @@ public class Player {
     private final Siege siege;
     private int roundsWon = 0;
 
-    public Player(String name, Deck deck, CloseCombat closeCombat, Ranged ranged, Siege siege, Color color) {
-
+    public Player(String name, Deck deck, DiscardPile discardPile, CloseCombat closeCombat, Ranged ranged, Siege siege, Color color) {
         this.name = name;
-        discardPile = new DiscardPile();
+        this.discardPile = discardPile;
         hand = new Hand();
         this.deck = deck;
         this.closeCombat = closeCombat;
@@ -65,7 +64,6 @@ public class Player {
         return closeCombat.calculatePoints() + ranged.calculatePoints() + siege.calculatePoints();
     }
 
-
     public void playCard(Card card, Row row, Round round) {
         row.placeCard(card, round);
         hand.retrieveCard(card);
@@ -84,9 +82,9 @@ public class Player {
     }
 
     public void discardAllRows() {
-        closeCombat.discardCards(discardPile);
-        ranged.discardCards(discardPile);
-        siege.discardCards(discardPile);
+        closeCombat.discardCards();
+        ranged.discardCards();
+        siege.discardCards();
     }
 
     public void assignRoundVictoryToBetterPlayer(Player other) {
@@ -99,7 +97,6 @@ public class Player {
             other.winRound();
         }
     }
-
 
     public Player chooseWinnerAgainst(Player other) {
         if (this.hasWonGame()) {
