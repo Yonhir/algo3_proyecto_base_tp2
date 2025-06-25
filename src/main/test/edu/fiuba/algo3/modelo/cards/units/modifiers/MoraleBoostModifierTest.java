@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo.cards.units.modifiers;
 
 import edu.fiuba.algo3.modelo.colors.*;
+import edu.fiuba.algo3.modelo.errors.SectionPlayerMismatchError;
 import edu.fiuba.algo3.modelo.turnManagement.Player;
 import edu.fiuba.algo3.modelo.turnManagement.Round;
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
@@ -110,5 +111,13 @@ public class MoraleBoostModifierTest {
 
         int actualPoints = siege.calculatePoints();
         Assertions.assertEquals(expectedPoints, actualPoints);
+    }
+
+    @Test
+    public void testLaCartaNoSePuedeJugarEnElSideEnemigoException(){
+        cardMoraleBoost = new Unit("Nombre", "Descripcion", 10, new SiegeType(), List.of(modifierMoral));
+        cardMoraleBoost.setColor(new Red());
+
+        Assertions.assertThrows(SectionPlayerMismatchError.class, () -> siege.placeCard(cardMoraleBoost, round  ));
     }
 }

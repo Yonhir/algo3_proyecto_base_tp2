@@ -21,8 +21,6 @@ public abstract class Special extends Card {
 
     @Override
     public void verifyColor(PlayerColor playerColor) {
-        boolean colorRed = playerColor.equals(new Red());
-        boolean colorBlue = playerColor.equals(new Blue());
-        if(!(colorRed || colorBlue)) throw new SectionPlayerMismatchError("Side does not match for this card.");
+        if(this.playerColor == null) throw new SectionPlayerMismatchError("Side does not match for this card.");
     }
 }
