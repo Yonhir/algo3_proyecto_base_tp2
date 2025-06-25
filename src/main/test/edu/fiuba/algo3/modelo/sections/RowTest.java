@@ -1,10 +1,13 @@
 package edu.fiuba.algo3.modelo.sections;
 
+import edu.fiuba.algo3.modelo.Colors.Red;
+import edu.fiuba.algo3.modelo.turnManagement.Player;
+import edu.fiuba.algo3.modelo.turnManagement.Round;
 import edu.fiuba.algo3.modelo.Colors.Blue;
 import edu.fiuba.algo3.modelo.Colors.Color;
-import edu.fiuba.algo3.modelo.Player;
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
 import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
+import edu.fiuba.algo3.modelo.cardcollections.Hand;
 import edu.fiuba.algo3.modelo.cards.*;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.ImpenetrableFog;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.Weather;
@@ -20,6 +23,7 @@ import edu.fiuba.algo3.modelo.sections.rows.Siege;
 import edu.fiuba.algo3.modelo.sections.types.CloseCombatType;
 import edu.fiuba.algo3.modelo.sections.types.RangedType;
 import edu.fiuba.algo3.modelo.sections.types.SiegeType;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -28,6 +32,26 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RowTest {
+    private Player player;
+    private Player opponent;
+    private Round round;
+    private Deck deck;
+
+    private CloseCombat closeCombat;
+    private Ranged ranged;
+    private Siege siege;
+
+    @BeforeEach
+    void setUp() {
+        deck = new Deck();
+        closeCombat = new CloseCombat();
+        ranged = new Ranged();
+        siege = new Siege();
+        player = new Player("Gabriel", deck, closeCombat, ranged, siege, new Blue());
+        opponent = new Player("Juan", deck, closeCombat, ranged, siege, new Red());
+        Hand hand = player.getHand();
+        round = new Round(player, opponent);
+    }
 
     @Test
     public void rowColor(){
@@ -37,7 +61,7 @@ public class RowTest {
         Ranged ranged = new Ranged(discardPile);
         Siege siege = new Siege(discardPile);
 
-        new Player("Gabriel", 2, new Deck(), closeCombat, ranged, siege, blue);
+        new Player("Gabriel", new Deck(), closeCombat, ranged, siege, blue);
 
         Assertions.assertTrue(closeCombat.sameColor(blue));
         Assertions.assertTrue(ranged.sameColor(blue));
@@ -51,7 +75,7 @@ public class RowTest {
         int puntosBase = 5;
         Unit arquero = new Unit("arquero", "tira flechas", puntosBase, List.of(new RangedType()), List.of() );
 
-        rangedRow.placeCard(arquero);
+        rangedRow.placeCard(arquero, round);
 
         assertTrue(rangedRow.getCards().contains(arquero));
     }
@@ -64,8 +88,8 @@ public class RowTest {
         Unit soldado2 = new Unit("soldado2", "pelea de cerca", 10, List.of(new CloseCombatType()), List.of());
         int cantidadCartasEsperadas = 2;
 
-        closeCombat.placeCard(soldado1);
-        closeCombat.placeCard(soldado2);
+        closeCombat.placeCard(soldado1, round);
+        closeCombat.placeCard(soldado2, round);
 
         List<Card> cartasEnLaFila = closeCombat.getCards();
         assertTrue(cartasEnLaFila.contains(soldado1));
@@ -79,7 +103,7 @@ public class RowTest {
         DiscardPile discardPile = new DiscardPile();
         Row closeCombatRow = new CloseCombat(discardPile);
 
-        assertThrows(SectionTypeMismatchError.class, () -> closeCombatRow.placeCard(arquero));
+        assertThrows(SectionTypeMismatchError.class, () -> closeCombatRow.placeCard(arquero, round));
     }
 
     @Test
@@ -89,7 +113,7 @@ public class RowTest {
         int puntosBase = 8;
         Unit catapulta = new Unit("catapulta", "dispara desde lejos", puntosBase, List.of(new SiegeType()), List.of());
 
-        siegeRow.placeCard(catapulta);
+        siegeRow.placeCard(catapulta, round);
 
         assertTrue(siegeRow.containsCard(catapulta));
     }
@@ -101,7 +125,7 @@ public class RowTest {
         DiscardPile discardPile = new DiscardPile();
         Row ranged = new Ranged(discardPile);
 
-        ranged.placeCard(unitConAgil);
+        ranged.placeCard(unitConAgil, round);
 
         assertTrue(ranged.containsCard(unitConAgil));
     }
@@ -113,7 +137,7 @@ public class RowTest {
         DiscardPile discardPile = new DiscardPile();
         Row closeCombat = new CloseCombat(discardPile);
 
-        closeCombat.placeCard(unitConAgil);
+        closeCombat.placeCard(unitConAgil, round);
 
         assertTrue(closeCombat.containsCard(unitConAgil));
     }
@@ -126,8 +150,8 @@ public class RowTest {
         Unit soldado2 = new Unit("soldado2", "pelea de cerca", 15, List.of(new CloseCombatType()), List.of());
         int puntosEsperados = 25;
 
-        closeCombat.placeCard(soldado1);
-        closeCombat.placeCard(soldado2);
+        closeCombat.placeCard(soldado1, round);
+        closeCombat.placeCard(soldado2, round);
 
         assertEquals(puntosEsperados, closeCombat.calculatePoints());
     }
@@ -139,7 +163,7 @@ public class RowTest {
         Unit arquero = new Unit("arquero", "tira flechas", 5, List.of(new RangedType()), List.of());
         Weather niebla = new ImpenetrableFog("Niebla Impenetrable", "Reduce la fuerza de las unidades a 1");
 
-        ranged.placeCard(arquero);
+        ranged.placeCard(arquero, round);
         ranged.applyWeather(niebla);
 
         assertEquals(1, arquero.calculatePoints());
@@ -152,8 +176,8 @@ public class RowTest {
         Unit catapulta1 = new Unit("catapulta1", "dispara desde lejos", 8, List.of(new SiegeType()), List.of());
         Unit catapulta2 = new Unit("catapulta2", "dispara desde lejos", 8, List.of(new SiegeType()), List.of());
 
-        siege.placeCard(catapulta1);
-        siege.placeCard(catapulta2);
+        siege.placeCard(catapulta1, round);
+        siege.placeCard(catapulta2, round);
         siege.discardCards();
 
         assertTrue(siege.getCards().isEmpty());
@@ -166,7 +190,7 @@ public class RowTest {
         Row ranged = new Ranged(discardPile);
         Unit unidadConMoraleBoost = new Unit("nombre", "descripcion", 8, List.of(new RangedType()), List.of(new MoraleBoostModifier()));
 
-        ranged.placeCard(unidadConMoraleBoost);
+        ranged.placeCard(unidadConMoraleBoost, round);
         ranged.discardCard(unidadConMoraleBoost);
 
         assertFalse(ranged.containsCard(unidadConMoraleBoost));

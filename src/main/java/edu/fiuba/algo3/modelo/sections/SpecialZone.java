@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.sections;
 
+import edu.fiuba.algo3.modelo.turnManagement.Round;
 import edu.fiuba.algo3.modelo.cards.Card;
 import edu.fiuba.algo3.modelo.cards.specials.Scorch;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.Weather;
@@ -27,9 +28,10 @@ public class SpecialZone implements Section {
     }
 
     @Override
-    public void placeCard(Card card) {
+    public void placeCard(Card card, Round round) {
         card.verifySectionType(this.sectionType);
         card.play(this);
+        round.playerPlayedCard();
     }
 
     public void applyCloseCombatWeather(Weather weather) {
