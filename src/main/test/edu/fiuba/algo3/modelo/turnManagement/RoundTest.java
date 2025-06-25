@@ -3,6 +3,7 @@ package edu.fiuba.algo3.modelo.turnManagement;
 import edu.fiuba.algo3.modelo.Colors.Blue;
 import edu.fiuba.algo3.modelo.Colors.Red;
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
+import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
 import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
 import edu.fiuba.algo3.modelo.sections.rows.Ranged;
@@ -30,9 +31,10 @@ public class RoundTest {
 
     @BeforeEach
     public void setUp() {
-        closeCombat = new CloseCombat();
-        ranged = new Ranged();
-        siege = new Siege();
+        DiscardPile discardPile = new DiscardPile();
+        closeCombat = new CloseCombat(discardPile);
+        ranged = new Ranged(discardPile);
+        siege = new Siege(discardPile);
         player1 = new Player("nombre1", new Deck(), closeCombat, ranged, siege, new Blue());
         player2 = new Player("nombre2", new Deck(), new CloseCombat(), new Ranged(), new Siege(), new Red());
         unidad = new Unit("Nombre", "Descripcion", 4, new CloseCombatType(), new ArrayList<>());
@@ -116,6 +118,5 @@ public class RoundTest {
 
         assertNotSame(first, round.getCurrentPlayer());
     }
-
 }
 

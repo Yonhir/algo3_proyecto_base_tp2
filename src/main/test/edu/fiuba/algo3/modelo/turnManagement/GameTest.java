@@ -71,5 +71,4 @@ public class GameTest {
 
         assertTrue(game.bothPlayersWonARound());
     }
-
 }

@@ -22,7 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DiscardPileTest {
-    private DiscardPile discardPile;
+    private DiscardPile discardPile1;
+    private DiscardPile discardPile2;
     private Unit unit1;
     private Unit unit2;
     private Unit unit3;
@@ -36,20 +37,23 @@ public class DiscardPileTest {
     private Round round;
     private Deck deck;
 
-    private CloseCombat closeCombat;
-    private Ranged ranged;
-    private Siege siegeRow;
-
+    private CloseCombat closeCombat1;
+    private Ranged ranged1;
+    private Siege siege1;
 
     @BeforeEach
     void setUp() {
-        discardPile = new DiscardPile();
+        discardPile1 = new DiscardPile();
+        discardPile2 = new DiscardPile();
         deck = new Deck();
-        closeCombat = new CloseCombat();
-        ranged = new Ranged();
-        siegeRow = new Siege();
-        player = new Player("Gabriel", deck, closeCombat, ranged, siegeRow, new Blue());
-        opponent = new Player("Juan", deck, closeCombat, ranged, siegeRow, new Red());
+        closeCombat1 = new CloseCombat(discardPile1);
+        ranged1 = new Ranged(discardPile1);
+        siege1 = new Siege(discardPile1);
+        CloseCombat closeCombat2 = new CloseCombat(discardPile2);
+        Ranged ranged2 = new Ranged(discardPile2);
+        Siege siege2 = new Siege(discardPile2);
+        player = new Player("Gabriel", deck, closeCombat1, ranged1, siege1, new Blue());
+        opponent = new Player("Juan", deck, closeCombat2, ranged2, siege2, new Red());
         round = new Round(player, opponent);
 
         unit1 = new Unit("Unit1", "Description1", 5, List.of(new CloseCombatType()), new ArrayList<>());
@@ -84,20 +88,20 @@ public class DiscardPileTest {
 
     @Test
     void testAddCardToDiscardPile() {
-        discardPile.addCard(unit1);
-        assertEquals(unit1, discardPile.getLastCard(), "Last card should be the one just added");
+        discardPile1.addCard(unit1);
+        assertEquals(unit1, discardPile1.getLastCard(), "Last card should be the one just added");
     }
 
     @Test
     void testAddMultipleCardsToDiscardPile() {
-        discardPile.addCard(unit1);
-        discardPile.addCard(unit2);
-        assertEquals(unit2, discardPile.getLastCard(), "Last card should be the most recently added");
+        discardPile1.addCard(unit1);
+        discardPile1.addCard(unit2);
+        assertEquals(unit2, discardPile1.getLastCard(), "Last card should be the most recently added");
     }
 
     @Test
     void testGetLastCardFromEmptyDiscardPile() {
-        assertThrows(IllegalStateException.class, () -> discardPile.getLastCard(), 
+        assertThrows(IllegalStateException.class, () -> discardPile1.getLastCard(),
             "Getting last card from empty discard pile should throw exception");
     }
 
@@ -108,10 +112,10 @@ public class DiscardPileTest {
         assertEquals(10, unit1.calculatePoints(), "Unit points should be modified");
 
         // Add unit1 to discard pile
-        discardPile.addCard(unit1);
+        discardPile1.addCard(unit1);
 
         // Get the card back from discard pile
-        Unit discardedUnit = (Unit) discardPile.getLastCard();
+        Unit discardedUnit = (Unit) discardPile1.getLastCard();
         assertEquals(5, discardedUnit.calculatePoints(), "Unit points should be reset to base value");
     }
 
@@ -125,7 +129,7 @@ public class DiscardPileTest {
         List<Card> unitCards = Arrays.asList(unit1, unit2, unit3);
 
         // Add the cards to discard pile
-        discardPile.insertCards(unitCards);
+        discardPile1.insertCards(unitCards);
 
         List<Integer> pointsGotten = Arrays.asList(unit1.calculatePoints(), unit2.calculatePoints(), unit3.calculatePoints());
         List<Integer> pointsExpected = Arrays.asList(5, 7, 3);
