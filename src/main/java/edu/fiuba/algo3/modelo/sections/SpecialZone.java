@@ -4,8 +4,6 @@ import edu.fiuba.algo3.modelo.turnManagement.Round;
 import edu.fiuba.algo3.modelo.cards.Card;
 import edu.fiuba.algo3.modelo.cards.specials.Scorch;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.Weather;
-import edu.fiuba.algo3.modelo.cards.units.Unit;
-import edu.fiuba.algo3.modelo.sections.rows.Row;
 import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
 import edu.fiuba.algo3.modelo.sections.rows.Ranged;
 import edu.fiuba.algo3.modelo.sections.rows.Siege;
@@ -74,15 +72,15 @@ public class SpecialZone implements Section {
 
     public void applyScorchInAllRows(Scorch scorch) {
         for (CloseCombat row : closeCombatRows) {
-            row.findStrongestCard(scorch);
+            row.findStrongestCardWithoutHeroModifier(scorch);
         }
 
         for (Ranged row : rangedRows) {
-            row.findStrongestCard(scorch);
+            row.findStrongestCardWithoutHeroModifier(scorch);
         }
 
         for (Siege row : siegeRows) {
-            row.findStrongestCard(scorch);
+            row.findStrongestCardWithoutHeroModifier(scorch);
         }
 
         applyScorchInCloseCombat(scorch);

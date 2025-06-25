@@ -60,13 +60,13 @@ public abstract class Row implements Section {
     }
 
     public void applyScorch(Scorch scorch) {
-        List<Card> strongest = this.findAllWithSamePoints(scorch);
+        List<Card> strongest = this.findAllCardsWithoutHeroModifierWithSamePoints(scorch);
         for (Card c : strongest) {
             scorch.burnStrongestCardFrom(c, this);
         }
     }
 
-    public void findStrongestCard(Scorch scorch) {
+    public void findStrongestCardWithoutHeroModifier(Scorch scorch) {
         List<Card> cardsWithoutHeroModifier = cards.stream().filter(c -> !((Unit) c).hasHeroAsModifier()).collect(Collectors.toList());
         if (!cardsWithoutHeroModifier.isEmpty()) {
             Unit max = (Unit) cardsWithoutHeroModifier.get(0);
@@ -77,7 +77,7 @@ public abstract class Row implements Section {
         }
     }
 
-    public List<Card> findAllWithSamePoints(Scorch scorch) {
+    public List<Card> findAllCardsWithoutHeroModifierWithSamePoints(Scorch scorch) {
         List<Card> wanted = new ArrayList<>();
         List<Card> cardsWithoutHeroModifier = cards.stream().filter(c -> !((Unit) c).hasHeroAsModifier()).collect(Collectors.toList());
         for (Card card : cardsWithoutHeroModifier) {
@@ -121,7 +121,6 @@ public abstract class Row implements Section {
     }
 
     public boolean sameColor(Color color) { return this.color.equals(color);}
-
 
     public boolean haveSameSectionType(Card card) {
         return card.haveSectionType(sectionType);

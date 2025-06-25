@@ -21,7 +21,7 @@ public class Unit extends Card {
         this.basePoints = points;
         this.currentPoints = points;
         this.modifiers = modifiers;
-        heroModifier();
+        checkHeroModifier();
     }
 
     public Unit(String name, String description, int points, SectionType sectionType, List<Modifier> modifiers) {
@@ -29,7 +29,7 @@ public class Unit extends Card {
         this.basePoints = points;
         this.currentPoints = points;
         this.modifiers = modifiers;
-        heroModifier();
+        checkHeroModifier();
     }
 
     public void play(Section section) {
@@ -40,7 +40,7 @@ public class Unit extends Card {
         }
     }
 
-    private void heroModifier() {
+    private void checkHeroModifier() {
         this.hasHeroModifier = false;
 
         for (Modifier modifier : modifiers) {
