@@ -9,7 +9,7 @@ import edu.fiuba.algo3.modelo.cards.units.Unit;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.Weather;
 import edu.fiuba.algo3.modelo.sections.Section;
 import edu.fiuba.algo3.modelo.sections.types.SectionType;
-import edu.fiuba.algo3.modelo.Colors.Color;
+import edu.fiuba.algo3.modelo.colors.PlayerColor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,7 @@ public abstract class Row implements Section {
     protected Unit lastCard;
     protected Weather currentWeather;
     protected SectionType sectionType;
-    protected Color color;
+    protected PlayerColor playerColor;
     protected DiscardPile discardPile;
 
     protected Row(SectionType sectionType, DiscardPile discardPile) {
@@ -31,6 +31,7 @@ public abstract class Row implements Section {
     @Override
     public void placeCard(Card card, Round round) {
         card.verifySectionType(this.sectionType);
+        card.verifyColor(playerColor);
         card.play(this);
         round.playerPlayedCard();
     }
@@ -110,11 +111,9 @@ public abstract class Row implements Section {
     }
 
 
-    public void setColor(Color color) {
-        this.color = color;
+    public void setColor(PlayerColor playerColor) {
+        this.playerColor = playerColor;
     }
-
-    public boolean sameColor(Color color) { return this.color.equals(color);}
 
 
     public boolean haveSameSectionType(Card card) {
@@ -127,4 +126,6 @@ public abstract class Row implements Section {
     public boolean containsCards(List<Card> cards){
         return this.cards.containsAll(cards);
     }
+
+    public int getCardCount() { return cards.size(); }
 }

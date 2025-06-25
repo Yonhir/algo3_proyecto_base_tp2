@@ -1,8 +1,6 @@
 package edu.fiuba.algo3.modelo.turnManagement;
 
-import java.util.ArrayList;
-import java.util.List;
-import edu.fiuba.algo3.modelo.Colors.Color;
+import edu.fiuba.algo3.modelo.colors.PlayerColor;
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
 import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cardcollections.Hand;
@@ -11,9 +9,6 @@ import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
 import edu.fiuba.algo3.modelo.sections.rows.Ranged;
 import edu.fiuba.algo3.modelo.sections.rows.Row;
 import edu.fiuba.algo3.modelo.sections.rows.Siege;
-
-
-import java.util.List;
 
 public class Player {
     private final String name;
@@ -25,7 +20,22 @@ public class Player {
     private final Siege siege;
     private int roundsWon = 0;
 
-    public Player(String name, Deck deck, DiscardPile discardPile, CloseCombat closeCombat, Ranged ranged, Siege siege, Color color) {
+    private void setColor(PlayerColor playerColor) {
+        setColorToCards(playerColor);
+        setColorToRows(playerColor);
+    }
+
+    private void setColorToRows(PlayerColor playerColor) {
+        closeCombat.setColor(playerColor);
+        ranged.setColor(playerColor);
+        siege.setColor(playerColor);
+    }
+
+    private void setColorToCards(PlayerColor playerColor) {
+        deck.setColorToCards(playerColor);
+    }
+
+    public Player(String name, Deck deck, DiscardPile discardPile, CloseCombat closeCombat, Ranged ranged, Siege siege, PlayerColor playerColor) {
         this.name = name;
         this.discardPile = discardPile;
         hand = new Hand();
@@ -33,25 +43,8 @@ public class Player {
         this.closeCombat = closeCombat;
         this.ranged = ranged;
         this.siege = siege;
-        setColor(color);
-    }
-  
-    private void setColorToCards(Color color) {
-        List<Card> cards = deck.getCards();
-        for (Card card : cards) {
-            card.setColor(color);
-        }
-    }
-  
-    private void setColorToRows(Color color) {
-        closeCombat.setColor(color);
-        ranged.setColor(color);
-        siege.setColor(color);
-    }
-  
-    private void setColor(Color color) {
-        setColorToCards(color);
-        setColorToRows(color);
+
+        setColor(playerColor);
     }
 
     public DiscardPile getDiscardPile() {

@@ -1,13 +1,10 @@
 package edu.fiuba.algo3.modelo.sections;
 
-import edu.fiuba.algo3.modelo.Colors.Red;
+import edu.fiuba.algo3.modelo.colors.*;
 import edu.fiuba.algo3.modelo.turnManagement.Player;
 import edu.fiuba.algo3.modelo.turnManagement.Round;
-import edu.fiuba.algo3.modelo.Colors.Blue;
-import edu.fiuba.algo3.modelo.Colors.Color;
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
 import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
-import edu.fiuba.algo3.modelo.cardcollections.Hand;
 import edu.fiuba.algo3.modelo.cards.*;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.ImpenetrableFog;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.Weather;
@@ -18,13 +15,11 @@ import edu.fiuba.algo3.modelo.cards.units.modifiers.MoraleBoostModifier;
 import edu.fiuba.algo3.modelo.errors.SectionTypeMismatchError;
 import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
 import edu.fiuba.algo3.modelo.sections.rows.Ranged;
-import edu.fiuba.algo3.modelo.sections.rows.Row;
 import edu.fiuba.algo3.modelo.sections.rows.Siege;
 import edu.fiuba.algo3.modelo.sections.types.CloseCombatType;
 import edu.fiuba.algo3.modelo.sections.types.RangedType;
 import edu.fiuba.algo3.modelo.sections.types.SiegeType;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -32,107 +27,82 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RowTest {
-    private Player player;
-    private Player opponent;
     private Round round;
-    private Deck deck;
+    private DiscardPile discardPile1;
 
-    private CloseCombat closeCombat1;
-    private Ranged ranged1;
-    private Siege siege1;
-
-    private CloseCombat closeCombat2;
-    private Ranged ranged2;
-    private Siege siege2;
+    private CloseCombat closeCombat;
+    private Ranged ranged;
+    private Siege siege;
 
     @BeforeEach
     void setUp() {
-        deck = new Deck();
-        DiscardPile discardPile1 = new DiscardPile();
+        Deck deck = new Deck();
+        discardPile1 = new DiscardPile();
         DiscardPile discardPile2 = new DiscardPile();
-        closeCombat1 = new CloseCombat(discardPile1);
-        ranged1 = new Ranged(discardPile1);
-        siege1 = new Siege(discardPile1);
-        closeCombat2 = new CloseCombat(discardPile2);
-        ranged2 = new Ranged(discardPile2);
-        siege2 = new Siege(discardPile2);
+        closeCombat = new CloseCombat(discardPile1);
+        ranged = new Ranged(discardPile1);
+        siege = new Siege(discardPile1);
 
-        player = new Player("Gabriel", deck, discardPile1, closeCombat1, ranged1, siege1, new Blue());
-        opponent = new Player("Juan", deck, discardPile2, closeCombat2, ranged2, siege2, new Red());
+        CloseCombat closeCombat2 = new CloseCombat(discardPile2);
+        Ranged ranged2 = new Ranged(discardPile2);
+        Siege siege2 = new Siege(discardPile2);
+
+        Player player = new Player("Gabriel", deck, discardPile1, closeCombat, ranged, siege, new Blue());
+        Player opponent = new Player("Juan", deck, discardPile2, closeCombat2, ranged2, siege2, new Red());
         round = new Round(player, opponent);
     }
 
     @Test
-    public void testLasFilasTienenElMismoColorQueElJugador(){
-        Color blue = new Blue();
-        DiscardPile discardPile = new DiscardPile();
-        CloseCombat closeCombat = new CloseCombat(discardPile);
-        Ranged ranged = new Ranged(discardPile);
-        Siege siege = new Siege(discardPile);
-
-        new Player("Gabriel", new Deck(), discardPile, closeCombat, ranged, siege, blue);
-
-        Assertions.assertTrue(closeCombat.sameColor(blue));
-        Assertions.assertTrue(ranged.sameColor(blue));
-        Assertions.assertTrue(siege.sameColor(blue));
-    }
-
-    @Test
     public void testUnaUnidadEsColocadaEnEspacioRangedRow() {
-        DiscardPile discardPile = new DiscardPile();
-        Row rangedRow = new Ranged(discardPile);
-        int puntosBase = 5;
+         int puntosBase = 5;
         Unit arquero = new Unit("arquero", "tira flechas", puntosBase, List.of(new RangedType()), List.of() );
+        arquero.setColor(new Blue());
 
-        rangedRow.placeCard(arquero, round);
+        ranged.placeCard(arquero, round);
 
-        assertTrue(rangedRow.getCards().contains(arquero));
+        assertEquals(arquero, ranged.getLastCard());
     }
 
     @Test
     public void testVariasCartasSonColocadasEnEspacioCloseCombat() {
-        DiscardPile discardPile = new DiscardPile();
-        Row closeCombat = new CloseCombat(discardPile);
         Unit soldado1 = new Unit("soldado1", "pelea de cerca", 10, List.of(new CloseCombatType()), List.of());
         Unit soldado2 = new Unit("soldado2", "pelea de cerca", 10, List.of(new CloseCombatType()), List.of());
+        soldado2.setColor(new Blue());
+        soldado1.setColor(new Blue());
         int cantidadCartasEsperadas = 2;
 
         closeCombat.placeCard(soldado1, round);
         closeCombat.placeCard(soldado2, round);
 
-        List<Card> cartasEnLaFila = closeCombat.getCards();
-        assertTrue(cartasEnLaFila.contains(soldado1));
-        assertTrue(cartasEnLaFila.contains(soldado2));
-        assertEquals(cantidadCartasEsperadas, cartasEnLaFila.size());
+        assertTrue(closeCombat.containsCard(soldado1));
+        assertTrue(closeCombat.containsCard(soldado2));
+        assertEquals(cantidadCartasEsperadas, closeCombat.getCardCount());
     }
 
     @Test
     public void TestUnaUnidadNoPuedeSerJugadaEnUnaFilaIncorrecta() {
         Unit arquero = new Unit("arquero", "tira flechas", 5, List.of(new RangedType()), List.of()); // Solo Ranged
-        DiscardPile discardPile = new DiscardPile();
-        Row closeCombatRow = new CloseCombat(discardPile);
+        arquero.setColor(new Blue());
 
-        assertThrows(SectionTypeMismatchError.class, () -> closeCombatRow.placeCard(arquero, round));
+        assertThrows(SectionTypeMismatchError.class, () -> closeCombat.placeCard(arquero, round));
     }
 
     @Test
     public void testUnaUnidadEsColocadaEnEspacioSiegeRow() {
-        DiscardPile discardPile = new DiscardPile();
-        Row siegeRow = new Siege(discardPile);
         int puntosBase = 8;
         Unit catapulta = new Unit("catapulta", "dispara desde lejos", puntosBase, List.of(new SiegeType()), List.of());
+        catapulta.setColor(new Blue());
 
-        siegeRow.placeCard(catapulta, round);
+        siege.placeCard(catapulta, round);
 
-        assertTrue(siegeRow.containsCard(catapulta));
+        assertTrue(siege.containsCard(catapulta));
     }
 
     @Test
     public void testUnidadAgilPuedeSerColocadaEnFilaRanged() {
         Modifier agil = new Agile();
         Unit unitConAgil = new Unit("ágil", "puede ir a melee o rango", 6, List.of(new CloseCombatType(), new RangedType()), List.of(agil));
-        DiscardPile discardPile = new DiscardPile();
-        Row ranged = new Ranged(discardPile);
+        unitConAgil.setColor(new Blue());
 
         ranged.placeCard(unitConAgil, round);
 
@@ -143,8 +113,7 @@ public class RowTest {
     public void testUnidadAgilPuedeSerColocadaEnFilaCloseCombat() {
         Modifier agile = new Agile();
         Unit unitConAgil = new Unit("ágil", "puede ir a melee o rango", 6, List.of(new CloseCombatType(), new RangedType()), List.of(agile));
-        DiscardPile discardPile = new DiscardPile();
-        Row closeCombat = new CloseCombat(discardPile);
+        unitConAgil.setColor(new Blue());
 
         closeCombat.placeCard(unitConAgil, round);
 
@@ -153,10 +122,10 @@ public class RowTest {
 
     @Test
     public void testCalcularPuntosDeUnaFila() {
-        DiscardPile discardPile = new DiscardPile();
-        Row closeCombat = new CloseCombat(discardPile);
         Unit soldado1 = new Unit("soldado1", "pelea de cerca", 10, List.of(new CloseCombatType()), List.of());
         Unit soldado2 = new Unit("soldado2", "pelea de cerca", 15, List.of(new CloseCombatType()), List.of());
+        soldado1.setColor(new Blue());
+        soldado2.setColor(new Blue());
         int puntosEsperados = 25;
 
         closeCombat.placeCard(soldado1, round);
@@ -167,10 +136,10 @@ public class RowTest {
 
     @Test
     public void testAgregarClimaAUnaFila() {
-        DiscardPile discardPile = new DiscardPile();
-        Row ranged = new Ranged(discardPile);
         Unit arquero = new Unit("arquero", "tira flechas", 5, List.of(new RangedType()), List.of());
+        arquero.setColor(new Blue());
         Weather niebla = new ImpenetrableFog("Niebla Impenetrable", "Reduce la fuerza de las unidades a 1");
+        niebla.setColor(new Blue());
 
         ranged.placeCard(arquero, round);
         ranged.applyWeather(niebla);
@@ -180,24 +149,23 @@ public class RowTest {
 
     @Test
     public void testDescartarCartasDeUnaFila() {
-        DiscardPile discardPile = new DiscardPile();
-        Row siege = new Siege(discardPile);
         Unit catapulta1 = new Unit("catapulta1", "dispara desde lejos", 8, List.of(new SiegeType()), List.of());
         Unit catapulta2 = new Unit("catapulta2", "dispara desde lejos", 8, List.of(new SiegeType()), List.of());
+        catapulta1.setColor(new Blue());
+        catapulta2.setColor(new Blue());
 
         siege.placeCard(catapulta1, round);
         siege.placeCard(catapulta2, round);
         siege.discardCards();
 
         assertTrue(siege.getCards().isEmpty());
-        assertEquals(2, discardPile.getCardCount());
+        assertEquals(2, discardPile1.getCardCount());
     }
 
     @Test
     public void testAlJugarUnaCartaEnLaFilaSeLaPuedeDescartar() {
-        DiscardPile discardPile = new DiscardPile();
-        Row ranged = new Ranged(discardPile);
         Unit unidadConMoraleBoost = new Unit("nombre", "descripcion", 8, List.of(new RangedType()), List.of(new MoraleBoostModifier()));
+        unidadConMoraleBoost.setColor(new Blue());
 
         ranged.placeCard(unidadConMoraleBoost, round);
         ranged.discardCard(unidadConMoraleBoost);
