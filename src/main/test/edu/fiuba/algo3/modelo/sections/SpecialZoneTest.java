@@ -50,10 +50,6 @@ public class SpecialZoneTest {
     private Round round;
     private Deck deck;
 
-    private CloseCombat closeCombat;
-    private Ranged ranged;
-    private Siege siege;
-
     @BeforeEach
     public void setup() {
         DiscardPile discardPile1 = new DiscardPile();
@@ -66,8 +62,8 @@ public class SpecialZoneTest {
         player2CloseCombatRow = new CloseCombat(discardPile2);
         player2RangedRow = new Ranged(discardPile2);
         player2SiegeRow = new Siege(discardPile2);
-        player = new Player("Gabriel", deck, closeCombat, ranged, siege, new Blue());
-        opponent = new Player("Juan", deck, closeCombat, ranged, siege, new Red());
+        player = new Player("Gabriel", deck, player1CloseCombatRow, player1RangedRow, player1SiegeRow, new Blue());
+        opponent = new Player("Juan", deck, player2CloseCombatRow, player2RangedRow, player2SiegeRow, new Red());
         round = new Round(player, opponent);
 
         // Initialize weather zone with both players' rows

@@ -53,7 +53,6 @@ public class PlayerTest {
 
         // Create unit cards
         List<Card> unitCards = Arrays.asList(
-
                 new Unit("Nombre", "Descripcion", 4, new CloseCombatType(), new ArrayList<>()),
                 new Unit("Nombre", "Descripcion", 5, new CloseCombatType(), new ArrayList<>()),
                 new Unit("Nombre", "Descripcion", 6, new RangedType(), new ArrayList<>()),
@@ -171,7 +170,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void testLaPilaDeDescarteDelJugadorSeEncuentraEnElEstadoCorrecto() {
+    public void testLaPilaDeDescarteDelJugadorSeEncuentraEnElEstadoCorrectoAlInicio() {
         //ARRANGE
         DiscardPile expectedDiscardPile = new DiscardPile();
         
