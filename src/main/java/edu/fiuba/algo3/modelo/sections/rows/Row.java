@@ -35,6 +35,11 @@ public abstract class Row implements Section {
         round.playerPlayedCard();
     }
 
+    public void placeCard(Card card){
+        card.verifySectionType(this.sectionType);
+        card.play(this);
+    }
+
     public List<Card> getCards() {
         return cards;
     }
@@ -85,10 +90,6 @@ public abstract class Row implements Section {
         cards.remove(card);
     }
 
-    public boolean containsCard(Card card) {
-        return this.cards.contains(card);
-    }
-
     public int calculatePoints() {
         int total = 0;
         for (Card card : cards) {
@@ -108,9 +109,22 @@ public abstract class Row implements Section {
         return lastCard;
     }
 
+
     public void setColor(Color color) {
         this.color = color;
     }
 
     public boolean sameColor(Color color) { return this.color.equals(color);}
+
+
+    public boolean haveSameSectionType(Card card) {
+        return card.haveSectionType(sectionType);
+    }
+    public boolean containsCard(Card card) {
+        return this.cards.contains(card);
+    }
+
+    public boolean containsCards(List<Card> cards){
+        return this.cards.containsAll(cards);
+    }
 }

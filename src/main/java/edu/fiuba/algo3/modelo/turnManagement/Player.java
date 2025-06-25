@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.modelo.turnManagement;
 
+import java.util.ArrayList;
+import java.util.List;
 import edu.fiuba.algo3.modelo.Colors.Color;
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
 import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
