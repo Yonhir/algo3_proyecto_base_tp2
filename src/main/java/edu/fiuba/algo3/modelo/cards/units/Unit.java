@@ -16,16 +16,16 @@ public class Unit extends Card {
     private List<Modifier> modifiers;
     private boolean hasHeroModifier;
 
-    public Unit(String name, String description, int points, List<SectionType> sectionType, List<Modifier> modifiers) {
-        super(name, description, sectionType);
+    public Unit(String name, String description, int points, List<SectionType> sectionTypes, List<Modifier> modifiers) {
+        super(name, description, sectionTypes);
         this.basePoints = points;
         this.currentPoints = points;
         this.modifiers = modifiers;
         heroModifier();
     }
 
-    public Unit(String name, String description, int points, SectionType sectionTypes, List<Modifier> modifiers) {
-        super(name, description, List.of(sectionTypes));
+    public Unit(String name, String description, int points, SectionType sectionType, List<Modifier> modifiers) {
+        super(name, description, List.of(sectionType));
         this.basePoints = points;
         this.currentPoints = points;
         this.modifiers = modifiers;
