@@ -60,18 +60,19 @@ public class MoraleBoostModifierTest {
     @Test
     public void moral_boost_closeCombat() {
         cardMoraleBoost = new Unit("Nombre", "Descripcion", 10, new CloseCombatType(), List.of(modifierMoral));
-        int expectedPoints = closeCombat.calculatePoints() + closeCombat.getCards().size() + cardMoraleBoost.calculatePoints();
+        int expectedPoints = closeCombat.calculatePoints() + closeCombat.getCardCount() + cardMoraleBoost.calculatePoints();
 
         closeCombat.placeCard(cardMoraleBoost, round);
 
         int actualPoints = closeCombat.calculatePoints();
+
         Assertions.assertEquals(expectedPoints, actualPoints);
     }
 
     @Test
     public void moral_boost_ranged() {
         cardMoraleBoost = new Unit("Nombre", "Descripcion", 10, new RangedType(), List.of(modifierMoral));
-        int expectedPoints = ranged.calculatePoints() + ranged.getCards().size() + cardMoraleBoost.calculatePoints();
+        int expectedPoints = ranged.calculatePoints() + ranged.getCardCount() + cardMoraleBoost.calculatePoints();
 
         ranged.placeCard(cardMoraleBoost, round);
 
@@ -82,7 +83,7 @@ public class MoraleBoostModifierTest {
     @Test
     public void moral_boost_siege() {
         cardMoraleBoost = new Unit("Nombre", "Descripcion", 10, new SiegeType(), List.of(modifierMoral));
-        int expectedPoints = siege.calculatePoints() + siege.getCards().size() + cardMoraleBoost.calculatePoints();
+        int expectedPoints = siege.calculatePoints() + siege.getCardCount() + cardMoraleBoost.calculatePoints();
 
         siege.placeCard(cardMoraleBoost, round);
 

@@ -91,9 +91,6 @@ public class PlayerTest {
         player = new Player("Gabriel", deck, closeCombat, ranged, siege, new Blue());
         opponent = new Player("Juan", deck, closeCombat, ranged, siege, new Blue());
         Hand hand = player.getHand();
-        deck.getCards().remove(siegeCard);
-        deck.getCards().remove(closeCombatCard);
-        deck.getCards().remove(rangedCard);
 
         hand.insertCards(Arrays.asList(siegeCard, closeCombatCard, rangedCard));
         hand.getNCardsFromDeck(deck, 7);
@@ -106,7 +103,8 @@ public class PlayerTest {
 
         player.playCard(siegeCard, siege, round);
 
-        int actual_cards = player.getHand().getCardCount();
+        Hand hand = player.getHand();
+        int actual_cards = hand.getCardCount();
 
         Assertions.assertEquals(expected_cards, actual_cards);
     }
@@ -117,7 +115,7 @@ public class PlayerTest {
 
         player.playCard(siegeCard, siege, round);
 
-        int actual_cards = siege.getCards().size();
+        int actual_cards = siege.getCardCount();
 
         Assertions.assertEquals(expected_cards, actual_cards);
     }
@@ -126,14 +124,16 @@ public class PlayerTest {
     public void CardNotInHandAfterPlayingCard() {
         player.playCard(siegeCard, siege, round);
 
-        Assertions.assertFalse(player.getHand().getCards().contains(siegeCard));
+        Hand hand = player.getHand();
+
+        Assertions.assertFalse(hand.contains(siegeCard));
     }
 
     @Test
     public void CardInRowAfterPlayingCard() {
         player.playCard(siegeCard, siege, round);
 
-        Assertions.assertTrue(siege.getCards().contains(siegeCard));
+        Assertions.assertEquals(siegeCard ,siege.getLastCard());
     }
 
     @Test
@@ -142,7 +142,7 @@ public class PlayerTest {
 
         player.playCard(siegeCard, siege, round);
 
-        int actual_points = ((Unit) siege.getCards().get(0)).calculatePoints();
+        int actual_points = siege.calculatePoints();
 
         Assertions.assertEquals(expected_points, actual_points);
     }
@@ -170,9 +170,9 @@ public class PlayerTest {
         player.playCard(rangedCard, ranged, round);
 
         Assertions.assertTrue(
-                siege.getCards().contains(siegeCard) &&
-                closeCombat.getCards().contains(closeCombatCard) &&
-                ranged.getCards().contains(rangedCard)
+                siege.getLastCard().equals(siegeCard) &&
+                closeCombat.getLastCard().equals(closeCombatCard) &&
+                ranged.getLastCard().equals(rangedCard)
         );
     }
 
@@ -182,7 +182,8 @@ public class PlayerTest {
         player.playCard(closeCombatCard, closeCombat, round);
         player.playCard(rangedCard, ranged, round);
 
-        Assertions.assertFalse(player.getHand().getCards().containsAll(Arrays.asList(siegeCard, closeCombatCard, rangedCard)));
+        Hand hand = player.getHand();
+        Assertions.assertFalse(hand.contains(siegeCard) &&  hand.contains(closeCombatCard) && hand.contains(rangedCard));
     }
 
     //Falta un test error
@@ -262,9 +263,9 @@ public class PlayerTest {
 
         player.discardAllRows();
 
-        Assertions.assertEquals(0, siege.getCards().size());
-        Assertions.assertEquals(0, ranged.getCards().size());
-        Assertions.assertEquals(0, closeCombat.getCards().size());
+        Assertions.assertEquals(0, siege.getCardCount());
+        Assertions.assertEquals(0, ranged.getCardCount());
+        Assertions.assertEquals(0, closeCombat.getCardCount());
         Assertions.assertEquals(expectedDiscardCount, player.getDiscardPile().getCardCount());
     }
 }

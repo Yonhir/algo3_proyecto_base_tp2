@@ -58,7 +58,7 @@ public class SkelligeStormTest {
     @Test
     public void skelligeStormOwnerSideTest(){
         Weather skelligeStorm = new SkelligeStorm("Skellige Storm", "Reduce todas las unidades a distancia y de asedio a 1 punto");
-        int expectedPointsSAndR = siege.getCards().size() + ranged.getCards().size();
+        int expectedPointsSAndR = siege.getCardCount() + ranged.getCardCount();
 
         skelligeStorm.play(specialZone);
 
@@ -69,7 +69,7 @@ public class SkelligeStormTest {
     @Test
     public void skelligeStormOpponentSideTest(){
         Weather skelligeStorm = new SkelligeStorm("Skellige Storm", "Reduce todas las unidades a distancia y de asedio a 1 punto");
-        int expectedPointsSAndR = siegeOpponent.getCards().size() + rangedOpponent.getCards().size();
+        int expectedPointsSAndR = siegeOpponent.getCardCount() + rangedOpponent.getCardCount();
 
         skelligeStorm.play(specialZone);
 
@@ -82,7 +82,7 @@ public class SkelligeStormTest {
         siegeOpponent.discardCards(new DiscardPile());
         rangedOpponent.discardCards(new DiscardPile());
         Weather skelligeStorm = new SkelligeStorm("Skellige Storm", "Reduce todas las unidades a distancia y de asedio a 1 punto");
-        int expectedPointsSAndR = siegeOpponent.getCards().size() + rangedOpponent.getCards().size();
+        int expectedPointsSAndR = siegeOpponent.getCardCount() + rangedOpponent.getCardCount();
 
         skelligeStorm.play(specialZone);
 
