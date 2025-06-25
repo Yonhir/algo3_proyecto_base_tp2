@@ -167,7 +167,7 @@ public class PlayerTest {
         player.playCard(closeCombatCard, closeCombat1, round);
         player.playCard(rangedCard, ranged1, round);
 
-        assertFalse(player.getHand().getCards().containsAll(Arrays.asList(siegeCard, closeCombatCard, rangedCard)));
+        assertFalse(player.getHand().containsCards(Arrays.asList(siegeCard, closeCombatCard, rangedCard)));
     }
 
     @Test
