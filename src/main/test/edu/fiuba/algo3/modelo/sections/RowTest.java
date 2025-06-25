@@ -11,6 +11,7 @@ import edu.fiuba.algo3.modelo.cards.specials.weathers.Weather;
 import edu.fiuba.algo3.modelo.cards.units.modifiers.Agile;
 import edu.fiuba.algo3.modelo.cards.units.modifiers.Modifier;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
+import edu.fiuba.algo3.modelo.cards.units.modifiers.MoraleBoostModifier;
 import edu.fiuba.algo3.modelo.errors.SectionTypeMismatchError;
 import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
 import edu.fiuba.algo3.modelo.sections.rows.Ranged;
@@ -27,6 +28,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class RowTest {
     private Round round;
+    private DiscardPile discardPile1;
 
     private CloseCombat closeCombat;
     private Ranged ranged;
@@ -35,11 +37,18 @@ public class RowTest {
     @BeforeEach
     void setUp() {
         Deck deck = new Deck();
-        closeCombat = new CloseCombat();
-        ranged = new Ranged();
-        siege = new Siege();
-        Player player = new Player("Gabriel", deck, closeCombat, ranged, siege, new Blue());
-        Player opponent = new Player("Juan", new Deck(), new CloseCombat(), new Ranged(), new Siege(), new Red());
+        discardPile1 = new DiscardPile();
+        DiscardPile discardPile2 = new DiscardPile();
+        closeCombat = new CloseCombat(discardPile1);
+        ranged = new Ranged(discardPile1);
+        siege = new Siege(discardPile1);
+
+        CloseCombat closeCombat2 = new CloseCombat(discardPile2);
+        Ranged ranged2 = new Ranged(discardPile2);
+        Siege siege2 = new Siege(discardPile2);
+
+        Player player = new Player("Gabriel", deck, discardPile1, closeCombat, ranged, siege, new Blue());
+        Player opponent = new Player("Juan", deck, discardPile2, closeCombat2, ranged2, siege2, new Red());
         round = new Round(player, opponent);
     }
 
@@ -51,7 +60,7 @@ public class RowTest {
 
         ranged.placeCard(arquero, round);
 
-        assertTrue(ranged.getCards().contains(arquero));
+        assertEquals(arquero, ranged.getLastCard());
     }
 
     @Test
@@ -98,7 +107,7 @@ public class RowTest {
 
         ranged.placeCard(unitConAgil, round);
 
-        assertTrue(ranged.getCards().contains(unitConAgil));
+        assertTrue(ranged.containsCard(unitConAgil));
     }
 
     @Test
@@ -109,7 +118,7 @@ public class RowTest {
 
         closeCombat.placeCard(unitConAgil, round);
 
-        assertTrue(closeCombat.getCards().contains(unitConAgil));
+        assertTrue(closeCombat.containsCard(unitConAgil));
     }
 
     @Test
@@ -145,13 +154,23 @@ public class RowTest {
         Unit catapulta2 = new Unit("catapulta2", "dispara desde lejos", 8, List.of(new SiegeType()), List.of());
         catapulta1.setColor(new Blue());
         catapulta2.setColor(new Blue());
-        DiscardPile discardPile = new DiscardPile();
 
         siege.placeCard(catapulta1, round);
         siege.placeCard(catapulta2, round);
-        siege.discardCards(discardPile);
+        siege.discardCards();
 
         assertTrue(siege.getCards().isEmpty());
-        assertEquals(2, discardPile.getCardCount());
+        assertEquals(2, discardPile1.getCardCount());
+    }
+
+    @Test
+    public void testAlJugarUnaCartaEnLaFilaSeLaPuedeDescartar() {
+        Unit unidadConMoraleBoost = new Unit("nombre", "descripcion", 8, List.of(new RangedType()), List.of(new MoraleBoostModifier()));
+        unidadConMoraleBoost.setColor(new Blue());
+
+        ranged.placeCard(unidadConMoraleBoost, round);
+        ranged.discardCard(unidadConMoraleBoost);
+
+        assertFalse(ranged.containsCard(unidadConMoraleBoost));
     }
 }

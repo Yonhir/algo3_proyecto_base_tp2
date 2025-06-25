@@ -4,6 +4,7 @@ import edu.fiuba.algo3.modelo.colors.*;
 import edu.fiuba.algo3.modelo.turnManagement.Player;
 import edu.fiuba.algo3.modelo.turnManagement.Round;
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
+import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cardcollections.Hand;
 import edu.fiuba.algo3.modelo.cards.Card;
 import edu.fiuba.algo3.modelo.errors.SectionPlayerMismatchError;
@@ -34,6 +35,8 @@ public class SpyTest {
     private List<Card> cards;
     @BeforeEach
     void setUp(){
+        DiscardPile discardPile1 = new DiscardPile();
+        DiscardPile discardPile2 = new DiscardPile();
         SectionType cct = new CloseCombatType();
         SectionType r = new RangedType();
         SectionType s = new SiegeType();
@@ -60,11 +63,14 @@ public class SpyTest {
                 new MoraleBoost("Nombre", "Descripcion", List.of(r)),
                 new MoraleBoost("Nombre", "Descripcion", List.of(r)),
                 new MoraleBoost("Nombre", "Descripcion", List.of(r))));
-        RangedRowOpponent = new Ranged();
 
-        RangedRowOwner = new Ranged();
-        CloseCombat closeCombat = new CloseCombat();
-        Siege siege = new Siege();
+        RangedRowOwner = new Ranged(discardPile1);
+        CloseCombat closeCombat = new CloseCombat(discardPile1);
+        Siege siege = new Siege(discardPile1);
+
+        RangedRowOpponent = new Ranged(discardPile2);
+        CloseCombat closeCombat2 = new CloseCombat(discardPile2);
+        Siege siege2 = new Siege(discardPile2);
 
         deck = new Deck();
         deck.insertCards(cards);
@@ -75,8 +81,8 @@ public class SpyTest {
 
         carta_espia.setColor(new Blue());
 
-        Player player = new Player("Gabriel", deck, closeCombat, RangedRowOwner, siege, new Blue());
-        Player opponent = new Player("Juan", new Deck(), new CloseCombat(), RangedRowOpponent, new Siege(), new Red());
+        Player player = new Player("Gabriel", deck, discardPile1, closeCombat, RangedRowOwner, siege, new Blue());
+        Player opponent = new Player("Juan", new Deck(), discardPile2, closeCombat2, RangedRowOpponent, siege2, new Red());
         round = new Round(player, opponent);
     }
     @Test
@@ -85,7 +91,7 @@ public class SpyTest {
     }
 
     @Test
-    public void hand_get_2_cards_from_deck_play_opponent() {
+    public void testSeJuegaLaCartaEspiaSeTomanCartasDelMazoYVanALaManoPropia() {
         int expectedCardsInHand = 2;
 
         RangedRowOpponent.placeCard(carta_espia, round);
@@ -94,7 +100,7 @@ public class SpyTest {
     }
 
     @Test
-    public void deck_lose_2_cards_play_opponent() {
+    public void testElMazoPierdeLasCantidadDeCartasCorrectaAlJugarseLaCartaConModificadorEspia() {
         int expectedCardsInHand = deck.getCardCount() - 2;
 
         RangedRowOpponent.placeCard(carta_espia, round);

@@ -29,12 +29,17 @@ public class TightBondTest {
     @BeforeEach
     void setUp() {
         discardPile = new DiscardPile();
-        CloseCombat closeCombat = new CloseCombat();
-        Ranged ranged = new Ranged();
-        siegeRow = new Siege();
+        DiscardPile discardPile2 = new DiscardPile();
+
+        CloseCombat closeCombat = new CloseCombat(discardPile);
+        Ranged ranged = new Ranged(discardPile);
+        siegeRow = new Siege(discardPile);
+        CloseCombat closeCombat2 = new CloseCombat(discardPile2);
+        Ranged ranged2 = new Ranged(discardPile2);
+        Siege siege2 = new Siege(discardPile2);
         Deck deck = new Deck();
-        Player player = new Player("Gabriel", deck, closeCombat, ranged, siegeRow, new Blue());
-        Player opponent = new Player("Juan", new Deck(), new CloseCombat(), new Ranged(), new Siege(), new Red());
+        Player player = new Player("Gabriel", deck, discardPile, closeCombat, ranged, siegeRow, new Blue());
+        Player opponent = new Player("Juan", new Deck(), discardPile2, closeCombat2, ranged2, siege2, new Red());
         round = new Round(player, opponent);
 
         // Create three different TightBond modifiers
@@ -82,7 +87,7 @@ public class TightBondTest {
     }
 
     @Test
-    void testPlay1CatapultTightBondPointsCalculation() {
+    void testSeJuegaUnaCartaCatapultaEnLaFilaSiegeCorrectamente() {
         // Arrange
         int expectedPoints = 8;
         
@@ -94,7 +99,7 @@ public class TightBondTest {
     }
 
     @Test
-    void testPlay3CatapultsTightBondPointsCalculation() {
+    void testSeJueganTresCartasConModificadorTightBondEnLaFilaSiegeLosPuntosSeTriplicanCorrectamente() {
         // Arrange
         int expectedPoints = 72;
 
@@ -109,7 +114,7 @@ public class TightBondTest {
     }
 
     @Test
-    void testPlay2CatapultsTightBondAndPointsResetAfterRound() {
+    void testSeJueganDosCartasConModificadorTightBondSeDescartanLasCartasYAlJugarUnaCartaUnitSinModificadorEstaNoEsAfectada() {
         // Arrange
         int expectedPoints = 6;
 
@@ -117,7 +122,7 @@ public class TightBondTest {
         siegeRow.placeCard(catapult1, round);
         siegeRow.placeCard(catapult2, round);
         // End of round
-        siegeRow.discardCards(discardPile);
+        siegeRow.discardCards();
         siegeRow.placeCard(regularUnit, round);
         int pointsAfterNewRound = siegeRow.calculatePoints();
 
@@ -126,7 +131,7 @@ public class TightBondTest {
     }
 
     @Test
-    void testRegularUnitNotAffectedByTightBond() {
+    void testSeJuegaUnaCartaUnidadSinModificadorYCartasConModificadorTightBondLaUnidadComunNoEsAfectada() {
         // Arrange
         int expectedPoints = 38;
 

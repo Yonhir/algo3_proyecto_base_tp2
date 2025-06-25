@@ -2,6 +2,7 @@ package edu.fiuba.algo3.modelo.turnManagement;
 
 import edu.fiuba.algo3.modelo.colors.*;
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
+import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
 import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
 import edu.fiuba.algo3.modelo.sections.rows.Ranged;
@@ -29,11 +30,13 @@ public class RoundTest {
 
     @BeforeEach
     public void setUp() {
-        closeCombat = new CloseCombat();
-        ranged = new Ranged();
-        siege = new Siege();
-        player1 = new Player("nombre1", new Deck(), closeCombat, ranged, siege, new Blue());
-        player2 = new Player("nombre2", new Deck(), new CloseCombat(), new Ranged(), new Siege(), new Red());
+        DiscardPile discardPile = new DiscardPile();
+        DiscardPile otherDiscardPile = new DiscardPile();
+        closeCombat = new CloseCombat(discardPile);
+        ranged = new Ranged(discardPile);
+        siege = new Siege(discardPile);
+        player1 = new Player("nombre1", new Deck(), discardPile, closeCombat, ranged, siege, new Blue());
+        player2 = new Player("nombre2", new Deck(), otherDiscardPile, new CloseCombat(otherDiscardPile), new Ranged(otherDiscardPile), new Siege(otherDiscardPile), new Red());
         unidad = new Unit("Nombre", "Descripcion", 4, new CloseCombatType(), new ArrayList<>());
         unidad.setColor(new Blue());
         round = new Round(player1, player2);
@@ -73,7 +76,6 @@ public class RoundTest {
         assertEquals(1, player1.getRoundsWon());
         assertEquals(0, player2.getRoundsWon());
     }
-
 
     @Test
     public void testAssignVictoryDoesNothingOnDraw() {
@@ -116,6 +118,5 @@ public class RoundTest {
 
         assertNotSame(first, round.getCurrentPlayer());
     }
-
 }
 

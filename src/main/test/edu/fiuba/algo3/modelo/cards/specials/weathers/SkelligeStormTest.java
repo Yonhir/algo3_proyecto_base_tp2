@@ -3,11 +3,11 @@ package edu.fiuba.algo3.modelo.cards.specials.weathers;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
 import edu.fiuba.algo3.modelo.sections.*;
 import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
@@ -28,13 +28,16 @@ public class SkelligeStormTest {
     private SpecialZone specialZone;
     @BeforeEach
     void setUp() {
-        CloseCombat closeCombatOpponent = new CloseCombat();
-        rangedOpponent = new Ranged();
-        siegeOpponent = new Siege();
+        DiscardPile discardPile1 = new DiscardPile();
+        DiscardPile discardPile2 = new DiscardPile();
 
-        CloseCombat closeCombat = new CloseCombat();
-        ranged = new Ranged();
-        siege = new Siege();
+        CloseCombat closeCombatOpponent = new CloseCombat(discardPile2);
+        rangedOpponent = new Ranged(discardPile2);
+        siegeOpponent = new Siege(discardPile2);
+
+        CloseCombat closeCombat = new CloseCombat(discardPile1);
+        ranged = new Ranged(discardPile1);
+        siege = new Siege(discardPile1);
 
         ranged.addCard(new Unit("Nombre", "Descripcion", 6, new RangedType(), new ArrayList<>()));
         ranged.addCard(new Unit("Nombre", "Descripcion", 8, new RangedType(), new ArrayList<>()));
@@ -79,8 +82,8 @@ public class SkelligeStormTest {
 
     @Test
     public void skelligeStormEmptySideTest(){
-        siegeOpponent.discardCards(new DiscardPile());
-        rangedOpponent.discardCards(new DiscardPile());
+        siegeOpponent.discardCards();
+        rangedOpponent.discardCards();
         Weather skelligeStorm = new SkelligeStorm("Skellige Storm", "Reduce todas las unidades a distancia y de asedio a 1 punto");
         int expectedPointsSAndR = siegeOpponent.getCards().size() + rangedOpponent.getCards().size();
 

@@ -24,13 +24,18 @@ public abstract class Card {
     public abstract void play(Section section);
 
     public void verifySectionType(SectionType sectionType) {
-        boolean matches = sectionTypes.stream().anyMatch(type -> type.getClass().equals(sectionType.getClass()));
-        if (!matches) {
+        if (!haveSectionType(sectionType)) {
             throw new SectionTypeMismatchError("SectionType does not match for this card.");
         }
     }
 
     public abstract void setColor(PlayerColor playerColor);
+
+
+    public boolean haveSectionType(SectionType sectionType) {
+        return sectionTypes.stream().anyMatch(type -> type.getClass().equals(sectionType.getClass()));
+    }
+
 
     public abstract void verifyColor(PlayerColor playerColor);
 }

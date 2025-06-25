@@ -3,6 +3,7 @@ package edu.fiuba.algo3.modelo.sections.rows;
 import edu.fiuba.algo3.modelo.turnManagement.Round;
 import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cards.Card;
+import edu.fiuba.algo3.modelo.cards.specials.Scorch;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.ClearWeather;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.Weather;
@@ -19,10 +20,12 @@ public abstract class Row implements Section {
     protected Weather currentWeather;
     protected SectionType sectionType;
     protected PlayerColor playerColor;
+    protected DiscardPile discardPile;
 
-    protected Row(SectionType sectionType) {
+    protected Row(SectionType sectionType, DiscardPile discardPile) {
         this.currentWeather = new ClearWeather("Clima Despejado", "Elimina todos los efectos de clima");
         this.sectionType = sectionType;
+        this.discardPile = discardPile;
     }
 
     @Override
@@ -31,6 +34,11 @@ public abstract class Row implements Section {
         card.verifyColor(playerColor);
         card.play(this);
         round.playerPlayedCard();
+    }
+
+    public void placeCard(Card card){
+        card.verifySectionType(this.sectionType);
+        card.play(this);
     }
 
     public List<Card> getCards() {
@@ -51,6 +59,38 @@ public abstract class Row implements Section {
         }
     }
 
+    public void applyScorch(Scorch scorch) {
+        List<Card> strongest = this.findAllWithSamePoints(scorch);
+        for (Card c : strongest) {
+            scorch.burnStrongestCardFrom(c, this);
+        }
+    }
+
+    public void findStrongestCard(Scorch scorch) {
+        if(!cards.isEmpty()) {
+            Unit max = (Unit) cards.get(0);
+            for (Card card : cards) {
+                max = max.strongerThan((Unit) card);
+            }
+            scorch.saveStrongest(max);
+        }
+    }
+
+    public List<Card> findAllWithSamePoints(Scorch scorch) {
+        List<Card> wanted = new ArrayList<>();
+        for (Card card : cards) {
+            if (scorch.matchesStrongest((Unit) card)) {
+                wanted.add(card);
+            }
+        }
+        return wanted;
+    }
+
+    public void discardCard(Card card) {
+        discardPile.addCard(card);
+        cards.remove(card);
+    }
+
     public int calculatePoints() {
         int total = 0;
         for (Card card : cards) {
@@ -61,7 +101,7 @@ public abstract class Row implements Section {
         return total;
     }
 
-    public void discardCards(DiscardPile discardPile) {
+    public void discardCards() {
         discardPile.insertCards(cards);
         cards.clear();
     }
@@ -70,11 +110,20 @@ public abstract class Row implements Section {
         return lastCard;
     }
 
+
     public void setColor(PlayerColor playerColor) {
         this.playerColor = playerColor;
     }
 
+
+    public boolean haveSameSectionType(Card card) {
+        return card.haveSectionType(sectionType);
+    }
     public boolean containsCard(Card card) {
         return this.cards.contains(card);
+    }
+
+    public boolean containsCards(List<Card> cards){
+        return this.cards.containsAll(cards);
     }
 }

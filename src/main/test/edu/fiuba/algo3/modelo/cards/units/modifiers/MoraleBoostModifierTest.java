@@ -24,6 +24,9 @@ public class MoraleBoostModifierTest {
     private CloseCombat closeCombat;
     private Ranged ranged;
     private Siege siege;
+    private CloseCombat closeCombat2;
+    private Ranged ranged2;
+    private Siege siege2;
     private MoraleBoostModifier modifierMoral;
     private Unit cardMoraleBoost;
     private Round round;
@@ -31,11 +34,18 @@ public class MoraleBoostModifierTest {
     @BeforeEach
     void setUp() {
         Deck deck = new Deck();
-        closeCombat = new CloseCombat();
-        ranged = new Ranged();
-        siege = new Siege();
-        Player player = new Player("Gabriel", deck, closeCombat, ranged, siege, new Blue());
-        Player opponent = new Player("Juan", new Deck(), new CloseCombat(), new Ranged(), new Siege(), new Red());
+
+        DiscardPile discardPile1 = new DiscardPile();
+        DiscardPile discardPile2 = new DiscardPile();
+        closeCombat = new CloseCombat(discardPile1);
+        ranged = new Ranged(discardPile1);
+        siege = new Siege(discardPile1);
+        closeCombat2 = new CloseCombat(discardPile2);
+        ranged2 = new Ranged(discardPile2);
+        siege2 = new Siege(discardPile2);
+        Player player = new Player("Gabriel", deck, discardPile1, closeCombat, ranged, siege, new Blue());
+        Player opponent = new Player("Juan", deck, discardPile2, closeCombat2, ranged2, siege2, new Red());
+
         round = new Round(player, opponent);
 
         modifierMoral = new MoraleBoostModifier();
@@ -95,7 +105,7 @@ public class MoraleBoostModifierTest {
         cardMoraleBoost.setColor(new Blue());
         int expectedPoints = cardMoraleBoost.calculatePoints();
 
-        siege.discardCards(new DiscardPile());
+        siege.discardCards();
         siege.placeCard(cardMoraleBoost, round);
 
         int actualPoints = siege.calculatePoints();

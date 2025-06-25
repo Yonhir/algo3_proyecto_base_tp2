@@ -3,6 +3,7 @@ package edu.fiuba.algo3.modelo.cards;
 import edu.fiuba.algo3.modelo.colors.*;
 import edu.fiuba.algo3.modelo.turnManagement.Player;
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
+import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.BitingFrost;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.ImpenetrableFog;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.TorrentialRain;
@@ -54,7 +55,6 @@ public class CardTest {
                 ));
         deck.insertCards(cards);
     }
-
 
     @Test
     public void testSeLePuedeColocarALaCartaUnPlayerColorCorrectamente() {

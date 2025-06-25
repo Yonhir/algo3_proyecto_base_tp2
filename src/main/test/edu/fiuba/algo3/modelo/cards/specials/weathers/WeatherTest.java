@@ -7,6 +7,7 @@ import edu.fiuba.algo3.modelo.cardcollections.Deck;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -41,13 +42,15 @@ public class WeatherTest {
 
     @BeforeEach
     public void setup() {
+        DiscardPile discardPile1 = new DiscardPile();
+        DiscardPile discardPile2 = new DiscardPile();
         Deck deck = new Deck();
-        closeCombatRow = new CloseCombat();
-        rangedRow = new Ranged();
-        siegeRow = new Siege();
-        CloseCombat aCloseCombat = new CloseCombat();
-        Ranged aRanged = new Ranged();
-        Siege aSiege = new Siege();
+        closeCombatRow = new CloseCombat(discardPile1);
+        rangedRow = new Ranged(discardPile1);
+        siegeRow = new Siege(discardPile1);
+        CloseCombat aCloseCombat = new CloseCombat(discardPile2);
+        Ranged aRanged = new Ranged(discardPile2);
+        Siege aSiege = new Siege(discardPile2);
 
         // Initialize weather zone
         specialZone = new SpecialZone(aCloseCombat, aRanged, aSiege, closeCombatRow, rangedRow, siegeRow);
@@ -71,8 +74,8 @@ public class WeatherTest {
         rainWeather.setColor(color);
         clearWeather.setColor(color);
 
-        Player player = new Player("Gabriel", deck, closeCombatRow, rangedRow, siegeRow, new Blue());
-        Player opponent = new Player("Juan", new Deck(), aCloseCombat, aRanged, aSiege, new Red());
+        Player player = new Player("Gabriel", deck, discardPile1, closeCombatRow, rangedRow, siegeRow, new Blue());
+        Player opponent = new Player("Juan", new Deck(), discardPile2, aCloseCombat, aRanged, aSiege, new Red());
         round = new Round(player, opponent);
     }
 
