@@ -76,7 +76,6 @@ public class RoundTest {
         assertEquals(0, player2.getRoundsWon());
     }
 
-
     @Test
     public void testAssignVictoryDoesNothingOnDraw() {
         Player p1 = mock(Player.class);
