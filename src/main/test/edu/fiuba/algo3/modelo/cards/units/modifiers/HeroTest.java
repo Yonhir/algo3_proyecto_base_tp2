@@ -32,12 +32,14 @@ public class HeroTest {
     @BeforeEach
     void setUp() {
         cartaConLegendaria = new Unit("cerys", "descripcion", 10, List.of(new CloseCombatType()), List.of(new Hero()));
-        closeCombat1 = new CloseCombat();
-        ranged1 = new Ranged();
-        siege1 = new Siege();
-        closeCombat2 = new CloseCombat();
-        ranged2 = new Ranged();
-        siege2 = new Siege();
+        DiscardPile discardPile1 = new DiscardPile();
+        DiscardPile discardPile2 = new DiscardPile();
+        closeCombat1 = new CloseCombat(discardPile1);
+        ranged1 = new Ranged(discardPile1);
+        siege1 = new Siege(discardPile1);
+        closeCombat2 = new CloseCombat(discardPile2);
+        ranged2 = new Ranged(discardPile2);
+        siege2 = new Siege(discardPile2);
     }
 
     @Test
@@ -104,7 +106,7 @@ public class HeroTest {
 
     @Test
     public void testCartaConModificadorLegendariaNoEsQuemadaPorUnaTierraArrasada() {
-        Scorch tierraArrasada = new Scorch("Tierra arrasada", "Desscripcion", List.of(new CloseCombatType(), new RangedType(), new SiegeType()), new DiscardPile());
+        Scorch tierraArrasada = new Scorch("Tierra arrasada", "Descripcion", List.of(new CloseCombatType(), new RangedType(), new SiegeType()));
 
         closeCombat1.placeCard(cartaConLegendaria);
 

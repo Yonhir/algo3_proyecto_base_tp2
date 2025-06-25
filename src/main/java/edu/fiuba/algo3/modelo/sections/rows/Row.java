@@ -13,7 +13,6 @@ import edu.fiuba.algo3.modelo.Colors.Color;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public abstract class Row implements Section {
@@ -89,7 +88,7 @@ public abstract class Row implements Section {
         return wanted;
     }
 
-    public void discardCard(Card card, DiscardPile discardPile) {
+    public void discardCard(Card card) {
         discardPile.addCard(card);
         cards.remove(card);
     }
