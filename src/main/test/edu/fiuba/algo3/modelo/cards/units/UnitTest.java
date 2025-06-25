@@ -1,11 +1,13 @@
 package edu.fiuba.algo3.modelo.cards.units;
 
+import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cards.units.modifiers.Agile;
 import edu.fiuba.algo3.modelo.cards.units.modifiers.MoraleBoostModifier;
 import edu.fiuba.algo3.modelo.sections.rows.Ranged;
 import edu.fiuba.algo3.modelo.sections.types.CloseCombatType;
 import edu.fiuba.algo3.modelo.sections.types.RangedType;
 import edu.fiuba.algo3.modelo.sections.types.SiegeType;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -13,6 +15,11 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class UnitTest {
+    private DiscardPile discardPile;
+    @BeforeEach
+    void setUp() {
+        discardPile = new DiscardPile();
+    }
 
     @Test
     public void testAlCrearseLaCartaLosPuntosSonLosIniciales() {
@@ -23,7 +30,7 @@ public class UnitTest {
 
     @Test
     public void testLaCartaEsJugadaCorrectamente() {
-        Ranged ranged = new Ranged();
+        Ranged ranged = new Ranged(discardPile);
         Unit unidad = new Unit("nombre", "descripcion", 6, new RangedType(), List.of(new MoraleBoostModifier()));
 
         unidad.play(ranged);
@@ -33,7 +40,7 @@ public class UnitTest {
 
     @Test
     public void testElPuntajeDeLaCartaEsModificadoDebidoAOtraCartaJugada() {
-        Ranged ranged = new Ranged();
+        Ranged ranged = new Ranged(discardPile);
         Unit unidad = new Unit("nombre", "descripcion", 6, new RangedType(), List.of(new MoraleBoostModifier()));
         Unit otraUnidad = new Unit("nombre", "descripcion", 5, new RangedType(), List.of(new MoraleBoostModifier()));
 
@@ -47,7 +54,7 @@ public class UnitTest {
 
     @Test
     public void testElPuntajeDeLaCartaEsReseteadoASuPuntajeInicialCorrectamente() {
-        Ranged ranged = new Ranged();
+        Ranged ranged = new Ranged(discardPile);
         Unit unidad = new Unit("nombre", "descripcion", 6, new RangedType(), List.of(new MoraleBoostModifier()));
         Unit otraUnidad = new Unit("nombre", "descripcion", 5, new RangedType(), List.of(new MoraleBoostModifier()));
 

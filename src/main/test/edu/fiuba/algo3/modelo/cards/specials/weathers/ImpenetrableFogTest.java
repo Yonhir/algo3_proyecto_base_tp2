@@ -3,6 +3,7 @@ package edu.fiuba.algo3.modelo.cards.specials.weathers;
 import edu.fiuba.algo3.modelo.Colors.Blue;
 import edu.fiuba.algo3.modelo.Colors.Red;
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
+import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
 import edu.fiuba.algo3.modelo.sections.Section;
 import edu.fiuba.algo3.modelo.sections.SpecialZone;
@@ -32,16 +33,20 @@ public class ImpenetrableFogTest {
 
     Player player1;
     Player player2;
+    DiscardPile discardPile1;
+    DiscardPile discardPile2;
 
     @BeforeEach
     void setUp() {
+        discardPile1 = new DiscardPile();
+        discardPile2 = new DiscardPile();
         fog = new ImpenetrableFog("niebla", "impenetrable");
-        closeCombat1 = new CloseCombat();
-        closeCombat2 = new CloseCombat();
-        ranged1 = new Ranged();
-        ranged2 = new Ranged();
-        siege1 = new Siege();
-        siege2 = new Siege();
+        closeCombat1 = new CloseCombat(discardPile1);
+        closeCombat2 = new CloseCombat(discardPile2);
+        ranged1 = new Ranged(discardPile1);
+        ranged2 = new Ranged(discardPile2);
+        siege1 = new Siege(discardPile1);
+        siege2 = new Siege(discardPile2);
 
         player1 = new Player("nombre", new Deck(), closeCombat1, ranged1, siege1, new Blue());
         player2 = new Player("nombre", new Deck(), closeCombat2, ranged2, siege2, new Red());
@@ -62,7 +67,7 @@ public class ImpenetrableFogTest {
 
     @Test
     public void testLaCartaImpenetrableFogUnicamenteAfectaALasFilasRanged() {
-        Section specialZone = new SpecialZone(closeCombat1, ranged1, siege1, closeCombat2, ranged2, siege2);
+        Section specialZone = new SpecialZone(closeCombat1, ranged1, siege1, closeCombat2, ranged2, siege2, discardPile1, discardPile2);
         Unit carta1 = new Unit("carta", "comun", 6, new SiegeType(), List.of());
         Unit carta2 = new Unit("nombre", "descripcion", 7, new CloseCombatType(), List.of());
         Unit carta3 = new Unit("nombre", "descripcion", 5, new RangedType(), List.of());

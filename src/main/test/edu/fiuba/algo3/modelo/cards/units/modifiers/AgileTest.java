@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.cards.units.modifiers;
 
+import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cards.Card;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
 import edu.fiuba.algo3.modelo.errors.SectionTypeMismatchError;
@@ -24,14 +25,16 @@ public class AgileTest {
     Row closeCombat;
     Row ranged;
     Row siege;
+    DiscardPile discardPile;
 
     @BeforeEach
     void setUp() {
+        discardPile = new DiscardPile();
         cartaConAgile = new Unit("carta con agile", "con agile", 4, List.of(new CloseCombatType(), new RangedType(), new SiegeType()), List.of(new Agile()));
         cartaConAgileDosFilas = new Unit("carta con agile", "con agile", 2, List.of(new RangedType(), new SiegeType()), List.of(new Agile()));
-        closeCombat = new CloseCombat();
-        ranged = new Ranged();
-        siege = new Siege();
+        closeCombat = new CloseCombat(discardPile);
+        ranged = new Ranged(discardPile);
+        siege = new Siege(discardPile);
     }
 
     @Test
