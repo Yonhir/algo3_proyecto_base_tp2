@@ -1,8 +1,11 @@
 package edu.fiuba.algo3.modelo.cards.units;
 
+import edu.fiuba.algo3.modelo.cards.units.modifiers.Spy;
+import edu.fiuba.algo3.modelo.colors.PlayerColor;
 import edu.fiuba.algo3.modelo.cards.Card;
 import edu.fiuba.algo3.modelo.cards.units.modifiers.Hero;
 import edu.fiuba.algo3.modelo.cards.units.modifiers.Modifier;
+import edu.fiuba.algo3.modelo.errors.SectionPlayerMismatchError;
 import edu.fiuba.algo3.modelo.sections.rows.Row;
 import edu.fiuba.algo3.modelo.sections.Section;
 import edu.fiuba.algo3.modelo.sections.types.SectionType;
@@ -30,6 +33,18 @@ public class Unit extends Card {
         this.currentPoints = points;
         this.modifiers = modifiers;
         checkHeroModifier();
+    }
+
+    @Override
+    public void verifyColor(PlayerColor playerColor) {
+        boolean sameColor = playerColor.equals(this.playerColor);
+        if (!sameColor) throw new SectionPlayerMismatchError("Side does not match for this card.");
+    }
+
+    @Override
+    public void setColor(PlayerColor playerColor){
+        if (modifiers.stream().anyMatch(modifier -> modifier.getClass() == Spy.class)) this.playerColor = playerColor.swapColor();
+        else this.playerColor = playerColor;
     }
 
     public void play(Section section) {

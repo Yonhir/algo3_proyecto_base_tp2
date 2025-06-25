@@ -1,21 +1,19 @@
 package edu.fiuba.algo3.modelo.cards.units.modifiers;
 
-import edu.fiuba.algo3.modelo.Colors.Blue;
-import edu.fiuba.algo3.modelo.Colors.Red;
+import edu.fiuba.algo3.modelo.colors.*;
 import edu.fiuba.algo3.modelo.turnManagement.Player;
 import edu.fiuba.algo3.modelo.turnManagement.Round;
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
 import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cardcollections.Hand;
 import edu.fiuba.algo3.modelo.cards.Card;
+import edu.fiuba.algo3.modelo.errors.SectionPlayerMismatchError;
 import edu.fiuba.algo3.modelo.cards.specials.MoraleBoost;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
 import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
 import edu.fiuba.algo3.modelo.sections.rows.Ranged;
 import edu.fiuba.algo3.modelo.sections.rows.Siege;
-import edu.fiuba.algo3.modelo.sections.types.CloseCombatType;
-import edu.fiuba.algo3.modelo.sections.types.RangedType;
-import edu.fiuba.algo3.modelo.sections.types.SiegeType;
+import edu.fiuba.algo3.modelo.sections.types.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,86 +23,87 @@ import java.util.Arrays;
 import java.util.List;
 
 public class SpyTest {
-    private CloseCombatType closeCombatType ;
-    private RangedType rangedType ;
-    private SiegeType siegeType ;
-    private DiscardPile discardPile1;
-    private DiscardPile discardPile2;
-    private Player player;
-    private Player opponent;
-    private Round round;
+    private Ranged RangedRowOpponent;
+    private Ranged RangedRowOwner;
+
+    private Unit carta_espia;
+    private Hand hand;
     private Deck deck;
 
-    private CloseCombat closeCombat1;
-    private Ranged ranged1;
-    private Siege siege1;
-
-    private CloseCombat closeCombat2;
-    private Ranged ranged2;
-    private Siege siege2;
+    private Round round;
 
     private List<Card> cards;
     @BeforeEach
     void setUp(){
-        discardPile1 = new DiscardPile();
-        discardPile2 = new DiscardPile();
-        closeCombat1 = new CloseCombat(discardPile1);
-        ranged1 = new Ranged(discardPile1);
-        siege1 = new Siege(discardPile1);
-        closeCombat2 = new CloseCombat(discardPile2);
-        ranged2 = new Ranged(discardPile2);
-        siege2 = new Siege(discardPile2);
-        closeCombatType = new CloseCombatType();
-        rangedType = new RangedType();
-        siegeType = new SiegeType();
-        deck = new Deck();
-        player = new Player("Gabriel", deck, discardPile1, closeCombat1, ranged1, siege1, new Blue());
-        opponent = new Player("Juan", deck, discardPile2, closeCombat2, ranged2, siege2, new Red());
-        round = new Round(player, opponent);
+        DiscardPile discardPile1 = new DiscardPile();
+        DiscardPile discardPile2 = new DiscardPile();
+        SectionType cct = new CloseCombatType();
+        SectionType r = new RangedType();
+        SectionType s = new SiegeType();
+
         cards = new ArrayList<>(Arrays.asList(
-                new Unit("Nombre", "Descripcion", 4, closeCombatType, new ArrayList<>()),
-                new Unit("Nombre", "Descripcion", 5, closeCombatType, new ArrayList<>()),
-                new Unit("Nombre", "Descripcion", 6, rangedType, new ArrayList<>()),
-                new Unit("Nombre", "Descripcion", 3, siegeType, new ArrayList<>()),
-                new Unit("Nombre", "Descripcion", 2, closeCombatType, new ArrayList<>()),
-                new Unit("Nombre", "Descripcion", 0, siegeType, new ArrayList<>()),
-                new Unit("Nombre", "Descripcion", 6, siegeType, new ArrayList<>()),
-                new Unit("Nombre", "Descripcion", 8, rangedType, new ArrayList<>()),
-                new Unit("Nombre", "Descripcion", 0, rangedType, new ArrayList<>()),
-                new Unit("Nombre", "Descripcion", 10, closeCombatType, new ArrayList<>()),
-                new Unit("Nombre", "Descripcion", 2, rangedType, new ArrayList<>()),
-                new Unit("Nombre", "Descripcion", 4, siegeType, new ArrayList<>()),
-                new Unit("Nombre", "Descripcion", 8, siegeType, new ArrayList<>()),
-                new Unit("Nombre", "Descripcion", 3, closeCombatType, new ArrayList<>()),
-                new Unit("Nombre", "Descripcion", 4, rangedType, new ArrayList<>()),
-                new MoraleBoost("Nombre", "Descripcion", List.of(rangedType)),
-                new MoraleBoost("Nombre", "Descripcion", List.of(rangedType)),
-                new MoraleBoost("Nombre", "Descripcion", List.of(rangedType)),
-                new MoraleBoost("Nombre", "Descripcion", List.of(rangedType)),
-                new MoraleBoost("Nombre", "Descripcion", List.of(rangedType)),
-                new MoraleBoost("Nombre", "Descripcion", List.of(rangedType))));
+                new Unit("Nombre", "Descripcion", 4, cct, new ArrayList<>()),
+                new Unit("Nombre", "Descripcion", 5, cct, new ArrayList<>()),
+                new Unit("Nombre", "Descripcion", 6, r, new ArrayList<>()),
+                new Unit("Nombre", "Descripcion", 3, s, new ArrayList<>()),
+                new Unit("Nombre", "Descripcion", 2, cct, new ArrayList<>()),
+                new Unit("Nombre", "Descripcion", 0, s, new ArrayList<>()),
+                new Unit("Nombre", "Descripcion", 6, s, new ArrayList<>()),
+                new Unit("Nombre", "Descripcion", 8, r, new ArrayList<>()),
+                new Unit("Nombre", "Descripcion", 0, r, new ArrayList<>()),
+                new Unit("Nombre", "Descripcion", 10, cct, new ArrayList<>()),
+                new Unit("Nombre", "Descripcion", 2, r, new ArrayList<>()),
+                new Unit("Nombre", "Descripcion", 4, s, new ArrayList<>()),
+                new Unit("Nombre", "Descripcion", 8, s, new ArrayList<>()),
+                new Unit("Nombre", "Descripcion", 3, cct, new ArrayList<>()),
+                new Unit("Nombre", "Descripcion", 4, r, new ArrayList<>()),
+                new MoraleBoost("Nombre", "Descripcion", List.of(r)),
+                new MoraleBoost("Nombre", "Descripcion", List.of(r)),
+                new MoraleBoost("Nombre", "Descripcion", List.of(r)),
+                new MoraleBoost("Nombre", "Descripcion", List.of(r)),
+                new MoraleBoost("Nombre", "Descripcion", List.of(r)),
+                new MoraleBoost("Nombre", "Descripcion", List.of(r))));
+
+        RangedRowOwner = new Ranged(discardPile1);
+        CloseCombat closeCombat = new CloseCombat(discardPile1);
+        Siege siege = new Siege(discardPile1);
+
+        RangedRowOpponent = new Ranged(discardPile2);
+        CloseCombat closeCombat2 = new CloseCombat(discardPile2);
+        Siege siege2 = new Siege(discardPile2);
+
+        deck = new Deck();
+        deck.insertCards(cards);
+
+        hand = new Hand();
+
+        carta_espia = new Unit("Nombre", "Descripcion", 4, r, List.of(new Spy(deck, hand)));
+
+        carta_espia.setColor(new Blue());
+
+        Player player = new Player("Gabriel", deck, discardPile1, closeCombat, RangedRowOwner, siege, new Blue());
+        Player opponent = new Player("Juan", new Deck(), discardPile2, closeCombat2, RangedRowOpponent, siege2, new Red());
+        round = new Round(player, opponent);
+    }
+    @Test
+    public void testLaCartaSeJuegaEnLasFilasPropiasException() {
+        Assertions.assertThrows(SectionPlayerMismatchError.class, () -> RangedRowOwner.placeCard(carta_espia, round));
     }
 
     @Test
     public void testSeJuegaLaCartaEspiaSeTomanCartasDelMazoYVanALaManoPropia() {
-        deck.insertCards(cards);
-        Hand hand = new Hand();
-        Unit cartaEspia = new Unit("Nombre", "Descripcion", 4, rangedType, List.of(new Spy(deck, hand, ranged1)));
         int expectedCardsInHand = 2;
 
-        ranged2.placeCard(cartaEspia, round);
+        RangedRowOpponent.placeCard(carta_espia, round);
 
         Assertions.assertEquals(expectedCardsInHand, hand.getCardCount());
     }
 
     @Test
     public void testElMazoPierdeLasCantidadDeCartasCorrectaAlJugarseLaCartaConModificadorEspia() {
-        deck.insertCards(cards);
-        Hand hand = new Hand();
-        Unit cartaEspia = new Unit("Nombre", "Descripcion", 4, rangedType, List.of(new Spy(deck, hand, ranged1)));
         int expectedCardsInHand = deck.getCardCount() - 2;
 
-        ranged2.placeCard(cartaEspia, round);
+        RangedRowOpponent.placeCard(carta_espia, round);
 
         Assertions.assertEquals(expectedCardsInHand, deck.getCardCount());
     }

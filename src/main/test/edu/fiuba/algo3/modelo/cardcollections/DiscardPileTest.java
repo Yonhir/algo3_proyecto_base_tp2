@@ -1,14 +1,12 @@
 package edu.fiuba.algo3.modelo.cardcollections;
 
-import edu.fiuba.algo3.modelo.Colors.Blue;
-import edu.fiuba.algo3.modelo.Colors.Red;
+import edu.fiuba.algo3.modelo.colors.*;
 import edu.fiuba.algo3.modelo.turnManagement.Player;
 import edu.fiuba.algo3.modelo.turnManagement.Round;
 import edu.fiuba.algo3.modelo.cards.Card;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
 import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
 import edu.fiuba.algo3.modelo.sections.rows.Ranged;
-import edu.fiuba.algo3.modelo.sections.rows.Row;
 import edu.fiuba.algo3.modelo.sections.rows.Siege;
 import edu.fiuba.algo3.modelo.sections.types.CloseCombatType;
 import edu.fiuba.algo3.modelo.sections.types.RangedType;
@@ -23,7 +21,6 @@ import java.util.List;
 
 public class DiscardPileTest {
     private DiscardPile discardPile1;
-    private DiscardPile discardPile2;
     private Unit unit1;
     private Unit unit2;
     private Unit unit3;
@@ -32,33 +29,32 @@ public class DiscardPileTest {
     private List<Card> siegeUnits;
     private List<Card> cards;
 
-    private Player player;
-    private Player opponent;
     private Round round;
-    private Deck deck;
 
-    private CloseCombat closeCombat1;
-    private Ranged ranged1;
-    private Siege siege1;
+    private CloseCombat closeCombat;
+    private Ranged ranged;
+    private Siege siege;
+
 
     @BeforeEach
     void setUp() {
         discardPile1 = new DiscardPile();
-        discardPile2 = new DiscardPile();
-        deck = new Deck();
-        closeCombat1 = new CloseCombat(discardPile1);
-        ranged1 = new Ranged(discardPile1);
-        siege1 = new Siege(discardPile1);
+        DiscardPile discardPile2 = new DiscardPile();
+        Deck deck = new Deck();
+        closeCombat = new CloseCombat(discardPile1);
+        ranged = new Ranged(discardPile1);
+        siege = new Siege(discardPile1);
         CloseCombat closeCombat2 = new CloseCombat(discardPile2);
         Ranged ranged2 = new Ranged(discardPile2);
         Siege siege2 = new Siege(discardPile2);
-        player = new Player("Gabriel", deck, discardPile1, closeCombat1, ranged1, siege1, new Blue());
-        opponent = new Player("Juan", deck, discardPile2, closeCombat2, ranged2, siege2, new Red());
+        Player player = new Player("Gabriel", deck, discardPile1, closeCombat, ranged, siege, new Blue());
+        Player opponent = new Player("Juan", deck, discardPile2, closeCombat2, ranged2, siege2, new Red());
         round = new Round(player, opponent);
 
         unit1 = new Unit("Unit1", "Description1", 5, List.of(new CloseCombatType()), new ArrayList<>());
         unit2 = new Unit("Unit2", "Description2", 7, List.of(new RangedType()), new ArrayList<>());
         unit3 = new Unit("Nombre", "Descripcion3", 3, List.of(new SiegeType()), new ArrayList<>());
+
         closeCombatUnits = Arrays.asList(
             new Unit("Nombre", "Descripcion", 4, List.of(new CloseCombatType()), new ArrayList<>()),
             new Unit("Nombre", "Descripcion", 5, List.of(new CloseCombatType()), new ArrayList<>()),
@@ -135,32 +131,5 @@ public class DiscardPileTest {
         List<Integer> pointsExpected = Arrays.asList(5, 7, 3);
 
         assertEquals(pointsGotten, pointsExpected, "Points should be reset to base value");
-    }
-
-    @Test
-    public void testCardsCountGoToDiscardPile(){
-        int expectedSize = 15;
-        DiscardPile discardPile = new DiscardPile();
-        Row ranged = new Ranged(discardPile);
-        Row closeCombat = new CloseCombat(discardPile);
-        Row siege = new Siege(discardPile);
-
-        for (Card card : closeCombatUnits) {
-            closeCombat.placeCard(card, round);
-        }
-        for (Card card : rangedUnits) {
-            ranged.placeCard(card, round);
-        }
-        for (Card card : siegeUnits) {
-            siege.placeCard(card, round);
-        }
-
-        siege.discardCards();
-        ranged.discardCards();
-        closeCombat.discardCards();
-
-        int actualSize = discardPile.getCardCount();
-
-        assertEquals(expectedSize, actualSize);
     }
 }

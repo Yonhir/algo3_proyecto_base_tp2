@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.modelo.cards.specials.weathers;
 
-import edu.fiuba.algo3.modelo.Colors.Blue;
-import edu.fiuba.algo3.modelo.Colors.Red;
+import edu.fiuba.algo3.modelo.colors.*;
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
 import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
@@ -53,14 +52,18 @@ public class ImpenetrableFogTest {
     @Test
     public void testLaCartaImpenetrableFogSeAplicaCorrectamenteEnLasFilasRanged() {
         Unit carta = new Unit("carta", "comun", 6, new RangedType(), List.of());
+        Unit cartaNueva = new Unit("cartaNueva", "comun", 6, new RangedType(), List.of());
+        carta.setColor(new Blue());
+        cartaNueva.setColor(new Red());
 
         ranged1.placeCard(carta, new Round(player1, player2));
-        ranged2.placeCard(carta, new Round(player1, player2));
+        ranged2.placeCard(cartaNueva, new Round(player1, player2));
 
         fog.apply(carta, ranged1);
-        fog.apply(carta, ranged2);
+        fog.apply(cartaNueva, ranged2);
 
         assertEquals(1, carta.calculatePoints());
+        assertEquals(1, cartaNueva.calculatePoints());
     }
 
     @Test
@@ -69,17 +72,30 @@ public class ImpenetrableFogTest {
         Unit carta1 = new Unit("carta", "comun", 6, new SiegeType(), List.of());
         Unit carta2 = new Unit("nombre", "descripcion", 7, new CloseCombatType(), List.of());
         Unit carta3 = new Unit("nombre", "descripcion", 5, new RangedType(), List.of());
+        Unit carta4 = new Unit("cartaRed", "comun", 6, new SiegeType(), List.of());
+        Unit carta5 = new Unit("nombreRed", "descripcion", 7, new CloseCombatType(), List.of());
+        Unit carta6 = new Unit("nombreRed", "descripcion", 5, new RangedType(), List.of());
+
+        carta1.setColor(new Blue());
+        carta2.setColor(new Blue());
+        carta3.setColor(new Blue());
+        carta4.setColor(new Red());
+        carta5.setColor(new Red());
+        carta6.setColor(new Red());
 
         closeCombat1.placeCard(carta2, new Round(player1, player2));
-        closeCombat2.placeCard(carta2, new Round(player1, player2));
+        closeCombat2.placeCard(carta5, new Round(player1, player2));
         ranged1.placeCard(carta3, new Round(player1, player2));
-        ranged2.placeCard(carta3, new Round(player1, player2));
+        ranged2.placeCard(carta6, new Round(player1, player2));
         siege1.placeCard(carta1, new Round(player1, player2));
-        siege2.placeCard(carta1, new Round(player1, player2));
+        siege2.placeCard(carta4, new Round(player1, player2));
         fog.play(specialZone);
 
         assertEquals(6, carta1.calculatePoints());
         assertEquals(7, carta2.calculatePoints());
         assertEquals(1, carta3.calculatePoints());
+        assertEquals(6, carta4.calculatePoints());
+        assertEquals(7, carta5.calculatePoints());
+        assertEquals(1, carta6.calculatePoints());
     }
 }

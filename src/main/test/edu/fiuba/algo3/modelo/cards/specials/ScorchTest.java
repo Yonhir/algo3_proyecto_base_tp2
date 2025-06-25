@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.modelo.cards.specials;
 
-import edu.fiuba.algo3.modelo.Colors.Blue;
-import edu.fiuba.algo3.modelo.Colors.Red;
+import edu.fiuba.algo3.modelo.colors.*;
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
 import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
@@ -39,6 +38,8 @@ public class ScorchTest {
     @BeforeEach
     void setUp() {
         tierraArrasada = new Scorch("Tierra arrasada", "Desscripcion", List.of(new CloseCombatType(), new RangedType(), new SiegeType()));
+        tierraArrasada.setColor(new Blue());
+
         discardPile1 = new DiscardPile();
         discardPile2 = new DiscardPile();
         closeCombatRow1 = new CloseCombat(discardPile1);
@@ -57,6 +58,8 @@ public class ScorchTest {
     public void testSeJuegaUnaTierraArrasadaSeEliminaLaCartaMasFuerteDeLaFilaCloseCombatCorrectamente() {
         Unit unidad1 = new Unit("Nombre", "Descripcion", 6, new CloseCombatType(), List.of(new TightBond()));
         Unit unidad2 = new Unit("Nombre", "Descripcion", 4, new CloseCombatType(), List.of(new MoraleBoostModifier()));
+        unidad1.setColor(new Blue());
+        unidad2.setColor(new Blue());
 
         closeCombatRow1.placeCard(unidad1, round);
         closeCombatRow1.placeCard(unidad2, round);
@@ -69,6 +72,8 @@ public class ScorchTest {
     public void testSeJuegaUnaTierraArrasadaSeEliminaLaCartaMasFuerteDeLaFilaRangedCorrectamente() {
         Unit unidad1 = new Unit("Nombre", "Descripcion", 4, new RangedType(), List.of(new TightBond()));
         Unit unidad2 = new Unit("Nombre", "Descripcion", 6, new RangedType(), List.of(new MoraleBoostModifier()));
+        unidad1.setColor(new Red());
+        unidad2.setColor(new Red());
 
         rangedRow2.placeCard(unidad1, round);
         rangedRow2.placeCard(unidad2, round);
@@ -82,6 +87,9 @@ public class ScorchTest {
         Unit unidad1 = new Unit("Nombre", "Descripcion", 4, new SiegeType(), List.of(new TightBond()));
         Unit unidad2 = new Unit("Nombre", "Descripcion", 6, new SiegeType(), List.of(new MoraleBoostModifier()));
         Unit unidad3 = new Unit("Nombre", "Descripcion", 8, new SiegeType(), List.of());
+        unidad1.setColor(new Blue());
+        unidad2.setColor(new Blue());
+        unidad3.setColor(new Blue());
 
         siegeRow1.placeCard(unidad1, round);
         siegeRow1.placeCard(unidad2, round);
@@ -96,6 +104,9 @@ public class ScorchTest {
         Unit unidad1 = new Unit("Nombre", "Descripcion", 6, new CloseCombatType(), List.of(new TightBond()));
         Unit unidad2 = new Unit("Nombre", "Descripcion", 4, new CloseCombatType(), List.of(new MoraleBoostModifier()));
         Unit unidad3 = new Unit("Nombre", "Descripcion", 6, new CloseCombatType(), List.of());
+        unidad1.setColor(new Blue());
+        unidad2.setColor(new Blue());
+        unidad3.setColor(new Blue());
 
         closeCombatRow1.placeCard(unidad1, round);
         closeCombatRow1.placeCard(unidad2, round);
@@ -110,6 +121,9 @@ public class ScorchTest {
         Unit unidad1 = new Unit("Nombre", "Descripcion", 4, new RangedType(), List.of(new TightBond()));
         Unit unidad2 = new Unit("Nombre", "Descripcion", 8, new RangedType(), List.of(new MoraleBoostModifier()));
         Unit unidad3 = new Unit("Nombre", "Descripcion", 8, new RangedType(), List.of());
+        unidad1.setColor(new Blue());
+        unidad2.setColor(new Blue());
+        unidad3.setColor(new Blue());
 
         rangedRow1.placeCard(unidad1, round);
         rangedRow1.placeCard(unidad2, round);
@@ -124,6 +138,9 @@ public class ScorchTest {
         Unit unidad1 = new Unit("Nombre", "Descripcion", 8, new SiegeType(), List.of(new TightBond()));
         Unit unidad2 = new Unit("Nombre", "Descripcion", 8, new SiegeType(), List.of());
         Unit unidad3 = new Unit("Nombre", "Descripcion", 6, new SiegeType(), List.of(new MoraleBoostModifier()));
+        unidad1.setColor(new Blue());
+        unidad2.setColor(new Blue());
+        unidad3.setColor(new Blue());
 
         siegeRow1.placeCard(unidad1, round);
         siegeRow1.placeCard(unidad2, round);
@@ -141,6 +158,11 @@ public class ScorchTest {
         Unit unidad2 = new Unit("Nombre", "Descripcion", 4, new RangedType(), List.of(new TightBond()));
         Unit unidad3 = new Unit("Nombre", "Descripcion", 8, new RangedType(), List.of());
         Unit unidad4 = new Unit("Nombre", "Descripcion", 8, new CloseCombatType(), List.of(new MoraleBoostModifier()));
+        unidad1.setColor(new Blue());
+        unidad2.setColor(new Blue());
+        unidad3.setColor(new Blue());
+        unidad4.setColor(new Blue());
+        unidad5.setColor(new Blue());
 
         closeCombatRow1.placeCard(unidad4, round);
         rangedRow1.placeCard(unidad2, round);
@@ -164,6 +186,12 @@ public class ScorchTest {
 
         Unit unidad3JugadorP = new Unit("Nombre", "Descripcion", 7, new SiegeType(), List.of(new TightBond()));
         Unit unidad3Oponente = new Unit("Nombre", "Descripcion", 5, new SiegeType(), List.of(new MoraleBoostModifier()));
+        unidad1JugadorP.setColor(new Blue());
+        unidad1Oponente.setColor(new Red());
+        unidad2JugadorP.setColor(new Blue());
+        unidad2Oponente.setColor(new Red());
+        unidad3JugadorP.setColor(new Blue());
+        unidad3Oponente.setColor(new Red());
 
         closeCombatRow1.placeCard(unidad1JugadorP, round);
         rangedRow1.placeCard(unidad2JugadorP, round);
@@ -194,6 +222,14 @@ public class ScorchTest {
 
         Unit unidad3JugadorP = new Unit("Nombre", "Descripcion", 7, new SiegeType(), List.of(new TightBond()));
         Unit unidad3Oponente = new Unit("Nombre", "Descripcion", 5, new SiegeType(), List.of(new MoraleBoostModifier()));
+
+        unidad1JugadorP.setColor(new Blue());
+        unidad1Oponente.setColor(new Red());
+        unidad2JugadorP.setColor(new Blue());
+        unidad2Oponente.setColor(new Red());
+        unidad3JugadorP.setColor(new Blue());
+        unidad3Oponente.setColor(new Red());
+
 
         closeCombatRow1.placeCard(unidad1JugadorP, round);
         rangedRow1.placeCard(unidad2JugadorP, round);

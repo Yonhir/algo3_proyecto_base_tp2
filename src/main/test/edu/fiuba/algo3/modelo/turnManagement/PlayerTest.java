@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo.turnManagement;
 
-import edu.fiuba.algo3.modelo.Colors.Blue;
+
+import edu.fiuba.algo3.modelo.colors.Blue;
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
 import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cardcollections.Hand;
@@ -9,6 +10,8 @@ import edu.fiuba.algo3.modelo.cards.specials.weathers.BitingFrost;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.ImpenetrableFog;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.TorrentialRain;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
+import edu.fiuba.algo3.modelo.colors.PlayerColor;
+import edu.fiuba.algo3.modelo.colors.Red;
 import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
 import edu.fiuba.algo3.modelo.sections.rows.Ranged;
 import edu.fiuba.algo3.modelo.sections.rows.Siege;
@@ -29,7 +32,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class PlayerTest {
     private List<Card> cards;
     private Player player;
-    private Deck deck;
 
     private CloseCombat closeCombat1;
     private Ranged ranged1;
@@ -37,10 +39,10 @@ public class PlayerTest {
     private CloseCombat closeCombat2;
     private Ranged ranged2;
     private Siege siege2;
-    private Player opponent;
     private Round round;
 
 
+    private final PlayerColor color = new Blue();
     private Card siegeCard;
     private Card rangedCard;
     private Card closeCombatCard;
@@ -50,6 +52,10 @@ public class PlayerTest {
         siegeCard = new Unit("Nombre", "Descripcion", 3, new SiegeType(), new ArrayList<>());
         rangedCard = new Unit("Nombre", "Descripcion", 6, new RangedType(), new ArrayList<>());
         closeCombatCard = new Unit("Nombre", "Descripcion", 4, new CloseCombatType(), new ArrayList<>());
+
+        siegeCard.setColor(color);
+        rangedCard.setColor(color);
+        closeCombatCard.setColor(color);
 
         // Create unit cards
         List<Card> unitCards = Arrays.asList(
@@ -87,8 +93,9 @@ public class PlayerTest {
         cards.addAll(specialCards);
 
         // Initialize game components
-        deck = new Deck();
+        Deck deck = new Deck();
         deck.insertCards(cards);
+
         DiscardPile discardPile1 = new DiscardPile();
         DiscardPile discardPile2 = new DiscardPile();
         closeCombat1 = new CloseCombat(discardPile1);
@@ -98,7 +105,8 @@ public class PlayerTest {
         ranged2 = new Ranged(discardPile2);
         siege2 = new Siege(discardPile2);
         player = new Player("Gabriel", deck, discardPile1, closeCombat1, ranged1, siege1, new Blue());
-        opponent = new Player("Juan", deck, discardPile2, closeCombat2, ranged2, siege2, new Blue());
+        Player opponent = new Player("Juan", deck, discardPile2, closeCombat2, ranged2, siege2, new Red());
+
         Hand hand = player.getHand();
 
         hand.insertCards(Arrays.asList(siegeCard, closeCombatCard, rangedCard));

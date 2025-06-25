@@ -1,8 +1,10 @@
 package edu.fiuba.algo3.modelo.cards;
 
-import edu.fiuba.algo3.modelo.Colors.Blue;
-import edu.fiuba.algo3.modelo.Colors.Red;
-import edu.fiuba.algo3.modelo.Colors.Color;
+import edu.fiuba.algo3.modelo.cards.specials.Special;
+import edu.fiuba.algo3.modelo.colors.*;
+import edu.fiuba.algo3.modelo.errors.SectionPlayerMismatchError;
+import edu.fiuba.algo3.modelo.sections.Section;
+import edu.fiuba.algo3.modelo.sections.rows.Row;
 import edu.fiuba.algo3.modelo.turnManagement.Player;
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
 import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
@@ -18,6 +20,7 @@ import edu.fiuba.algo3.modelo.sections.types.CloseCombatType;
 import edu.fiuba.algo3.modelo.sections.types.RangedType;
 import edu.fiuba.algo3.modelo.sections.types.SectionType;
 import edu.fiuba.algo3.modelo.sections.types.SiegeType;
+import edu.fiuba.algo3.modelo.turnManagement.Round;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -59,28 +62,13 @@ public class CardTest {
     }
 
     @Test
-    public void testTodasLasCartasTienenElMismoColor() {
-        Color blue = new Blue();
-        DiscardPile discardPile = new DiscardPile();
-        CloseCombat closeCombat = new CloseCombat(discardPile);
-        Ranged ranged = new Ranged(discardPile);
-        Siege siege = new Siege(discardPile);
-
-        new Player("Gabriel", deck, discardPile, closeCombat, ranged, siege, blue);
-
-        List<Card> cards = deck.getCards();
-
-        assertTrue(cards.stream().allMatch(card -> card.sameColor(blue)));
-    }
-
-    @Test
-    public void testSeLePuedeColocarALaCartaUnColorCorrectamente() {
-        Color red = new Red();
+    public void testSeLePuedeColocarALaCartaUnPlayerColorCorrectamente() {
+        PlayerColor red = new Red();
         Card card = new Unit("Nombre", "Descripcion", 4, new CloseCombatType(), new ArrayList<>());
 
         card.setColor(red);
 
-        assertTrue(card.sameColor(red));
+        assertDoesNotThrow(() -> card.verifyColor(red));
     }
 
     @Test
@@ -98,5 +86,12 @@ public class CardTest {
         Card card = new Unit("Nombre", "Descripcion", 4, closeCombat, new ArrayList<>());
 
         assertThrows(SectionTypeMismatchError.class, () -> card.verifySectionType(ranged));
+    }
+
+    @Test
+    public void testNoSePuedeJugarUnaCartaWeatherSinAsignarColor() {
+        Card special = new BitingFrost("Pedro", "Juan");
+
+        assertThrows(SectionPlayerMismatchError.class, () -> special.verifyColor(new Red()));
     }
 }

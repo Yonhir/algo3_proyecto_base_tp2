@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.modelo.cards.specials.weathers;
 
-import edu.fiuba.algo3.modelo.Colors.Blue;
-import edu.fiuba.algo3.modelo.Colors.Red;
+import edu.fiuba.algo3.modelo.colors.*;
 import edu.fiuba.algo3.modelo.turnManagement.Player;
 import edu.fiuba.algo3.modelo.turnManagement.Round;
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
@@ -37,27 +36,22 @@ public class WeatherTest {
     private Weather fogWeather;
     private Weather rainWeather;
     private Weather clearWeather;
-    private Player player;
-    private Player opponent;
     private Round round;
-    private Deck deck;
+    private final PlayerColor color = new Blue();
+
 
     @BeforeEach
     public void setup() {
         DiscardPile discardPile1 = new DiscardPile();
         DiscardPile discardPile2 = new DiscardPile();
-        deck = new Deck();
-        // Initialize rows
-        closeCombatRow = new CloseCombat(discardPile2);
-        rangedRow = new Ranged(discardPile2);
-        siegeRow = new Siege(discardPile2);
-        CloseCombat aCloseCombat = new CloseCombat(discardPile1);
-        Ranged aRanged = new Ranged(discardPile1);
-        Siege aSiege = new Siege(discardPile1);
+        Deck deck = new Deck();
+        closeCombatRow = new CloseCombat(discardPile1);
+        rangedRow = new Ranged(discardPile1);
+        siegeRow = new Siege(discardPile1);
+        CloseCombat aCloseCombat = new CloseCombat(discardPile2);
+        Ranged aRanged = new Ranged(discardPile2);
+        Siege aSiege = new Siege(discardPile2);
 
-        player = new Player("Gabriel", deck, discardPile1, aCloseCombat, aRanged, aSiege, new Blue());
-        opponent = new Player("Juan", deck, discardPile2, closeCombatRow, rangedRow, siegeRow, new Red());
-        round = new Round(player, opponent);
         // Initialize weather zone
         specialZone = new SpecialZone(aCloseCombat, aRanged, aSiege, closeCombatRow, rangedRow, siegeRow);
 
@@ -65,12 +59,24 @@ public class WeatherTest {
         soldier = new Unit("soldado", "pelea de cerca", 10, new CloseCombatType(), List.of());
         archer = new Unit("arquero", "tira flechas", 8, new RangedType(), List.of());
         catapult = new Unit("catapulta", "arma de asedio", 12, new SiegeType(), List.of());
-        
+
+        soldier.setColor(color);
+        archer.setColor(color);
+        catapult.setColor(color);
+
         // Initialize weather cards
         frostWeather = new BitingFrost("Escarcha", "Reduce todas las unidades cuerpo a cuerpo a 1 punto");
         fogWeather = new ImpenetrableFog("Niebla", "Reduce todas las unidades a distancia a 1 punto");
         rainWeather = new TorrentialRain("Lluvia", "Reduce todas las unidades de asedio a 1 punto");
         clearWeather = new ClearWeather("Clima Despejado", "Elimina todos los efectos de clima");
+        frostWeather.setColor(color);
+        fogWeather.setColor(color);
+        rainWeather.setColor(color);
+        clearWeather.setColor(color);
+
+        Player player = new Player("Gabriel", deck, discardPile1, closeCombatRow, rangedRow, siegeRow, new Blue());
+        Player opponent = new Player("Juan", new Deck(), discardPile2, aCloseCombat, aRanged, aSiege, new Red());
+        round = new Round(player, opponent);
     }
 
     @Test
