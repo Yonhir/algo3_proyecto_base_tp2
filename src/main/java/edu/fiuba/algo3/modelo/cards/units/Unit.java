@@ -3,24 +3,28 @@ package edu.fiuba.algo3.modelo.cards.units;
 import edu.fiuba.algo3.modelo.cards.units.modifiers.Spy;
 import edu.fiuba.algo3.modelo.colors.PlayerColor;
 import edu.fiuba.algo3.modelo.cards.Card;
+import edu.fiuba.algo3.modelo.cards.units.modifiers.Hero;
 import edu.fiuba.algo3.modelo.cards.units.modifiers.Modifier;
 import edu.fiuba.algo3.modelo.errors.SectionPlayerMismatchError;
 import edu.fiuba.algo3.modelo.sections.rows.Row;
 import edu.fiuba.algo3.modelo.sections.Section;
 import edu.fiuba.algo3.modelo.sections.types.SectionType;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Unit extends Card {
     private final int basePoints;
     private int currentPoints;
     private List<Modifier> modifiers;
+    private boolean hasHeroModifier;
 
     public Unit(String name, String description, int points, List<SectionType> sectionTypes, List<Modifier> modifiers) {
         super(name, description, sectionTypes);
         this.basePoints = points;
         this.currentPoints = points;
         this.modifiers = modifiers;
+        checkHeroModifier();
     }
 
     public Unit(String name, String description, int points, SectionType sectionType, List<Modifier> modifiers) {
@@ -28,6 +32,7 @@ public class Unit extends Card {
         this.basePoints = points;
         this.currentPoints = points;
         this.modifiers = modifiers;
+        checkHeroModifier();
     }
 
     @Override
@@ -50,6 +55,21 @@ public class Unit extends Card {
         }
     }
 
+    private void checkHeroModifier() {
+        this.hasHeroModifier = false;
+
+        for (Modifier modifier : modifiers) {
+            if (modifier instanceof Hero) {
+                this.hasHeroModifier = true;
+                break;
+            }
+        }
+    }
+
+    public boolean hasHeroAsModifier() {
+        return hasHeroModifier;
+    }
+
     public int calculatePoints() {
         return currentPoints;
     }
@@ -59,7 +79,9 @@ public class Unit extends Card {
     }
 
     public void setPoints(int points) {
-        currentPoints = points;
+        if (!hasHeroModifier) {
+            currentPoints = points;
+        }
     }
 
     public boolean haveModifier(Modifier modifierInstance) {

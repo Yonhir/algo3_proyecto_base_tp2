@@ -54,7 +54,7 @@ public class RowTest {
 
     @Test
     public void testUnaUnidadEsColocadaEnEspacioRangedRow() {
-         int puntosBase = 5;
+        int puntosBase = 5;
         Unit arquero = new Unit("arquero", "tira flechas", puntosBase, List.of(new RangedType()), List.of() );
         arquero.setColor(new Blue());
 

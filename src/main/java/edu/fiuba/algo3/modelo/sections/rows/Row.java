@@ -13,6 +13,7 @@ import edu.fiuba.algo3.modelo.colors.PlayerColor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public abstract class Row implements Section {
     protected List<Card> cards = new ArrayList<>();
@@ -60,25 +61,27 @@ public abstract class Row implements Section {
     }
 
     public void applyScorch(Scorch scorch) {
-        List<Card> strongest = this.findAllWithSamePoints(scorch);
+        List<Card> strongest = this.findAllCardsWithoutHeroModifierWithSamePoints(scorch);
         for (Card c : strongest) {
             scorch.burnStrongestCardFrom(c, this);
         }
     }
 
-    public void findStrongestCard(Scorch scorch) {
-        if(!cards.isEmpty()) {
-            Unit max = (Unit) cards.get(0);
-            for (Card card : cards) {
+    public void findStrongestCardWithoutHeroModifier(Scorch scorch) {
+        List<Card> cardsWithoutHeroModifier = cards.stream().filter(c -> !((Unit) c).hasHeroAsModifier()).collect(Collectors.toList());
+        if (!cardsWithoutHeroModifier.isEmpty()) {
+            Unit max = (Unit) cardsWithoutHeroModifier.get(0);
+            for (Card card : cardsWithoutHeroModifier) {
                 max = max.strongerThan((Unit) card);
             }
             scorch.saveStrongest(max);
         }
     }
 
-    public List<Card> findAllWithSamePoints(Scorch scorch) {
+    public List<Card> findAllCardsWithoutHeroModifierWithSamePoints(Scorch scorch) {
         List<Card> wanted = new ArrayList<>();
-        for (Card card : cards) {
+        List<Card> cardsWithoutHeroModifier = cards.stream().filter(c -> !((Unit) c).hasHeroAsModifier()).collect(Collectors.toList());
+        for (Card card : cardsWithoutHeroModifier) {
             if (scorch.matchesStrongest((Unit) card)) {
                 wanted.add(card);
             }
@@ -89,6 +92,10 @@ public abstract class Row implements Section {
     public void discardCard(Card card) {
         discardPile.addCard(card);
         cards.remove(card);
+    }
+
+    public boolean containsCard(Card card) {
+        return this.cards.contains(card);
     }
 
     public int calculatePoints() {
@@ -115,12 +122,8 @@ public abstract class Row implements Section {
         this.playerColor = playerColor;
     }
 
-
     public boolean haveSameSectionType(Card card) {
         return card.haveSectionType(sectionType);
-    }
-    public boolean containsCard(Card card) {
-        return this.cards.contains(card);
     }
 
     public boolean containsCards(List<Card> cards){
