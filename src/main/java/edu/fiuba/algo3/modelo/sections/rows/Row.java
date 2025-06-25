@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.sections.rows;
 
+import edu.fiuba.algo3.modelo.turnManagement.Round;
 import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cards.Card;
 import edu.fiuba.algo3.modelo.cards.specials.Scorch;
@@ -21,14 +22,22 @@ public abstract class Row implements Section {
     protected Weather currentWeather;
     protected SectionType sectionType;
     protected Color color;
+    protected DiscardPile discardPile;
 
-    protected Row(SectionType sectionType) {
+    protected Row(SectionType sectionType, DiscardPile discardPile) {
         this.currentWeather = new ClearWeather("Clima Despejado", "Elimina todos los efectos de clima");
         this.sectionType = sectionType;
+        this.discardPile = discardPile;
     }
 
     @Override
-    public void placeCard(Card card) {
+    public void placeCard(Card card, Round round) {
+        card.verifySectionType(this.sectionType);
+        card.play(this);
+        round.playerPlayedCard();
+    }
+
+    public void placeCard(Card card){
         card.verifySectionType(this.sectionType);
         card.play(this);
     }
@@ -38,6 +47,7 @@ public abstract class Row implements Section {
     }
 
     public void addCard(Card card) {
+        card.verifySectionType(this.sectionType);
         cards.add(card);
         currentWeather.apply(card, this);
         lastCard = (Unit) card;
@@ -98,7 +108,7 @@ public abstract class Row implements Section {
         return total;
     }
 
-    public void discardCards(DiscardPile discardPile) {
+    public void discardCards() {
         discardPile.insertCards(cards);
         cards.clear();
     }
@@ -112,4 +122,13 @@ public abstract class Row implements Section {
     }
 
     public boolean sameColor(Color color) { return this.color.equals(color);}
+
+
+    public boolean haveSameSectionType(Card card) {
+        return card.haveSectionType(sectionType);
+    }
+
+    public boolean containsCards(List<Card> cards){
+        return this.cards.containsAll(cards);
+    }
 }

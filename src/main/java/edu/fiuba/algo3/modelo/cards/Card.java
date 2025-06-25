@@ -24,8 +24,7 @@ public abstract class Card {
     }
 
     public void verifySectionType(SectionType sectionType) {
-        boolean matches = sectionTypes.stream().anyMatch(type -> type.getClass().equals(sectionType.getClass()));
-        if (!matches) {
+        if (!haveSectionType(sectionType)) {
             throw new SectionTypeMismatchError("SectionType does not match for this card.");
         }
     }
@@ -37,4 +36,10 @@ public abstract class Card {
     public boolean sameColor(Color color) {
         return color.equals(this.color);
     }
+
+    public boolean haveSectionType(SectionType sectionType) {
+        return sectionTypes.stream().anyMatch(type -> type.getClass().equals(sectionType.getClass()));
+    }
+
+
 }

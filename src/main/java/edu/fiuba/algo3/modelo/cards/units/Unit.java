@@ -40,11 +40,6 @@ public class Unit extends Card {
         }
     }
 
-//    @Override
-//    public void verifySectionType(SectionType sectionType) {
-//        super.verifySectionType(sectionType);
-//    }
-
     private void heroModifier() {
         this.hasHeroModifier = false;
 
@@ -84,7 +79,7 @@ public class Unit extends Card {
     }
 
     public Unit strongerThan(Unit unit) {
-        if (this.currentPoints >= unit.calculatePoints()) {
+        if (this.currentPoints > unit.calculatePoints()) {
             return this;
         }
         return unit;

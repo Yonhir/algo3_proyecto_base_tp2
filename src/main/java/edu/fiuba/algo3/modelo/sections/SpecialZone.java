@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.sections;
 
+import edu.fiuba.algo3.modelo.turnManagement.Round;
 import edu.fiuba.algo3.modelo.cards.Card;
 import edu.fiuba.algo3.modelo.cards.specials.Scorch;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.Weather;
@@ -29,9 +30,10 @@ public class SpecialZone implements Section {
     }
 
     @Override
-    public void placeCard(Card card) {
+    public void placeCard(Card card, Round round) {
         card.verifySectionType(this.sectionType);
         card.play(this);
+        round.playerPlayedCard();
     }
 
     public void applyCloseCombatWeather(Weather weather) {
@@ -53,33 +55,33 @@ public class SpecialZone implements Section {
     }
 
     public void applyScorchInCloseCombat(Scorch scorch) {
-        for (Row row : closeCombatRows) {
+        for (CloseCombat row : closeCombatRows) {
             row.applyScorch(scorch);
         }
     }
 
     public void applyScorchInRanged(Scorch scorch) {
-        for (Row row : rangedRows) {
+        for (Ranged row : rangedRows) {
             row.applyScorch(scorch);
         }
     }
 
     public void applyScorchInSiege(Scorch scorch) {
-        for (Row row : siegeRows) {
+        for (Siege row : siegeRows) {
             row.applyScorch(scorch);
         }
     }
 
-    public void applyInAllRows(Scorch scorch) {
-        for (Row row : closeCombatRows) {
+    public void applyScorchInAllRows(Scorch scorch) {
+        for (CloseCombat row : closeCombatRows) {
             row.findStrongestCard(scorch);
         }
 
-        for (Row row : rangedRows) {
+        for (Ranged row : rangedRows) {
             row.findStrongestCard(scorch);
         }
 
-        for (Row row : siegeRows) {
+        for (Siege row : siegeRows) {
             row.findStrongestCard(scorch);
         }
 

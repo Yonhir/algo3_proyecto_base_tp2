@@ -12,15 +12,13 @@ left to right direction
 ' =====================
 class Player {
   -name: String
-  -health: int
   -discardPile: DiscardPile
   -hand: Hand
   -deck: Deck
-  -specialZone: SpecialZone
   -closeCombat: CloseCombat
   -ranged: Ranged
   -siege: Siege
-  +Player(name: String, health: int, deck: Deck, specialZone: SpecialZone, closeCombat: CloseCombat, ranged: Ranged, siege: Siege): Player
+  +Player(name: String, deck: Deck, discardPile : DiscardPile, closeCombat: CloseCombat, ranged: Ranged, siege: Siege, color : Color): Player
   +getDiscardPile(): DiscardPile
   +getHand(): Hand
   +calculatePoints(): int
@@ -87,7 +85,8 @@ abstract class Row <<abstract>> {
   #lastCard: Card
   #currentWeather: Weather
   #sectionType: SectionType
-  +Row(sectionType: SectionType): Row
+  #discardPile : DiscardPile
+  +Row(sectionType: SectionType, discardPile : DiscardPile): Row
   +placeCard(card: Card): void
   +addCard(card: Card): void
   +applyWeather(weather: Weather): void
@@ -101,15 +100,15 @@ abstract class Row <<abstract>> {
 }
 
 class Ranged {
-  +Ranged()
+  +Ranged(discardPile : DiscardPile)
 }
 
 class CloseCombat {
-  +CloseCombat()
+  +CloseCombat(discardPile : DiscardPile)
 }
 
 class Siege {
-  +Siege()
+  +Siege(discardPile : DiscardPile)
 }
 
 class SpecialZone {
@@ -126,7 +125,7 @@ class SpecialZone {
   +applyScorchInCloseCombat(scorch : Scorch): void
   +applyScorchInRanged(scorch : Scorch): void
   +applyScorchInSiege(scorch : Scorch): void
-  +applyInAllRows(scorch : Scorch) : void
+  +applyScorchInAllRows(scorch : Scorch) : void
 }
 
 ' =====================
