@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.sections.rows;
 
+import edu.fiuba.algo3.modelo.turnManagement.Round;
 import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cards.Card;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.ClearWeather;
@@ -8,7 +9,6 @@ import edu.fiuba.algo3.modelo.cards.specials.weathers.Weather;
 import edu.fiuba.algo3.modelo.sections.Section;
 import edu.fiuba.algo3.modelo.sections.types.SectionType;
 import edu.fiuba.algo3.modelo.colors.PlayerColor;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,10 +26,11 @@ public abstract class Row implements Section {
     }
 
     @Override
-    public void placeCard(Card card) {
+    public void placeCard(Card card, Round round) {
         card.verifySectionType(this.sectionType);
         card.verifyColor(playerColor);
         card.play(this);
+        round.playerPlayedCard();
     }
 
     public List<Card> getCards() {
@@ -37,6 +38,7 @@ public abstract class Row implements Section {
     }
 
     public void addCard(Card card) {
+        card.verifySectionType(this.sectionType);
         cards.add(card);
         currentWeather.apply(card, this);
         lastCard = (Unit) card;
@@ -67,8 +69,12 @@ public abstract class Row implements Section {
     public Unit getLastCard() {
         return lastCard;
     }
-  
+
     public void setColor(PlayerColor playerColor) {
         this.playerColor = playerColor;
+    }
+
+    public boolean containsCard(Card card) {
+        return this.cards.contains(card);
     }
 }

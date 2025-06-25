@@ -1,8 +1,13 @@
 package edu.fiuba.algo3.modelo.cards.units.modifiers;
 
+import edu.fiuba.algo3.modelo.colors.*;
+import edu.fiuba.algo3.modelo.turnManagement.Player;
+import edu.fiuba.algo3.modelo.turnManagement.Round;
+import edu.fiuba.algo3.modelo.cardcollections.Deck;
 import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
-import edu.fiuba.algo3.modelo.colors.Blue;
+import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
+import edu.fiuba.algo3.modelo.sections.rows.Ranged;
 import edu.fiuba.algo3.modelo.sections.rows.Siege;
 import edu.fiuba.algo3.modelo.sections.types.SiegeType;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,26 +19,28 @@ import java.util.List;
 
 public class TightBondTest {
     private DiscardPile discardPile;
-    private Siege siegeRow;
     private Unit catapult1;
     private Unit catapult2;
     private Unit catapult3;
     private Unit regularUnit;
-    private TightBond tightBondModifier1;
-    private TightBond tightBondModifier2;
-    private TightBond tightBondModifier3;
+    private Siege siegeRow;
+    private Round round;
 
     @BeforeEach
     void setUp() {
         discardPile = new DiscardPile();
+        CloseCombat closeCombat = new CloseCombat();
+        Ranged ranged = new Ranged();
         siegeRow = new Siege();
-        siegeRow.setColor(new Blue());
+        Deck deck = new Deck();
+        Player player = new Player("Gabriel", deck, closeCombat, ranged, siegeRow, new Blue());
+        Player opponent = new Player("Juan", new Deck(), new CloseCombat(), new Ranged(), new Siege(), new Red());
+        round = new Round(player, opponent);
 
         // Create three different TightBond modifiers
-        tightBondModifier1 = new TightBond();
-        tightBondModifier2 = new TightBond();
-        tightBondModifier3 = new TightBond();
-
+        TightBond tightBondModifier1 = new TightBond();
+        TightBond tightBondModifier2 = new TightBond();
+        TightBond tightBondModifier3 = new TightBond();
 
         // Create three identical catapult units with base points of 8
         List<Modifier> modifiers1 = new ArrayList<>();
@@ -80,7 +87,7 @@ public class TightBondTest {
         int expectedPoints = 8;
         
         // Act
-        siegeRow.placeCard(catapult1);
+        siegeRow.placeCard(catapult1, round);
 
         // Assert
         assertEquals(expectedPoints, siegeRow.calculatePoints(), "First catapult should have base points");
@@ -92,9 +99,9 @@ public class TightBondTest {
         int expectedPoints = 72;
 
         // Act
-        siegeRow.placeCard(catapult1);
-        siegeRow.placeCard(catapult2);
-        siegeRow.placeCard(catapult3);
+        siegeRow.placeCard(catapult1, round);
+        siegeRow.placeCard(catapult2, round);
+        siegeRow.placeCard(catapult3, round);
         int pointsAfterThird = siegeRow.calculatePoints();
 
         // Assert
@@ -107,11 +114,11 @@ public class TightBondTest {
         int expectedPoints = 6;
 
         // Act
-        siegeRow.placeCard(catapult1);
-        siegeRow.placeCard(catapult2);
+        siegeRow.placeCard(catapult1, round);
+        siegeRow.placeCard(catapult2, round);
         // End of round
         siegeRow.discardCards(discardPile);
-        siegeRow.placeCard(regularUnit);
+        siegeRow.placeCard(regularUnit, round);
         int pointsAfterNewRound = siegeRow.calculatePoints();
 
         // Assert
@@ -124,9 +131,9 @@ public class TightBondTest {
         int expectedPoints = 38;
 
         // Act
-        siegeRow.placeCard(regularUnit);
-        siegeRow.placeCard(catapult1);
-        siegeRow.placeCard(catapult2);
+        siegeRow.placeCard(regularUnit, round);
+        siegeRow.placeCard(catapult1, round);
+        siegeRow.placeCard(catapult2, round);
         int finalRowPoints = siegeRow.calculatePoints();
 
         // Assert

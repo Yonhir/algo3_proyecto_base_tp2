@@ -1,5 +1,9 @@
 package edu.fiuba.algo3.modelo.cards.specials.weathers;
 
+import edu.fiuba.algo3.modelo.colors.*;
+import edu.fiuba.algo3.modelo.turnManagement.Player;
+import edu.fiuba.algo3.modelo.turnManagement.Round;
+import edu.fiuba.algo3.modelo.cardcollections.Deck;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -7,8 +11,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import edu.fiuba.algo3.modelo.cards.units.Unit;
-import edu.fiuba.algo3.modelo.colors.Blue;
-import edu.fiuba.algo3.modelo.colors.PlayerColor;
 import edu.fiuba.algo3.modelo.errors.SectionTypeMismatchError;
 import edu.fiuba.algo3.modelo.sections.*;
 import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
@@ -33,12 +35,13 @@ public class WeatherTest {
     private Weather fogWeather;
     private Weather rainWeather;
     private Weather clearWeather;
+    private Round round;
     private final PlayerColor color = new Blue();
 
 
     @BeforeEach
     public void setup() {
-        // Initialize rows
+        Deck deck = new Deck();
         closeCombatRow = new CloseCombat();
         rangedRow = new Ranged();
         siegeRow = new Siege();
@@ -57,9 +60,6 @@ public class WeatherTest {
         soldier.setColor(color);
         archer.setColor(color);
         catapult.setColor(color);
-        closeCombatRow.setColor(color);
-        rangedRow.setColor(color);
-        siegeRow.setColor(color);
 
         // Initialize weather cards
         frostWeather = new BitingFrost("Escarcha", "Reduce todas las unidades cuerpo a cuerpo a 1 punto");
@@ -71,12 +71,15 @@ public class WeatherTest {
         rainWeather.setColor(color);
         clearWeather.setColor(color);
 
+        Player player = new Player("Gabriel", deck, closeCombatRow, rangedRow, siegeRow, new Blue());
+        Player opponent = new Player("Juan", new Deck(), aCloseCombat, aRanged, aSiege, new Red());
+        round = new Round(player, opponent);
     }
 
     @Test
     public void testWeatherPlayAppliesEffectToTarget() {
         // Arrange
-        closeCombatRow.placeCard(soldier);
+        closeCombatRow.placeCard(soldier, round);
         
         // Act
         frostWeather.play(specialZone);
@@ -88,7 +91,7 @@ public class WeatherTest {
     @Test
     public void testBitingFrostReducesCloseCombatUnitPoints() {
         // Act
-        closeCombatRow.placeCard(soldier);
+        closeCombatRow.placeCard(soldier, round);
         closeCombatRow.applyWeather(frostWeather);
 
         // Assert
@@ -98,7 +101,7 @@ public class WeatherTest {
     @Test
     public void testBitingFrostDoesNotAffectRangedUnits() {
         // Act
-        rangedRow.placeCard(archer);
+        rangedRow.placeCard(archer, round);
         rangedRow.applyWeather(frostWeather);
         
         // Assert
@@ -108,7 +111,7 @@ public class WeatherTest {
     @Test
     public void testImpenetrableFogReducesRangedUnitPoints() {
         // Act
-        rangedRow.placeCard(archer);
+        rangedRow.placeCard(archer, round);
         rangedRow.applyWeather(fogWeather);
         
         // Assert
@@ -118,7 +121,7 @@ public class WeatherTest {
     @Test
     public void testImpenetrableFogDoesNotAffectCloseCombatUnits() {
         // Act
-        closeCombatRow.placeCard(soldier);
+        closeCombatRow.placeCard(soldier, round);
         closeCombatRow.applyWeather(fogWeather);
         
         // Assert
@@ -128,7 +131,7 @@ public class WeatherTest {
     @Test
     public void testTorrentialRainReducesSiegeUnitPoints() {
         // Act
-        siegeRow.placeCard(catapult);
+        siegeRow.placeCard(catapult, round);
         siegeRow.applyWeather(rainWeather);
         
         // Assert
@@ -138,7 +141,7 @@ public class WeatherTest {
     @Test
     public void testTorrentialRainDoesNotAffectCloseCombatUnits() {
         // Act
-        closeCombatRow.placeCard(soldier);
+        closeCombatRow.placeCard(soldier, round);
         closeCombatRow.applyWeather(rainWeather);
         
         // Assert
@@ -149,7 +152,7 @@ public class WeatherTest {
     public void testBitingFrostAffectsNewCloseCombatUnit() {
         // Act
         closeCombatRow.applyWeather(frostWeather);
-        closeCombatRow.placeCard(soldier);
+        closeCombatRow.placeCard(soldier, round);
         
         // Assert
         assertEquals(1, soldier.calculatePoints(), "La escarcha debería afectar a las nuevas unidades cuerpo a cuerpo");
@@ -159,7 +162,7 @@ public class WeatherTest {
     public void testImpenetrableFogAffectsNewRangedUnit() {
         // Act
         rangedRow.applyWeather(fogWeather);
-        rangedRow.placeCard(archer);
+        rangedRow.placeCard(archer, round);
         
         // Assert
         assertEquals(1, archer.calculatePoints(), "La niebla debería afectar a las nuevas unidades a distancia");
@@ -169,7 +172,7 @@ public class WeatherTest {
     public void testTorrentialRainAffectsNewSiegeUnit() {
         // Act
         siegeRow.applyWeather(rainWeather);
-        siegeRow.placeCard(catapult);
+        siegeRow.placeCard(catapult, round);
         
         // Assert
         assertEquals(1, catapult.calculatePoints(), "La lluvia debería afectar a las nuevas unidades de asedio");
@@ -178,7 +181,7 @@ public class WeatherTest {
     @Test
     public void testClearWeatherRemovesFrostEffect() {
         // Arrange
-        closeCombatRow.placeCard(soldier);
+        closeCombatRow.placeCard(soldier, round);
         closeCombatRow.applyWeather(frostWeather);
         
         // Act
@@ -191,7 +194,7 @@ public class WeatherTest {
     @Test
     public void testClearWeatherRemovesFogEffect() {
         // Arrange
-        rangedRow.placeCard(archer);
+        rangedRow.placeCard(archer, round);
         rangedRow.applyWeather(fogWeather);
         
         // Act
@@ -204,7 +207,7 @@ public class WeatherTest {
     @Test
     public void testClearWeatherRemovesRainEffect() {
         // Arrange
-        siegeRow.placeCard(catapult);
+        siegeRow.placeCard(catapult, round);
         siegeRow.applyWeather(rainWeather);
         
         // Act
@@ -217,10 +220,10 @@ public class WeatherTest {
     @Test
     public void testMultipleWeatherEffectsDoNotInterfereWithCloseCombat() {
         // Act
-        closeCombatRow.placeCard(soldier);
-        specialZone.placeCard(fogWeather);
-        specialZone.placeCard(rainWeather);
-        specialZone.placeCard(frostWeather);
+        closeCombatRow.placeCard(soldier, round);
+        specialZone.placeCard(fogWeather, round);
+        specialZone.placeCard(rainWeather, round);
+        specialZone.placeCard(frostWeather, round);
         
         // Assert
         assertEquals(1, soldier.calculatePoints(), "La escarcha debería ser el único efecto que afecta a las unidades cuerpo a cuerpo");
@@ -229,10 +232,10 @@ public class WeatherTest {
     @Test
     public void testMultipleWeatherEffectsDoNotInterfereWithRanged() {
         // Act
-        rangedRow.placeCard(archer);
-        specialZone.placeCard(frostWeather);
-        specialZone.placeCard(rainWeather);
-        specialZone.placeCard(fogWeather);
+        rangedRow.placeCard(archer, round);
+        specialZone.placeCard(frostWeather, round);
+        specialZone.placeCard(rainWeather, round);
+        specialZone.placeCard(fogWeather, round);
         
         // Assert
         assertEquals(1, archer.calculatePoints(), "La niebla debería ser el único efecto que afecta a las unidades a distancia");
@@ -241,10 +244,10 @@ public class WeatherTest {
     @Test
     public void testMultipleWeatherEffectsDoNotInterfereWithSiege() {
         // Act
-        siegeRow.placeCard(catapult);
-        specialZone.placeCard(frostWeather);
-        specialZone.placeCard(fogWeather);
-        specialZone.placeCard(rainWeather);
+        siegeRow.placeCard(catapult, round);
+        specialZone.placeCard(frostWeather, round);
+        specialZone.placeCard(fogWeather, round);
+        specialZone.placeCard(rainWeather, round);
         
         // Assert
         assertEquals(1, catapult.calculatePoints(), "La lluvia debería ser el único efecto que afecta a las unidades de asedio");
@@ -253,35 +256,35 @@ public class WeatherTest {
     @Test
     public void testWeatherCannotBePlacedInInvalidTarget() {
         // Act
-        assertThrows(SectionTypeMismatchError.class, () -> closeCombatRow.placeCard(frostWeather),
+        assertThrows(SectionTypeMismatchError.class, () -> closeCombatRow.placeCard(frostWeather, round),
             "Debería lanzar una excepción al intentar colocar clima en una fila normal");
     }
 
     @Test
     public void testClearWeatherCannotBePlacedInRow() {
         // Act & Assert
-        assertThrows(SectionTypeMismatchError.class, () -> closeCombatRow.placeCard(clearWeather),
+        assertThrows(SectionTypeMismatchError.class, () -> closeCombatRow.placeCard(clearWeather, round),
             "Debería lanzar una excepción al intentar colocar ClearWeather en una fila normal");
     }
 
     @Test
     public void testBitingFrostCannotBePlacedInRow() {
         // Act & Assert
-        assertThrows(SectionTypeMismatchError.class, () -> closeCombatRow.placeCard(frostWeather),
+        assertThrows(SectionTypeMismatchError.class, () -> closeCombatRow.placeCard(frostWeather, round),
             "Debería lanzar una excepción al intentar colocar BitingFrost en una fila normal");
     }
 
     @Test
     public void testImpenetrableFogCannotBePlacedInRow() {
         // Act & Assert
-        assertThrows(SectionTypeMismatchError.class, () -> closeCombatRow.placeCard(fogWeather),
+        assertThrows(SectionTypeMismatchError.class, () -> closeCombatRow.placeCard(fogWeather, round),
             "Debería lanzar una excepción al intentar colocar ImpenetrableFog en una fila normal");
     }
 
     @Test
     public void testTorrentialRainCannotBePlacedInRow() {
         // Act & Assert
-        assertThrows(SectionTypeMismatchError.class, () -> closeCombatRow.placeCard(rainWeather),
+        assertThrows(SectionTypeMismatchError.class, () -> closeCombatRow.placeCard(rainWeather, round),
             "Debería lanzar una excepción al intentar colocar TorrentialRain en una fila normal");
     }
 }

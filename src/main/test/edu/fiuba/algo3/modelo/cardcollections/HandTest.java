@@ -62,6 +62,7 @@ public class HandTest {
 
         assertEquals(expectedCards, resultObtained);
     }
+
     @Test
     public void testSeReparten10CardsAlaHand(){
         Deck deck = new Deck();

@@ -50,11 +50,6 @@ public class Unit extends Card {
         }
     }
 
-    @Override
-    public void verifySectionType(SectionType sectionType) {
-        super.verifySectionType(sectionType);
-    }
-
     public int calculatePoints() {
         return currentPoints;
     }

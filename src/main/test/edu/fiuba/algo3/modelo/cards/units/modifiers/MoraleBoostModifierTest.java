@@ -1,9 +1,12 @@
 package edu.fiuba.algo3.modelo.cards.units.modifiers;
 
+import edu.fiuba.algo3.modelo.colors.*;
+import edu.fiuba.algo3.modelo.turnManagement.Player;
+import edu.fiuba.algo3.modelo.turnManagement.Round;
+import edu.fiuba.algo3.modelo.cardcollections.Deck;
 import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
 import edu.fiuba.algo3.modelo.colors.Blue;
-import edu.fiuba.algo3.modelo.colors.PlayerColor;
 import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
 import edu.fiuba.algo3.modelo.sections.rows.Ranged;
 import edu.fiuba.algo3.modelo.sections.rows.Siege;
@@ -23,16 +26,17 @@ public class MoraleBoostModifierTest {
     private Siege siege;
     private MoraleBoostModifier modifierMoral;
     private Unit cardMoraleBoost;
-    private final PlayerColor blue = new Blue();
+    private Round round;
 
     @BeforeEach
     void setUp() {
+        Deck deck = new Deck();
         closeCombat = new CloseCombat();
         ranged = new Ranged();
         siege = new Siege();
-        closeCombat.setColor(blue);
-        ranged.setColor(blue);
-        siege.setColor(blue);
+        Player player = new Player("Gabriel", deck, closeCombat, ranged, siege, new Blue());
+        Player opponent = new Player("Juan", new Deck(), new CloseCombat(), new Ranged(), new Siege(), new Red());
+        round = new Round(player, opponent);
 
         modifierMoral = new MoraleBoostModifier();
 
@@ -52,10 +56,10 @@ public class MoraleBoostModifierTest {
     @Test
     public void moral_boost_closeCombat() {
         cardMoraleBoost = new Unit("Nombre", "Descripcion", 10, new CloseCombatType(), List.of(modifierMoral));
-        cardMoraleBoost.setColor(blue);
+        cardMoraleBoost.setColor(new Blue());
         int expectedPoints = closeCombat.calculatePoints() + closeCombat.getCards().size() + cardMoraleBoost.calculatePoints();
 
-        closeCombat.placeCard(cardMoraleBoost);
+        closeCombat.placeCard(cardMoraleBoost, round);
 
         int actualPoints = closeCombat.calculatePoints();
         Assertions.assertEquals(expectedPoints, actualPoints);
@@ -64,10 +68,10 @@ public class MoraleBoostModifierTest {
     @Test
     public void moral_boost_ranged() {
         cardMoraleBoost = new Unit("Nombre", "Descripcion", 10, new RangedType(), List.of(modifierMoral));
-        cardMoraleBoost.setColor(blue);
+        cardMoraleBoost.setColor(new Blue());
         int expectedPoints = ranged.calculatePoints() + ranged.getCards().size() + cardMoraleBoost.calculatePoints();
 
-        ranged.placeCard(cardMoraleBoost);
+        ranged.placeCard(cardMoraleBoost, round);
 
         int actualPoints = ranged.calculatePoints();
         Assertions.assertEquals(expectedPoints, actualPoints);
@@ -76,10 +80,10 @@ public class MoraleBoostModifierTest {
     @Test
     public void moral_boost_siege() {
         cardMoraleBoost = new Unit("Nombre", "Descripcion", 10, new SiegeType(), List.of(modifierMoral));
-        cardMoraleBoost.setColor(blue);
+        cardMoraleBoost.setColor(new Blue());
         int expectedPoints = siege.calculatePoints() + siege.getCards().size() + cardMoraleBoost.calculatePoints();
 
-        siege.placeCard(cardMoraleBoost);
+        siege.placeCard(cardMoraleBoost, round);
 
         int actualPoints = siege.calculatePoints();
         Assertions.assertEquals(expectedPoints, actualPoints);
@@ -88,11 +92,11 @@ public class MoraleBoostModifierTest {
     @Test
     public void moral_boost_empty_row() {
         cardMoraleBoost = new Unit("Nombre", "Descripcion", 10, new SiegeType(), List.of(modifierMoral));
-        cardMoraleBoost.setColor(blue);
+        cardMoraleBoost.setColor(new Blue());
         int expectedPoints = cardMoraleBoost.calculatePoints();
 
         siege.discardCards(new DiscardPile());
-        siege.placeCard(cardMoraleBoost);
+        siege.placeCard(cardMoraleBoost, round);
 
         int actualPoints = siege.calculatePoints();
         Assertions.assertEquals(expectedPoints, actualPoints);
