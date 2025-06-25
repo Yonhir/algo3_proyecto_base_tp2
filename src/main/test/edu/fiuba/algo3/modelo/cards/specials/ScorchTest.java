@@ -156,7 +156,7 @@ public class ScorchTest {
     }
 
     @Test
-    public void seJuegaUnaTierraArrasadaSeEliminanLasCartasMasFuertesTantoDelJugadorPrincipalComoDelOponente() {
+    public void testSeJuegaUnaTierraArrasadaSeEliminanLasCartasMasFuertesTantoDelJugadorPrincipalComoDelOponente() {
         Unit unidad1JugadorP = new Unit("Nombre", "Descripcion", 8, new CloseCombatType(), List.of(new MoraleBoostModifier()));
         Unit unidad1Oponente = new Unit("Nombre", "Descripcion", 8, new CloseCombatType(), List.of(new TightBond()));
 
