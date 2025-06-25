@@ -1,7 +1,5 @@
 package edu.fiuba.algo3.modelo.cards;
 
-import edu.fiuba.algo3.modelo.colors.Green;
-import edu.fiuba.algo3.modelo.errors.SectionPlayerMismatchError;
 import edu.fiuba.algo3.modelo.errors.SectionTypeMismatchError;
 import edu.fiuba.algo3.modelo.sections.Section;
 import edu.fiuba.algo3.modelo.sections.types.SectionType;
@@ -32,11 +30,7 @@ public abstract class Card {
         }
     }
 
-    public abstract void setColor(PlayerColor playerColor, Green bothPlayers);
-
-    public void setColor(PlayerColor playerColor){
-        this.playerColor = playerColor;
-    }
+    public abstract void setColor(PlayerColor playerColor);
 
     public abstract void verifyColor(PlayerColor playerColor);
 }

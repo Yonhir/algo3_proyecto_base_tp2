@@ -31,7 +31,6 @@ public class SpyTest {
     private Deck deck;
 
     private final PlayerColor red = new Red();
-    private final PlayerColor green = new Green();
     private final PlayerColor blue = new Blue();
 
     private List<Card> cards;
@@ -71,13 +70,13 @@ public class SpyTest {
 
         deck = new Deck();
         deck.insertCards(cards);
-        deck.setColorToCards(blue, (Green) green);
+        deck.setColorToCards(blue);
 
         hand = new Hand();
 
         carta_espia = new Unit("Nombre", "Descripcion", 4, r, List.of(new Spy(deck, hand)));
 
-        carta_espia.setColor(blue, (Green) green);
+        carta_espia.setColor(blue);
     }
     @Test
     public void play_card_in_my_row() {

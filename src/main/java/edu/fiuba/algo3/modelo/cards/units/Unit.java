@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.modelo.cards.units;
 
-import edu.fiuba.algo3.modelo.colors.Green;
+import edu.fiuba.algo3.modelo.cards.units.modifiers.Spy;
 import edu.fiuba.algo3.modelo.colors.PlayerColor;
 import edu.fiuba.algo3.modelo.cards.Card;
 import edu.fiuba.algo3.modelo.cards.units.modifiers.Modifier;
@@ -37,11 +37,9 @@ public class Unit extends Card {
     }
 
     @Override
-    public void setColor(PlayerColor playerColor, Green bothPlayers){
-        for (Modifier modifier : this.modifiers) {
-            modifier.setColor(this, playerColor);
-        }
-        if (modifiers.isEmpty()) setColor(playerColor);
+    public void setColor(PlayerColor playerColor){
+        if (modifiers.stream().anyMatch(modifier -> modifier.getClass() == Spy.class)) this.playerColor = playerColor.swapColor();
+        else this.playerColor = playerColor;
     }
 
     public void play(Section section) {

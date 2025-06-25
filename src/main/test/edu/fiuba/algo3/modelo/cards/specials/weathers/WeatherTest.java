@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 
 import edu.fiuba.algo3.modelo.cards.units.Unit;
 import edu.fiuba.algo3.modelo.colors.Blue;
-import edu.fiuba.algo3.modelo.colors.Green;
 import edu.fiuba.algo3.modelo.colors.PlayerColor;
 import edu.fiuba.algo3.modelo.errors.SectionTypeMismatchError;
 import edu.fiuba.algo3.modelo.sections.*;
@@ -35,7 +34,6 @@ public class WeatherTest {
     private Weather rainWeather;
     private Weather clearWeather;
     private final PlayerColor color = new Blue();
-    private final PlayerColor green = new Green();
 
 
     @BeforeEach
@@ -68,10 +66,10 @@ public class WeatherTest {
         fogWeather = new ImpenetrableFog("Niebla", "Reduce todas las unidades a distancia a 1 punto");
         rainWeather = new TorrentialRain("Lluvia", "Reduce todas las unidades de asedio a 1 punto");
         clearWeather = new ClearWeather("Clima Despejado", "Elimina todos los efectos de clima");
-        frostWeather.setColor(green);
-        fogWeather.setColor(green);
-        rainWeather.setColor(green);
-        clearWeather.setColor(green);
+        frostWeather.setColor(color);
+        fogWeather.setColor(color);
+        rainWeather.setColor(color);
+        clearWeather.setColor(color);
 
     }
 

@@ -7,7 +7,6 @@ import edu.fiuba.algo3.modelo.cards.specials.*;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.*;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
 import edu.fiuba.algo3.modelo.colors.Blue;
-import edu.fiuba.algo3.modelo.colors.Green;
 import edu.fiuba.algo3.modelo.colors.Red;
 import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
 import edu.fiuba.algo3.modelo.sections.rows.Ranged;
@@ -82,9 +81,9 @@ public class SpecialZoneTest {
         frostWeather = new BitingFrost("Escarcha", "Reduce todas las unidades cuerpo a cuerpo a 1 punto");
         fogWeather = new ImpenetrableFog("Niebla", "Reduce todas las unidades a distancia a 1 punto");
         rainWeather = new TorrentialRain("Lluvia", "Reduce todas las unidades de asedio a 1 punto");
-        frostWeather.setColor(new Green());
-        fogWeather.setColor(new Green());
-        rainWeather.setColor(new Green());
+        frostWeather.setColor(new Blue());
+        fogWeather.setColor(new Blue());
+        rainWeather.setColor(new Blue());
     }
 
     private void setupAllWeatherEffects() {
@@ -260,7 +259,7 @@ public class SpecialZoneTest {
         
         // Act
         Special clearWeather = new ClearWeather("Clima Despejado", "Elimina todos los efectos de clima");
-        clearWeather.setColor(new Green());
+        clearWeather.setColor(new Blue());
         specialZone.placeCard(clearWeather);
         
         // Assert
@@ -274,7 +273,7 @@ public class SpecialZoneTest {
         
         // Act
         Special clearWeather = new ClearWeather("Clima Despejado", "Elimina todos los efectos de clima");
-        clearWeather.setColor(new Green());
+        clearWeather.setColor(new Blue());
         specialZone.placeCard(clearWeather);
         
         // Assert
@@ -288,7 +287,7 @@ public class SpecialZoneTest {
         
         // Act
         Special clearWeather = new ClearWeather("Clima Despejado", "Elimina todos los efectos de clima");
-        clearWeather.setColor(new Green());
+        clearWeather.setColor(new Blue());
         specialZone.placeCard(clearWeather);
         
         // Assert
@@ -354,7 +353,7 @@ public class SpecialZoneTest {
         
         // Act
         Special clearWeather = new ClearWeather("Clima Despejado", "Elimina todos los efectos de clima");
-        clearWeather.setColor(new Green());
+        clearWeather.setColor(new Blue());
         specialZone.placeCard(clearWeather);
         
         // Assert

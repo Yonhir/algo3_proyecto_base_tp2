@@ -8,7 +8,6 @@ import edu.fiuba.algo3.modelo.cards.units.modifiers.Agile;
 import edu.fiuba.algo3.modelo.cards.units.modifiers.Modifier;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
 import edu.fiuba.algo3.modelo.colors.Blue;
-import edu.fiuba.algo3.modelo.colors.Green;
 import edu.fiuba.algo3.modelo.errors.SectionTypeMismatchError;
 import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
 import edu.fiuba.algo3.modelo.sections.rows.Ranged;
@@ -128,7 +127,7 @@ public class RowTest {
         Unit arquero = new Unit("arquero", "tira flechas", 5, List.of(new RangedType()), List.of());
         arquero.setColor(new Blue());
         Weather niebla = new ImpenetrableFog("Niebla Impenetrable", "Reduce la fuerza de las unidades a 1");
-        niebla.setColor(new Green());
+        niebla.setColor(new Blue());
         ranged.placeCard(arquero);
         ranged.applyWeather(niebla);
 

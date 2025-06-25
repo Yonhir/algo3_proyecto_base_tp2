@@ -2,7 +2,6 @@ package edu.fiuba.algo3.modelo.cardcollections;
 
 import edu.fiuba.algo3.modelo.cards.Card;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
-import edu.fiuba.algo3.modelo.colors.Green;
 import edu.fiuba.algo3.modelo.colors.PlayerColor;
 import edu.fiuba.algo3.modelo.colors.Red;
 import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
@@ -125,7 +124,6 @@ public class DiscardPileTest {
     @Test
     public void cards_count_go_to_discardPile(){
         int expectedSize = 15;
-        PlayerColor green = new Green();
         PlayerColor red = new Red();
 
         Row ranged = new Ranged();

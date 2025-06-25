@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.modelo;
 
 
-import edu.fiuba.algo3.modelo.colors.Green;
 import edu.fiuba.algo3.modelo.colors.PlayerColor;
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
 import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
@@ -10,7 +9,6 @@ import edu.fiuba.algo3.modelo.cards.Card;
 import edu.fiuba.algo3.modelo.sections.*;
 import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
 import edu.fiuba.algo3.modelo.sections.rows.Ranged;
-import edu.fiuba.algo3.modelo.sections.rows.Row;
 import edu.fiuba.algo3.modelo.sections.rows.Siege;
 
 public class Player {
@@ -23,8 +21,8 @@ public class Player {
     private final Ranged ranged;
     private final Siege siege;
 
-    private void setColor(PlayerColor playerColor, Green bothPlayers) {
-        setColorToCards(playerColor, bothPlayers);
+    private void setColor(PlayerColor playerColor) {
+        setColorToCards(playerColor);
         setColorToRows(playerColor);
     }
 
@@ -34,11 +32,11 @@ public class Player {
         siege.setColor(playerColor);
     }
 
-    private void setColorToCards(PlayerColor playerColor, Green bothPlayers) {
-        deck.setColorToCards(playerColor, bothPlayers);
+    private void setColorToCards(PlayerColor playerColor) {
+        deck.setColorToCards(playerColor);
     }
 
-    public Player(String name, int health, Deck deck, CloseCombat closeCombat, Ranged ranged, Siege siege, PlayerColor playerColor, Green bothPlayers) {
+    public Player(String name, int health, Deck deck, CloseCombat closeCombat, Ranged ranged, Siege siege, PlayerColor playerColor) {
 
         this.name = name;
         this.health = health;
@@ -49,7 +47,7 @@ public class Player {
         this.ranged = ranged;
         this.siege = siege;
 
-        setColor(playerColor, bothPlayers);
+        setColor(playerColor);
     }
 
     public DiscardPile getDiscardPile() {

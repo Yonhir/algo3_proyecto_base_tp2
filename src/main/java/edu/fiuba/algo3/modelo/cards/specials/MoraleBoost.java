@@ -2,7 +2,6 @@ package edu.fiuba.algo3.modelo.cards.specials;
 
 import edu.fiuba.algo3.modelo.cards.Card;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
-import edu.fiuba.algo3.modelo.colors.Green;
 import edu.fiuba.algo3.modelo.colors.PlayerColor;
 import edu.fiuba.algo3.modelo.errors.SectionPlayerMismatchError;
 import edu.fiuba.algo3.modelo.sections.rows.Row;
@@ -15,11 +14,6 @@ public class MoraleBoost extends Special {
 
     public MoraleBoost(String name, String description, List<SectionType> sectionTypes) {
         super(name, description, sectionTypes);
-    }
-
-    @Override
-    public void setColor(PlayerColor playerColor, Green bothPlayers){
-        this.setColor(playerColor);
     }
 
     @Override

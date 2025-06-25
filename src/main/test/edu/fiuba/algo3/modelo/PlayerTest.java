@@ -10,11 +10,7 @@ import edu.fiuba.algo3.modelo.cards.specials.weathers.BitingFrost;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.ImpenetrableFog;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.TorrentialRain;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
-import edu.fiuba.algo3.modelo.colors.Green;
 import edu.fiuba.algo3.modelo.colors.PlayerColor;
-import edu.fiuba.algo3.modelo.colors.Red;
-import edu.fiuba.algo3.modelo.errors.SectionPlayerMismatchError;
-import edu.fiuba.algo3.modelo.sections.*;
 import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
 import edu.fiuba.algo3.modelo.sections.rows.Ranged;
 import edu.fiuba.algo3.modelo.sections.rows.Siege;
@@ -97,7 +93,7 @@ public class PlayerTest {
         ranged = new Ranged();
         siege = new Siege();
 
-        player = new Player("Gabriel", 2, deck, closeCombat, ranged, siege, color, new Green());
+        player = new Player("Gabriel", 2, deck, closeCombat, ranged, siege, color);
 
         Hand hand = player.getHand();
 
