@@ -29,6 +29,8 @@ public class HeroTest {
     private Ranged ranged2;
     private Siege siege2;
 
+    private int puntosEsperados;
+
     @BeforeEach
     void setUp() {
         cartaConLegendaria = new Unit("cerys", "descripcion", 10, List.of(new CloseCombatType()), List.of(new Hero()));
@@ -40,12 +42,12 @@ public class HeroTest {
         closeCombat2 = new CloseCombat(discardPile2);
         ranged2 = new Ranged(discardPile2);
         siege2 = new Siege(discardPile2);
+
+        puntosEsperados = 10;
     }
 
     @Test
     public void testSeJuegaUnaCartaConModificardorLegendariaCorrectamente() {
-        int puntosEsperados = 10;
-
         closeCombat1.placeCard(cartaConLegendaria);
 
         assertEquals(puntosEsperados, closeCombat1.calculatePoints());
@@ -55,7 +57,6 @@ public class HeroTest {
     public void testCartaConModificadorLegendariaNoEsAfectadaPorOtroModificador() {
         MoraleBoostModifier modifierMoral = new MoraleBoostModifier();
         Unit cardMoraleBoost = new Unit("Nombre", "Descripcion", 10, new CloseCombatType(), List.of(modifierMoral));
-        int puntosEsperados = 10;
 
         closeCombat1.placeCard(cartaConLegendaria);
         closeCombat1.placeCard(cardMoraleBoost);
@@ -66,7 +67,6 @@ public class HeroTest {
     @Test
     public void testCartaConModificadorLegendariaNoEsAfectadaPorCartaEspecial() {
         MoraleBoost especial = new MoraleBoost("MoraleBoost", "X2", List.of(new CloseCombatType(), new RangedType(), new SiegeType()));
-        int puntosEsperados = 10;
 
         closeCombat1.placeCard(cartaConLegendaria);
         especial.play(closeCombat1);
@@ -77,7 +77,6 @@ public class HeroTest {
     @Test
     public void testCartaConModificadorLegendariaNoEsAfectadaPorCartaClima() {
         BitingFrost frostWeather = new BitingFrost("Escarcha", "Reduce todas las unidades cuerpo a cuerpo a 1 punto");
-        int puntosEsperados = 10;
 
         closeCombat1.placeCard(cartaConLegendaria);
         frostWeather.play(new SpecialZone(
@@ -90,7 +89,6 @@ public class HeroTest {
 
     @Test
     public void testCartaConModificadorLegendariaNoEsAfectadaPorCartasEspeciales() {
-        int puntosEsperados = 10;
         MoraleBoost especial = new MoraleBoost("MoraleBoost", "X2", List.of(new CloseCombatType(), new RangedType(), new SiegeType()));
         BitingFrost frostWeather = new BitingFrost("Escarcha", "Reduce todas las unidades cuerpo a cuerpo a 1 punto");
 
