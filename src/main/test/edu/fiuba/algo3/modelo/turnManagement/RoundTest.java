@@ -36,7 +36,7 @@ public class RoundTest {
         ranged = new Ranged(discardPile);
         siege = new Siege(discardPile);
         player1 = new Player("nombre1", new Deck(), closeCombat, ranged, siege, new Blue());
-        player2 = new Player("nombre2", new Deck(), new CloseCombat(), new Ranged(), new Siege(), new Red());
+        player2 = new Player("nombre2", new Deck(), new CloseCombat(new DiscardPile()), new Ranged(new DiscardPile()), new Siege(new DiscardPile()), new Red());
         unidad = new Unit("Nombre", "Descripcion", 4, new CloseCombatType(), new ArrayList<>());
         round = new Round(player1, player2);
         game = new Game(player1, player2);
