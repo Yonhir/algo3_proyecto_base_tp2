@@ -32,22 +32,26 @@ public class TightBondTest {
     private Round round;
     private Deck deck;
 
-    private CloseCombat closeCombat;
-    private Ranged ranged;
-    private Siege siegeRow;
+    private CloseCombat closeCombat1;
+    private Ranged ranged1;
+    private Siege siege1;
+    private CloseCombat closeCombat2;
+    private Ranged ranged2;
+    private Siege siege2;
 
 
     @BeforeEach
     void setUp() {
         discardPile = new DiscardPile();
-        siegeRow = new Siege(discardPile);
-        
-        closeCombat = new CloseCombat();
-        ranged = new Ranged();
-        siegeRow = new Siege();
+        closeCombat1 = new CloseCombat(discardPile);
+        ranged1 = new Ranged(discardPile);
+        siege1 = new Siege(discardPile);
+        closeCombat2 = new CloseCombat(discardPile);
+        ranged2 = new Ranged(discardPile);
+        siege2 = new Siege(discardPile);
         deck = new Deck();
-        player = new Player("Gabriel", deck, closeCombat, ranged, siegeRow, new Blue());
-        opponent = new Player("Juan", deck, closeCombat, ranged, siegeRow, new Red());
+        player = new Player("Gabriel", deck, closeCombat1, ranged1, siege1, new Blue());
+        opponent = new Player("Juan", deck, closeCombat2, ranged2, siege2, new Red());
         round = new Round(player, opponent);
 
         // Create three different TightBond modifiers
@@ -90,59 +94,59 @@ public class TightBondTest {
     }
 
     @Test
-    void testPlay1CatapultTightBondPointsCalculation() {
+    void testSeJuegaUnaCartaCatapultaEnLaFilaSiegeCorrectamente() {
         // Arrange
         int expectedPoints = 8;
         
         // Act
-        siegeRow.placeCard(catapult1, round);
+        siege1.placeCard(catapult1, round);
 
         // Assert
-        assertEquals(expectedPoints, siegeRow.calculatePoints(), "First catapult should have base points");
+        assertEquals(expectedPoints, siege1.calculatePoints(), "First catapult should have base points");
     }
 
     @Test
-    void testPlay3CatapultsTightBondPointsCalculation() {
+    void testSeJueganTresCartasConModificadorTightBondEnLaFilaSiegeLosPuntosSeTriplicanCorrectamente() {
         // Arrange
         int expectedPoints = 72;
 
         // Act
-        siegeRow.placeCard(catapult1, round);
-        siegeRow.placeCard(catapult2, round);
-        siegeRow.placeCard(catapult3, round);
-        int pointsAfterThird = siegeRow.calculatePoints();
+        siege1.placeCard(catapult1, round);
+        siege1.placeCard(catapult2, round);
+        siege1.placeCard(catapult3, round);
+        int pointsAfterThird = siege1.calculatePoints();
 
         // Assert
         assertEquals(expectedPoints, pointsAfterThird, "Three catapults should triple each other's points (8*3*3)");
     }
 
     @Test
-    void testPlay2CatapultsTightBondAndPointsResetAfterRound() {
+    void testSeJueganDosCartasConModificadorTightBondSeDescartanLasCartasYAlJugarUnaCartaUnitSinModificadorEstaNoEsAfectada() {
         // Arrange
         int expectedPoints = 6;
 
         // Act
-        siegeRow.placeCard(catapult1, round);
-        siegeRow.placeCard(catapult2, round);
+        siege1.placeCard(catapult1, round);
+        siege1.placeCard(catapult2, round);
         // End of round
-        siegeRow.discardCards();
-        siegeRow.placeCard(regularUnit, round);
-        int pointsAfterNewRound = siegeRow.calculatePoints();
+        siege1.discardCards();
+        siege1.placeCard(regularUnit, round);
+        int pointsAfterNewRound = siege1.calculatePoints();
 
         // Assert
         assertEquals(expectedPoints, pointsAfterNewRound, "Points should be recalculated correctly in new round");
     }
 
     @Test
-    void testRegularUnitNotAffectedByTightBond() {
+    void testSeJuegaUnaCartaUnidadSinModificadorYCartasConModificadorTightBondLaUnidadComunNoEsAfectada() {
         // Arrange
         int expectedPoints = 38;
 
         // Act
-        siegeRow.placeCard(regularUnit, round);
-        siegeRow.placeCard(catapult1, round);
-        siegeRow.placeCard(catapult2, round);
-        int finalRowPoints = siegeRow.calculatePoints();
+        siege1.placeCard(regularUnit, round);
+        siege1.placeCard(catapult1, round);
+        siege1.placeCard(catapult2, round);
+        int finalRowPoints = siege1.calculatePoints();
 
         // Assert
         assertEquals(expectedPoints, finalRowPoints, "Total points should be 38 ((8*2)*2 for TightBond units) + 6 (regular unit)");
