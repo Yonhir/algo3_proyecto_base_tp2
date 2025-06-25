@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.cards.units;
 
+import edu.fiuba.algo3.modelo.cards.units.modifiers.Agile;
 import edu.fiuba.algo3.modelo.cards.units.modifiers.MoraleBoostModifier;
 import edu.fiuba.algo3.modelo.sections.rows.Ranged;
 import edu.fiuba.algo3.modelo.sections.types.CloseCombatType;
@@ -9,8 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class UnitTest {
 
@@ -67,11 +67,30 @@ public class UnitTest {
         assertEquals(4, unidad.calculatePoints());
     }
 
-     @Test
+    @Test
     public void testSePuedeSaberSiContieneUnModificadorEnEspecifico() {
         MoraleBoostModifier modificador = new MoraleBoostModifier();
         Unit unidad = new Unit("nombre", "descripcion", 6, new SiegeType(), List.of(modificador));
 
-         assertTrue(unidad.haveModifier(modificador));
-     }
+        assertTrue(unidad.haveModifier(modificador));
+    }
+
+    @Test
+    public void testUnaCartaPuedeTenerMasDeUnModificador() {
+        MoraleBoostModifier modificador1 = new MoraleBoostModifier();
+        Agile modificador2 = new Agile();
+        Unit unidad = new Unit("carta", "con 2 modificadores", 4, List.of(new RangedType(), new CloseCombatType()), List.of(modificador1, modificador2));
+
+
+        assertTrue(unidad.haveModifier(modificador1));
+        assertTrue(unidad.haveModifier(modificador2));
+    }
+
+    @Test
+    public void testUnaCartaPuedeNoTenerModificadores() {
+        Agile modificador = new Agile();
+        Unit unidad = new Unit("carta", "con 2 modificadores", 4, List.of(new RangedType(), new CloseCombatType()), List.of());
+
+        assertFalse(unidad.haveModifier(modificador));
+    }
 }
