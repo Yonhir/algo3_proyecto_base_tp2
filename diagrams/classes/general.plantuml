@@ -12,15 +12,13 @@ left to right direction
 ' =====================
 class Player {
   -name: String
-  -health: int
   -discardPile: DiscardPile
   -hand: Hand
   -deck: Deck
-  -specialZone: SpecialZone
   -closeCombat: CloseCombat
   -ranged: Ranged
   -siege: Siege
-  +Player(name: String, health: int, deck: Deck, specialZone: SpecialZone, closeCombat: CloseCombat, ranged: Ranged, siege: Siege): Player
+  +Player(name: String, health: int, deck: Deck, discardPile : DiscardPile, closeCombat: CloseCombat, ranged: Ranged, siege: Siege, color : Color): Player
   +getDiscardPile(): DiscardPile
   +getHand(): Hand
   +calculatePoints(): int
