@@ -36,7 +36,7 @@ public class DiscardPile extends CardCollection {
     }
     public void addCardIfHasSameColor(Card card){
          if (card.sameColor(color)){
-             addCard(card);
+             super.addCard(card);
          }
     }
 }
