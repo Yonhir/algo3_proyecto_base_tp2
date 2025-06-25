@@ -11,6 +11,7 @@ import edu.fiuba.algo3.modelo.sections.rows.Ranged;
 import edu.fiuba.algo3.modelo.sections.rows.Row;
 import edu.fiuba.algo3.modelo.sections.types.CloseCombatType;
 import edu.fiuba.algo3.modelo.sections.types.RangedType;
+import edu.fiuba.algo3.modelo.sections.types.SectionType;
 import edu.fiuba.algo3.modelo.sections.types.SiegeType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,9 +24,7 @@ import java.util.List;
 public class SpyTest {
     private Row RangedRowOpponent;
     private Row RangedRowOwner;
-    private CloseCombatType cct ;
-    private RangedType r ;
-    private SiegeType s ;
+
     private Unit carta_espia;
     private Hand hand;
     private Deck deck;
@@ -36,10 +35,9 @@ public class SpyTest {
     private List<Card> cards;
     @BeforeEach
     void setUp(){
-        cct = new CloseCombatType();
-
-        r = new RangedType();
-        s = new SiegeType();
+        SectionType cct = new CloseCombatType();
+        SectionType r = new RangedType();
+        SectionType s = new SiegeType();
         cards = new ArrayList<>(Arrays.asList(
                 new Unit("Nombre", "Descripcion", 4, cct, new ArrayList<>()),
                 new Unit("Nombre", "Descripcion", 5, cct, new ArrayList<>()),

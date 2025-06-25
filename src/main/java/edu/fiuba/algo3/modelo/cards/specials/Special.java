@@ -6,7 +6,6 @@ import edu.fiuba.algo3.modelo.colors.PlayerColor;
 import edu.fiuba.algo3.modelo.colors.Red;
 import edu.fiuba.algo3.modelo.errors.SectionPlayerMismatchError;
 import edu.fiuba.algo3.modelo.sections.types.SectionType;
-import javafx.scene.effect.Blend;
 
 import java.util.List;
 

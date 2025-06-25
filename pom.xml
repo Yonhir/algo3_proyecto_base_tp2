@@ -57,12 +57,6 @@
       <artifactId>slf4j-simple</artifactId>
       <version>1.7.30</version>
     </dependency>
-      <dependency>
-          <groupId>org.jetbrains</groupId>
-          <artifactId>annotations</artifactId>
-          <version>RELEASE</version>
-          <scope>compile</scope>
-      </dependency>
   </dependencies>
   <profiles>
     <profile>
@@ -95,12 +89,12 @@
       <plugin>
         <groupId>org.pitest</groupId>
         <artifactId>pitest-maven</artifactId>
-	<version>${pitest-plugin-version}</version>
+        <version>${pitest-plugin-version}</version>
         <dependencies>
           <dependency>
             <groupId>org.pitest</groupId>
             <artifactId>pitest-junit5-plugin</artifactId>
-	    <version>${pitest-junit5-plugin-version}</version>
+            <version>${pitest-junit5-plugin-version}</version>
           </dependency>
         </dependencies>
       </plugin>

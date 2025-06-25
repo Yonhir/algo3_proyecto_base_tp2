@@ -2,8 +2,6 @@ package edu.fiuba.algo3.modelo.cards.specials.weathers;
 
 import edu.fiuba.algo3.modelo.cards.Card;
 import edu.fiuba.algo3.modelo.cards.specials.Special;
-import edu.fiuba.algo3.modelo.colors.PlayerColor;
-import edu.fiuba.algo3.modelo.errors.SectionPlayerMismatchError;
 import edu.fiuba.algo3.modelo.sections.rows.Row;
 import edu.fiuba.algo3.modelo.sections.types.SectionType;
 
