@@ -23,7 +23,7 @@ public class MedicTest {
     @BeforeEach
     public void setUp(){
         discardPile = new DiscardPile();
-        closeCombat = new CloseCombat();
+        closeCombat = new CloseCombat(discardPile);
         modifiers.add(new Medic(discardPile));
         medicCard = new Unit("Regular", "Descripcion", 6, List.of(new CloseCombatType()), modifiers);
     }
@@ -33,7 +33,7 @@ public class MedicTest {
         Card unit1 = new Unit("Catapult", "Descripcion", 8, List.of(new CloseCombatType()), new ArrayList<>());
 
         closeCombat.placeCard(unit1);
-        closeCombat.discardCards(discardPile);
+        closeCombat.discardCards();
         closeCombat.placeCard(medicCard);
 
         assertTrue(closeCombat.containsCards(List.of(medicCard,unit1)));;
@@ -81,10 +81,10 @@ public class MedicTest {
     @Test
     public void testMedicCardNoDevuelveUnitCardDeDistintaRowDondeSeJugo(){
         Card unit1 = new Unit("Catapult", "Descripcion", 8, List.of(new SiegeType()), new ArrayList<>());
-        Siege siege = new Siege();
+        Siege siege = new Siege(discardPile);
 
         siege.placeCard(unit1);
-        siege.discardCards(discardPile);
+        siege.discardCards();
         closeCombat.placeCard(medicCard);
 
         assertTrue(closeCombat.containsCard(medicCard));
