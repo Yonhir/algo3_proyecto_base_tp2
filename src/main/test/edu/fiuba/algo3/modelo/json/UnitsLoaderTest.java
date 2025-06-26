@@ -6,6 +6,9 @@ import edu.fiuba.algo3.modelo.cards.units.modifiers.Hero;
 import edu.fiuba.algo3.modelo.errors.UnitsFileInvalid;
 import edu.fiuba.algo3.modelo.sections.types.CloseCombatType;
 import edu.fiuba.algo3.modelo.sections.types.RangedType;
+import edu.fiuba.algo3.modelo.cardcollections.Deck;
+import edu.fiuba.algo3.modelo.cardcollections.Hand;
+import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -32,11 +35,17 @@ public class UnitsLoaderTest {
     
     private UnitsLoader unitsLoader;
     private List<Unit> loadedUnits;
+    private Deck playerDeck;
+    private Hand playerHand;
+    private DiscardPile playerDiscardPile;
     
     @BeforeEach
     void setUp() {
         unitsLoader = new UnitsLoader();
         loadedUnits = new ArrayList<>();
+        playerDeck = new Deck();
+        playerHand = new Hand();
+        playerDiscardPile = new DiscardPile();
     }
 
     // ============================================================================
@@ -46,7 +55,7 @@ public class UnitsLoaderTest {
     @Test
     void testLoadFromResource_ShouldNotBeEmpty() {
         // Act
-        loadedUnits = unitsLoader.loadFromResource(UNIDADES_JSON_PATH);
+        loadedUnits = unitsLoader.loadFromResource(UNIDADES_JSON_PATH, playerDeck, playerHand, playerDiscardPile);
 
         // Assert
         assertFalse(loadedUnits.isEmpty(), "Should load at least one unit from JSON");
@@ -55,7 +64,7 @@ public class UnitsLoaderTest {
     @Test
     void testLoadFromResource_ShouldFindBarclayEls() {
         // Act
-        loadedUnits = unitsLoader.loadFromResource(UNIDADES_JSON_PATH);
+        loadedUnits = unitsLoader.loadFromResource(UNIDADES_JSON_PATH, playerDeck, playerHand, playerDiscardPile);
         Unit barclayEls = findUnitByName("Barclay Els");
 
         // Assert
@@ -65,7 +74,7 @@ public class UnitsLoaderTest {
     @Test
     void testLoadFromResource_BarclayElsShouldHaveCorrectPoints() {
         // Act
-        loadedUnits = unitsLoader.loadFromResource(UNIDADES_JSON_PATH);
+        loadedUnits = unitsLoader.loadFromResource(UNIDADES_JSON_PATH, playerDeck, playerHand, playerDiscardPile);
         Unit barclayEls = findUnitByName("Barclay Els");
 
         // Assert
@@ -75,7 +84,7 @@ public class UnitsLoaderTest {
     @Test
     void testLoadFromResource_BarclayElsShouldHaveAgileModifier() {
         // Act
-        loadedUnits = unitsLoader.loadFromResource(UNIDADES_JSON_PATH);
+        loadedUnits = unitsLoader.loadFromResource(UNIDADES_JSON_PATH, playerDeck, playerHand, playerDiscardPile);
         Unit barclayEls = findUnitByName("Barclay Els");
 
         // Assert
@@ -85,7 +94,7 @@ public class UnitsLoaderTest {
     @Test
     void testLoadFromResource_BarclayElsShouldBePlaceableInCloseCombat() {
         // Act
-        loadedUnits = unitsLoader.loadFromResource(UNIDADES_JSON_PATH);
+        loadedUnits = unitsLoader.loadFromResource(UNIDADES_JSON_PATH, playerDeck, playerHand, playerDiscardPile);
         Unit barclayEls = findUnitByName("Barclay Els");
 
         // Assert
@@ -96,7 +105,7 @@ public class UnitsLoaderTest {
     @Test
     void testLoadFromResource_BarclayElsShouldBePlaceableInRanged() {
         // Act
-        loadedUnits = unitsLoader.loadFromResource(UNIDADES_JSON_PATH);
+        loadedUnits = unitsLoader.loadFromResource(UNIDADES_JSON_PATH, playerDeck, playerHand, playerDiscardPile);
         Unit barclayEls = findUnitByName("Barclay Els");
 
         // Assert
@@ -107,7 +116,7 @@ public class UnitsLoaderTest {
     @Test
     void testLoadFromResource_ShouldFindBerserker() {
         // Act
-        loadedUnits = unitsLoader.loadFromResource(UNIDADES_JSON_PATH);
+        loadedUnits = unitsLoader.loadFromResource(UNIDADES_JSON_PATH, playerDeck, playerHand, playerDiscardPile);
         Unit berserker = findUnitByName("Berserker");
 
         // Assert
@@ -117,7 +126,7 @@ public class UnitsLoaderTest {
     @Test
     void testLoadFromResource_BerserkerShouldHaveCorrectPoints() {
         // Act
-        loadedUnits = unitsLoader.loadFromResource(UNIDADES_JSON_PATH);
+        loadedUnits = unitsLoader.loadFromResource(UNIDADES_JSON_PATH, playerDeck, playerHand, playerDiscardPile);
         Unit berserker = findUnitByName("Berserker");
 
         // Assert
@@ -127,7 +136,7 @@ public class UnitsLoaderTest {
     @Test
     void testLoadFromResource_BerserkerShouldNotHaveAgileModifier() {
         // Act
-        loadedUnits = unitsLoader.loadFromResource(UNIDADES_JSON_PATH);
+        loadedUnits = unitsLoader.loadFromResource(UNIDADES_JSON_PATH, playerDeck, playerHand, playerDiscardPile);
         Unit berserker = findUnitByName("Berserker");
 
         // Assert
@@ -137,7 +146,7 @@ public class UnitsLoaderTest {
     @Test
     void testLoadFromResource_ShouldFindGeralt() {
         // Act
-        loadedUnits = unitsLoader.loadFromResource(UNIDADES_JSON_PATH);
+        loadedUnits = unitsLoader.loadFromResource(UNIDADES_JSON_PATH, playerDeck, playerHand, playerDiscardPile);
         Unit geralt = findUnitByName("Geralt de Rivia");
 
         // Assert
@@ -147,7 +156,7 @@ public class UnitsLoaderTest {
     @Test
     void testLoadFromResource_GeraltShouldHaveCorrectPoints() {
         // Act
-        loadedUnits = unitsLoader.loadFromResource(UNIDADES_JSON_PATH);
+        loadedUnits = unitsLoader.loadFromResource(UNIDADES_JSON_PATH, playerDeck, playerHand, playerDiscardPile);
         Unit geralt = findUnitByName("Geralt de Rivia");
 
         // Assert
@@ -157,7 +166,7 @@ public class UnitsLoaderTest {
     @Test
     void testLoadFromResource_GeraltShouldHaveHeroModifier() {
         // Act
-        loadedUnits = unitsLoader.loadFromResource(UNIDADES_JSON_PATH);
+        loadedUnits = unitsLoader.loadFromResource(UNIDADES_JSON_PATH, playerDeck, playerHand, playerDiscardPile);
         Unit geralt = findUnitByName("Geralt de Rivia");
 
         // Assert
@@ -172,7 +181,7 @@ public class UnitsLoaderTest {
     void testLoadFromResource_ShouldThrowUnitsFileInvalid_WhenFileNotFound() {
         // Act & Assert
         UnitsFileInvalid exception = assertThrows(UnitsFileInvalid.class, () -> {
-            unitsLoader.loadFromResource(NON_EXISTENT_UNITS_PATH);
+            unitsLoader.loadFromResource(NON_EXISTENT_UNITS_PATH, playerDeck, playerHand, playerDiscardPile);
         }, "Should throw UnitsFileInvalid when units file is not found");
         
         assertEquals("Error reading or parsing file", exception.getMessage(), 
@@ -183,7 +192,7 @@ public class UnitsLoaderTest {
     void testLoadFromResource_ShouldThrowUnitsFileInvalid_WhenFileIsInvalidJson() {
         // Act & Assert
         UnitsFileInvalid exception = assertThrows(UnitsFileInvalid.class, () -> {
-            unitsLoader.loadFromResource(INVALID_UNITS_JSON_PATH);
+            unitsLoader.loadFromResource(INVALID_UNITS_JSON_PATH, playerDeck, playerHand, playerDiscardPile);
         }, "Should throw UnitsFileInvalid when units file contains invalid JSON data types");
         
         assertEquals("Error converting data", exception.getMessage(), 
@@ -194,7 +203,7 @@ public class UnitsLoaderTest {
     void testLoadFromResource_ShouldThrowUnitsFileInvalid_WhenFileIsEmpty() {
         // Act & Assert
         UnitsFileInvalid exception = assertThrows(UnitsFileInvalid.class, () -> {
-            unitsLoader.loadFromResource(EMPTY_JSON_PATH);
+            unitsLoader.loadFromResource(EMPTY_JSON_PATH, playerDeck, playerHand, playerDiscardPile);
         }, "Should throw UnitsFileInvalid when units file is empty");
         
         assertEquals("Error reading or parsing file", exception.getMessage(), 
@@ -205,7 +214,7 @@ public class UnitsLoaderTest {
     void testLoadFromResource_ShouldThrowUnitsFileInvalid_WhenFileHasInvalidStructure() {
         // Act & Assert
         UnitsFileInvalid exception = assertThrows(UnitsFileInvalid.class, () -> {
-            unitsLoader.loadFromResource(INVALID_STRUCTURE_UNITS_JSON_PATH);
+            unitsLoader.loadFromResource(INVALID_STRUCTURE_UNITS_JSON_PATH, playerDeck, playerHand, playerDiscardPile);
         }, "Should throw UnitsFileInvalid when units file has invalid structure (JSONObject instead of JSONArray)");
         
         assertEquals("Error reading or parsing file", exception.getMessage(),

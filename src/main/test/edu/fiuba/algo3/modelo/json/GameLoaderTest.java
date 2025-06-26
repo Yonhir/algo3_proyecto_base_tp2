@@ -1,6 +1,8 @@
 package edu.fiuba.algo3.modelo.json;
 
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
+import edu.fiuba.algo3.modelo.cardcollections.Hand;
+import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.errors.GwentFileInvalid;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,10 +28,25 @@ public class GameLoaderTest {
     public static final String INVALID_STRUCTURE_GAME_JSON_PATH = "json/invalid_structure_game.json";
     
     private GameLoader gameLoader;
+    private Deck player1Deck;
+    private Hand player1Hand;
+    private DiscardPile player1DiscardPile;
+    private Deck player2Deck;
+    private Hand player2Hand;
+    private DiscardPile player2DiscardPile;
     
     @BeforeEach
     void setUp() {
         gameLoader = new GameLoader();
+        
+        // Create dependencies for both players
+        player1Deck = new Deck();
+        player1Hand = new Hand();
+        player1DiscardPile = new DiscardPile();
+        
+        player2Deck = new Deck();
+        player2Hand = new Hand();
+        player2DiscardPile = new DiscardPile();
     }
 
     // ============================================================================
@@ -39,7 +56,9 @@ public class GameLoaderTest {
     @Test
     void testLoadFromResource_ShouldLoadTwoDecks() {
         // Act
-        List<Deck> decks = gameLoader.loadFromResource(GWENT_JSON_PATH);
+        List<Deck> decks = gameLoader.loadFromResource(GWENT_JSON_PATH, 
+                                                      player1Deck, player1Hand, player1DiscardPile,
+                                                      player2Deck, player2Hand, player2DiscardPile);
         
         // Assert
         assertEquals(2, decks.size(), "Should load 2 decks from game JSON");
@@ -48,7 +67,9 @@ public class GameLoaderTest {
     @Test
     void testLoadFromResource_PlayerOneDeckShouldHaveCards() {
         // Act
-        List<Deck> decks = gameLoader.loadFromResource(GWENT_JSON_PATH);
+        List<Deck> decks = gameLoader.loadFromResource(GWENT_JSON_PATH, 
+                                                      player1Deck, player1Hand, player1DiscardPile,
+                                                      player2Deck, player2Hand, player2DiscardPile);
         Deck playerOneDeck = decks.get(0);
         
         // Assert
@@ -58,7 +79,9 @@ public class GameLoaderTest {
     @Test
     void testLoadFromResource_PlayerTwoDeckShouldHaveCards() {
         // Act
-        List<Deck> decks = gameLoader.loadFromResource(GWENT_JSON_PATH);
+        List<Deck> decks = gameLoader.loadFromResource(GWENT_JSON_PATH, 
+                                                      player1Deck, player1Hand, player1DiscardPile,
+                                                      player2Deck, player2Hand, player2DiscardPile);
         Deck playerTwoDeck = decks.get(1);
         
         // Assert
@@ -68,7 +91,9 @@ public class GameLoaderTest {
     @Test
     void testLoadFromResource_PlayerOneDeckShouldHaveAtLeast15Units() {
         // Act
-        List<Deck> decks = gameLoader.loadFromResource(GWENT_JSON_PATH);
+        List<Deck> decks = gameLoader.loadFromResource(GWENT_JSON_PATH, 
+                                                      player1Deck, player1Hand, player1DiscardPile,
+                                                      player2Deck, player2Hand, player2DiscardPile);
         Deck playerOneDeck = decks.get(0);
         
         // Assert
@@ -78,7 +103,9 @@ public class GameLoaderTest {
     @Test
     void testLoadFromResource_PlayerOneDeckShouldHaveAtLeast6Specials() {
         // Act
-        List<Deck> decks = gameLoader.loadFromResource(GWENT_JSON_PATH);
+        List<Deck> decks = gameLoader.loadFromResource(GWENT_JSON_PATH, 
+                                                      player1Deck, player1Hand, player1DiscardPile,
+                                                      player2Deck, player2Hand, player2DiscardPile);
         Deck playerOneDeck = decks.get(0);
         
         // Assert
@@ -89,7 +116,9 @@ public class GameLoaderTest {
     void testLoadFromResource_ShouldThrowGwentFileInvalid_WhenFileHasInvalidStructure() {
         // Act & Assert
         GwentFileInvalid exception = assertThrows(GwentFileInvalid.class, () -> {
-            gameLoader.loadFromResource(INVALID_STRUCTURE_GAME_JSON_PATH);
+            gameLoader.loadFromResource(INVALID_STRUCTURE_GAME_JSON_PATH, 
+                                      player1Deck, player1Hand, player1DiscardPile,
+                                      player2Deck, player2Hand, player2DiscardPile);
         }, "Should throw GwentFileInvalid when game file has invalid structure (missing required decks)");
 
         assertEquals("Error converting data", exception.getMessage(), 
@@ -104,7 +133,9 @@ public class GameLoaderTest {
     void testLoadFromResource_ShouldThrowGwentFileInvalid_WhenFileNotFound() {
         // Act & Assert
         GwentFileInvalid exception = assertThrows(GwentFileInvalid.class, () -> {
-            gameLoader.loadFromResource(NON_EXISTENT_GAME_PATH);
+            gameLoader.loadFromResource(NON_EXISTENT_GAME_PATH, 
+                                      player1Deck, player1Hand, player1DiscardPile,
+                                      player2Deck, player2Hand, player2DiscardPile);
         }, "Should throw GwentFileInvalid when game file is not found");
         
         assertEquals("Error reading or parsing file", exception.getMessage(), 
@@ -115,7 +146,9 @@ public class GameLoaderTest {
     void testLoadFromResource_ShouldThrowGwentFileInvalid_WhenFileIsInvalidJson() {
         // Act & Assert
         GwentFileInvalid exception = assertThrows(GwentFileInvalid.class, () -> {
-            gameLoader.loadFromResource(INVALID_GAME_JSON_PATH);
+            gameLoader.loadFromResource(INVALID_GAME_JSON_PATH, 
+                                      player1Deck, player1Hand, player1DiscardPile,
+                                      player2Deck, player2Hand, player2DiscardPile);
         }, "Should throw GwentFileInvalid when game file contains invalid JSON data types");
 
         assertEquals("Error converting data", exception.getMessage(), 
@@ -126,7 +159,9 @@ public class GameLoaderTest {
     void testLoadFromResource_ShouldThrowGwentFileInvalid_WhenFileIsEmpty() {
         // Act & Assert
         GwentFileInvalid exception = assertThrows(GwentFileInvalid.class, () -> {
-            gameLoader.loadFromResource(EMPTY_JSON_PATH);
+            gameLoader.loadFromResource(EMPTY_JSON_PATH, 
+                                      player1Deck, player1Hand, player1DiscardPile,
+                                      player2Deck, player2Hand, player2DiscardPile);
         }, "Should throw GwentFileInvalid when game file is empty");
         
         assertEquals("Error converting data", exception.getMessage(),

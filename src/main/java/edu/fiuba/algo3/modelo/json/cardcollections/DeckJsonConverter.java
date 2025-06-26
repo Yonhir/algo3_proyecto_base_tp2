@@ -1,6 +1,8 @@
 package edu.fiuba.algo3.modelo.json.cardcollections;
 
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
+import edu.fiuba.algo3.modelo.cardcollections.Hand;
+import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cards.Card;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
 import edu.fiuba.algo3.modelo.cards.specials.Special;
@@ -22,20 +24,22 @@ public class DeckJsonConverter {
         this.specialConverter = new SpecialJsonConverter();
     }
     
-    public Deck convertFromJsonObject(JSONObject playerDeck) {
-        Deck deck = new Deck();
+    public Deck convertFromJsonObject(JSONObject jsonDeck, Deck playerDeck,
+                                    Hand playerHand, DiscardPile playerDiscardPile) {
+        // Use passed deck if not null, create new one if null
+        Deck targetDeck = (playerDeck != null) ? playerDeck : new Deck();
         List<Card> allCards = new ArrayList<>();
         
-        JSONArray unitsArray = (JSONArray) playerDeck.get("unidades");
-        List<Unit> unitCards = unitConverter.convertFromJsonArray(unitsArray);
+        JSONArray unitsArray = (JSONArray) jsonDeck.get("unidades");
+        List<Unit> unitCards = unitConverter.convertFromJsonArray(unitsArray, targetDeck, playerHand, playerDiscardPile);
         allCards.addAll(unitCards);
         
-        JSONArray specialsArray = (JSONArray) playerDeck.get("especiales");
+        JSONArray specialsArray = (JSONArray) jsonDeck.get("especiales");
         List<Special> specialCards = specialConverter.convertFromJsonArray(specialsArray);
         allCards.addAll(specialCards);
         
-        deck.insertCards(allCards);
+        targetDeck.insertCards(allCards);
         
-        return deck;
+        return targetDeck;
     }
 } 

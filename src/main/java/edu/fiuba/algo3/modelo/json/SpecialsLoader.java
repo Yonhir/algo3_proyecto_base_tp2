@@ -17,7 +17,6 @@ public class SpecialsLoader extends AbstractJsonLoader {
         this.specialConverter = new SpecialJsonConverter();
     }
     
-    @Override
     public List<Special> loadFromResource(String resourcePath) {
         JSONArray jsonSpecials = null;
         List<Special> specials = null;
