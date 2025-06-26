@@ -1,15 +1,23 @@
 package edu.fiuba.algo3.modelo.cards.specials;
 
+import edu.fiuba.algo3.modelo.cardcollections.Deck;
 import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
+import edu.fiuba.algo3.modelo.colors.Blue;
+import edu.fiuba.algo3.modelo.colors.Red;
+import edu.fiuba.algo3.modelo.errors.SectionPlayerMismatchError;
 import edu.fiuba.algo3.modelo.sections.rows.*;
 import edu.fiuba.algo3.modelo.sections.types.*;
-import org.junit.jupiter.api.Assertions;
+import edu.fiuba.algo3.modelo.turnManagement.Player;
+import edu.fiuba.algo3.modelo.turnManagement.Round;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class MoraleBoostTest {
     private CloseCombat closeCombat;
@@ -42,43 +50,43 @@ public class MoraleBoostTest {
     }
 
     @Test
-    public void use_moralBost_in_closeCombat() {
+    public void testCartaEspecialMoraleBoostEnFilaCloseCombat() {
         int expectedPoints = closeCombat.calculatePoints() * 2;
 
         moraleBoost.play(closeCombat);
 
         int actualPoints = closeCombat.calculatePoints();
 
-        Assertions.assertEquals(expectedPoints, actualPoints);
+        assertEquals(expectedPoints, actualPoints);
 
     }
 
     @Test
-    public void use_moralBost_in_ranged() {
+    public void testCartaEspecialMoraleBoostEnFilaRanged() {
         int expectedPoints = ranged.calculatePoints() * 2;
 
         moraleBoost.play(ranged);
 
         int actualPoints = ranged.calculatePoints();
 
-        Assertions.assertEquals(expectedPoints, actualPoints);
+        assertEquals(expectedPoints, actualPoints);
 
     }
 
     @Test
-    public void use_moralBost_in_siege() {
+    public void testCartaEspecialMoraleBoostEnFilaSiege() {
         int expectedPoints = siege.calculatePoints() * 2;
 
         moraleBoost.play(siege);
 
         int actualPoints = siege.calculatePoints();
 
-        Assertions.assertEquals(expectedPoints, actualPoints);
+        assertEquals(expectedPoints, actualPoints);
 
     }
 
     @Test
-    public void use_moralBost_in_empty_row() {
+    public void testCartaEspecialMoraleBoostEnFilaVacia() {
         int expectedPoints = 0;
 
         siege.discardCards();
@@ -87,6 +95,17 @@ public class MoraleBoostTest {
 
         int actualPoints = siege.calculatePoints();
 
-        Assertions.assertEquals(expectedPoints, actualPoints);
+        assertEquals(expectedPoints, actualPoints);
+    }
+
+    @Test
+    public void testLaCartaNoSePuedeJugarEnElSideEnemigoException(){
+        moraleBoost.setColor(new Blue());
+        siege.setColor(new Red());
+
+        Player player = new Player("player", new Deck(), new DiscardPile(), new CloseCombat(new DiscardPile()), new Ranged(new DiscardPile()), new Siege(new DiscardPile()), new Red());
+        Player player1 = new Player("player", new Deck(), new DiscardPile(), new CloseCombat(new DiscardPile()), new Ranged(new DiscardPile()), new Siege(new DiscardPile()), new Blue());
+
+        assertThrows(SectionPlayerMismatchError.class, () -> siege.placeCard(moraleBoost, new Round(player, player1)));
     }
 }
