@@ -4,7 +4,6 @@ import edu.fiuba.algo3.modelo.cards.Card;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
 import edu.fiuba.algo3.modelo.colors.PlayerColor;
 import edu.fiuba.algo3.modelo.errors.NotUnitCardError;
-import edu.fiuba.algo3.modelo.errors.SectionPlayerMismatchError;
 import edu.fiuba.algo3.modelo.sections.rows.Row;
 
 import java.util.List;
