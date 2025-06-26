@@ -86,4 +86,15 @@ public class CardTest {
 
         assertTrue(carta.haveSameColor(new Green()));
     }
+
+    @Test
+    public void testLaCartaPuedeVolverASuColorDefault() {
+        Card carta = new Unit("unidad", "comun", 5, new CloseCombatType(), List.of());
+        carta.setColor(new Red());
+        Green colorDefault = new Green();
+
+        carta.setColor(colorDefault.swapColor());
+
+        assertTrue(carta.haveSameColor(colorDefault));
+    }
 }
