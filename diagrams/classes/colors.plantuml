@@ -9,10 +9,10 @@ abstract class Card <<abstract>> {
   #description: String
   #sectionTypes: List<SectionType>
   +Card(name: String, description: String, sectionTypes: List<SectionType>): Card
-  +{abstract}play(section: Section): void
-  +{abstract}setColor(playerColor: PlayerColor): void
+  +{abstract}play(section: Section)
+  +{abstract}setColor(playerColor: PlayerColor)
   +haveSameColor(color: PlayerColor): boolean
-  +{abstract}verifyColor(color: PlayerColor): void
+  +{abstract}verifyColor(color: PlayerColor)
 }
 
 abstract class Row <<abstract>> {
@@ -23,7 +23,7 @@ abstract class Row <<abstract>> {
   #discardPile : DiscardPile
   +Row(sectionType: SectionType, discardPile : DiscardPile): Row
   +calculatePoints(): int
-  +placeCard(card: Card, round Round): void
+  +placeCard(card: Card, round Round)
   +setColor(playerColor: PlayerColor)
 }
 
