@@ -27,6 +27,16 @@ abstract class Row <<abstract>> {
   +setColor(playerColor: PlayerColor)
 }
 
+class DiscardPile {
+  +DiscardPile(): DiscardPile
+  +addCard(card: Card)
+  +insertCards(cards: List<Card>)
+  +getLastCard(): Card
+  +setColor(color: PlayerColor)
+  +addCardIfHasSameColor(card: Card)
+  +getLastUnitCardFromType(row: Row): Card
+}
+
 abstract class PlayerColor <<abstract>> {
   +{abstract}swapColor(): PlayerColor
   +equals(object: Object): boolean
@@ -42,6 +52,7 @@ class Red {
 
 Card o-- "1" PlayerColor
 Row  o-- "1" PlayerColor
+DiscardPile o-- "1" PlayerColor
 
 PlayerColor <|-- Blue
 PlayerColor <|-- Red
