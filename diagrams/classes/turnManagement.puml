@@ -1,0 +1,89 @@
+@startuml
+skinparam monochrome true
+hide circle
+skinparam classAttributeIconSize 0
+
+  interface RoundState <<interface>> {
+    +playCard(round: Round)
+    +passTurn(round: Round, game: Game)
+  }
+
+  class Round {
+    -player1: Player
+    -player2: Player
+    -currentPlayer: Player
+    -opponentPlayer: Player
+    -state: RoundState
+    +Round(player1: Player, player2: Player)
+    +getCurrentPlayer(): Player
+    +getOpponent(): Player
+    +setState(state: RoundState)
+    +playerPlayedCard()
+    +passTurn(game: Game)
+    +assignVictory()
+    +swapPlayers()
+    +getState(): RoundState
+  }
+
+  class Player {
+    -name: String
+    -discardPile: DiscardPile
+    -hand: Hand
+    -deck: Deck
+    -closeCombat: CloseCombat
+    -ranged: Ranged
+    -siege: Siege
+    -roundsWon: int
+    -setColor(playerColor: PlayerColor)
+    -setColorToRows(playerColor: PlayerColor)
+    -setColorToCards(playerColor: PlayerColor)
+    -setColorDiscardPile(playerColor: PlayerColor)
+    +Player(name: String, deck: Deck, discardPile: DiscardPile, closeCombat: CloseCombat, ranged: Ranged, siege: Siege, playerColor: PlayerColor)
+    +getDiscardPile(): DiscardPile
+    +getHand(): Hand
+    +calculatePoints(): int
+    +playCard(card: Card, row: Row, round: Round)
+    +winRound()
+    +hasWonGame(): boolean
+    +getRoundsWon(): int
+    +discardAllRows()
+    +assignRoundVictoryToBetterPlayer(other: Player)
+    +chooseWinnerAgainst(other: Player): Player
+  }
+
+  class Game {
+    -player1: Player
+    -player2: Player
+    -specialZone: SpecialZone
+    -currentRound: Round
+    +Game(player1: Player, player2: Player, specialZone: SpecialZone)
+    +startNewRound()
+    +passRound()
+    +gameFinished(): boolean
+    +gameWinner(): Player
+    +clearBoard()
+    +bothPlayersWonARound(): boolean
+  }
+
+  class OnePassedState {
+    -passedPlayer: Player
+    +OnePassedState(passedPlayer: Player)
+  }
+
+  class BothPlayingState {
+  }
+
+  class BothPassedState {
+  }
+
+  ' Relaciones de implementación
+  RoundState <|.. OnePassedState
+  RoundState <|.. BothPlayingState
+  RoundState <|.. BothPassedState
+
+  ' Relaciones de asociación
+  Round --> RoundState
+  Round --> Player
+  Game --> Player
+  Game --> Round
+@enduml
