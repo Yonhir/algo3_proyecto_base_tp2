@@ -28,16 +28,21 @@ class Unit {
   -currentPoints: int
   -modifiers: List<Modifier>
   -hasHeroModifier : boolean
-  +Unit(name: String, description: String, points: int, sectionTypes: List<SectionType>, modifiers: List<Modifier>): Unit
+  +Unit(name: String, description: String, points: int, sectionTypes: List<SectionType>,
+  modifiers: List<Modifier>): Unit
+  +Unit(name: String, description: String, points: int, sectionType: SectionType,
+  modifiers: List<Modifier>): Unit
+  +verifyColor(color: PlayerColor) : void
+  +setColor(playerColor: PlayerColor): void
+  +play(section: Section): void
+  +checkHeroModifier() : void
+  +hasHeroAsModifier() : boolean
   +calculatePoints(): int
   +resetPoints(): void
   +setPoints(points: int): void
   +haveModifier(modifier: Modifier): boolean
-  +play(section: Section): void
   +strongerThan(unit : Unit) : Unit
   +samePointsAs(unit : Unit) : boolean
-  +hasHeroAsModifier() : boolean
-  +heroModifier() : void
 }
 
 abstract class Special <<abstract>> {
