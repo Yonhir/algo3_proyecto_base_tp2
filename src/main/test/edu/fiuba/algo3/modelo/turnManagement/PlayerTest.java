@@ -111,6 +111,7 @@ public class PlayerTest {
 
         hand.insertCards(Arrays.asList(siegeCard, closeCombatCard, rangedCard));
         hand.getNCardsFromDeck(deck, 7);
+
         round = new Round(player, opponent);
     }
 
@@ -242,8 +243,11 @@ public class PlayerTest {
 
     @Test
     public void testSeAsignaGanadorDeLaRondaAlJugadorCorrecto() {
-        closeCombat1.placeCard(closeCombatCard);
-        closeCombat2.placeCard(new Unit("Nombre", "Descripcion", 2, new CloseCombatType(), new ArrayList<>()));
+        Unit otraUnidad = new Unit("Nombre", "Descripcion", 2, new CloseCombatType(), new ArrayList<>());
+        otraUnidad.setColor(new Red());
+
+        closeCombat1.placeCard(closeCombatCard, round);
+        closeCombat2.placeCard(otraUnidad, round);
 
         player.assignRoundVictoryToBetterPlayer(opponent);
 
@@ -252,14 +256,17 @@ public class PlayerTest {
 
     @Test
     public void testSeObtieneElGanadorDelJuegoCorrecto() {
-        closeCombat1.placeCard(closeCombatCard);
-        closeCombat2.placeCard(new Unit("Nombre", "Descripcion", 2, new CloseCombatType(), new ArrayList<>()));
+        Unit otraUnidad = new Unit("Nombre", "Descripcion", 2, new CloseCombatType(), new ArrayList<>());
+        otraUnidad.setColor(new Red());
+        Unit unidad = new Unit("Nombre", "Descripcion", 4, new RangedType(), new ArrayList<>());
+        unidad.setColor(new Red());
 
+        closeCombat1.placeCard(closeCombatCard, round);
+        closeCombat2.placeCard(otraUnidad, round);
         player.assignRoundVictoryToBetterPlayer(opponent);
 
-        ranged1.placeCard(rangedCard);
-        ranged2.placeCard(new Unit("Nombre", "Descripcion", 4, new RangedType(), new ArrayList<>()));
-
+        ranged1.placeCard(rangedCard, round);
+        ranged2.placeCard(unidad, round);
         player.assignRoundVictoryToBetterPlayer(opponent);
 
         assertEquals(player, player.chooseWinnerAgainst(opponent));

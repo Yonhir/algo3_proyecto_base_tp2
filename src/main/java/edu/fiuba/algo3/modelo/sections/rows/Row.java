@@ -37,7 +37,7 @@ public abstract class Row implements Section {
         round.playerPlayedCard();
     }
 
-    public void placeCard(Card card){
+    public void placeCard(Card card) {
         card.verifySectionType(this.sectionType);
         card.play(this);
     }
