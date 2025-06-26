@@ -87,37 +87,38 @@ class Spy {
 }
 
 abstract class Weather <<abstract>> {
-  +Weather(name: String, description: String, sectionType: SectionType): Weather
-  +play(section: Section): void
-  +apply(card: Card, row: Row): void
-  +verifySectionType(sectionType: SectionType): void
+  +Weather(name: String, description: String, sectionTypes: List<SectionType>): Weather
+  +{abstract}apply(card: Card, row: Row): voi
 }
 
 class TorrentialRain {
   +TorrentialRain(name: String, description: String): TorrentialRain
   +apply(card: Card, row: Row): void
+  +play(section: Section): void
 }
 
 class ImpenetrableFog {
   +ImpenetrableFog(name: String, description: String): ImpenetrableFog
   +apply(card: Card, row: Row): void
+  +play(section: Section): void
 }
 
 class BitingFrost {
   +BitingFrost(name: String, description: String): BitingFrost
-}
-
-class Decoy {
-  +Decoy(name: String, description: String): Decoy
-}
-
-class MoraleBoost{
-  +MoraleBoost(name: String, description: String, sectionsType: SectionsType[])
+  +apply(card: Card, row: Row): void
   +play(section: Section): void
 }
 
-class TacticalAdvantage {
-  +TacticalAdvantage(name: String, description: String): TacticalAdvantage
+class ClearWeather {
+  +ClearWeather(name: String, description: String): ClearWeather
+  +apply(card: Card, row: Row): void
+  +play(section: Section): void
+}
+
+class MoraleBoost {
+  +MoraleBoost(name: String, description: String, sectionTypes: List<SectionType>): MoraleBoost
+  +verifyColor(color: PlayerColor) : void
+  +play(section: Section): void
 }
 
 ' =====================
