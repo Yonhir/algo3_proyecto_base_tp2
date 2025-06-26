@@ -27,8 +27,6 @@ module edu.fiuba.algo3 {
     opens edu.fiuba.algo3.modelo.colors;
     exports edu.fiuba.algo3.modelo.turnManagement;
     opens edu.fiuba.algo3.modelo.turnManagement;
-    exports edu.fiuba.algo3.modelo.colors;
-    opens edu.fiuba.algo3.modelo.colors;
     exports edu.fiuba.algo3.modelo.json;
     opens edu.fiuba.algo3.modelo.json;
     exports edu.fiuba.algo3.modelo.json.cards.specials.weathers;
