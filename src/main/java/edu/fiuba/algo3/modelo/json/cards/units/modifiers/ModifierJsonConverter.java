@@ -27,11 +27,11 @@ public class ModifierJsonConverter {
             case "Legendaria":
                 return new Hero();
             case "Medico":
-                return new Medic();
+                return new Medic(null);
             case "Carta Unida":
                 return new TightBond();
             case "Espia":
-                return new Spy(null, null, null);
+                return new Spy(null, null);
             case "Morale Boost":
             case "Morale boost":
             case "Impulso de moral":
