@@ -1,0 +1,49 @@
+@startuml
+
+skinparam monochrome true
+hide circle
+skinparam classAttributeIconSize 0
+
+abstract class Card <<abstract>> {
+  #name: String
+  #description: String
+  #sectionTypes: List<SectionType>
+  +Card(name: String, description: String, sectionTypes: List<SectionType>): Card
+  +{abstract}play(section: Section): void
+  +{abstract}setColor(playerColor: PlayerColor): void
+  +haveSameColor(color: PlayerColor): boolean
+  +{abstract}verifyColor(color: PlayerColor): void
+}
+
+abstract class Row <<abstract>> {
+  #cards: List<Card>
+  #lastCard: Card
+  #currentWeather: Weather
+  #sectionType: SectionType
+  #discardPile : DiscardPile
+  +Row(sectionType: SectionType, discardPile : DiscardPile): Row
+  +calculatePoints(): int
+  +placeCard(card: Card, round Round): void
+  +setColor(playerColor: PlayerColor)
+}
+
+abstract class PlayerColor <<abstract>> {
+  +{abstract}swapColor(): PlayerColor
+  +equals(object: Object): boolean
+}
+
+class Blue {
+  +swapColor(): PlayerColor
+}
+
+class Red {
+  +swapColor(): PlayerColor
+}
+
+Card o-- "1" PlayerColor
+Row  o-- "1" PlayerColor
+
+PlayerColor <|-- Blue
+PlayerColor <|-- Red
+
+@enduml
