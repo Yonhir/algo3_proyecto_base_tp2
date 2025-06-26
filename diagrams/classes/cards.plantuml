@@ -46,7 +46,9 @@ class Unit {
 }
 
 abstract class Special <<abstract>> {
-  +verifySectionType(sectionType: SectionType): void
+  +Special(name: String, description: String, sectionTypes: List<SectionType>): Special
+  +verifyColor(color: PlayerColor) : void
+  +setColor(playerColor: PlayerColor): void
 }
 
 class Scorch {
@@ -61,9 +63,27 @@ interface Modifier <<interface>> {
 }
 
 class TightBond {
+  +TightBond()
 }
 
 class Agile {
+  +Agile()
+}
+
+class Hero {
+  +Hero()
+}
+
+class Medic {
+  +Medic()
+}
+
+class MoraleBoostModifier {
+  +MoraleBoostModifier()
+}
+
+class Spy {
+  +Spy()
 }
 
 abstract class Weather <<abstract>> {
