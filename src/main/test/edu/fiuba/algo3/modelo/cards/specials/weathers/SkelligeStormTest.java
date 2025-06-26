@@ -1,10 +1,8 @@
 package edu.fiuba.algo3.modelo.cards.specials.weathers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -62,23 +60,23 @@ public class SkelligeStormTest {
     @Test
     public void skelligeStormOwnerSideTest(){
         Weather skelligeStorm = new SkelligeStorm("Skellige Storm", "Reduce todas las unidades a distancia y de asedio a 1 punto");
-        int expectedPointsSAndR = siege.getCards().size() + ranged.getCards().size();
+        int expectedPointsSAndR = siege.getCardCount() + ranged.getCardCount();
 
         skelligeStorm.play(specialZone);
 
         int actualPointsSAndR = siege.calculatePoints() + ranged.calculatePoints();
-        Assertions.assertEquals(expectedPointsSAndR, actualPointsSAndR);
+        assertEquals(expectedPointsSAndR, actualPointsSAndR);
     }
 
     @Test
     public void skelligeStormOpponentSideTest(){
         Weather skelligeStorm = new SkelligeStorm("Skellige Storm", "Reduce todas las unidades a distancia y de asedio a 1 punto");
-        int expectedPointsSAndR = siegeOpponent.getCards().size() + rangedOpponent.getCards().size();
+        int expectedPointsSAndR = siegeOpponent.getCardCount() + rangedOpponent.getCardCount();
 
         skelligeStorm.play(specialZone);
 
         int actualPointsSAndR = siegeOpponent.calculatePoints() + rangedOpponent.calculatePoints();
-        Assertions.assertEquals(expectedPointsSAndR, actualPointsSAndR);
+        assertEquals(expectedPointsSAndR, actualPointsSAndR);
     }
 
     @Test
@@ -86,11 +84,11 @@ public class SkelligeStormTest {
         siegeOpponent.discardCards();
         rangedOpponent.discardCards();
         Weather skelligeStorm = new SkelligeStorm("Skellige Storm", "Reduce todas las unidades a distancia y de asedio a 1 punto");
-        int expectedPointsSAndR = siegeOpponent.getCards().size() + rangedOpponent.getCards().size();
+        int expectedPointsSAndR = siegeOpponent.getCardCount() + rangedOpponent.getCardCount();
 
         skelligeStorm.play(specialZone);
 
         int actualPointsSAndR = siegeOpponent.calculatePoints() + rangedOpponent.calculatePoints();
-        Assertions.assertEquals(expectedPointsSAndR, actualPointsSAndR);
+        assertEquals(expectedPointsSAndR, actualPointsSAndR);
     }
 }

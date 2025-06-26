@@ -1,0 +1,42 @@
+@startuml
+
+skinparam monochrome true
+hide circle
+skinparam classAttributeIconSize 0
+
+interface Modifier <<interface>> {
+  +apply(row: Row): void
+}
+
+class TightBond {
+  +TightBond()
+}
+
+class Agile {
+  +Agile()
+}
+
+class Hero {
+  +Hero()
+}
+
+class Medic {
+  +Medic()
+}
+
+class MoraleBoostModifier {
+  +MoraleBoostModifier()
+}
+
+class Spy {
+  +Spy()
+}
+
+Modifier <|.. TightBond
+Modifier <|.. Agile
+Modifier <|.. Hero
+Modifier <|.. Medic
+Modifier <|.. MoraleBoostModifier
+Modifier <|.. Spy
+
+@enduml

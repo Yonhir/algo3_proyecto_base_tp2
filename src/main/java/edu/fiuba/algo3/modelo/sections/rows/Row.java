@@ -118,7 +118,6 @@ public abstract class Row extends Observable implements Section {
         return lastCard;
     }
 
-
     public void setColor(PlayerColor playerColor) {
         this.playerColor = playerColor;
     }

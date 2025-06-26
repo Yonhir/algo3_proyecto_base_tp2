@@ -136,32 +136,46 @@ public class DiscardPileTest {
 
     @Test
     public void testUnaCardDeDiferenteColorDelDiscarPileNoSeAgrega(){
-        Card unirCard = new Unit("Unit1", "Description1", 5, List.of(new CloseCombatType()), new ArrayList<>());
+        Card unitCard = new Unit("Unit1", "Description1", 5, List.of(new CloseCombatType()), new ArrayList<>());
         PlayerColor colorBlue = new Blue() ;
         PlayerColor colorRed = new Red();
 
-        unirCard.setColor(colorBlue);
+        unitCard.setColor(colorBlue);
         discardPile1.setColor(colorRed);
-        discardPile1.addCardIfHasSameColor(unirCard);
+        discardPile1.addCardIfHasSameColor(unitCard);
 
         assertTrue(discardPile1.isEmpty());
     }
 
     @Test
     public void testUnaCardDeIgualColorDelDiscarPileSeAgregaCorrectamente(){
-        Card unirCard1 = new Unit("Unit1", "Description1", 5, List.of(new CloseCombatType()), new ArrayList<>());
-        Card unirCard2 = new Unit("Unit2", "Description2", 5, List.of(new CloseCombatType()), new ArrayList<>());
+        Card unitCard1 = new Unit("Unit1", "Description1", 5, List.of(new CloseCombatType()), new ArrayList<>());
+        Card unitCard2 = new Unit("Unit2", "Description2", 5, List.of(new CloseCombatType()), new ArrayList<>());
         PlayerColor colorRed = new Red();
         PlayerColor colorBlue = new Blue();
         int expectedCards = 1;
 
-        unirCard1.setColor(colorRed);
-        unirCard2.setColor(colorBlue);
+        unitCard1.setColor(colorRed);
+        unitCard2.setColor(colorBlue);
         discardPile1.setColor(colorRed);
-        discardPile1.addCardIfHasSameColor(unirCard1);
-        discardPile1.addCardIfHasSameColor(unirCard2);
+        discardPile1.addCardIfHasSameColor(unitCard1);
+        discardPile1.addCardIfHasSameColor(unitCard2);
 
         assertFalse(discardPile1.isEmpty());
-        assertEquals(discardPile1.getCardCount(), expectedCards);
+        assertEquals(expectedCards, discardPile1.getCardCount());
+    }
+
+    @Test
+    public void testSeDescartaUnaCartaDelMismoColorQueElDiscardPileSeReseteanLosPuntosCorrectamente() {
+        Unit unitCard1 = new Unit("Unit1", "Description1", 5, List.of(new CloseCombatType()), new ArrayList<>());
+        unitCard1.setPoints(7); // altero los puntos
+        PlayerColor colorRed = new Red();
+        unitCard1.setColor(colorRed);
+        discardPile1.setColor(colorRed);
+
+        discardPile1.addCardIfHasSameColor(unitCard1);
+
+        assertFalse(discardPile1.isEmpty());
+        assertEquals(5, unitCard1.calculatePoints());
     }
 }

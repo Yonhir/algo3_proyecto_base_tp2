@@ -18,7 +18,6 @@ import edu.fiuba.algo3.modelo.sections.rows.Siege;
 import edu.fiuba.algo3.modelo.sections.types.CloseCombatType;
 import edu.fiuba.algo3.modelo.sections.types.RangedType;
 import edu.fiuba.algo3.modelo.sections.types.SiegeType;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -172,12 +171,13 @@ public class PlayerTest {
     }
 
     @Test
-    public void testNoQuedanEnLaManoDelJugadorLasCartasJugadas() {
+    public void testVerificarQueLasCartasJugadasNoSeEncuentrenEnLaMano() {
         player.playCard(siegeCard, siege1, round);
         player.playCard(closeCombatCard, closeCombat1, round);
         player.playCard(rangedCard, ranged1, round);
 
-        assertFalse(player.getHand().containsCards(Arrays.asList(siegeCard, closeCombatCard, rangedCard)));
+        Hand hand = player.getHand();
+        assertFalse(hand.containsCards(Arrays.asList(siegeCard, closeCombatCard, rangedCard)));
     }
 
     @Test

@@ -15,7 +15,6 @@ import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
 import edu.fiuba.algo3.modelo.sections.rows.Ranged;
 import edu.fiuba.algo3.modelo.sections.rows.Siege;
 import edu.fiuba.algo3.modelo.sections.types.*;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -23,6 +22,9 @@ import java.security.interfaces.DSAKey;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class SpyTest {
     private Ranged RangedRowOpponent;
@@ -90,7 +92,7 @@ public class SpyTest {
     }
     @Test
     public void testLaCartaSeJuegaEnLasFilasPropiasException() {
-        Assertions.assertThrows(SectionPlayerMismatchError.class, () -> RangedRowOwner.placeCard(carta_espia, round));
+        assertThrows(SectionPlayerMismatchError.class, () -> RangedRowOwner.placeCard(carta_espia, round));
     }
 
     @Test
@@ -99,7 +101,7 @@ public class SpyTest {
 
         RangedRowOpponent.placeCard(carta_espia, round);
 
-        Assertions.assertEquals(expectedCardsInHand, hand.getCardCount());
+        assertEquals(expectedCardsInHand, hand.getCardCount());
     }
 
     @Test
@@ -108,7 +110,7 @@ public class SpyTest {
 
         RangedRowOpponent.placeCard(carta_espia, round);
 
-        Assertions.assertEquals(expectedCardsInHand, deck.getCardCount());
+        assertEquals(expectedCardsInHand, deck.getCardCount());
     }
 
 }
