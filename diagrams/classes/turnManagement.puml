@@ -67,7 +67,6 @@ skinparam classAttributeIconSize 0
 
   class OnePassedState {
     -passedPlayer: Player
-    +OnePassedState()
     +OnePassedState(passedPlayer: Player)
   }
 
