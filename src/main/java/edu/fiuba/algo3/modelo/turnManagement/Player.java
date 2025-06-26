@@ -23,7 +23,7 @@ public class Player {
     private void setColor(PlayerColor playerColor) {
         setColorToCards(playerColor);
         setColorToRows(playerColor);
-        setColorDiscardPile(color);
+        setColorDiscardPile(playerColor);
     }
 
     private void setColorToRows(PlayerColor playerColor) {
@@ -36,7 +36,7 @@ public class Player {
         deck.setColorToCards(playerColor);
     }
     
-    private void setColorDiscardPile(Color color){
+    private void setColorDiscardPile(PlayerColor color){
         discardPile.setColor(color);
     }
 

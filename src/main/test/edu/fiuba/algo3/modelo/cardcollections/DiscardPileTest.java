@@ -137,8 +137,8 @@ public class DiscardPileTest {
     @Test
     public void testUnaCardDeDiferenteColorDelDiscarPileNoSeAgrega(){
         Card unirCard = new Unit("Unit1", "Description1", 5, List.of(new CloseCombatType()), new ArrayList<>());
-        Color colorBlue = new Blue() ;
-        Color colorRed = new Red();
+        PlayerColor colorBlue = new Blue() ;
+        PlayerColor colorRed = new Red();
 
         unirCard.setColor(colorBlue);
         discardPile1.setColor(colorRed);
@@ -151,8 +151,8 @@ public class DiscardPileTest {
     public void testUnaCardDeIgualColorDelDiscarPileSeAgregaCorrectamente(){
         Card unirCard1 = new Unit("Unit1", "Description1", 5, List.of(new CloseCombatType()), new ArrayList<>());
         Card unirCard2 = new Unit("Unit2", "Description2", 5, List.of(new CloseCombatType()), new ArrayList<>());
-        Color colorRed = new Red();
-        Color colorBlue = new Blue();
+        PlayerColor colorRed = new Red();
+        PlayerColor colorBlue = new Blue();
         int expectedCards = 1;
 
         unirCard1.setColor(colorRed);

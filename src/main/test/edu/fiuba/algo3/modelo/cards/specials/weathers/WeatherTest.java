@@ -45,6 +45,8 @@ public class WeatherTest {
     private Siege player2SiegeRow;
     private DiscardPile discardPile1;
     private DiscardPile discardPile2;
+    private Player player;
+    private Player opponent;
     private final PlayerColor color = new Blue();
 
     @BeforeEach
@@ -88,9 +90,6 @@ public class WeatherTest {
         fogWeather.setColor(color);
         rainWeather.setColor(color);
         clearWeather.setColor(color);
-
-        Player player = new Player("Gabriel", deck, discardPile1, closeCombatRow, rangedRow, siegeRow, new Blue());
-        Player opponent = new Player("Juan", new Deck(), discardPile2, aCloseCombat, aRanged, aSiege, new Red());
         round = new Round(player, opponent);
     }
 
