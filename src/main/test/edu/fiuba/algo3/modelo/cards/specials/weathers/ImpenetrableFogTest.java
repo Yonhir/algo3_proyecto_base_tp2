@@ -32,12 +32,14 @@ public class ImpenetrableFogTest {
 
     Player player1;
     Player player2;
+    DiscardPile discardPile1;
+    DiscardPile discardPile2;
 
     @BeforeEach
     void setUp() {
+        discardPile1 = new DiscardPile();
+        discardPile2 = new DiscardPile();
         fog = new ImpenetrableFog("niebla", "impenetrable");
-        DiscardPile discardPile1 = new DiscardPile();
-        DiscardPile discardPile2 = new DiscardPile();
         closeCombat1 = new CloseCombat(discardPile1);
         closeCombat2 = new CloseCombat(discardPile2);
         ranged1 = new Ranged(discardPile1);
@@ -68,7 +70,7 @@ public class ImpenetrableFogTest {
 
     @Test
     public void testLaCartaImpenetrableFogUnicamenteAfectaALasFilasRanged() {
-        Section specialZone = new SpecialZone(closeCombat1, ranged1, siege1, closeCombat2, ranged2, siege2);
+        Section specialZone = new SpecialZone(closeCombat1, ranged1, siege1, closeCombat2, ranged2, siege2, discardPile1, discardPile2);
         Unit carta1 = new Unit("carta", "comun", 6, new SiegeType(), List.of());
         Unit carta2 = new Unit("nombre", "descripcion", 7, new CloseCombatType(), List.of());
         Unit carta3 = new Unit("nombre", "descripcion", 5, new RangedType(), List.of());

@@ -31,10 +31,12 @@ public class MoraleBoostModifierTest {
     private MoraleBoostModifier modifierMoral;
     private Unit cardMoraleBoost;
     private Round round;
+    private Deck deck;
+
 
     @BeforeEach
     void setUp() {
-        Deck deck = new Deck();
+        deck = new Deck();
 
         DiscardPile discardPile1 = new DiscardPile();
         DiscardPile discardPile2 = new DiscardPile();

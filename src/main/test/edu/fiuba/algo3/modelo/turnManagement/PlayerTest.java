@@ -46,6 +46,7 @@ public class PlayerTest {
     private Card siegeCard;
     private Card rangedCard;
     private Card closeCombatCard;
+    private DiscardPile discardPile;
 
     @BeforeEach
     void setUp() {

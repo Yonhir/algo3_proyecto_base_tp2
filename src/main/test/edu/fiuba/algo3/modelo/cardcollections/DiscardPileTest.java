@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.cardcollections;
 
+
 import edu.fiuba.algo3.modelo.colors.*;
 import edu.fiuba.algo3.modelo.turnManagement.Player;
 import edu.fiuba.algo3.modelo.turnManagement.Round;
@@ -131,5 +132,36 @@ public class DiscardPileTest {
         List<Integer> pointsExpected = Arrays.asList(5, 7, 3);
 
         assertEquals(pointsGotten, pointsExpected, "Points should be reset to base value");
+    }
+
+    @Test
+    public void testUnaCardDeDiferenteColorDelDiscarPileNoSeAgrega(){
+        Card unirCard = new Unit("Unit1", "Description1", 5, List.of(new CloseCombatType()), new ArrayList<>());
+        PlayerColor colorBlue = new Blue() ;
+        PlayerColor colorRed = new Red();
+
+        unirCard.setColor(colorBlue);
+        discardPile1.setColor(colorRed);
+        discardPile1.addCardIfHasSameColor(unirCard);
+
+        assertTrue(discardPile1.isEmpty());
+    }
+
+    @Test
+    public void testUnaCardDeIgualColorDelDiscarPileSeAgregaCorrectamente(){
+        Card unirCard1 = new Unit("Unit1", "Description1", 5, List.of(new CloseCombatType()), new ArrayList<>());
+        Card unirCard2 = new Unit("Unit2", "Description2", 5, List.of(new CloseCombatType()), new ArrayList<>());
+        PlayerColor colorRed = new Red();
+        PlayerColor colorBlue = new Blue();
+        int expectedCards = 1;
+
+        unirCard1.setColor(colorRed);
+        unirCard2.setColor(colorBlue);
+        discardPile1.setColor(colorRed);
+        discardPile1.addCardIfHasSameColor(unirCard1);
+        discardPile1.addCardIfHasSameColor(unirCard2);
+
+        assertFalse(discardPile1.isEmpty());
+        assertEquals(discardPile1.getCardCount(), expectedCards);
     }
 }
