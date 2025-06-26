@@ -14,12 +14,12 @@ abstract class Card <<abstract>> {
   #sectionTypes: List<SectionType>
   #playerColor: PlayerColor
   +Card(name: String, description: String, sectionTypes: List<SectionType>): Card
-  +{abstract}play(section: Section): void
-  +verifySectionType(sectionType: SectionType): void
-  +{abstract}setColor(playerColor: PlayerColor): void
+  +{abstract}play(section: Section)
+  +verifySectionType(sectionType: SectionType)
+  +{abstract}setColor(playerColor: PlayerColor)
   +haveSectionType(sectionType: SectionType) : boolean
   +haveSameColor(color: PlayerColor) : boolean
-  +{abstract}verifyColor(color: PlayerColor) : void
+  +{abstract}verifyColor(color: PlayerColor)
   +getName(): String
 }
 
@@ -32,14 +32,14 @@ class Unit {
   modifiers: List<Modifier>): Unit
   +Unit(name: String, description: String, points: int, sectionType: SectionType,
   modifiers: List<Modifier>): Unit
-  +verifyColor(color: PlayerColor) : void
-  +setColor(playerColor: PlayerColor): void
-  +play(section: Section): void
-  +checkHeroModifier() : void
+  +verifyColor(color: PlayerColor)
+  +setColor(playerColor: PlayerColor)
+  +play(section: Section)
+  +checkHeroModifier()
   +hasHeroAsModifier() : boolean
   +calculatePoints(): int
-  +resetPoints(): void
-  +setPoints(points: int): void
+  +resetPoints()
+  +setPoints(points: int)
   +haveModifier(modifier: Modifier): boolean
   +strongerThan(unit : Unit) : Unit
   +samePointsAs(unit : Unit) : boolean
@@ -47,8 +47,8 @@ class Unit {
 
 abstract class Special <<abstract>> {
   +Special(name: String, description: String, sectionTypes: List<SectionType>): Special
-  +verifyColor(color: PlayerColor) : void
-  +setColor(playerColor: PlayerColor): void
+  +verifyColor(color: PlayerColor)
+  +setColor(playerColor: PlayerColor)
 }
 
 ' =====================
