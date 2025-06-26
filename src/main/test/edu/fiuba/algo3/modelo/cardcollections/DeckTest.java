@@ -4,7 +4,6 @@ import edu.fiuba.algo3.modelo.cards.*;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.BitingFrost;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.ImpenetrableFog;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.TorrentialRain;
-import edu.fiuba.algo3.modelo.cards.units.modifiers.;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
 import edu.fiuba.algo3.modelo.errors.InvalidCardAmountError;
 import edu.fiuba.algo3.modelo.errors.NotEnoughSpecialsCardsError;
