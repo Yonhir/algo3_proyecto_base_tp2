@@ -9,9 +9,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-/**
- * Reusable exit confirmation dialog component
- */
+
 public class ExitConfirmationDialog {
     
     private static boolean isDialogOpen = false;
@@ -19,7 +17,7 @@ public class ExitConfirmationDialog {
     public static void show(StackPane rootPane) {
         System.out.println("ExitConfirmationDialog.show() called");
         
-        // Check if dialog is actually visible on the root pane
+        // Check if the dialog is actually visible on the root pane
         if (isVisible(rootPane)) {
             System.out.println("Exit dialog is already visible on root pane, returning");
             return;
@@ -81,7 +79,7 @@ public class ExitConfirmationDialog {
         dialogContent.setAlignment(javafx.geometry.Pos.CENTER);
         dialogContent.getChildren().addAll(titleLabel, messageLabel, warningLabel, buttonBox);
         
-        // Create dialog background
+        // Create the dialog background
         Rectangle dialogBg = new Rectangle(400, 200);
         dialogBg.setFill(Color.rgb(44, 62, 80));
         dialogBg.setArcWidth(10);
@@ -108,7 +106,7 @@ public class ExitConfirmationDialog {
             System.out.println("Exit dialog not found to hide");
         }
         
-        // Reset the flag when dialog is hidden
+        // Reset the flag when the dialog is hidden
         isDialogOpen = false;
         System.out.println("isDialogOpen reset to false");
     }

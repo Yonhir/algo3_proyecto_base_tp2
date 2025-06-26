@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.vistas;
 
-import edu.fiuba.algo3.vistas.components.ExitConfirmationDialog;
+import edu.fiuba.algo3.controllers.MainMenuController;
 import edu.fiuba.algo3.vistas.components.GameButton;
 import edu.fiuba.algo3.vistas.components.GameLabel;
 import javafx.scene.Scene;
@@ -8,29 +8,50 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
-/**
- * Main Menu View - Contains the main menu interface
- */
-public class MainMenuView {
-    private final ViewManager viewManager;
-    private StackPane rootPane;
+public class MainMenuView extends StackPane {
+    private MainMenuController controller;
+    private boolean uiInitialized = false;
 
-    public MainMenuView(ViewManager viewManager) {
-        this.viewManager = viewManager;
+    public void setController(MainMenuController controller) {
+        this.controller = controller;
     }
 
     public Scene createScene() {
+        if (!uiInitialized) {
+            initializeUI();
+            uiInitialized = true;
+        }
+        return new Scene(this, 640, 480);
+    }
+
+    private void initializeUI() {
+        if (controller == null) {
+            return; // Do nothing if the controller is not set
+        }
+
         var label = GameLabel.createTitleLabel("GWENT");
         
         // Create buttons using reusable components
         GameButton startGameButton = GameButton.createPrimaryButton("Start Game");
-        startGameButton.setOnAction(e -> startGame());
+        startGameButton.setOnAction(e -> {
+            if (controller != null) {
+                controller.handleStartGame();
+            }
+        });
         
         GameButton fullScreenButton = new GameButton("FullScreen");
-        fullScreenButton.setOnAction(e -> toggleFullScreen());
+        fullScreenButton.setOnAction(e -> {
+            if (controller != null) {
+                controller.handleToggleFullScreen();
+            }
+        });
         
         GameButton exitButton = new GameButton("Exit");
-        exitButton.setOnAction(e -> showExitConfirmation());
+        exitButton.setOnAction(e -> {
+            if (controller != null) {
+                controller.handleExit();
+            }
+        });
         
         // Create VBox to stack buttons vertically
         VBox buttonContainer = new VBox(15); // 15 pixels spacing between buttons
@@ -47,21 +68,13 @@ public class MainMenuView {
         vbox.setAlignment(javafx.geometry.Pos.CENTER);
         vbox.getChildren().addAll(label, centerContainer);
         
-        // Create root pane to hold main content and overlay
-        rootPane = new StackPane(vbox);
-        
-        return new Scene(rootPane, 640, 480);
-    }
-    
-    private void toggleFullScreen() {
-        viewManager.toggleFullScreen();
-    }
-    
-    private void startGame() {
-        viewManager.showGameView();
+        // Add the main content to this StackPane
+        getChildren().add(vbox);
     }
     
     public void showExitConfirmation() {
-        ExitConfirmationDialog.show(rootPane);
+        if (controller != null) {
+            controller.showExitConfirmation();
+        }
     }
-} 
+}

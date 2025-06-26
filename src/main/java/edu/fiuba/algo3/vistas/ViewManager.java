@@ -2,13 +2,10 @@ package edu.fiuba.algo3.vistas;
 
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import edu.fiuba.algo3.vistas.components.ExitConfirmationDialog;
+import edu.fiuba.algo3.controllers.MainMenuController;
 
-/**
- * Manages different views/scenes in the application
- */
 public class ViewManager {
-    private Stage stage;
+    private final Stage stage;
     private Scene currentScene;
     private boolean isFullScreen = false;
     private MainMenuView currentMainMenuView;
@@ -19,9 +16,15 @@ public class ViewManager {
     }
 
     public void showMainMenu() {
-        currentMainMenuView = new MainMenuView(this);
+        // Create the view with default constructor
+        currentMainMenuView = new MainMenuView();
+        // Create the controller with the view's root pane
+        MainMenuController controller = new MainMenuController(this, currentMainMenuView);
+        // Set the controller in the view
+        currentMainMenuView.setController(controller);
         currentGameView = null; // Clear game view reference
         currentScene = currentMainMenuView.createScene();
+
         stage.setScene(currentScene);
         // Preserve fullscreen state
         if (isFullScreen) {
@@ -33,6 +36,7 @@ public class ViewManager {
         currentGameView = new GameView(this);
         currentMainMenuView = null; // Clear main menu view reference
         currentScene = currentGameView.createScene();
+        
         stage.setScene(currentScene);
         // Preserve fullscreen state
         if (isFullScreen) {
@@ -45,25 +49,6 @@ public class ViewManager {
         stage.setFullScreen(isFullScreen);
     }
 
-    public boolean isFullScreen() {
-        return isFullScreen;
-    }
-
-    public Stage getStage() {
-        return stage;
-    }
-
-    public double getWindowWidth() {
-        return stage.getWidth();
-    }
-
-    public double getWindowHeight() {
-        return stage.getHeight();
-    }
-
-    /**
-     * Show exit confirmation dialog when user tries to close the window
-     */
     public void showExitConfirmation() {
         // Show exit confirmation on the current view's root pane
         if (currentMainMenuView != null) {
@@ -77,4 +62,4 @@ public class ViewManager {
             System.out.println("No current view found for exit confirmation");
         }
     }
-} 
+}

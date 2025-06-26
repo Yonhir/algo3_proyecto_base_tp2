@@ -21,21 +21,14 @@ public class PointsCircle extends StackPane {
         setupCircle(radius);
     }
     
-    public PointsCircle(int points, double radius, double x, double y) {
-        this.points = points;
-        setupCircle(radius);
-        setTranslateX(x);
-        setTranslateY(y);
-    }
-    
     private void setupCircle(double radius) {
         // Create circle
         circle = new Circle(radius);
         circle.setFill(Color.rgb(231, 76, 60)); // Red color for points
         circle.setStroke(Color.rgb(192, 57, 43)); // Darker red border
         circle.setStrokeWidth(2);
-        
-        // Create points text
+
+        // Create PointsCircle text
         pointsText = new Text(String.valueOf(points));
         pointsText.setFont(Font.font("Arial", FontWeight.BOLD, radius * 0.8));
         pointsText.setFill(Color.WHITE);
@@ -58,8 +51,4 @@ public class PointsCircle extends StackPane {
     public int getPoints() {
         return points;
     }
-    
-    public double getRadius() {
-        return circle.getRadius();
-    }
-} 
+}

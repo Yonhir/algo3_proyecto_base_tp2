@@ -1,7 +1,7 @@
 package edu.fiuba.algo3.vistas.components;
 
 
-public class UnitCard extends CardComponent {
+public class UnitCard extends Card {
     
     private PointsCircle pointsCircle;
     private int points;
@@ -38,14 +38,21 @@ public class UnitCard extends CardComponent {
     }
     
     @Override
-    public void scaleCard(double scaleFactor) {
+    public void scaleCard(double scaleFactorX, double scaleFactorY) {
         // Call parent scaleCard method to handle the card background scaling
-        super.scaleCard(scaleFactor);
+        super.scaleCard(scaleFactorX, scaleFactorY);
         
         // Update circle size based on the new card dimensions
-        double newWidth = getBaseWidth() * scaleFactor;
-        double newHeight = getBaseHeight() * scaleFactor;
+        double newWidth = baseWidth * scaleFactorX;
+        double newHeight = baseHeight * scaleFactorY;
         double circleRadius = Math.min(newWidth, newHeight) * 0.15;
         pointsCircle.setRadius(circleRadius);
+        
+        // Update circle position based on new card size
+        // Position the circle in the top-left corner, proportional to card size
+        double translateX = -newWidth * 0.3; // 30% of card width to the left
+        double translateY = -newHeight * 0.35; // 40% of card height to the top
+        pointsCircle.setTranslateX(translateX);
+        pointsCircle.setTranslateY(translateY);
     }
 }

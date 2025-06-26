@@ -1,16 +1,10 @@
 package edu.fiuba.algo3.vistas.components;
 
-import javafx.application.Platform;
-import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-/**
- * Reusable game menu overlay component
- */
 public class GameMenuOverlay {
     
     public static void show(StackPane rootPane, Runnable onBackToMenu, Runnable onToggleFullScreen, Runnable onExit) {
@@ -19,13 +13,13 @@ public class GameMenuOverlay {
         double windowHeight = rootPane.getScene().getHeight();
         
         // Calculate responsive sizes based on window dimensions
-        double menuWidth = Math.min(windowWidth * 0.4, 400); // 40% of window width, max 400px
-        double menuHeight = Math.min(windowHeight * 0.5, 500); // 50% of window height, max 500px
+        double menuWidth = Math.min(windowWidth * 0.4, 400); // 40% of window width, max 400 px
+        double menuHeight = Math.min(windowHeight * 0.5, 500); // 50% of window height, max 500 px
         double buttonWidth = menuWidth * 0.7; // 70% of menu width
         double buttonHeight = menuHeight * 0.08; // 8% of menu height
         double buttonSpacing = menuHeight * 0.03; // 3% of menu height
-        double titleFontSize = Math.max(menuHeight * 0.06, 18); // 6% of menu height, min 18px
-        double buttonFontSize = Math.max(menuHeight * 0.04, 14); // 4% of menu height, min 14px
+        double titleFontSize = Math.max(menuHeight * 0.06, 18); // 6% of menu height, min 18 px
+        double buttonFontSize = Math.max(menuHeight * 0.04, 14); // 4% of menu height, min 14 px
         double contentSpacing = menuHeight * 0.05; // 5% of menu height
         
         // Create semi-transparent background overlay
@@ -58,9 +52,7 @@ public class GameMenuOverlay {
         
         GameButton exitButton = new GameButton("Exit", buttonWidth, buttonHeight);
         exitButton.setStyle(String.format("-fx-font-size: %.0fpx; -fx-font-weight: bold; -fx-background-color: #e74c3c; -fx-text-fill: white;", buttonFontSize));
-        exitButton.setOnAction(e -> {
-            onExit.run();
-        });
+        exitButton.setOnAction(e -> onExit.run());
         
         // Create VBox to stack buttons vertically with dynamic spacing
         VBox buttonContainer = new VBox(buttonSpacing);
@@ -72,7 +64,7 @@ public class GameMenuOverlay {
         menuContent.setAlignment(javafx.geometry.Pos.CENTER);
         menuContent.getChildren().addAll(titleLabel, buttonContainer);
         
-        // Create menu background with dynamic size
+        // Create the menu background with dynamic size
         Rectangle menuBg = new Rectangle(menuWidth, menuHeight);
         menuBg.setFill(Color.rgb(44, 62, 80));
         menuBg.setArcWidth(10);
@@ -92,7 +84,7 @@ public class GameMenuOverlay {
         // The overlay and menu are always the last two children added
         int childrenCount = rootPane.getChildren().size();
         if (childrenCount >= 2) {
-            // Remove menu (last child)
+            // Remove the menu (last child)
             rootPane.getChildren().remove(childrenCount - 1);
             // Remove overlay (now last child)
             rootPane.getChildren().remove(childrenCount - 2);

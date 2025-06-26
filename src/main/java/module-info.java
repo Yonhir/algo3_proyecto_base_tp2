@@ -5,6 +5,8 @@ module edu.fiuba.algo3 {
     exports edu.fiuba.algo3;
     exports edu.fiuba.algo3.vistas;
     exports edu.fiuba.algo3.vistas.components;
+    exports edu.fiuba.algo3.controllers;
+    opens edu.fiuba.algo3.controllers;
     exports edu.fiuba.algo3.modelo;
     opens edu.fiuba.algo3.modelo;
     exports edu.fiuba.algo3.modelo.errors;

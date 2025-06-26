@@ -12,6 +12,11 @@ public class GameButton extends Button {
         setDefaultStyle();
     }
     
+    public GameButton(String text, String customStyle) {
+        super(text);
+        setStyle(customStyle);
+    }
+
     public GameButton(String text, double width, double height) {
         super(text);
         setDefaultStyle();
@@ -37,13 +42,8 @@ public class GameButton extends Button {
             "-fx-font-size: 16px; -fx-font-weight: bold; -fx-background-color: #3498db; -fx-text-fill: white;");
     }
     
-    public static GameButton createDangerButton(String text) {
-        return new GameButton(text, 120, 40, 
-            "-fx-font-size: 16px; -fx-font-weight: bold; -fx-background-color: #e74c3c; -fx-text-fill: white;");
+    public static GameButton createMenuButton() {
+        String menuButtonStyle = "-fx-font-weight: bold; -fx-background-color: #34495e; -fx-text-fill: white; -fx-padding: 0; -fx-alignment: center; -fx-content-display: center;";
+        return new GameButton("Menu", menuButtonStyle);
     }
-    
-    public static GameButton createLargeButton(String text) {
-        return new GameButton(text, 150, 40, 
-            "-fx-font-size: 16px; -fx-font-weight: bold;");
-    }
-} 
+}
