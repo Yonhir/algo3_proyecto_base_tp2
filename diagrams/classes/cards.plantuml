@@ -12,9 +12,15 @@ abstract class Card <<abstract>> {
   #name: String
   #description: String
   #sectionTypes: List<SectionType>
+  #playerColor: PlayerColor
   +Card(name: String, description: String, sectionTypes: List<SectionType>): Card
-  +play(section: Section): void
+  +{abstract}play(section: Section): void
   +verifySectionType(sectionType: SectionType): void
+  +{abstract}setColor(playerColor: PlayerColor): void
+  +haveSectionType(sectionType: SectionType) : boolean
+  +haveSameColor(color: PlayerColor) : boolean
+  +{abstract}verifyColor(color: PlayerColor) : void
+  +getName(): String
 }
 
 class Unit {
