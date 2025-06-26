@@ -453,12 +453,15 @@ public class SpecialZoneTest {
 
         player1CloseCombatRow.placeCard(player1Soldier, round);
         player1RangedRow.placeCard(player1Archer, round);
+        player1SiegeRow.placeCard(player1Catapult, round);
+
         player2CloseCombatRow.placeCard(player2Soldier, round);
         player2RangedRow.placeCard(player2Archer, round);
+        player2SiegeRow.placeCard(player2Catapult, round);
 
         specialZone.applyScorchInAllRows(scorch);
 
-        assertFalse(player1CloseCombatRow.containsCard(player1Soldier));
-        assertFalse(player2CloseCombatRow.containsCard(player2Soldier));
+        assertFalse(player1SiegeRow.containsCard(player1Catapult));
+        assertFalse(player2SiegeRow.containsCard(player2Catapult));
     }
 }
