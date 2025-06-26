@@ -33,26 +33,17 @@ public class HeroTest {
     private CloseCombat closeCombat2;
     private Ranged ranged2;
     private Siege siege2;
-<<<<<<< issue-35
     private DiscardPile discardPile1;
     private DiscardPile discardPile2;
-=======
     private Round round;
->>>>>>> testing
-
     private int puntosEsperados;
 
     @BeforeEach
     void setUp() {
         cartaConLegendaria = new Unit("cerys", "descripcion", 10, List.of(new CloseCombatType()), List.of(new Hero()));
-<<<<<<< issue-35
         discardPile1 = new DiscardPile();
         discardPile2 = new DiscardPile();
-=======
         cartaConLegendaria.setColor(new Blue());
-        DiscardPile discardPile1 = new DiscardPile();
-        DiscardPile discardPile2 = new DiscardPile();
->>>>>>> testing
         closeCombat1 = new CloseCombat(discardPile1);
         ranged1 = new Ranged(discardPile1);
         siege1 = new Siege(discardPile1);
