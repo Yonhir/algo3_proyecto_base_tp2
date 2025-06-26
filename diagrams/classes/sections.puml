@@ -1,0 +1,107 @@
+@startuml
+
+skinparam monochrome true
+hide circle
+skinparam classAttributeIconSize 0
+
+left to right direction
+
+
+interface Section <<interface>> {
+  +placeCard(card: Card, round: Round): void
+}
+
+abstract class SectionType
+class CloseCombatType
+class RangedType
+class SiegeType
+class SpecialType
+
+abstract class Row <<abstract>> {
+  #cards: List<Card>
+  #lastCard: Unit
+  #currentWeather: Weather
+  #sectionType: SectionType
+  #discardPile : DiscardPile
+  #playerColor: PlayerColor
+  +Row(sectionType: SectionType, discardPile: DiscardPile): Row
+  +placeCard(card: Card, round: Round): void
+  +placeCard(card: Card): void
+  +addCard(card: Card): void
+  +applyWeather(weather: Weather): void
+  +applyScorch(scorch: Scorch): void
+  +findStrongestCardWithoutHeroModifier(scorch: Scorch): void
+  +findAllCardsWithoutHeroModifierWithSamePoints(scorch: Scorch): List<Card>
+  +discardCards(card: Card): void
+  +containsCard(card: Card): boolean
+  +containsCards(cards: List<Card>): boolean
+  +calculatePoints(): int
+  +discardCards() : void
+  +getLastCard(): Unit
+  +serColor(playerColor: PlayerColor): void
+  +haveSameSectionType(card: Card): boolean
+  +getCardCount(): int
+  +getCards(): List<Card>
+}
+
+class Ranged {
+  +Ranged(discardPile : DiscardPile)
+}
+
+class CloseCombat {
+  +CloseCombat(discardPile : DiscardPile)
+}
+
+class Siege {
+  +Siege(discardPile : DiscardPile)
+}
+
+class SpecialZone {
+  -closeCombatRows: List<Row>
+  -rangedRows: List<Row>
+  -siegeRows: List<Row>
+  -weatherCards: List<Card>
+  -aDiscardPile: DiscardPile
+  -otherDiscardPile: DiscardPile
+  -sectionType: SpecialType
+  +SpecialZone(closeCombat1: CloseCombat, ranged1: Ranged, siege1: Siege, 
+  closeCombat2: CloseCombat, ranged2: Ranged, siege2: Siege, discardPile1: DiscardPile, discardPile2: DiscardPile) 
+  +placeCard(card: Card, round: Round): void
+  +addCard(card: Card): void
+  +clearZone(): void
+  +applyCloseCombatWeather(weather: Weather): void
+  +applyRangedWeather(weather: Weather): void
+  +applySiegeWeather(weather: Weather): void
+  +applyScorchInCloseCombat(scorch : Scorch): void
+  +applyScorchInRanged(scorch : Scorch): void
+  +applyScorchInSiege(scorch : Scorch): void
+  +applyScorchInAllRows(scorch : Scorch) : void
+}
+
+
+
+SpecialZone --> "6" Row
+
+Row <|-- Ranged
+Row <|-- CloseCombat
+Row <|-- Siege
+
+
+Row ..|> Section
+SpecialZone ..|> Section
+
+SectionType <|-- SpecialType
+SectionType <|-- CloseCombatType
+SectionType <|-- RangedType
+SectionType <|-- SiegeType
+
+SpecialZone --> "1" SectionType
+Row --> "1" SectionType
+
+Ranged --> "1" RangedType
+CloseCombat --> "1" CloseCombatType
+Siege --> "1" SiegeType
+
+
+
+@enduml

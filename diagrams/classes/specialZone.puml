@@ -1,0 +1,52 @@
+@startuml
+
+skinparam monochrome true
+hide circle
+skinparam classAttributeIconSize 0
+
+class SpecialZone {
+  -closeCombatRows: List<Row>
+  -rangedRows: List<Row>
+  -siegeRows: List<Row>
+  -weatherCards: List<Card>
+  -aDiscardPile: DiscardPile
+  -otherDiscardPile: DiscardPile
+  -sectionType: SpecialType
+  +SpecialZone(closeCombat1: CloseCombat, ranged1: Ranged, siege1: Siege, 
+  closeCombat2: CloseCombat, ranged2: Ranged, siege2: Siege, discardPile1: DiscardPile, discardPile2: DiscardPile) 
+  +placeCard(card: Card, round: Round): void
+  +addCard(card: Card): void
+  +clearZone(): void
+  +applyCloseCombatWeather(weather: Weather): void
+  +applyRangedWeather(weather: Weather): void
+  +applySiegeWeather(weather: Weather): void
+  +applyScorchInCloseCombat(scorch : Scorch): void
+  +applyScorchInRanged(scorch : Scorch): void
+  +applyScorchInSiege(scorch : Scorch): void
+  +applyScorchInAllRows(scorch : Scorch) : void
+}
+
+
+interface Section <<interface>> {
+  +placeCard(card: Card, round: Round): void
+}
+
+
+abstract class SectionType
+class CloseCombatType
+class RangedType
+class SiegeType
+class SpecialType
+SectionType <|-- SpecialType
+SectionType <|-- CloseCombatType
+SectionType <|-- RangedType
+SectionType <|-- SiegeType
+
+SpecialZone ..|> Section
+SpecialZone --> "1" SectionType
+
+
+
+
+
+@enduml
