@@ -42,6 +42,8 @@ public class ScorchTest {
 
         discardPile1 = new DiscardPile();
         discardPile2 = new DiscardPile();
+        discardPile1.setColor(new Blue());
+        discardPile2.setColor(new Red());
         closeCombatRow1 = new CloseCombat(discardPile1);
         rangedRow1 = new Ranged(discardPile1);
         siegeRow1 = new Siege(discardPile1);
