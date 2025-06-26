@@ -1,0 +1,16 @@
+[
+    {
+        "nombre": 123,
+        "puntos": "invalid_points",
+        "modificador": "not_an_array",
+        "seccion": 456
+    },
+    {
+        "nombre": "Valid Unit",
+        "puntos": 5,
+        "modificador": [
+            "Agil"
+        ],
+        "seccion": "Cuerpo a Cuerpo"
+    }
+]
