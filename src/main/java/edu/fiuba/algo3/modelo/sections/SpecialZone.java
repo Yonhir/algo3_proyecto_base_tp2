@@ -109,5 +109,8 @@ public class SpecialZone implements Section {
         applyScorchInCloseCombat(scorch);
         applyScorchInRanged(scorch);
         applyScorchInSiege(scorch);
+
+        aDiscardPile.addCardIfHasSameColor(scorch);
+        otherDicardPile.addCard(scorch);
     }
 }
