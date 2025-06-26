@@ -51,103 +51,11 @@ abstract class Special <<abstract>> {
   +setColor(playerColor: PlayerColor): void
 }
 
-class Scorch {
-  +play(section : Section) : void
-  +matchesStrongest(unit : Unit) : boolean
-  +burnStrongestCardFrom(card : Card, row : Row) : void
-  +saveStrongest(unit : Unit) : void
-}
-
-interface Modifier <<interface>> {
-  +apply(row: Row): void
-}
-
-class TightBond {
-  +TightBond()
-}
-
-class Agile {
-  +Agile()
-}
-
-class Hero {
-  +Hero()
-}
-
-class Medic {
-  +Medic()
-}
-
-class MoraleBoostModifier {
-  +MoraleBoostModifier()
-}
-
-class Spy {
-  +Spy()
-}
-
-abstract class Weather <<abstract>> {
-  +Weather(name: String, description: String, sectionTypes: List<SectionType>): Weather
-  +{abstract}apply(card: Card, row: Row): voi
-}
-
-class TorrentialRain {
-  +TorrentialRain(name: String, description: String): TorrentialRain
-  +apply(card: Card, row: Row): void
-  +play(section: Section): void
-}
-
-class ImpenetrableFog {
-  +ImpenetrableFog(name: String, description: String): ImpenetrableFog
-  +apply(card: Card, row: Row): void
-  +play(section: Section): void
-}
-
-class BitingFrost {
-  +BitingFrost(name: String, description: String): BitingFrost
-  +apply(card: Card, row: Row): void
-  +play(section: Section): void
-}
-
-class ClearWeather {
-  +ClearWeather(name: String, description: String): ClearWeather
-  +apply(card: Card, row: Row): void
-  +play(section: Section): void
-}
-
-class MoraleBoost {
-  +MoraleBoost(name: String, description: String, sectionTypes: List<SectionType>): MoraleBoost
-  +verifyColor(color: PlayerColor) : void
-  +play(section: Section): void
-}
-
 ' =====================
 ' RELATIONSHIPS
 ' =====================
 
 Card <|-- Unit
 Card <|-- Special
-
-Card --> "*" SectionType
-
-SectionType <|-- CloseCombatType
-SectionType <|-- RangedType
-SectionType <|-- SiegeType
-SectionType <|-- SpecialType
-
-Unit --> "*" Modifier
-
-Modifier <|.. TightBond
-Modifier <|.. Agile
-
-Special <|-- Decoy
-Special <|-- TacticalAdvantage
-Special <|-- Scorch
-Special <|-- MoraleBoost
-Special <|--- Weather
-
-Weather <|-- TorrentialRain
-Weather <|-- ImpenetrableFog
-Weather <|-- BitingFrost
 
 @enduml
