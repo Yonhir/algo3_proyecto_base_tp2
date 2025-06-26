@@ -33,7 +33,7 @@ public abstract class Card {
 
 
     public boolean haveSectionType(SectionType sectionType) {
-        return sectionTypes.stream().anyMatch(type -> type.getClass().equals(sectionType.getClass()));
+        return sectionTypes.stream().anyMatch(type -> type.getClass() == sectionType.getClass());
     }
 
     public boolean haveSameColor(PlayerColor color){

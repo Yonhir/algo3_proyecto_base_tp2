@@ -15,6 +15,7 @@ import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
 import edu.fiuba.algo3.modelo.sections.rows.Ranged;
 import edu.fiuba.algo3.modelo.sections.rows.Siege;
 import edu.fiuba.algo3.modelo.sections.types.CloseCombatType;
+import edu.fiuba.algo3.modelo.sections.types.RangedType;
 import edu.fiuba.algo3.modelo.sections.types.SiegeType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -145,18 +146,22 @@ public class GameTest {
     }
 
     @Test
-    public void testPartidaCompletaConGanador() {
-        //Arrange
+    public void testPartidaCompletaConVictoriaFinalDelJugador1() {
+        //Preparación de mazos
         Deck deck1 = new Deck();
         Deck deck2 = new Deck();
 
-        Card cartaP1 = new Unit("Espadachín", "Fuerte", 10, new CloseCombatType(), new ArrayList<>());
-        cartaP1.setColor(new Blue());
-        deck1.addCard(cartaP1);
+        Card cartaFuerte1 = new Unit("Espadachín", "Fuerte", 10, new CloseCombatType(), new ArrayList<>());
+        Card cartaFuerte2 = new Unit("Arquero", "Fuerte", 9, new RangedType(), new ArrayList<>());
+        Card cartaDebil1 = new Unit("debilucho1", "Débil", 2, new CloseCombatType(), new ArrayList<>());
+        Card cartaDebil2 = new Unit("debilucho2", "Débil", 1, new RangedType(), new ArrayList<>());
+        cartaFuerte1.setColor(new Blue());
+        cartaFuerte2.setColor(new Blue());
+        cartaDebil1.setColor(new Red());
+        cartaDebil2.setColor(new Red());
 
-        Card cartaP2 = new Unit("Ladrón", "Débil", 2, new CloseCombatType(), new ArrayList<>());
-        cartaP2.setColor(new Red());
-        deck2.addCard(cartaP2);
+        deck1.insertCardsInOrder(Arrays.asList(cartaFuerte1, cartaFuerte2));
+        deck2.insertCardsInOrder(Arrays.asList(cartaDebil1, cartaDebil2));
 
         DiscardPile discardPile1 = new DiscardPile();
         DiscardPile discardPile2 = new DiscardPile();
@@ -174,25 +179,40 @@ public class GameTest {
 
         SpecialZone specialZone = new SpecialZone(cc1, ranged1, siege1, cc2, ranged2, siege2, discardPile1, discardPile2);
         Game game = new Game(player1, player2, specialZone);
-        Round round = game.getCurrentRound();
 
-        //Repartimos las cartas a la mano
-        player1.getHand().getNCardsFromDeck(deck1, 1);
-        player2.getHand().getNCardsFromDeck(deck2, 1);
+        // --- Ronda 1 ---
+        Card carta1P1 = deck1.retrieveNTopCards(1).get(0); player1.getHand().addCard(carta1P1);
+        Card carta1P2 = deck2.retrieveNTopCards(1).get(0); player2.getHand().addCard(carta1P2);
 
-        //Turno jugador 1
-        player1.playCard(cartaP1, cc1, round);
+        Round round1 = game.getCurrentRound();
+        player1.playCard(carta1P1, cc1, round1);
+        player2.playCard(carta1P2, cc2, round1);
 
-        //Turno jugador 2
-        player2.playCard(cartaP2, cc2, round);
-
-        // Ambos pasan
         game.passRound();
         game.passRound();
 
-        //Assert
         assertEquals(1, player1.getRoundsWon());
         assertEquals(0, player2.getRoundsWon());
+
+        // --- Ronda 2 ---
+        Card carta2P1 = deck1.retrieveNTopCards(1).get(0); player1.getHand().addCard(carta2P1);
+        Card carta2P2 = deck2.retrieveNTopCards(1).get(0); player2.getHand().addCard(carta2P2);
+
+        Round round2 = game.getCurrentRound();
+        player1.playCard(carta2P1, ranged1, round2);
+        player2.playCard(carta2P2, ranged2, round2);
+
+        game.passRound();
+        game.passRound();
+
+        // Verificaciones finales
+        assertTrue(game.gameFinished());
+        assertEquals(player1, game.gameWinner());
+        assertEquals(2, player1.getRoundsWon());
+        assertEquals(0, player2.getRoundsWon());
     }
+
+
+
 
 }
