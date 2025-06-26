@@ -50,11 +50,15 @@ class Red {
   +swapColor(): PlayerColor
 }
 
+class Green {
+  +swapColor(): PlayerColor
+}
+
 Card o-- "1" PlayerColor
 Row  o-- "1" PlayerColor
 DiscardPile o-- "1" PlayerColor
 
 PlayerColor <|-- Blue
 PlayerColor <|-- Red
-
+PlayerColor <|-- Green
 @enduml

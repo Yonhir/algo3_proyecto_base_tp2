@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo.cards;
 
 import edu.fiuba.algo3.modelo.Observable;
+import edu.fiuba.algo3.modelo.colors.Green;
 import edu.fiuba.algo3.modelo.errors.SectionTypeMismatchError;
 import edu.fiuba.algo3.modelo.sections.Section;
 import edu.fiuba.algo3.modelo.sections.types.SectionType;
@@ -17,6 +18,7 @@ public abstract class Card extends Observable {
     protected final List<SectionType> sectionTypes;
 
     public Card(String name, String description, List<SectionType> sectionTypes) {
+        this.playerColor = new Green();
         this.name = name;
         this.description = description;
         this.sectionTypes = sectionTypes;
@@ -34,7 +36,7 @@ public abstract class Card extends Observable {
 
 
     public boolean haveSectionType(SectionType sectionType) {
-        return sectionTypes.stream().anyMatch(type -> type.getClass().equals(sectionType.getClass()));
+        return sectionTypes.stream().anyMatch(type -> type.getClass() == sectionType.getClass());
     }
 
     public boolean haveSameColor(PlayerColor color){
