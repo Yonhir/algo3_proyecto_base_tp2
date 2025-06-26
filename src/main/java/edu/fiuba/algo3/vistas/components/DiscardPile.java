@@ -1,0 +1,37 @@
+package edu.fiuba.algo3.vistas.components;
+
+import javafx.scene.paint.Color;
+
+/**
+ * Component representing the discard pile (shows the last discarded card)
+ */
+public class DiscardPile extends BaseCardComponent {
+    
+    public DiscardPile() {
+        super();
+    }
+
+    @Override
+    protected void initializeComponent() {
+        setupBackground();
+    }
+
+    @Override
+    protected Color getFillColor() {
+        return Color.rgb(169, 169, 169); // Light gray for discard pile
+    }
+
+    @Override
+    protected Color getStrokeColor() {
+        return Color.rgb(105, 105, 105); // Darker gray border
+    }
+
+    @Override
+    protected String getScalingMethodName() {
+        return "scaleDiscardPile";
+    }
+
+    public void scaleDiscardPile(double scaleFactorX, double scaleFactorY) {
+        scaleComponent(scaleFactorX, scaleFactorY);
+    }
+} 

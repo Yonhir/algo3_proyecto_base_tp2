@@ -16,6 +16,8 @@ public class GameView extends StackPane {
     private final Row opponentCloseCombat, opponentRanged, opponentSiege;
     private final Row playerCloseCombat, playerRanged, playerSiege;
     private final SpecialZone specialZoneList;
+    private final Deck playerDeck, opponentDeck;
+    private final DiscardPile playerDiscardPile, opponentDiscardPile;
     
     private Scene scene;
 
@@ -24,13 +26,17 @@ public class GameView extends StackPane {
         
         // Initialize all components without elements in constructor
         handList = new Hand();
-        opponentCloseCombat = new Row( true);
-        opponentRanged = new Row(true);
-        opponentSiege = new Row(true);
-        playerCloseCombat = new Row(false);
-        playerRanged = new Row(false);
-        playerSiege = new Row(false);
+        opponentCloseCombat = new Row();
+        opponentRanged = new Row();
+        opponentSiege = new Row();
+        playerCloseCombat = new Row();
+        playerRanged = new Row();
+        playerSiege = new Row();
         specialZoneList = new SpecialZone();
+        playerDeck = new Deck();
+        opponentDeck = new Deck();
+        playerDiscardPile = new DiscardPile();
+        opponentDiscardPile = new DiscardPile();
     }
 
     private void populateCardLists() {
@@ -107,6 +113,12 @@ public class GameView extends StackPane {
         for (Card card : allCards){
             card.setupSceneSizeListener(scene);
         }
+        
+        // Set up scene size listeners for deck and discard pile
+        playerDeck.setupSceneSizeListener(scene);
+        playerDiscardPile.setupSceneSizeListener(scene);
+        opponentDeck.setupSceneSizeListener(scene);
+        opponentDiscardPile.setupSceneSizeListener(scene);
     }
 
     public Scene createScene() {
@@ -212,14 +224,34 @@ public class GameView extends StackPane {
             handContainer
         );
         
-        // Right column: Future deck/discard pile area (empty for now) with dynamic width
+        // Right column: Deck and Discard Pile area with dynamic width
         VBox rightColumn = new VBox();
         rightColumn.setAlignment(javafx.geometry.Pos.TOP_CENTER);
         rightColumn.setStyle("-fx-background-color: #BB8FCE; -fx-border-color: #8E44AD; -fx-border-width: 3px;"); // Light purple background
-        // Add placeholder for future deck/discard pile components
-        GameLabel placeholderLabel = new GameLabel("Deck/Discard\nArea");
-        // placeholderLabel.setStyle("-fx-font-size: " + (paddingSize * 7) + "px; -fx-text-fill: #666; -fx-text-alignment: center;");
-        rightColumn.getChildren().add(placeholderLabel);
+        
+        // Create horizontal container for opponent deck and discard pile (top)
+        HBox opponentCardsContainer = new HBox(20); // 20px spacing between deck and discard
+        opponentCardsContainer.setAlignment(javafx.geometry.Pos.CENTER);
+        opponentCardsContainer.setStyle("-fx-background-color: #E8E8E8; -fx-border-color: #CCCCCC; -fx-border-width: 1px;");
+        opponentCardsContainer.getChildren().addAll(opponentDeck, opponentDiscardPile);
+        
+        // Create horizontal container for player deck and discard pile (bottom)
+        HBox playerCardsContainer = new HBox(20); // 20px spacing between deck and discard
+        playerCardsContainer.setAlignment(javafx.geometry.Pos.CENTER);
+        playerCardsContainer.setStyle("-fx-background-color: #E8E8E8; -fx-border-color: #CCCCCC; -fx-border-width: 1px;");
+        playerCardsContainer.getChildren().addAll(playerDeck, playerDiscardPile);
+        
+        // Create spacing regions
+        javafx.scene.layout.Region opponentSpacer = new javafx.scene.layout.Region();
+        opponentSpacer.prefHeightProperty().bind(rightColumn.heightProperty().multiply(0.4)); // 10% of column height
+        
+        javafx.scene.layout.Region playerSpacer = new javafx.scene.layout.Region();
+        playerSpacer.prefHeightProperty().bind(rightColumn.heightProperty().multiply(0.4)); // 10% of column height
+        
+        // Add both containers to right column with spacing
+        VBox.setVgrow(opponentCardsContainer, javafx.scene.layout.Priority.ALWAYS);
+        VBox.setVgrow(playerCardsContainer, javafx.scene.layout.Priority.ALWAYS);
+        rightColumn.getChildren().addAll(opponentCardsContainer, opponentSpacer, playerSpacer, playerCardsContainer);
         
         // Main horizontal layout containing all three columns
         HBox gameBoardLayout = new HBox();
