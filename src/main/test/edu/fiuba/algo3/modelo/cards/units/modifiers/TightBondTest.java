@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.modelo.cards.units.modifiers;
 
-import edu.fiuba.algo3.modelo.Colors.Blue;
-import edu.fiuba.algo3.modelo.Colors.Red;
+import edu.fiuba.algo3.modelo.colors.*;
 import edu.fiuba.algo3.modelo.turnManagement.Player;
 import edu.fiuba.algo3.modelo.turnManagement.Round;
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
@@ -24,34 +23,29 @@ public class TightBondTest {
     private Unit catapult2;
     private Unit catapult3;
     private Unit regularUnit;
-    private TightBond tightBondModifier1;
-    private TightBond tightBondModifier2;
-    private TightBond tightBondModifier3;
-    private Player player;
-    private Player opponent;
-    private Round round;
-    private Deck deck;
-
-    private CloseCombat closeCombat;
-    private Ranged ranged;
     private Siege siegeRow;
-
+    private Round round;
 
     @BeforeEach
     void setUp() {
         discardPile = new DiscardPile();
-        closeCombat = new CloseCombat();
-        ranged = new Ranged();
-        siegeRow = new Siege();
-        deck = new Deck();
-        player = new Player("Gabriel", deck, closeCombat, ranged, siegeRow, new Blue());
-        opponent = new Player("Juan", deck, closeCombat, ranged, siegeRow, new Red());
+        DiscardPile discardPile2 = new DiscardPile();
+
+        CloseCombat closeCombat = new CloseCombat(discardPile);
+        Ranged ranged = new Ranged(discardPile);
+        siegeRow = new Siege(discardPile);
+        CloseCombat closeCombat2 = new CloseCombat(discardPile2);
+        Ranged ranged2 = new Ranged(discardPile2);
+        Siege siege2 = new Siege(discardPile2);
+        Deck deck = new Deck();
+        Player player = new Player("Gabriel", deck, discardPile, closeCombat, ranged, siegeRow, new Blue());
+        Player opponent = new Player("Juan", new Deck(), discardPile2, closeCombat2, ranged2, siege2, new Red());
         round = new Round(player, opponent);
 
         // Create three different TightBond modifiers
-        tightBondModifier1 = new TightBond();
-        tightBondModifier2 = new TightBond();
-        tightBondModifier3 = new TightBond();
+        TightBond tightBondModifier1 = new TightBond();
+        TightBond tightBondModifier2 = new TightBond();
+        TightBond tightBondModifier3 = new TightBond();
 
         // Create three identical catapult units with base points of 8
         List<Modifier> modifiers1 = new ArrayList<>();
@@ -85,10 +79,15 @@ public class TightBondTest {
             new SiegeType(),
             new ArrayList<>()
         );
+
+        catapult1.setColor(new Blue());
+        catapult2.setColor(new Blue());
+        catapult3.setColor(new Blue());
+        regularUnit.setColor(new Blue());
     }
 
     @Test
-    void testPlay1CatapultTightBondPointsCalculation() {
+    void testSeJuegaUnaCartaCatapultaEnLaFilaSiegeCorrectamente() {
         // Arrange
         int expectedPoints = 8;
         
@@ -100,7 +99,7 @@ public class TightBondTest {
     }
 
     @Test
-    void testPlay3CatapultsTightBondPointsCalculation() {
+    void testSeJueganTresCartasConModificadorTightBondEnLaFilaSiegeLosPuntosSeTriplicanCorrectamente() {
         // Arrange
         int expectedPoints = 72;
 
@@ -115,7 +114,7 @@ public class TightBondTest {
     }
 
     @Test
-    void testPlay2CatapultsTightBondAndPointsResetAfterRound() {
+    void testSeJueganDosCartasConModificadorTightBondSeDescartanLasCartasYAlJugarUnaCartaUnitSinModificadorEstaNoEsAfectada() {
         // Arrange
         int expectedPoints = 6;
 
@@ -123,7 +122,7 @@ public class TightBondTest {
         siegeRow.placeCard(catapult1, round);
         siegeRow.placeCard(catapult2, round);
         // End of round
-        siegeRow.discardCards(discardPile);
+        siegeRow.discardCards();
         siegeRow.placeCard(regularUnit, round);
         int pointsAfterNewRound = siegeRow.calculatePoints();
 
@@ -132,7 +131,7 @@ public class TightBondTest {
     }
 
     @Test
-    void testRegularUnitNotAffectedByTightBond() {
+    void testSeJuegaUnaCartaUnidadSinModificadorYCartasConModificadorTightBondLaUnidadComunNoEsAfectada() {
         // Arrange
         int expectedPoints = 38;
 

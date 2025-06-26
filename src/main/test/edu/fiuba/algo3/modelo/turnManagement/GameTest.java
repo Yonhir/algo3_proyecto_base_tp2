@@ -1,8 +1,8 @@
 package edu.fiuba.algo3.modelo.turnManagement;
 
-import edu.fiuba.algo3.modelo.Colors.Blue;
-import edu.fiuba.algo3.modelo.Colors.Red;
+import edu.fiuba.algo3.modelo.colors.*;
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
+import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
 import edu.fiuba.algo3.modelo.sections.rows.Ranged;
 import edu.fiuba.algo3.modelo.sections.rows.Siege;
@@ -20,8 +20,10 @@ public class GameTest {
 
     @BeforeEach
     public void setUp() {
-        player1 = new Player("nombre1", new Deck(), new CloseCombat(), new Ranged(), new Siege(), new Blue());
-        player2 = new Player("nombre2", new Deck(), new CloseCombat(), new Ranged(), new Siege(), new Red());
+        DiscardPile discardPile1 = new DiscardPile();
+        DiscardPile discardPile2 = new DiscardPile();
+        player1 = new Player("nombre1", new Deck(), discardPile1, new CloseCombat(discardPile1), new Ranged(discardPile1), new Siege(discardPile1), new Blue());
+        player2 = new Player("nombre2", new Deck(), discardPile2, new CloseCombat(discardPile2), new Ranged(discardPile2), new Siege(discardPile2), new Red());
         game = new Game(player1, player2);
     }
 
@@ -71,5 +73,4 @@ public class GameTest {
 
         assertTrue(game.bothPlayersWonARound());
     }
-
 }

@@ -1,13 +1,14 @@
 package edu.fiuba.algo3.modelo.sections;
 
 
-import edu.fiuba.algo3.modelo.Colors.Blue;
-import edu.fiuba.algo3.modelo.Colors.Red;
+import edu.fiuba.algo3.modelo.colors.*;
 import edu.fiuba.algo3.modelo.turnManagement.Player;
 import edu.fiuba.algo3.modelo.turnManagement.Round;
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cards.specials.*;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.*;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
@@ -43,32 +44,21 @@ public class SpecialZoneTest {
     private Weather fogWeather;
     private Weather rainWeather;
 
-    private Player player;
-    private Player opponent;
     private Round round;
-    private Deck deck;
-
-    private CloseCombat closeCombat;
-    private Ranged ranged;
-    private Siege siege;
 
     @BeforeEach
     public void setup() {
-
-        deck = new Deck();
-        closeCombat = new CloseCombat();
-        ranged = new Ranged();
-        siege = new Siege();
         // Initialize rows for both players
-        player1CloseCombatRow = new CloseCombat();
-        player1RangedRow = new Ranged();
-        player1SiegeRow = new Siege();
-        player2CloseCombatRow = new CloseCombat();
-        player2RangedRow = new Ranged();
-        player2SiegeRow = new Siege();
-        player = new Player("Gabriel", deck, closeCombat, ranged, siege, new Blue());
-        opponent = new Player("Juan", deck, closeCombat, ranged, siege, new Red());
-        round = new Round(player, opponent);
+        DiscardPile discardPile1 = new DiscardPile();
+        DiscardPile discardPile2 = new DiscardPile();
+
+        player1CloseCombatRow = new CloseCombat(discardPile1);
+        player1RangedRow = new Ranged(discardPile1);
+        player1SiegeRow = new Siege(discardPile1);
+
+        player2CloseCombatRow = new CloseCombat(discardPile2);
+        player2RangedRow = new Ranged(discardPile2);
+        player2SiegeRow = new Siege(discardPile2);
 
         // Initialize weather zone with both players' rows
         specialZone = new SpecialZone(
@@ -83,11 +73,25 @@ public class SpecialZoneTest {
         player2Soldier = new Unit("soldado2", "pelea de cerca", 10, new CloseCombatType(), List.of());
         player2Archer = new Unit("arquero2", "tira flechas", 8, new RangedType(), List.of());
         player2Catapult = new Unit("catapulta2", "arma de asedio", 12, new SiegeType(), List.of());
-        
+
+        player1Soldier.setColor(new Blue());
+        player1Archer.setColor(new Blue());
+        player1Catapult.setColor(new Blue());
+        player2Soldier.setColor(new Red());
+        player2Archer.setColor(new Red());
+        player2Catapult.setColor(new Red());
+
         // Initialize weather cards
         frostWeather = new BitingFrost("Escarcha", "Reduce todas las unidades cuerpo a cuerpo a 1 punto");
         fogWeather = new ImpenetrableFog("Niebla", "Reduce todas las unidades a distancia a 1 punto");
         rainWeather = new TorrentialRain("Lluvia", "Reduce todas las unidades de asedio a 1 punto");
+        frostWeather.setColor(new Blue());
+        fogWeather.setColor(new Blue());
+        rainWeather.setColor(new Blue());
+
+        Player player = new Player("Gabriel", new Deck(), discardPile1, player1CloseCombatRow, player1RangedRow, player1SiegeRow, new Blue());
+        Player opponent = new Player("Juan", new Deck(), discardPile2, player2CloseCombatRow, player2RangedRow, player2SiegeRow, new Red());
+        round = new Round(player, opponent);
     }
 
     private void setupAllWeatherEffects() {
@@ -263,6 +267,7 @@ public class SpecialZoneTest {
         
         // Act
         Special clearWeather = new ClearWeather("Clima Despejado", "Elimina todos los efectos de clima");
+        clearWeather.setColor(new Blue());
         specialZone.placeCard(clearWeather, round);
         
         // Assert
@@ -276,6 +281,7 @@ public class SpecialZoneTest {
         
         // Act
         Special clearWeather = new ClearWeather("Clima Despejado", "Elimina todos los efectos de clima");
+        clearWeather.setColor(new Blue());
         specialZone.placeCard(clearWeather, round);
         
         // Assert
@@ -289,6 +295,7 @@ public class SpecialZoneTest {
         
         // Act
         Special clearWeather = new ClearWeather("Clima Despejado", "Elimina todos los efectos de clima");
+        clearWeather.setColor(new Blue());
         specialZone.placeCard(clearWeather, round);
         
         // Assert
@@ -354,6 +361,7 @@ public class SpecialZoneTest {
         
         // Act
         Special clearWeather = new ClearWeather("Clima Despejado", "Elimina todos los efectos de clima");
+        clearWeather.setColor(new Blue());
         specialZone.placeCard(clearWeather, round);
         
         // Assert
@@ -368,7 +376,8 @@ public class SpecialZoneTest {
     @Test
     public void testSpecialZoneConstructor_ShouldThrowException_WhenCloseCombatRowsAreRepeated() {
         // Arrange
-        CloseCombat sharedCloseCombatRow = new CloseCombat();
+        DiscardPile discardPile = new DiscardPile();
+        CloseCombat sharedCloseCombatRow = new CloseCombat(discardPile);
         
         // Act & Assert
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -385,7 +394,8 @@ public class SpecialZoneTest {
     @Test
     public void testSpecialZoneConstructor_ShouldThrowException_WhenRangedRowsAreRepeated() {
         // Arrange
-        Ranged sharedRangedRow = new Ranged();
+        DiscardPile discardPile = new DiscardPile();
+        Ranged sharedRangedRow = new Ranged(discardPile);
         
         // Act & Assert
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -402,7 +412,8 @@ public class SpecialZoneTest {
     @Test
     public void testSpecialZoneConstructor_ShouldThrowException_WhenSiegeRowsAreRepeated() {
         // Arrange
-        Siege sharedSiegeRow = new Siege();
+        DiscardPile discardPile = new DiscardPile();
+        Siege sharedSiegeRow = new Siege(discardPile);
         
         // Act & Assert
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -419,9 +430,10 @@ public class SpecialZoneTest {
     @Test
     public void testSpecialZoneConstructor_ShouldThrowException_WhenMultipleRowsAreRepeated() {
         // Arrange
-        CloseCombat sharedCloseCombatRow = new CloseCombat();
-        Ranged sharedRangedRow = new Ranged();
-        Siege sharedSiegeRow = new Siege();
+        DiscardPile discardPile = new DiscardPile();
+        CloseCombat sharedCloseCombatRow = new CloseCombat(discardPile);
+        Ranged sharedRangedRow = new Ranged(discardPile);
+        Siege sharedSiegeRow = new Siege(discardPile);
         
         // Act & Assert
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {

@@ -21,9 +21,10 @@ public class MoraleBoostTest {
 
     @BeforeEach
     void setUp() {
-        closeCombat = new CloseCombat();
-        ranged = new Ranged();
-        siege = new Siege();
+        DiscardPile discardPile = new DiscardPile();
+        closeCombat = new CloseCombat(discardPile);
+        ranged = new Ranged(discardPile);
+        siege = new Siege(discardPile);
 
         moraleBoost = new MoraleBoost("MoraleBoost", "X2", List.of(new CloseCombatType(), new RangedType(), new SiegeType()));
 
@@ -41,7 +42,7 @@ public class MoraleBoostTest {
     }
 
     @Test
-    public void use_moralBost_in_closeCombat() {
+    public void testCartaEspecialMoraleBoostEnFilaCloseCombat() {
         int expectedPoints = closeCombat.calculatePoints() * 2;
 
         moraleBoost.play(closeCombat);
@@ -53,7 +54,7 @@ public class MoraleBoostTest {
     }
 
     @Test
-    public void use_moralBost_in_ranged() {
+    public void testCartaEspecialMoraleBoostEnFilaRanged() {
         int expectedPoints = ranged.calculatePoints() * 2;
 
         moraleBoost.play(ranged);
@@ -65,7 +66,7 @@ public class MoraleBoostTest {
     }
 
     @Test
-    public void use_moralBost_in_siege() {
+    public void testCartaEspecialMoraleBoostEnFilaSiege() {
         int expectedPoints = siege.calculatePoints() * 2;
 
         moraleBoost.play(siege);
@@ -77,10 +78,10 @@ public class MoraleBoostTest {
     }
 
     @Test
-    public void use_moralBost_in_empty_row() {
+    public void testCartaEspecialMoraleBoostEnFilaVacia() {
         int expectedPoints = 0;
 
-        siege.discardCards(new DiscardPile());
+        siege.discardCards();
 
         moraleBoost.play(siege);
 

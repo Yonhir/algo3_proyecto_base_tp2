@@ -1,12 +1,13 @@
 package edu.fiuba.algo3.modelo.cards.units.modifiers;
 
-import edu.fiuba.algo3.modelo.Colors.Blue;
-import edu.fiuba.algo3.modelo.Colors.Red;
+import edu.fiuba.algo3.modelo.colors.*;
+import edu.fiuba.algo3.modelo.errors.SectionPlayerMismatchError;
 import edu.fiuba.algo3.modelo.turnManagement.Player;
 import edu.fiuba.algo3.modelo.turnManagement.Round;
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
 import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
+import edu.fiuba.algo3.modelo.colors.Blue;
 import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
 import edu.fiuba.algo3.modelo.sections.rows.Ranged;
 import edu.fiuba.algo3.modelo.sections.rows.Siege;
@@ -24,22 +25,28 @@ public class MoraleBoostModifierTest {
     private CloseCombat closeCombat;
     private Ranged ranged;
     private Siege siege;
+    private CloseCombat closeCombat2;
+    private Ranged ranged2;
+    private Siege siege2;
     private MoraleBoostModifier modifierMoral;
     private Unit cardMoraleBoost;
-    private Player player;
-    private Player opponent;
     private Round round;
-    private Deck deck;
-
 
     @BeforeEach
     void setUp() {
-        deck = new Deck();
-        closeCombat = new CloseCombat();
-        ranged = new Ranged();
-        siege = new Siege();
-        player = new Player("Gabriel", deck, closeCombat, ranged, siege, new Blue());
-        opponent = new Player("Juan", deck, closeCombat, ranged, siege, new Red());
+        Deck deck = new Deck();
+
+        DiscardPile discardPile1 = new DiscardPile();
+        DiscardPile discardPile2 = new DiscardPile();
+        closeCombat = new CloseCombat(discardPile1);
+        ranged = new Ranged(discardPile1);
+        siege = new Siege(discardPile1);
+        closeCombat2 = new CloseCombat(discardPile2);
+        ranged2 = new Ranged(discardPile2);
+        siege2 = new Siege(discardPile2);
+        Player player = new Player("Gabriel", deck, discardPile1, closeCombat, ranged, siege, new Blue());
+        Player opponent = new Player("Juan", deck, discardPile2, closeCombat2, ranged2, siege2, new Red());
+
         round = new Round(player, opponent);
 
         modifierMoral = new MoraleBoostModifier();
@@ -58,21 +65,22 @@ public class MoraleBoostModifierTest {
     }
 
     @Test
-    public void moral_boost_closeCombat() {
+    public void testSeUsaLaCartaMoraleBoostEnLaFilaCloseCombat() {
         cardMoraleBoost = new Unit("Nombre", "Descripcion", 10, new CloseCombatType(), List.of(modifierMoral));
-        int expectedPoints = closeCombat.calculatePoints() + closeCombat.getCardCount() + cardMoraleBoost.calculatePoints();
+        cardMoraleBoost.setColor(new Blue());
+        int expectedPoints = closeCombat.calculatePoints() + closeCombat.getCards().size() + cardMoraleBoost.calculatePoints();
 
         closeCombat.placeCard(cardMoraleBoost, round);
 
         int actualPoints = closeCombat.calculatePoints();
-
         Assertions.assertEquals(expectedPoints, actualPoints);
     }
 
     @Test
-    public void moral_boost_ranged() {
+    public void testSeUsaLaCartaMoraleBoostEnLaFilaRanged() {
         cardMoraleBoost = new Unit("Nombre", "Descripcion", 10, new RangedType(), List.of(modifierMoral));
-        int expectedPoints = ranged.calculatePoints() + ranged.getCardCount() + cardMoraleBoost.calculatePoints();
+        cardMoraleBoost.setColor(new Blue());
+        int expectedPoints = ranged.calculatePoints() + ranged.getCards().size() + cardMoraleBoost.calculatePoints();
 
         ranged.placeCard(cardMoraleBoost, round);
 
@@ -81,9 +89,10 @@ public class MoraleBoostModifierTest {
     }
 
     @Test
-    public void moral_boost_siege() {
+    public void testSeUsaLaCartaMoraleBoostEnLaFilaSiege() {
         cardMoraleBoost = new Unit("Nombre", "Descripcion", 10, new SiegeType(), List.of(modifierMoral));
-        int expectedPoints = siege.calculatePoints() + siege.getCardCount() + cardMoraleBoost.calculatePoints();
+        cardMoraleBoost.setColor(new Blue());
+        int expectedPoints = siege.calculatePoints() + siege.getCards().size() + cardMoraleBoost.calculatePoints();
 
         siege.placeCard(cardMoraleBoost, round);
 
@@ -92,14 +101,23 @@ public class MoraleBoostModifierTest {
     }
 
     @Test
-    public void moral_boost_empty_row() {
+    public void testSeUsaLaCartaMoraleBoostEnUnaFilaVacia() {
         cardMoraleBoost = new Unit("Nombre", "Descripcion", 10, new SiegeType(), List.of(modifierMoral));
+        cardMoraleBoost.setColor(new Blue());
         int expectedPoints = cardMoraleBoost.calculatePoints();
 
-        siege.discardCards(new DiscardPile());
+        siege.discardCards();
         siege.placeCard(cardMoraleBoost, round);
 
         int actualPoints = siege.calculatePoints();
         Assertions.assertEquals(expectedPoints, actualPoints);
+    }
+
+    @Test
+    public void testLaCartaNoSePuedeJugarEnElSideEnemigoException(){
+        cardMoraleBoost = new Unit("Nombre", "Descripcion", 10, new SiegeType(), List.of(modifierMoral));
+        cardMoraleBoost.setColor(new Red());
+
+        Assertions.assertThrows(SectionPlayerMismatchError.class, () -> siege.placeCard(cardMoraleBoost, round  ));
     }
 }
