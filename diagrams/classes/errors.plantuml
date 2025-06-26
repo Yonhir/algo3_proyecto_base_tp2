@@ -4,7 +4,6 @@ skinparam monochrome true
 hide circle
 skinparam classAttributeIconSize 0
 
-' Layout direction
 left to right direction
 
 ' =====================
@@ -32,6 +31,26 @@ class TheCardWasNotFound {
 
 class SectionTypeMismatchError {
   +SectionTypeMismatchError(message: String): SectionTypeMismatchError
+}
+
+class GwentFileInvalid {
+  +GwentFileInvalid(message: String): GwentFileInvalid
+}
+
+class NotUnitCardError {
+  +NotUnitCardError(message: String): NotUnitCardError
+}
+
+class SectionPlayerMismatchError {
+  +SectionPlayerMismatchError(message: String): SectionPlayerMismatchError
+}
+
+class SpecialsFileInvalid {
+  +SpecialsFileInvalid(message: String): SpecialsFileInvalid
+}
+
+class UnitsFileInvalid {
+  +UnitsFileInvalid(message: String): UnitsFileInvalid
 }
 
 ' =====================
@@ -66,9 +85,38 @@ class Card {
   +verifySectionType(sectionType: SectionType): void
 }
 
+class GameLoader {
+  +loadFromResource(resourcePath: String): Game
+}
+
+class DiscardPile {
+  +getLastUnitCardFromType(type: SectionType): Card
+}
+
+class MoraleBoost {
+  +verifyColor(section: Section): void
+}
+
+class Special {
+  +verifyColor(section: Section): void
+}
+
+class Unit {
+  +verifyColor(section: Section): void
+}
+
+class SpecialsLoader {
+  +loadFromResource(resourcePath: String): List<Card>
+}
+
+class UnitsLoader {
+  +loadFromResource(resourcePath: String): List<Card>
+}
+
 ' =====================
 ' RELATIONSHIPS
 ' =====================
+
 ' Error usage relationships
 Validate6SpecialCards ..> NotEnoughSpecialsCardsError : throws
 Validate15UnitsCards ..> NotEnoughUnitsCardsError : throws
@@ -84,6 +132,16 @@ CardCollection ..> TheCardWasNotFound : throws
 
 Card ..> SectionTypeMismatchError : throws
 
+GameLoader ..> GwentFileInvalid : throws
+DiscardPile ..> NotUnitCardError : throws
+
+MoraleBoost ..> SectionPlayerMismatchError : throws
+Unit ..> SectionPlayerMismatchError : throws
+Special ..> SectionPlayerMismatchError : throws
+
+SpecialsLoader ..> SpecialsFileInvalid : throws
+UnitsLoader ..> UnitsFileInvalid : throws
+
 ' Error inheritance
 InvalidCardAmountError --|> RuntimeException
 NotEnoughSpecialsCardsError --|> RuntimeException
@@ -91,5 +149,10 @@ NotEnoughCardsInDeckError --|> RuntimeException
 NotEnoughUnitsCardsError --|> RuntimeException
 TheCardWasNotFound --|> RuntimeException
 SectionTypeMismatchError --|> RuntimeException
+GwentFileInvalid --|> RuntimeException
+NotUnitCardError --|> RuntimeException
+SectionPlayerMismatchError --|> RuntimeException
+SpecialsFileInvalid --|> RuntimeException
+UnitsFileInvalid --|> RuntimeException
 
-@enduml 
+@enduml
