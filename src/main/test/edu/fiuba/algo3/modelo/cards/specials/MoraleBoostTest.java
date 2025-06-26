@@ -10,12 +10,14 @@ import edu.fiuba.algo3.modelo.sections.rows.*;
 import edu.fiuba.algo3.modelo.sections.types.*;
 import edu.fiuba.algo3.modelo.turnManagement.Player;
 import edu.fiuba.algo3.modelo.turnManagement.Round;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class MoraleBoostTest {
     private CloseCombat closeCombat;
@@ -55,7 +57,7 @@ public class MoraleBoostTest {
 
         int actualPoints = closeCombat.calculatePoints();
 
-        Assertions.assertEquals(expectedPoints, actualPoints);
+        assertEquals(expectedPoints, actualPoints);
 
     }
 
@@ -67,7 +69,7 @@ public class MoraleBoostTest {
 
         int actualPoints = ranged.calculatePoints();
 
-        Assertions.assertEquals(expectedPoints, actualPoints);
+        assertEquals(expectedPoints, actualPoints);
 
     }
 
@@ -79,7 +81,7 @@ public class MoraleBoostTest {
 
         int actualPoints = siege.calculatePoints();
 
-        Assertions.assertEquals(expectedPoints, actualPoints);
+        assertEquals(expectedPoints, actualPoints);
 
     }
 
@@ -93,7 +95,7 @@ public class MoraleBoostTest {
 
         int actualPoints = siege.calculatePoints();
 
-        Assertions.assertEquals(expectedPoints, actualPoints);
+        assertEquals(expectedPoints, actualPoints);
     }
 
     @Test
@@ -104,6 +106,6 @@ public class MoraleBoostTest {
         Player player = new Player("player", new Deck(), new DiscardPile(), new CloseCombat(new DiscardPile()), new Ranged(new DiscardPile()), new Siege(new DiscardPile()), new Red());
         Player player1 = new Player("player", new Deck(), new DiscardPile(), new CloseCombat(new DiscardPile()), new Ranged(new DiscardPile()), new Siege(new DiscardPile()), new Blue());
 
-        Assertions.assertThrows(SectionPlayerMismatchError.class, () -> siege.placeCard(moraleBoost, new Round(player, player1)));
+        assertThrows(SectionPlayerMismatchError.class, () -> siege.placeCard(moraleBoost, new Round(player, player1)));
     }
 }

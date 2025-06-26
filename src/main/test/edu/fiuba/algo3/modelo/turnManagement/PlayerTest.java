@@ -18,7 +18,6 @@ import edu.fiuba.algo3.modelo.sections.rows.Siege;
 import edu.fiuba.algo3.modelo.sections.types.CloseCombatType;
 import edu.fiuba.algo3.modelo.sections.types.RangedType;
 import edu.fiuba.algo3.modelo.sections.types.SiegeType;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -26,8 +25,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+
 
 public class PlayerTest {
     private List<Card> cards;
@@ -122,7 +121,7 @@ public class PlayerTest {
 
         int actualCards = player.getHand().getCardCount();
 
-        Assertions.assertEquals(expectedCards, actualCards);
+        assertEquals(expectedCards, actualCards);
     }
 
     @Test
@@ -140,7 +139,7 @@ public class PlayerTest {
 
         int actual_points = ((Unit) siegeCard).calculatePoints();
 
-        Assertions.assertEquals(expected_points, actual_points);
+        assertEquals(expected_points, actual_points);
     }
 
     @Test
@@ -155,7 +154,7 @@ public class PlayerTest {
 
         int actual_points = player.calculatePoints();
 
-        Assertions.assertEquals(expected_points, actual_points);
+        assertEquals(expected_points, actual_points);
     }
 
     @Test
@@ -188,7 +187,7 @@ public class PlayerTest {
         DiscardPile actualDiscardPile = player.getDiscardPile();
         
         //ASSERT
-        Assertions.assertEquals(expectedDiscardPile.getCardCount(), actualDiscardPile.getCardCount());
+        assertEquals(expectedDiscardPile.getCardCount(), actualDiscardPile.getCardCount());
     }
 
     @Test
@@ -200,14 +199,14 @@ public class PlayerTest {
         int actualPoints = player.calculatePoints();
         
         //ASSERT
-        Assertions.assertEquals(expectedPoints, actualPoints);
+        assertEquals(expectedPoints, actualPoints);
     }
 
     @Test
     public void testElJugadorGanaUnaRondaCorrectamente() {
         player.winRound();
 
-        Assertions.assertEquals(1, player.getRoundsWon());
+        assertEquals(1, player.getRoundsWon());
     }
 
     @Test
@@ -238,6 +237,6 @@ public class PlayerTest {
         assertFalse(siege1.containsCard(siegeCard));
         assertFalse(ranged1.containsCard(rangedCard));
         assertFalse(closeCombat1.containsCard(closeCombatCard));
-        Assertions.assertEquals(expectedDiscardCount, player.getDiscardPile().getCardCount());
+        assertEquals(expectedDiscardCount, player.getDiscardPile().getCardCount());
     }
 }

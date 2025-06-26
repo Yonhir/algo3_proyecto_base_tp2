@@ -1,26 +1,17 @@
 package edu.fiuba.algo3.modelo.cards;
 
-import edu.fiuba.algo3.modelo.cards.specials.Special;
 import edu.fiuba.algo3.modelo.colors.*;
 import edu.fiuba.algo3.modelo.errors.SectionPlayerMismatchError;
-import edu.fiuba.algo3.modelo.sections.Section;
-import edu.fiuba.algo3.modelo.sections.rows.Row;
-import edu.fiuba.algo3.modelo.turnManagement.Player;
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
-import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.BitingFrost;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.ImpenetrableFog;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.TorrentialRain;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
 import edu.fiuba.algo3.modelo.errors.SectionTypeMismatchError;
-import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
-import edu.fiuba.algo3.modelo.sections.rows.Ranged;
-import edu.fiuba.algo3.modelo.sections.rows.Siege;
 import edu.fiuba.algo3.modelo.sections.types.CloseCombatType;
 import edu.fiuba.algo3.modelo.sections.types.RangedType;
 import edu.fiuba.algo3.modelo.sections.types.SectionType;
 import edu.fiuba.algo3.modelo.sections.types.SiegeType;
-import edu.fiuba.algo3.modelo.turnManagement.Round;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

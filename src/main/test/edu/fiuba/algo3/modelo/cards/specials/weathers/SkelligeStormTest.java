@@ -1,10 +1,8 @@
 package edu.fiuba.algo3.modelo.cards.specials.weathers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -66,7 +64,7 @@ public class SkelligeStormTest {
         skelligeStorm.play(specialZone);
 
         int actualPointsSAndR = siege.calculatePoints() + ranged.calculatePoints();
-        Assertions.assertEquals(expectedPointsSAndR, actualPointsSAndR);
+        assertEquals(expectedPointsSAndR, actualPointsSAndR);
     }
 
     @Test
@@ -77,7 +75,7 @@ public class SkelligeStormTest {
         skelligeStorm.play(specialZone);
 
         int actualPointsSAndR = siegeOpponent.calculatePoints() + rangedOpponent.calculatePoints();
-        Assertions.assertEquals(expectedPointsSAndR, actualPointsSAndR);
+        assertEquals(expectedPointsSAndR, actualPointsSAndR);
     }
 
     @Test
@@ -90,6 +88,6 @@ public class SkelligeStormTest {
         skelligeStorm.play(specialZone);
 
         int actualPointsSAndR = siegeOpponent.calculatePoints() + rangedOpponent.calculatePoints();
-        Assertions.assertEquals(expectedPointsSAndR, actualPointsSAndR);
+        assertEquals(expectedPointsSAndR, actualPointsSAndR);
     }
 }
