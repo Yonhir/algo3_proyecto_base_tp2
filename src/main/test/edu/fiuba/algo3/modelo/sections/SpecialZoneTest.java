@@ -275,7 +275,7 @@ public class SpecialZoneTest {
     }
 
     @Test
-    public void testClearWeatherRemovesAllWeatherEffectsFromCloseCombat() {
+    public void testClearZoneWeatherRemovesAllWeatherEffectsFromCloseCombat() {
         // Arrange
         setupAllWeatherEffects();
         
@@ -289,7 +289,7 @@ public class SpecialZoneTest {
     }
 
     @Test
-    public void testClearWeatherRemovesAllWeatherEffectsFromRanged() {
+    public void testClearZoneWeatherRemovesAllWeatherEffectsFromRanged() {
         // Arrange
         setupAllWeatherEffects();
         
@@ -303,7 +303,7 @@ public class SpecialZoneTest {
     }
 
     @Test
-    public void testClearWeatherRemovesAllWeatherEffectsFromSiege() {
+    public void testClearZoneWeatherRemovesAllWeatherEffectsFromSiege() {
         // Arrange
         setupAllWeatherEffects();
         
@@ -359,7 +359,7 @@ public class SpecialZoneTest {
     }
 
     @Test
-    public void testClearWeatherRemovesEffectsFromBothPlayers() {
+    public void testClearZoneWeatherRemovesEffectsFromBothPlayers() {
         // Arrange
         player1CloseCombatRow.placeCard(player1Soldier, round);
         player1RangedRow.placeCard(player1Archer, round);

@@ -117,7 +117,6 @@ public abstract class Row implements Section {
         return lastCard;
     }
 
-
     public void setColor(PlayerColor playerColor) {
         this.playerColor = playerColor;
     }

@@ -38,7 +38,7 @@ public class Game {
     }
 
     public void clearBoard() {
-        specialZone.clear();
+        specialZone.clearZone();
         player1.discardAllRows();
         player2.discardAllRows();
     }
