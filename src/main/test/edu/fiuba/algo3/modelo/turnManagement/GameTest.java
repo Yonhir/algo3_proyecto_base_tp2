@@ -15,6 +15,7 @@ import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
 import edu.fiuba.algo3.modelo.sections.rows.Ranged;
 import edu.fiuba.algo3.modelo.sections.rows.Siege;
 import edu.fiuba.algo3.modelo.sections.types.CloseCombatType;
+import edu.fiuba.algo3.modelo.sections.types.RangedType;
 import edu.fiuba.algo3.modelo.sections.types.SiegeType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,7 +32,6 @@ public class GameTest {
     private Game game;
     private Player player1;
     private Player player2;
-    private DiscardPile discardPile;
 
     private SpecialZone specialZone;
     private CloseCombat player1CloseCombatRow;
@@ -144,4 +144,71 @@ public class GameTest {
         assertFalse(discardPile2.containsCard(unit1));
 
     }
+
+    @Test
+    public void testPartidaCompletaConVictoriaFinalDelJugador1() {
+        //Preparación de mazos
+        Deck deck1 = new Deck();
+        Deck deck2 = new Deck();
+
+        Card cartaFuerte1 = new Unit("Espadachín", "Fuerte", 10, new CloseCombatType(), new ArrayList<>());
+        Card cartaFuerte2 = new Unit("Arquero", "Fuerte", 9, new RangedType(), new ArrayList<>());
+        Card cartaDebil1 = new Unit("debilucho1", "Débil", 2, new CloseCombatType(), new ArrayList<>());
+        Card cartaDebil2 = new Unit("debilucho2", "Débil", 1, new RangedType(), new ArrayList<>());
+
+        deck1.insertCardsInOrder(Arrays.asList(cartaFuerte1, cartaFuerte2));
+        deck2.insertCardsInOrder(Arrays.asList(cartaDebil1, cartaDebil2));
+
+        DiscardPile discardPile1 = new DiscardPile();
+        DiscardPile discardPile2 = new DiscardPile();
+
+        CloseCombat cc1 = new CloseCombat(discardPile1);
+        Ranged ranged1 = new Ranged(discardPile1);
+        Siege siege1 = new Siege(discardPile1);
+
+        CloseCombat cc2 = new CloseCombat(discardPile2);
+        Ranged ranged2 = new Ranged(discardPile2);
+        Siege siege2 = new Siege(discardPile2);
+
+        Player player1 = new Player("Jugador1", deck1, discardPile1, cc1, ranged1, siege1, new Blue());
+        Player player2 = new Player("Jugador2", deck2, discardPile2, cc2, ranged2, siege2, new Red());
+
+        SpecialZone specialZone = new SpecialZone(cc1, ranged1, siege1, cc2, ranged2, siege2, discardPile1, discardPile2);
+        Game game = new Game(player1, player2, specialZone);
+
+        // --- Ronda 1 ---
+        Card carta1P1 = deck1.retrieveNTopCards(1).get(0); player1.getHand().addCard(carta1P1);
+        Card carta1P2 = deck2.retrieveNTopCards(1).get(0); player2.getHand().addCard(carta1P2);
+
+        Round round1 = game.getCurrentRound();
+        player1.playCard(carta1P1, cc1, round1);
+        player2.playCard(carta1P2, cc2, round1);
+
+        game.passRound();
+        game.passRound();
+
+        assertEquals(1, player1.getRoundsWon());
+        assertEquals(0, player2.getRoundsWon());
+
+        // --- Ronda 2 ---
+        Card carta2P1 = deck1.retrieveNTopCards(1).get(0); player1.getHand().addCard(carta2P1);
+        Card carta2P2 = deck2.retrieveNTopCards(1).get(0); player2.getHand().addCard(carta2P2);
+
+        Round round2 = game.getCurrentRound();
+        player1.playCard(carta2P1, ranged1, round2);
+        player2.playCard(carta2P2, ranged2, round2);
+
+        game.passRound();
+        game.passRound();
+
+        // Verificaciones finales
+        assertTrue(game.gameFinished());
+        assertEquals(player1, game.gameWinner());
+        assertEquals(2, player1.getRoundsWon());
+        assertEquals(0, player2.getRoundsWon());
+    }
+
+
+
+
 }

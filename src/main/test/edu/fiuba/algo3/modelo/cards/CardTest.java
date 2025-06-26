@@ -81,9 +81,20 @@ public class CardTest {
     }
 
     @Test
-    public void testNoSePuedeJugarUnaCartaWeatherSinAsignarColor() {
-        Card special = new BitingFrost("Pedro", "Juan");
+    public void testLaCartaSeCreaConElColorGreen() {
+        Card carta = new Unit("unidad", "comun", 5, new CloseCombatType(), List.of());
 
-        assertThrows(SectionPlayerMismatchError.class, () -> special.verifyColor(new Red()));
+        assertTrue(carta.haveSameColor(new Green()));
+    }
+
+    @Test
+    public void testLaCartaPuedeVolverASuColorDefault() {
+        Card carta = new Unit("unidad", "comun", 5, new CloseCombatType(), List.of());
+        carta.setColor(new Red());
+        Green colorDefault = new Green();
+
+        carta.setColor(colorDefault.swapColor());
+
+        assertTrue(carta.haveSameColor(colorDefault));
     }
 }

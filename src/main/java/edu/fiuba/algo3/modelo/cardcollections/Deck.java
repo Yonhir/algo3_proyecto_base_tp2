@@ -50,4 +50,17 @@ public class Deck extends CardCollection {
             card.setColor(playerColor);
         }
     }
+
+    public void insertCardsInOrder(List<Card> cardsToInsert) {
+        cards.addAll(0, cardsToInsert);
+    }
+
+    public List<Card> retrieveNTopCards(int n) {
+        if (cards.size() < n) {
+            throw new NotEnoughCardsInDeckError("Deck without enough cards");
+        }
+        List<Card> selectedCards = new ArrayList<>(cards.subList(0, n));
+        cards.subList(0, n).clear();
+        return selectedCards;
+    }
 }
