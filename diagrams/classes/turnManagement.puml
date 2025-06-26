@@ -87,6 +87,6 @@ skinparam classAttributeIconSize 0
   Round --> RoundState
   Round --> Player
   Game --> Player
-  Game --> Round
+  Game *-- Round
 
 @enduml
