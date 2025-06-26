@@ -5,8 +5,6 @@ import edu.fiuba.algo3.modelo.colors.*;
 import edu.fiuba.algo3.modelo.turnManagement.Player;
 import edu.fiuba.algo3.modelo.turnManagement.Round;
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cards.specials.*;
@@ -23,6 +21,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SpecialZoneTest {
     private SpecialZone specialZone;
@@ -445,5 +445,20 @@ public class SpecialZoneTest {
         
         assertEquals("Close combat, ranged and siege rows must be different", exception.getMessage(),
             "Exception message should indicate that rows must be different");
+    }
+
+    @Test
+    public void testSeAplicaLaCartaScorchParaTodasLasFilas() {
+        Scorch scorch = new Scorch("tierra", "arrasada", List.of(new CloseCombatType(), new RangedType(), new SiegeType()));
+
+        player1CloseCombatRow.placeCard(player1Soldier, round);
+        player1RangedRow.placeCard(player1Archer, round);
+        player2CloseCombatRow.placeCard(player2Soldier, round);
+        player2RangedRow.placeCard(player2Archer, round);
+
+        specialZone.applyScorchInAllRows(scorch);
+
+        assertFalse(player1CloseCombatRow.containsCard(player1Soldier));
+        assertFalse(player2CloseCombatRow.containsCard(player2Soldier));
     }
 }
