@@ -1,0 +1,12 @@
+[
+    {
+        "nombre": "Invalid Special",
+        "descripcion": "This is an invalid special card",
+        "tipo": "InvalidType"
+    },
+    {
+        "nombre": "Another Invalid",
+        "descripcion": "Another invalid special card",
+        "tipo": "NonExistentType"
+    }
+]

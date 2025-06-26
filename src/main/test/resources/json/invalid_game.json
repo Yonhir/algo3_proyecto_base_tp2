@@ -1,0 +1,23 @@
+{
+    "mazo_jugador_uno": {
+        "unidades": "not_an_array",
+        "especiales": 123
+    },
+    "mazo_jugador_dos": {
+        "unidades": [
+            {
+                "nombre": "Valid Unit",
+                "puntos": 5,
+                "modificador": [],
+                "seccion": "Cuerpo a Cuerpo"
+            }
+        ],
+        "especiales": [
+            {
+                "nombre": "Valid Special",
+                "descripcion": "Valid special card",
+                "tipo": "Morale boost"
+            }
+        ]
+    }
+}

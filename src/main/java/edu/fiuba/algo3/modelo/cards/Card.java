@@ -41,4 +41,8 @@ public abstract class Card {
     }
 
     public abstract void verifyColor(PlayerColor playerColor);
+
+    public String getName() {
+        return name;
+    }
 }

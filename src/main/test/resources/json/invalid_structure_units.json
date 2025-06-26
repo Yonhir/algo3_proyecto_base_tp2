@@ -1,0 +1,12 @@
+{
+    "units": [
+        {
+            "nombre": "Barclay Els",
+            "puntos": 6,
+            "modificador": [
+                "Agil"
+            ],
+            "seccion": "Cuerpo a Cuerpo, Rango"
+        }
+    ]
+}
