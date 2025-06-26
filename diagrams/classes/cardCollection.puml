@@ -1,0 +1,70 @@
+@startuml
+
+skinparam monochrome true
+hide circle
+skinparam classAttributeIconSize 0
+
+
+abstract class CardCollection <<abstract>> {
+  #cards: List<Card>
+  +CardCollection(): CardCollection
+  +getCards(): List<Card>
+  +addCard(card: Card):
+  +insertCards(cards: List<Card>): 
+  +retrieveCard(card: Card): Card
+  +getCardCount(): int
+  +containsCard(card: Card): boolean
+  +isEmpty(): boolean
+}
+
+class Hand {
+  +Hand(): Hand
+  +getNCardsFromDeck(deck: Deck, n: int):
+  +containsCards(cards: List<Card>): boolean
+}
+
+class DiscardPile {
+  -color: PlayerColor
+  +DiscardPile(): DiscardPile
+  +getLastCard(): Card
+  +addCard(card: Card):
+  +insertCards(cards: List<Card>):
+  +setColor(color PlayerColor):
+  +addCardIfHasSameColor(card: Card):
+  +getLastUnitCardFromType(row Row): Card
+}
+
+class Deck {
+  +Deck(): Deck
+  +getUnitsCount(): long
+  +getSpecialsCount(): long
+  +validate():
+  +retrieveNRandomCards(n: int): List<Card>
+  +setColorToCards(playerColor PlayerColor):
+}
+
+interface DeckValidator <<interface>> {
+  +validate(cards: List<Card>):
+}
+
+class Validate6SpecialCards {
+  -MIN_SPECIALS: int
+}
+
+class Validate15UnitsCards {
+  -MIN_UNITS: int
+}
+
+
+CardCollection <|-- Hand
+CardCollection <|-- DiscardPile
+CardCollection <|-- Deck
+
+
+Deck --> "*" DeckValidator
+DeckValidator <|.. Validate6SpecialCards
+DeckValidator <|.. Validate15UnitsCards
+
+
+
+@enduml
