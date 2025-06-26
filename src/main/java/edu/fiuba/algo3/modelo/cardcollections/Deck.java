@@ -3,6 +3,7 @@ package edu.fiuba.algo3.modelo.cardcollections;
 import edu.fiuba.algo3.modelo.cards.Card;
 import edu.fiuba.algo3.modelo.cards.specials.Special;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
+import edu.fiuba.algo3.modelo.colors.PlayerColor;
 import edu.fiuba.algo3.modelo.errors.InvalidCardAmountError;
 import edu.fiuba.algo3.modelo.errors.NotEnoughCardsInDeckError;
 
@@ -42,5 +43,11 @@ public class Deck extends CardCollection {
         List<Card> selectedCards = new ArrayList<>(cards.subList(0, n));
         cards.subList(0, n).clear();
         return selectedCards;
+    }
+
+    public void setColorToCards(PlayerColor playerColor) {
+        for (Card card : cards) {
+            card.setColor(playerColor);
+        }
     }
 }

@@ -5,6 +5,6 @@ import edu.fiuba.algo3.modelo.sections.rows.Row;
 public class Hero implements Modifier {
     @Override
     public void apply(Row row) {
-        // Hero cards are not affected by other modifiers, they have fixed points
+
     }
 }
