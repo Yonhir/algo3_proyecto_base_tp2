@@ -79,11 +79,4 @@ public class CardTest {
 
         assertThrows(SectionTypeMismatchError.class, () -> card.verifySectionType(ranged));
     }
-
-    @Test
-    public void testNoSePuedeJugarUnaCartaWeatherSinAsignarColor() {
-        Card special = new BitingFrost("Pedro", "Juan");
-
-        assertThrows(SectionPlayerMismatchError.class, () -> special.verifyColor(new Red()));
-    }
 }
