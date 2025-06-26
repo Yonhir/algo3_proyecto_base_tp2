@@ -167,4 +167,53 @@ public class GameLoaderTest {
         assertEquals("Error converting data", exception.getMessage(),
             "Exception message should be 'Error converting data'");
     }
-} 
+    
+    // ============================================================================
+    // NULL DECK HANDLING TESTS
+    // ============================================================================
+    
+    @Test
+    void testLoadFromResource_ShouldCreateNewDeckWhenPlayerOneDeckIsNull() {
+        // Act
+        List<Deck> decks = gameLoader.loadFromResource(GWENT_JSON_PATH, 
+                                                      null, player1Hand, player1DiscardPile,
+                                                      player2Deck, player2Hand, player2DiscardPile);
+        Deck playerOneDeck = decks.get(0);
+        
+        // Assert
+        assertNotNull(playerOneDeck, "Should create new deck when player one deck is null");
+        assertFalse(playerOneDeck.getCards().isEmpty(), "Created deck should have cards");
+        assertNotSame(player1Deck, playerOneDeck, "Should be a different deck instance");
+    }
+    
+    @Test
+    void testLoadFromResource_ShouldCreateNewDeckWhenPlayerTwoDeckIsNull() {
+        // Act
+        List<Deck> decks = gameLoader.loadFromResource(GWENT_JSON_PATH, 
+                                                      player1Deck, player1Hand, player1DiscardPile,
+                                                      null, player2Hand, player2DiscardPile);
+        Deck playerTwoDeck = decks.get(1);
+        
+        // Assert
+        assertNotNull(playerTwoDeck, "Should create new deck when player two deck is null");
+        assertFalse(playerTwoDeck.getCards().isEmpty(), "Created deck should have cards");
+        assertNotSame(player2Deck, playerTwoDeck, "Should be a different deck instance");
+    }
+    
+    @Test
+    void testLoadFromResource_ShouldCreateNewDecksWhenBothDecksAreNull() {
+        // Act
+        List<Deck> decks = gameLoader.loadFromResource(GWENT_JSON_PATH, 
+                                                      null, player1Hand, player1DiscardPile,
+                                                      null, player2Hand, player2DiscardPile);
+        Deck playerOneDeck = decks.get(0);
+        Deck playerTwoDeck = decks.get(1);
+        
+        // Assert
+        assertNotNull(playerOneDeck, "Should create new deck when player one deck is null");
+        assertNotNull(playerTwoDeck, "Should create new deck when player two deck is null");
+        assertFalse(playerOneDeck.getCards().isEmpty(), "Player one created deck should have cards");
+        assertFalse(playerTwoDeck.getCards().isEmpty(), "Player two created deck should have cards");
+        assertNotSame(playerOneDeck, playerTwoDeck, "Should be different deck instances");
+    }
+}
