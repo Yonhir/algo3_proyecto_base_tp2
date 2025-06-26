@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.vistas.components;
 
+import edu.fiuba.algo3.modelo.Observable;
+import edu.fiuba.algo3.modelo.Observer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
@@ -10,7 +12,7 @@ import javafx.scene.layout.StackPane;
 /**
  * Reusable component for displaying points in a circle
  */
-public class PointsCircle extends StackPane {
+public class PointsCircle extends StackPane implements Observer {
     
     private Circle circle;
     private Text pointsText;
@@ -36,6 +38,10 @@ public class PointsCircle extends StackPane {
         // Add circle and text to this StackPane
         getChildren().addAll(circle, pointsText);
         setAlignment(javafx.geometry.Pos.CENTER);
+    }
+
+    public void update(Observable o) {
+
     }
     
     public void setPoints(int newPoints) {

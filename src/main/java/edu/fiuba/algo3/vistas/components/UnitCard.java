@@ -1,15 +1,26 @@
 package edu.fiuba.algo3.vistas.components;
 
+import edu.fiuba.algo3.modelo.Observable;
+import edu.fiuba.algo3.modelo.cards.units.Unit;
 
 public class UnitCard extends Card {
     
     private PointsCircle pointsCircle;
     private int points;
+    private Unit model;
     
-    public UnitCard(String name, String description, int points) {
-        super(name, description);
-        this.points = points;
+    public UnitCard(Unit unit) {
+        super(unit.getName(), unit.getDescription());
+        this.model = unit;
+        this.points = unit.calculatePoints();
         setupPointsDisplay();
+        subscribeToModel();
+    }
+    
+    private void subscribeToModel() {
+        if (model != null) {
+            model.addObserver(this);
+        }
     }
     
     private void setupPointsDisplay() {
@@ -28,15 +39,32 @@ public class UnitCard extends Card {
         getChildren().add(pointsCircle);
     }
     
+    public void loadDataFromUnit() {
+        if (model != null) {
+            this.points = model.calculatePoints();
+            if (pointsCircle != null) {
+                pointsCircle.setPoints(points);
+            } else {
+                setupPointsDisplay();
+            }
+        }
+    }
+
+    @Override
+    public void update(Observable observable) {
+        // Update the card when the unit model changes
+        if (observable == model) {
+            loadDataFromUnit();
+        }
+    }
+
     public void setPoints(int newPoints) {
         this.points = newPoints;
-        pointsCircle.setPoints(newPoints);
+        if (pointsCircle != null) {
+            pointsCircle.setPoints(newPoints);
+        }
     }
-    
-    public int getPoints() {
-        return points;
-    }
-    
+
     @Override
     public void scaleCard(double scaleFactorX, double scaleFactorY) {
         // Call parent scaleCard method to handle the card background scaling

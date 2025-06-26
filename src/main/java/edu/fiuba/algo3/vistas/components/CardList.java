@@ -1,18 +1,29 @@
 package edu.fiuba.algo3.vistas.components;
 
+import edu.fiuba.algo3.modelo.Observer;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CardList extends Pane {
+public abstract class CardList extends Pane implements Observer {
     
     private final List<Card> cards;
+    private final boolean defaultDraggable; // Default draggable setting for cards
 
     public CardList() {
+        this(false); // Default to non-draggable
+    }
+    
+    public CardList(boolean defaultDraggable) {
         super();
+        this.defaultDraggable = defaultDraggable;
         HBox.setHgrow(this, javafx.scene.layout.Priority.ALWAYS);
         this.cards = new ArrayList<>();
+        
+        // Setup styling and animations
+        setupCardListStyling();
+        setupHoverAnimation();
         
         // Add listener to recalculate positioning when width changes
         widthProperty().addListener((observable, oldValue, newValue) -> {
@@ -20,6 +31,31 @@ public class CardList extends Pane {
                 calculateOptimalPositioning();
             }
         });
+    }
+    
+    private void setupCardListStyling() {
+        // Set VBox and HBox grow priority to ALWAYS
+        javafx.scene.layout.VBox.setVgrow(this, javafx.scene.layout.Priority.ALWAYS);
+        javafx.scene.layout.HBox.setHgrow(this, javafx.scene.layout.Priority.ALWAYS);
+        
+        // Set default style
+        applyDefaultStyle();
+    }
+    
+    private void setupHoverAnimation() {
+        // Mouse enter event - change border to gold/yellow
+        setOnMouseEntered(e -> applyHoverStyle());
+        
+        // Mouse exit event - return to brown border
+        setOnMouseExited(e -> applyDefaultStyle());
+    }
+    
+    private void applyDefaultStyle() {
+        setStyle("-fx-border-color: #8B4513; -fx-border-width: 2px; -fx-background-color: transparent;");
+    }
+    
+    private void applyHoverStyle() {
+        setStyle("-fx-border-color: #FFD700; -fx-border-width: 2px; -fx-background-color: transparent;");
     }
 
     public void calculateOptimalPositioning() {
@@ -56,9 +92,15 @@ public class CardList extends Pane {
     }
 
     public void addCard(Card card) {
+        setCardDraggable(card);
+        
         cards.add(card);
         getChildren().add(card);
         calculateOptimalPositioning();
+    }
+
+    protected void setCardDraggable(Card card) {
+        card.setDraggable(defaultDraggable);
     }
 
     public void addCards(Card... cardsToAdd) {

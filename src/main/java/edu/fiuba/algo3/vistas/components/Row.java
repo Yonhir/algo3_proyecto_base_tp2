@@ -1,9 +1,10 @@
 package edu.fiuba.algo3.vistas.components;
 
-public class Row extends CardList {
+import edu.fiuba.algo3.modelo.Observable;
 
-    public Row() {
-        super();
-        setStyle("-fx-border-color: #8B4513; -fx-border-width: 2px;"); // Brown border
+public class Row extends CardList {
+    @Override
+    public void update(Observable observable) {
+
     }
 }

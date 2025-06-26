@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.vistas.components;
 
+import edu.fiuba.algo3.modelo.Observable;
 import javafx.scene.paint.Color;
 
 /**
@@ -34,4 +35,9 @@ public class DiscardPile extends BaseCardComponent {
     public void scaleDiscardPile(double scaleFactorX, double scaleFactorY) {
         scaleComponent(scaleFactorX, scaleFactorY);
     }
-} 
+
+    @Override
+    public void update(Observable observable) {
+
+    }
+}

@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.vistas.components;
 
+import edu.fiuba.algo3.modelo.Observer;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
@@ -9,7 +10,7 @@ import javafx.scene.shape.Rectangle;
 /**
  * Base component containing common functionality for card-like components
  */
-public abstract class BaseCardComponent extends StackPane {
+public abstract class BaseCardComponent extends StackPane implements Observer {
     
     protected static final double BASE_CARD_WIDTH = 80;
     protected static final double BASE_CARD_HEIGHT = 120;
