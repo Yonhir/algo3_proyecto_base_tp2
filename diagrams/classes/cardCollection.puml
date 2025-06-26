@@ -9,8 +9,8 @@ abstract class CardCollection <<abstract>> {
   #cards: List<Card>
   +CardCollection(): CardCollection
   +getCards(): List<Card>
-  +addCard(card: Card): void
-  +insertCards(cards: List<Card>): void
+  +addCard(card: Card):
+  +insertCards(cards: List<Card>): 
   +retrieveCard(card: Card): Card
   +getCardCount(): int
   +containsCard(card: Card): boolean
@@ -19,7 +19,7 @@ abstract class CardCollection <<abstract>> {
 
 class Hand {
   +Hand(): Hand
-  +getNCardsFromDeck(deck: Deck, n: int): void
+  +getNCardsFromDeck(deck: Deck, n: int):
   +containsCards(cards: List<Card>): boolean
 }
 
@@ -27,10 +27,10 @@ class DiscardPile {
   -color: PlayerColor
   +DiscardPile(): DiscardPile
   +getLastCard(): Card
-  +addCard(card: Card): void
-  +insertCards(cards: List<Card>): void
-  +setColor(color PlayerColor): void
-  +addCardIfHasSameColor(card: Card): void
+  +addCard(card: Card):
+  +insertCards(cards: List<Card>):
+  +setColor(color PlayerColor):
+  +addCardIfHasSameColor(card: Card):
   +getLastUnitCardFromType(row Row): Card
 }
 
@@ -38,13 +38,13 @@ class Deck {
   +Deck(): Deck
   +getUnitsCount(): long
   +getSpecialsCount(): long
-  +validate(): void
+  +validate():
   +retrieveNRandomCards(n: int): List<Card>
-  +setColorToCards(playerColor PlayerColor): void
+  +setColorToCards(playerColor PlayerColor):
 }
 
 interface DeckValidator <<interface>> {
-  +validate(cards: List<Card>): void
+  +validate(cards: List<Card>):
 }
 
 class Validate6SpecialCards {
