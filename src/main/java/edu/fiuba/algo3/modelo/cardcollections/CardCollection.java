@@ -1,12 +1,13 @@
 package edu.fiuba.algo3.modelo.cardcollections;
 
 import edu.fiuba.algo3.modelo.cards.Card;
+import edu.fiuba.algo3.modelo.Observable;
 import edu.fiuba.algo3.modelo.errors.TheCardWasNotFound;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class CardCollection {
+public abstract class CardCollection extends Observable {
     protected List<Card> cards;
 
     public CardCollection() {

@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.sections;
 
+import edu.fiuba.algo3.modelo.Observable;
 import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.ClearWeather;
 import edu.fiuba.algo3.modelo.turnManagement.Round;
@@ -15,7 +16,7 @@ import java.io.DataInput;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SpecialZone implements Section {
+public class SpecialZone extends Observable implements Section {
     private final List<CloseCombat> closeCombatRows;
     private final List<Ranged> rangedRows;
     private final List<Siege> siegeRows;

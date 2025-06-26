@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.cards;
 
+import edu.fiuba.algo3.modelo.Observable;
 import edu.fiuba.algo3.modelo.errors.SectionTypeMismatchError;
 import edu.fiuba.algo3.modelo.sections.Section;
 import edu.fiuba.algo3.modelo.sections.types.SectionType;
@@ -7,7 +8,7 @@ import edu.fiuba.algo3.modelo.colors.PlayerColor;
 
 import java.util.List;
 
-public abstract class Card {
+public abstract class Card extends Observable {
 
     protected final String name;
     protected final String description;
@@ -44,5 +45,9 @@ public abstract class Card {
 
     public String getName() {
         return name;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }

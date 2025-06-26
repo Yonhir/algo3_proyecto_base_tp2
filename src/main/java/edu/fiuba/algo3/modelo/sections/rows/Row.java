@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.sections.rows;
 
+import edu.fiuba.algo3.modelo.Observable;
 import edu.fiuba.algo3.modelo.turnManagement.Round;
 import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cards.Card;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public abstract class Row implements Section {
+public abstract class Row extends Observable implements Section {
     protected List<Card> cards = new ArrayList<>();
     protected Unit lastCard;
     protected Weather currentWeather;
