@@ -36,11 +36,14 @@ public class ClearWeatherTest {
     Round round;
     Player player1;
     Player player2;
+    DiscardPile discardPile1;
+    DiscardPile discardPile2;
 
     @BeforeEach
     void setUp() {
-        DiscardPile discardPile1 = new DiscardPile();
-        DiscardPile discardPile2 = new DiscardPile();
+        discardPile1 = new DiscardPile();
+        discardPile2 = new DiscardPile();
+        clear = new ClearWeather("nombre", "descripcion");
         closeCombat1 = new CloseCombat(discardPile1);
         closeCombat2 = new CloseCombat(discardPile2);
         ranged1 = new Ranged(discardPile1);
@@ -125,7 +128,7 @@ public class ClearWeatherTest {
 
     @Test
     public void testLaCartaClearWeatherSeAplicaSobreTodoElTablero() {
-        Section specialZone = new SpecialZone(closeCombat1, ranged1, siege1, closeCombat2, ranged2, siege2);
+        Section specialZone = new SpecialZone(closeCombat1, ranged1, siege1, closeCombat2, ranged2, siege2, discardPile1, discardPile2);
         Unit cartaCC = new Unit("nombre", "descripcion", 7, new CloseCombatType(), List.of());
         Unit cartaR = new Unit("nombre", "descripcion", 5, new RangedType(), List.of());
         Unit cartaS = new Unit("nombre", "descripcion", 6, new SiegeType(), List.of());

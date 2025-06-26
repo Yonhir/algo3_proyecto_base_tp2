@@ -19,6 +19,7 @@ public class BitingFrost extends Weather {
     @Override
     public void play(Section section) {
         SpecialZone specialZone = (SpecialZone) section;
+        specialZone.addCard(this);
         specialZone.applyCloseCombatWeather(this);
     }
 

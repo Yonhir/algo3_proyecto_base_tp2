@@ -33,16 +33,17 @@ public class HeroTest {
     private CloseCombat closeCombat2;
     private Ranged ranged2;
     private Siege siege2;
+    private DiscardPile discardPile1;
+    private DiscardPile discardPile2;
     private Round round;
-
     private int puntosEsperados;
 
     @BeforeEach
     void setUp() {
         cartaConLegendaria = new Unit("cerys", "descripcion", 10, List.of(new CloseCombatType()), List.of(new Hero()));
+        discardPile1 = new DiscardPile();
+        discardPile2 = new DiscardPile();
         cartaConLegendaria.setColor(new Blue());
-        DiscardPile discardPile1 = new DiscardPile();
-        DiscardPile discardPile2 = new DiscardPile();
         closeCombat1 = new CloseCombat(discardPile1);
         ranged1 = new Ranged(discardPile1);
         siege1 = new Siege(discardPile1);
@@ -94,7 +95,8 @@ public class HeroTest {
         closeCombat1.placeCard(cartaConLegendaria, round);
         frostWeather.play(new SpecialZone(
                 closeCombat1, ranged1, siege1,
-                closeCombat2, ranged2, siege2
+                closeCombat2, ranged2, siege2,
+                discardPile1, discardPile2
         ));
 
         assertEquals(puntosEsperados, cartaConLegendaria.calculatePoints());
@@ -110,7 +112,8 @@ public class HeroTest {
         especial.play(closeCombat1);
         frostWeather.play(new SpecialZone(
                 closeCombat1, ranged1, siege1,
-                closeCombat2, ranged2, siege2
+                closeCombat2, ranged2, siege2,
+                discardPile1, discardPile2
         ));
 
         assertEquals(puntosEsperados, cartaConLegendaria.calculatePoints());
@@ -125,7 +128,8 @@ public class HeroTest {
 
         tierraArrasada.play(new SpecialZone(
                 closeCombat1, ranged1, siege1,
-                closeCombat2, ranged2, siege2
+                closeCombat2, ranged2, siege2,
+                discardPile1, discardPile2
         ));
 
         assertTrue(closeCombat1.containsCard(cartaConLegendaria));
