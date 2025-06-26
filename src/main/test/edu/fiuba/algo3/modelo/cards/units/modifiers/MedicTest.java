@@ -3,9 +3,7 @@ package edu.fiuba.algo3.modelo.cards.units.modifiers;
 import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cards.Card;
 import edu.fiuba.algo3.modelo.cards.specials.MoraleBoost;
-import edu.fiuba.algo3.modelo.cards.specials.weathers.BitingFrost;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
-import edu.fiuba.algo3.modelo.sections.SpecialZone;
 import edu.fiuba.algo3.modelo.sections.rows.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,7 +34,7 @@ public class MedicTest {
         closeCombat.discardCards();
         closeCombat.placeCard(medicCard);
 
-        assertTrue(closeCombat.containsCards(List.of(medicCard,unit1)));;
+        assertTrue(closeCombat.containsCards(List.of(medicCard,unit1)));
         assertTrue(discardPile.isEmpty());
     }
 
@@ -47,8 +45,8 @@ public class MedicTest {
         discardPile.addCard(specialCard1);
         closeCombat.placeCard(medicCard);
 
+        assertEquals(1,discardPile.getCardCount());
         assertTrue(closeCombat.containsCard(medicCard)); //CloseCombat queda solo con Medico
-        assertEquals(discardPile.getCardCount(),1);
     }
 
     @Test
@@ -103,8 +101,8 @@ public class MedicTest {
         discardPile.addCard(unit3);
         closeCombat.placeCard(medicCard);
 
+        assertEquals(2,discardPile.getCardCount());
         assertTrue(closeCombat.containsCards(List.of(unit1, medicCard)));
-        assertEquals(discardPile.getCardCount(),2);
     }
 
 }

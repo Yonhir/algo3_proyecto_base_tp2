@@ -58,7 +58,9 @@ public class SpecialZoneTest {
     public void setup() {
 
         discardPile1 = new DiscardPile();
+        discardPile1.setColor(new Blue());
         discardPile2 = new DiscardPile();
+        discardPile2.setColor(new Blue());
         deck = new Deck();
        // closeCombat = new CloseCombat(discardPile);
        // ranged = new Ranged(discardPile);
@@ -275,7 +277,7 @@ public class SpecialZoneTest {
     }
 
     @Test
-    public void testClearWeatherRemovesAllWeatherEffectsFromCloseCombat() {
+    public void testClearZoneWeatherRemovesAllWeatherEffectsFromCloseCombat() {
         // Arrange
         setupAllWeatherEffects();
         
@@ -289,7 +291,7 @@ public class SpecialZoneTest {
     }
 
     @Test
-    public void testClearWeatherRemovesAllWeatherEffectsFromRanged() {
+    public void testClearZoneWeatherRemovesAllWeatherEffectsFromRanged() {
         // Arrange
         setupAllWeatherEffects();
         
@@ -303,7 +305,7 @@ public class SpecialZoneTest {
     }
 
     @Test
-    public void testClearWeatherRemovesAllWeatherEffectsFromSiege() {
+    public void testClearZoneWeatherRemovesAllWeatherEffectsFromSiege() {
         // Arrange
         setupAllWeatherEffects();
         
@@ -359,7 +361,7 @@ public class SpecialZoneTest {
     }
 
     @Test
-    public void testClearWeatherRemovesEffectsFromBothPlayers() {
+    public void testClearZoneWeatherRemovesEffectsFromBothPlayers() {
         // Arrange
         player1CloseCombatRow.placeCard(player1Soldier, round);
         player1RangedRow.placeCard(player1Archer, round);
@@ -468,6 +470,7 @@ public class SpecialZoneTest {
     @Test
     public void testSeAplicaLaCartaScorchParaTodasLasFilas() {
         Scorch scorch = new Scorch("tierra", "arrasada", List.of(new CloseCombatType(), new RangedType(), new SiegeType()));
+        scorch.setColor(new Blue());
 
         player1CloseCombatRow.placeCard(player1Soldier, round);
         player1RangedRow.placeCard(player1Archer, round);

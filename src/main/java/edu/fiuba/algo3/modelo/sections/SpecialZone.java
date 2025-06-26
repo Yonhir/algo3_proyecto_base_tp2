@@ -11,7 +11,6 @@ import edu.fiuba.algo3.modelo.sections.rows.Ranged;
 import edu.fiuba.algo3.modelo.sections.rows.Siege;
 import edu.fiuba.algo3.modelo.sections.types.SpecialType;
 
-import java.io.DataInput;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,11 +62,11 @@ public class SpecialZone implements Section {
         }
     }
 
-
     public void addCard(Card card){
         this.weathersCards.add(card);
     }
-    public void clear(){
+
+    public void clearZone() {
         for(Card weather: weathersCards){
             aDiscardPile.addCardIfHasSameColor(weather);
             otherDicardPile.addCardIfHasSameColor(weather);
@@ -75,7 +74,6 @@ public class SpecialZone implements Section {
         weathersCards.clear();
         new ClearWeather("Clima Despejado", "Elimina todos los efectos de clima").play(this);
     }
-
 
     public void applyScorchInCloseCombat(Scorch scorch) {
         for (CloseCombat row : closeCombatRows) {
@@ -111,5 +109,8 @@ public class SpecialZone implements Section {
         applyScorchInCloseCombat(scorch);
         applyScorchInRanged(scorch);
         applyScorchInSiege(scorch);
+
+        aDiscardPile.addCardIfHasSameColor(scorch);
+        otherDicardPile.addCardIfHasSameColor(scorch);
     }
 }

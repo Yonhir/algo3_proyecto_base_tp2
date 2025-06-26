@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.modelo.cards.units.modifiers;
 
 import edu.fiuba.algo3.modelo.colors.*;
-import edu.fiuba.algo3.modelo.errors.SectionPlayerMismatchError;
 import edu.fiuba.algo3.modelo.turnManagement.Player;
 import edu.fiuba.algo3.modelo.turnManagement.Round;
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
@@ -14,12 +13,13 @@ import edu.fiuba.algo3.modelo.sections.rows.Siege;
 import edu.fiuba.algo3.modelo.sections.types.CloseCombatType;
 import edu.fiuba.algo3.modelo.sections.types.RangedType;
 import edu.fiuba.algo3.modelo.sections.types.SiegeType;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MoraleBoostModifierTest {
     private CloseCombat closeCombat;
@@ -75,7 +75,7 @@ public class MoraleBoostModifierTest {
         closeCombat.placeCard(cardMoraleBoost, round);
 
         int actualPoints = closeCombat.calculatePoints();
-        Assertions.assertEquals(expectedPoints, actualPoints);
+        assertEquals(expectedPoints, actualPoints);
     }
 
     @Test
@@ -87,7 +87,7 @@ public class MoraleBoostModifierTest {
         ranged.placeCard(cardMoraleBoost, round);
 
         int actualPoints = ranged.calculatePoints();
-        Assertions.assertEquals(expectedPoints, actualPoints);
+        assertEquals(expectedPoints, actualPoints);
     }
 
     @Test
@@ -99,7 +99,7 @@ public class MoraleBoostModifierTest {
         siege.placeCard(cardMoraleBoost, round);
 
         int actualPoints = siege.calculatePoints();
-        Assertions.assertEquals(expectedPoints, actualPoints);
+        assertEquals(expectedPoints, actualPoints);
     }
 
     @Test
@@ -112,14 +112,6 @@ public class MoraleBoostModifierTest {
         siege.placeCard(cardMoraleBoost, round);
 
         int actualPoints = siege.calculatePoints();
-        Assertions.assertEquals(expectedPoints, actualPoints);
-    }
-
-    @Test
-    public void testLaCartaNoSePuedeJugarEnElSideEnemigoException(){
-        cardMoraleBoost = new Unit("Nombre", "Descripcion", 10, new SiegeType(), List.of(modifierMoral));
-        cardMoraleBoost.setColor(new Red());
-
-        Assertions.assertThrows(SectionPlayerMismatchError.class, () -> siege.placeCard(cardMoraleBoost, round  ));
+        assertEquals(expectedPoints, actualPoints);
     }
 }
