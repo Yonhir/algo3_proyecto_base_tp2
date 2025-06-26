@@ -1,0 +1,19 @@
+@startuml
+
+skinparam monochrome true
+hide circle
+skinparam classAttributeIconSize 0
+
+
+abstract class SectionType
+class CloseCombatType
+class RangedType
+class SiegeType
+class SpecialType
+
+SectionType <|-- SpecialType
+SectionType <|-- CloseCombatType
+SectionType <|-- RangedType
+SectionType <|-- SiegeType
+
+@enduml

@@ -4,18 +4,12 @@ skinparam monochrome true
 hide circle
 skinparam classAttributeIconSize 0
 
-left to right direction
 
 
 interface Section <<interface>> {
   +placeCard(card: Card, round: Round): 
 }
 
-abstract class SectionType
-class CloseCombatType
-class RangedType
-class SiegeType
-class SpecialType
 
 abstract class Row <<abstract>> {
   #cards: List<Card>
@@ -44,17 +38,6 @@ abstract class Row <<abstract>> {
   +getCards(): List<Card>
 }
 
-class Ranged {
-  +Ranged(discardPile : DiscardPile)
-}
-
-class CloseCombat {
-  +CloseCombat(discardPile : DiscardPile)
-}
-
-class Siege {
-  +Siege(discardPile : DiscardPile)
-}
 
 class SpecialZone {
   -closeCombatRows: List<Row>
@@ -80,27 +63,13 @@ class SpecialZone {
 
 
 
-SpecialZone --> "6" Row
+SpecialZone -right-> "6" Row
 
-Row <|-- Ranged
-Row <|-- CloseCombat
-Row <|-- Siege
+
 
 
 Row ..|> Section
-SpecialZone ..|> Section
-
-SectionType <|-- SpecialType
-SectionType <|-- CloseCombatType
-SectionType <|-- RangedType
-SectionType <|-- SiegeType
-
-SpecialZone --> "1" SectionType
-Row --> "1" SectionType
-
-Ranged --> "1" RangedType
-CloseCombat --> "1" CloseCombatType
-Siege --> "1" SiegeType
+SpecialZone .up.|> Section
 
 
 
