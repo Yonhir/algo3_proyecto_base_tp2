@@ -31,7 +31,6 @@ public class GameTest {
     private Game game;
     private Player player1;
     private Player player2;
-    private DiscardPile discardPile;
 
     private SpecialZone specialZone;
     private CloseCombat player1CloseCombatRow;
@@ -144,4 +143,56 @@ public class GameTest {
         assertFalse(discardPile2.containsCard(unit1));
 
     }
+
+    @Test
+    public void testPartidaCompletaConGanador() {
+        //Arrange
+        Deck deck1 = new Deck();
+        Deck deck2 = new Deck();
+
+        Card cartaP1 = new Unit("Espadachín", "Fuerte", 10, new CloseCombatType(), new ArrayList<>());
+        cartaP1.setColor(new Blue());
+        deck1.addCard(cartaP1);
+
+        Card cartaP2 = new Unit("Ladrón", "Débil", 2, new CloseCombatType(), new ArrayList<>());
+        cartaP2.setColor(new Red());
+        deck2.addCard(cartaP2);
+
+        DiscardPile discardPile1 = new DiscardPile();
+        DiscardPile discardPile2 = new DiscardPile();
+
+        CloseCombat cc1 = new CloseCombat(discardPile1);
+        Ranged ranged1 = new Ranged(discardPile1);
+        Siege siege1 = new Siege(discardPile1);
+
+        CloseCombat cc2 = new CloseCombat(discardPile2);
+        Ranged ranged2 = new Ranged(discardPile2);
+        Siege siege2 = new Siege(discardPile2);
+
+        Player player1 = new Player("Jugador1", deck1, discardPile1, cc1, ranged1, siege1, new Blue());
+        Player player2 = new Player("Jugador2", deck2, discardPile2, cc2, ranged2, siege2, new Red());
+
+        SpecialZone specialZone = new SpecialZone(cc1, ranged1, siege1, cc2, ranged2, siege2, discardPile1, discardPile2);
+        Game game = new Game(player1, player2, specialZone);
+        Round round = game.getCurrentRound();
+
+        //Repartimos las cartas a la mano
+        player1.getHand().getNCardsFromDeck(deck1, 1);
+        player2.getHand().getNCardsFromDeck(deck2, 1);
+
+        //Turno jugador 1
+        player1.playCard(cartaP1, cc1, round);
+
+        //Turno jugador 2
+        player2.playCard(cartaP2, cc2, round);
+
+        // Ambos pasan
+        game.passRound();
+        game.passRound();
+
+        //Assert
+        assertEquals(1, player1.getRoundsWon());
+        assertEquals(0, player2.getRoundsWon());
+    }
+
 }
