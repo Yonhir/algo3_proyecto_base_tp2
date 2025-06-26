@@ -23,11 +23,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class CardTest {
     private final Deck deck = new Deck();
-    private DiscardPile discardPile;
 
     @BeforeEach
     void setUp() {
-        discardPile = new DiscardPile();
         List<Card> cards = Arrays.asList(
                 new Unit("Nombre", "Descripcion", 4, new CloseCombatType(), new ArrayList<>()),
                 new Unit("Nombre", "Descripcion", 5, new CloseCombatType(), new ArrayList<>()),
