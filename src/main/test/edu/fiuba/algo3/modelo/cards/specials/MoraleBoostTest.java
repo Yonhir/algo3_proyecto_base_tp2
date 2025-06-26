@@ -1,9 +1,15 @@
 package edu.fiuba.algo3.modelo.cards.specials;
 
+import edu.fiuba.algo3.modelo.cardcollections.Deck;
 import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
+import edu.fiuba.algo3.modelo.colors.Blue;
+import edu.fiuba.algo3.modelo.colors.Red;
+import edu.fiuba.algo3.modelo.errors.SectionPlayerMismatchError;
 import edu.fiuba.algo3.modelo.sections.rows.*;
 import edu.fiuba.algo3.modelo.sections.types.*;
+import edu.fiuba.algo3.modelo.turnManagement.Player;
+import edu.fiuba.algo3.modelo.turnManagement.Round;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -88,5 +94,16 @@ public class MoraleBoostTest {
         int actualPoints = siege.calculatePoints();
 
         Assertions.assertEquals(expectedPoints, actualPoints);
+    }
+
+    @Test
+    public void testLaCartaNoSePuedeJugarEnElSideEnemigoException(){
+        moraleBoost.setColor(new Blue());
+        siege.setColor(new Red());
+
+        Player player = new Player("player", new Deck(), new DiscardPile(), new CloseCombat(new DiscardPile()), new Ranged(new DiscardPile()), new Siege(new DiscardPile()), new Red());
+        Player player1 = new Player("player", new Deck(), new DiscardPile(), new CloseCombat(new DiscardPile()), new Ranged(new DiscardPile()), new Siege(new DiscardPile()), new Blue());
+
+        Assertions.assertThrows(SectionPlayerMismatchError.class, () -> siege.placeCard(moraleBoost, new Round(player, player1)));
     }
 }

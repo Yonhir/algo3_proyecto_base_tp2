@@ -112,12 +112,4 @@ public class MoraleBoostModifierTest {
         int actualPoints = siege.calculatePoints();
         Assertions.assertEquals(expectedPoints, actualPoints);
     }
-
-    @Test
-    public void testLaCartaNoSePuedeJugarEnElSideEnemigoException(){
-        cardMoraleBoost = new Unit("Nombre", "Descripcion", 10, new SiegeType(), List.of(modifierMoral));
-        cardMoraleBoost.setColor(new Red());
-
-        Assertions.assertThrows(SectionPlayerMismatchError.class, () -> siege.placeCard(cardMoraleBoost, round  ));
-    }
 }
