@@ -1,0 +1,64 @@
+@startuml
+
+skinparam monochrome true
+hide circle
+skinparam classAttributeIconSize 0
+
+abstract class Special <<abstract>> {
+  +Special(name: String, description: String, sectionTypes: List<SectionType>): Special
+  +verifyColor(color: PlayerColor)
+  +setColor(playerColor: PlayerColor)
+}
+
+class Scorch {
+  +play(section : Section)
+  +matchesStrongest(unit : Unit) : boolean
+  +burnStrongestCardFrom(card : Card, row : Row)
+  +saveStrongest(unit : Unit)
+}
+
+abstract class Weather <<abstract>> {
+  +Weather(name: String, description: String, sectionTypes: List<SectionType>): Weather
+  +{abstract}apply(card: Card, row: Row)
+}
+
+class TorrentialRain {
+  +TorrentialRain(name: String, description: String): TorrentialRain
+  +apply(card: Card, row: Row)
+  +play(section: Section)
+}
+
+class ImpenetrableFog {
+  +ImpenetrableFog(name: String, description: String): ImpenetrableFog
+  +apply(card: Card, row: Row)
+  +play(section: Section)
+}
+
+class BitingFrost {
+  +BitingFrost(name: String, description: String): BitingFrost
+  +apply(card: Card, row: Row)
+  +play(section: Section)
+}
+
+class ClearWeather {
+  +ClearWeather(name: String, description: String): ClearWeather
+  +apply(card: Card, row: Row)
+  +play(section: Section)
+}
+
+class MoraleBoost {
+  +MoraleBoost(name: String, description: String, sectionTypes: List<SectionType>): MoraleBoost
+  +verifyColor(color: PlayerColor)
+  +play(section: Section)
+}
+
+Special <|-- Scorch
+Special <|-- MoraleBoost
+Special <|-- Weather
+
+Weather <|-- ClearWeather
+Weather <|-- ImpenetrableFog
+Weather <|-- TorrentialRain
+Weather <|-- BitingFrost
+
+@enduml
