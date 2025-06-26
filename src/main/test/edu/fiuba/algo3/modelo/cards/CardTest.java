@@ -79,4 +79,11 @@ public class CardTest {
 
         assertThrows(SectionTypeMismatchError.class, () -> card.verifySectionType(ranged));
     }
+
+    @Test
+    public void testLaCartaSeCreaConElColorGreen() {
+        Card carta = new Unit("unidad", "comun", 5, new CloseCombatType(), List.of());
+
+        assertTrue(carta.haveSameColor(new Green()));
+    }
 }
