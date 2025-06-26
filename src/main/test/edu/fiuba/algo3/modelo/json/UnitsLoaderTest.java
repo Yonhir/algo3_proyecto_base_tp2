@@ -58,7 +58,7 @@ public class UnitsLoaderTest {
         loadedUnits = unitsLoader.loadFromResource(UNIDADES_JSON_PATH, playerDeck, playerHand, playerDiscardPile);
 
         // Assert
-        assertFalse(loadedUnits.isEmpty(), "Should load at least one unit from JSON");
+        assertFalse(loadedUnits.isEmpty());
     }
 
     @Test
@@ -68,7 +68,7 @@ public class UnitsLoaderTest {
         Unit barclayEls = findUnitByName("Barclay Els");
 
         // Assert
-        assertNotNull(barclayEls, "Barclay Els unit should be found");
+        assertNotNull(barclayEls);
     }
 
     @Test
@@ -78,7 +78,7 @@ public class UnitsLoaderTest {
         Unit barclayEls = findUnitByName("Barclay Els");
 
         // Assert
-        assertEquals(6, barclayEls.calculatePoints(), "Barclay Els should have 6 points");
+        assertEquals(6, barclayEls.calculatePoints());
     }
     
     @Test
@@ -88,7 +88,7 @@ public class UnitsLoaderTest {
         Unit barclayEls = findUnitByName("Barclay Els");
 
         // Assert
-        assertTrue(barclayEls.haveModifier(new Agile()), "Barclay Els should have Agile modifier");
+        assertTrue(barclayEls.haveModifier(new Agile()));
     }
     
     @Test
@@ -98,8 +98,7 @@ public class UnitsLoaderTest {
         Unit barclayEls = findUnitByName("Barclay Els");
 
         // Assert
-        assertDoesNotThrow(() -> barclayEls.verifySectionType(new CloseCombatType()),
-            "Barclay Els should be placeable in Close Combat section");
+        assertDoesNotThrow(() -> barclayEls.verifySectionType(new CloseCombatType()));
     }
     
     @Test
@@ -109,8 +108,7 @@ public class UnitsLoaderTest {
         Unit barclayEls = findUnitByName("Barclay Els");
 
         // Assert
-        assertDoesNotThrow(() -> barclayEls.verifySectionType(new RangedType()),
-            "Barclay Els should be placeable in Ranged section");
+        assertDoesNotThrow(() -> barclayEls.verifySectionType(new RangedType()));
     }
     
     @Test
@@ -120,7 +118,7 @@ public class UnitsLoaderTest {
         Unit berserker = findUnitByName("Berserker");
 
         // Assert
-        assertNotNull(berserker, "Berserker unit should be found");
+        assertNotNull(berserker);
     }
     
     @Test
@@ -130,7 +128,7 @@ public class UnitsLoaderTest {
         Unit berserker = findUnitByName("Berserker");
 
         // Assert
-        assertEquals(4, berserker.calculatePoints(), "Berserker should have 4 points");
+        assertEquals(4, berserker.calculatePoints());
     }
     
     @Test
@@ -140,7 +138,7 @@ public class UnitsLoaderTest {
         Unit berserker = findUnitByName("Berserker");
 
         // Assert
-        assertFalse(berserker.haveModifier(new Agile()), "Berserker should not have Agile modifier");
+        assertFalse(berserker.haveModifier(new Agile()));
     }
     
     @Test
@@ -150,7 +148,7 @@ public class UnitsLoaderTest {
         Unit geralt = findUnitByName("Geralt de Rivia");
 
         // Assert
-        assertNotNull(geralt, "Geralt de Rivia unit should be found");
+        assertNotNull(geralt);
     }
     
     @Test
@@ -160,7 +158,7 @@ public class UnitsLoaderTest {
         Unit geralt = findUnitByName("Geralt de Rivia");
 
         // Assert
-        assertEquals(15, geralt.calculatePoints(), "Geralt should have 15 points");
+        assertEquals(15, geralt.calculatePoints());
     }
     
     @Test
@@ -170,7 +168,7 @@ public class UnitsLoaderTest {
         Unit geralt = findUnitByName("Geralt de Rivia");
 
         // Assert
-        assertTrue(geralt.haveModifier(new Hero()), "Geralt should have Hero modifier");
+        assertTrue(geralt.haveModifier(new Hero()));
     }
 
     // ============================================================================
@@ -182,10 +180,9 @@ public class UnitsLoaderTest {
         // Act & Assert
         UnitsFileInvalid exception = assertThrows(UnitsFileInvalid.class, () -> {
             unitsLoader.loadFromResource(NON_EXISTENT_UNITS_PATH, playerDeck, playerHand, playerDiscardPile);
-        }, "Should throw UnitsFileInvalid when units file is not found");
+        });
         
-        assertEquals("Error reading or parsing file", exception.getMessage(), 
-            "Exception message should be 'Error reading or parsing file'");
+        assertEquals("Error reading or parsing file", exception.getMessage());
     }
     
     @Test
@@ -193,10 +190,9 @@ public class UnitsLoaderTest {
         // Act & Assert
         UnitsFileInvalid exception = assertThrows(UnitsFileInvalid.class, () -> {
             unitsLoader.loadFromResource(INVALID_UNITS_JSON_PATH, playerDeck, playerHand, playerDiscardPile);
-        }, "Should throw UnitsFileInvalid when units file contains invalid JSON data types");
+        });
         
-        assertEquals("Error converting data", exception.getMessage(), 
-            "Exception message should be 'Error converting data'");
+        assertEquals("Error converting data", exception.getMessage());
     }
 
     @Test
@@ -204,10 +200,9 @@ public class UnitsLoaderTest {
         // Act & Assert
         UnitsFileInvalid exception = assertThrows(UnitsFileInvalid.class, () -> {
             unitsLoader.loadFromResource(EMPTY_JSON_PATH, playerDeck, playerHand, playerDiscardPile);
-        }, "Should throw UnitsFileInvalid when units file is empty");
+        });
         
-        assertEquals("Error reading or parsing file", exception.getMessage(), 
-            "Exception message should be 'Error reading or parsing file'");
+        assertEquals("Error reading or parsing file", exception.getMessage());
     }
     
     @Test
@@ -215,10 +210,9 @@ public class UnitsLoaderTest {
         // Act & Assert
         UnitsFileInvalid exception = assertThrows(UnitsFileInvalid.class, () -> {
             unitsLoader.loadFromResource(INVALID_STRUCTURE_UNITS_JSON_PATH, playerDeck, playerHand, playerDiscardPile);
-        }, "Should throw UnitsFileInvalid when units file has invalid structure (JSONObject instead of JSONArray)");
+        });
         
-        assertEquals("Error reading or parsing file", exception.getMessage(),
-            "Exception message should be 'Error reading or parsing file'");
+        assertEquals("Error reading or parsing file", exception.getMessage());
     }
     
     // ============================================================================

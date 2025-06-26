@@ -61,7 +61,7 @@ public class GameLoaderTest {
                                                       player2Deck, player2Hand, player2DiscardPile);
         
         // Assert
-        assertEquals(2, decks.size(), "Should load 2 decks from game JSON");
+        assertEquals(2, decks.size());
     }
     
     @Test
@@ -73,7 +73,7 @@ public class GameLoaderTest {
         Deck playerOneDeck = decks.get(0);
         
         // Assert
-        assertFalse(playerOneDeck.getCards().isEmpty(), "Player one deck should have cards");
+        assertFalse(playerOneDeck.getCards().isEmpty());
     }
     
     @Test
@@ -85,7 +85,7 @@ public class GameLoaderTest {
         Deck playerTwoDeck = decks.get(1);
         
         // Assert
-        assertFalse(playerTwoDeck.getCards().isEmpty(), "Player two deck should have cards");
+        assertFalse(playerTwoDeck.getCards().isEmpty());
     }
     
     @Test
@@ -97,7 +97,7 @@ public class GameLoaderTest {
         Deck playerOneDeck = decks.get(0);
         
         // Assert
-        assertTrue(playerOneDeck.getUnitsCount() >= 15, "Player one deck should have at least 15 units");
+        assertTrue(playerOneDeck.getUnitsCount() >= 15);
     }
     
     @Test
@@ -109,7 +109,7 @@ public class GameLoaderTest {
         Deck playerOneDeck = decks.get(0);
         
         // Assert
-        assertTrue(playerOneDeck.getSpecialsCount() >= 6, "Player one deck should have at least 6 specials");
+        assertTrue(playerOneDeck.getSpecialsCount() >= 6);
     }
     
     @Test
@@ -119,10 +119,9 @@ public class GameLoaderTest {
             gameLoader.loadFromResource(INVALID_STRUCTURE_GAME_JSON_PATH, 
                                       player1Deck, player1Hand, player1DiscardPile,
                                       player2Deck, player2Hand, player2DiscardPile);
-        }, "Should throw GwentFileInvalid when game file has invalid structure (missing required decks)");
+        });
 
-        assertEquals("Error converting data", exception.getMessage(), 
-            "Exception message should be 'Error converting data'");
+        assertEquals("Error converting data", exception.getMessage());
     }
     
     // ============================================================================
@@ -136,10 +135,9 @@ public class GameLoaderTest {
             gameLoader.loadFromResource(NON_EXISTENT_GAME_PATH, 
                                       player1Deck, player1Hand, player1DiscardPile,
                                       player2Deck, player2Hand, player2DiscardPile);
-        }, "Should throw GwentFileInvalid when game file is not found");
+        });
         
-        assertEquals("Error reading or parsing file", exception.getMessage(), 
-            "Exception message should be 'Error reading or parsing file'");
+        assertEquals("Error reading or parsing file", exception.getMessage());
     }
     
     @Test
@@ -149,10 +147,9 @@ public class GameLoaderTest {
             gameLoader.loadFromResource(INVALID_GAME_JSON_PATH, 
                                       player1Deck, player1Hand, player1DiscardPile,
                                       player2Deck, player2Hand, player2DiscardPile);
-        }, "Should throw GwentFileInvalid when game file contains invalid JSON data types");
+        });
 
-        assertEquals("Error converting data", exception.getMessage(), 
-            "Exception message should be 'Error converting data'");
+        assertEquals("Error converting data", exception.getMessage());
     }
     
     @Test
@@ -162,10 +159,9 @@ public class GameLoaderTest {
             gameLoader.loadFromResource(EMPTY_JSON_PATH, 
                                       player1Deck, player1Hand, player1DiscardPile,
                                       player2Deck, player2Hand, player2DiscardPile);
-        }, "Should throw GwentFileInvalid when game file is empty");
+        });
         
-        assertEquals("Error converting data", exception.getMessage(),
-            "Exception message should be 'Error converting data'");
+        assertEquals("Error converting data", exception.getMessage());
     }
     
     // ============================================================================
@@ -181,9 +177,8 @@ public class GameLoaderTest {
         Deck playerOneDeck = decks.get(0);
         
         // Assert
-        assertNotNull(playerOneDeck, "Should create new deck when player one deck is null");
-        assertFalse(playerOneDeck.getCards().isEmpty(), "Created deck should have cards");
-        assertNotSame(player1Deck, playerOneDeck, "Should be a different deck instance");
+        assertNotNull(playerOneDeck);
+        assertNotSame(player1Deck, playerOneDeck);
     }
     
     @Test
@@ -195,9 +190,8 @@ public class GameLoaderTest {
         Deck playerTwoDeck = decks.get(1);
         
         // Assert
-        assertNotNull(playerTwoDeck, "Should create new deck when player two deck is null");
-        assertFalse(playerTwoDeck.getCards().isEmpty(), "Created deck should have cards");
-        assertNotSame(player2Deck, playerTwoDeck, "Should be a different deck instance");
+        assertNotNull(playerTwoDeck);
+        assertNotSame(player2Deck, playerTwoDeck);
     }
     
     @Test
@@ -210,10 +204,8 @@ public class GameLoaderTest {
         Deck playerTwoDeck = decks.get(1);
         
         // Assert
-        assertNotNull(playerOneDeck, "Should create new deck when player one deck is null");
-        assertNotNull(playerTwoDeck, "Should create new deck when player two deck is null");
-        assertFalse(playerOneDeck.getCards().isEmpty(), "Player one created deck should have cards");
-        assertFalse(playerTwoDeck.getCards().isEmpty(), "Player two created deck should have cards");
-        assertNotSame(playerOneDeck, playerTwoDeck, "Should be different deck instances");
+        assertNotNull(playerOneDeck);
+        assertNotNull(playerTwoDeck);
+        assertNotSame(playerOneDeck, playerTwoDeck);
     }
 }

@@ -48,7 +48,7 @@ public class SpecialsLoaderTest {
         List<Special> loadedSpecials = specialsLoader.loadFromResource(ESPECIALES_JSON_PATH);
         
         // Assert
-        assertFalse(loadedSpecials.isEmpty(), "Should load at least one special from JSON");
+        assertFalse(loadedSpecials.isEmpty());
     }
     
     @Test
@@ -57,7 +57,7 @@ public class SpecialsLoaderTest {
         List<Special> loadedSpecials = specialsLoader.loadFromResource(ESPECIALES_JSON_PATH);
         
         // Assert
-        assertEquals(7, loadedSpecials.size(), "Should load exactly 7 special cards from JSON");
+        assertEquals(7, loadedSpecials.size());
     }
     
     @Test
@@ -68,7 +68,7 @@ public class SpecialsLoaderTest {
         // Assert
         boolean foundScorchCard = loadedSpecials.stream()
                 .anyMatch(special -> special instanceof ScorchCard);
-        assertTrue(foundScorchCard, "Should load Scorch card (Quemar) from JSON");
+        assertTrue(foundScorchCard);
     }
 
     @Test
@@ -79,7 +79,7 @@ public class SpecialsLoaderTest {
         // Assert
         boolean foundMoraleBoostCard = loadedSpecials.stream()
                 .anyMatch(special -> special instanceof MoraleBoost);
-        assertTrue(foundMoraleBoostCard, "Should load Morale Boost card (Cuerno del comandante) from JSON");
+        assertTrue(foundMoraleBoostCard);
     }
 
     @Test
@@ -90,7 +90,7 @@ public class SpecialsLoaderTest {
         // Assert
         boolean foundBitingFrostCard = loadedSpecials.stream()
                 .anyMatch(special -> special instanceof BitingFrost);
-        assertTrue(foundBitingFrostCard, "Should load Biting Frost card (Escarcha mordaz) from JSON");
+        assertTrue(foundBitingFrostCard);
     }
     
     @Test
@@ -101,7 +101,7 @@ public class SpecialsLoaderTest {
         // Assert
         boolean foundImpenetrableFogCard = loadedSpecials.stream()
                 .anyMatch(special -> special instanceof ImpenetrableFog);
-        assertTrue(foundImpenetrableFogCard, "Should load Impenetrable Fog card (Niebla impenetrable) from JSON");
+        assertTrue(foundImpenetrableFogCard);
     }
     
     @Test
@@ -112,7 +112,7 @@ public class SpecialsLoaderTest {
         // Assert
         boolean foundTorrentialRainCard = loadedSpecials.stream()
                 .anyMatch(special -> special instanceof TorrentialRain);
-        assertTrue(foundTorrentialRainCard, "Should load Torrential Rain card (Lluvia torrencial) from JSON");
+        assertTrue(foundTorrentialRainCard);
     }
     
     @Test
@@ -123,7 +123,7 @@ public class SpecialsLoaderTest {
         // Assert
         boolean foundClearWeatherCard = loadedSpecials.stream()
                 .anyMatch(special -> special instanceof ClearWeather);
-        assertTrue(foundClearWeatherCard, "Should load Clear Weather card (Tiempo despejado) from JSON");
+        assertTrue(foundClearWeatherCard);
     }
     
     // ============================================================================
@@ -135,10 +135,9 @@ public class SpecialsLoaderTest {
         // Act & Assert
         SpecialsFileInvalid exception = assertThrows(SpecialsFileInvalid.class, () -> {
             specialsLoader.loadFromResource(NON_EXISTENT_SPECIALS_PATH);
-        }, "Should throw SpecialsFileInvalid when specials file is not found");
+        });
         
-        assertEquals("Error reading or parsing file", exception.getMessage(), 
-            "Exception message should be 'Error reading or parsing file'");
+        assertEquals("Error reading or parsing file", exception.getMessage());
     }
     
     @Test
@@ -146,10 +145,9 @@ public class SpecialsLoaderTest {
         // Act & Assert
         SpecialsFileInvalid exception = assertThrows(SpecialsFileInvalid.class, () -> {
             specialsLoader.loadFromResource(INVALID_SPECIALS_JSON_PATH);
-        }, "Should throw SpecialsFileInvalid when specials file contains invalid special card types");
+        });
         
-        assertEquals("Error converting data", exception.getMessage(), 
-            "Exception message should be 'Error converting data'");
+        assertEquals("Error converting data", exception.getMessage());
     }
     
     @Test
@@ -157,10 +155,9 @@ public class SpecialsLoaderTest {
         // Act & Assert
         SpecialsFileInvalid exception = assertThrows(SpecialsFileInvalid.class, () -> {
             specialsLoader.loadFromResource(EMPTY_JSON_PATH);
-        }, "Should throw SpecialsFileInvalid when specials file is empty");
+        });
         
-        assertEquals("Error reading or parsing file", exception.getMessage(), 
-            "Exception message should be 'Error reading or parsing file'");
+        assertEquals("Error reading or parsing file", exception.getMessage());
     }
     
     @Test
@@ -168,10 +165,9 @@ public class SpecialsLoaderTest {
         // Act & Assert
         SpecialsFileInvalid exception = assertThrows(SpecialsFileInvalid.class, () -> {
             specialsLoader.loadFromResource(INVALID_STRUCTURE_SPECIALS_JSON_PATH);
-        }, "Should throw SpecialsFileInvalid when specials file has invalid structure (JSONObject instead of JSONArray)");
+        });
         
-        assertEquals("Error reading or parsing file", exception.getMessage(),
-            "Exception message should be 'Error reading or parsing file'");
+        assertEquals("Error reading or parsing file", exception.getMessage());
     }
     
     @Test
@@ -179,9 +175,8 @@ public class SpecialsLoaderTest {
         // Act & Assert
         SpecialsFileInvalid exception = assertThrows(SpecialsFileInvalid.class, () -> {
             specialsLoader.loadFromResource(INVALID_WEATHER_NAME_JSON_PATH);
-        }, "Should throw SpecialsFileInvalid when weather card has an invalid name");
+        });
         
-        assertEquals("Error converting data", exception.getMessage(),
-            "Exception message should be 'Error converting data'");
+        assertEquals("Error converting data", exception.getMessage());
     }
 } 
