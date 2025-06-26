@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.modelo.sections;
 
+import edu.fiuba.algo3.modelo.cards.specials.Scorch;
+import edu.fiuba.algo3.modelo.cards.units.modifiers.Hero;
 import edu.fiuba.algo3.modelo.colors.*;
 import edu.fiuba.algo3.modelo.turnManagement.Player;
 import edu.fiuba.algo3.modelo.turnManagement.Round;
@@ -171,5 +173,42 @@ public class RowTest {
         ranged.discardCard(unidadConMoraleBoost);
 
         assertFalse(ranged.containsCard(unidadConMoraleBoost));
+    }
+
+    @Test
+    public void testSeBuscaLasCartaMasFuerteDelTableroSinConsiderarLasQueTienenModificadorHero() {
+        Unit unidadSinHero = new Unit("unidad", "sin hero", 5, new CloseCombatType(), List.of());
+        Unit unidadConHero = new Unit("unidad", "con hero", 8, new CloseCombatType(), List.of(new Hero()));
+        unidadSinHero.setColor(new Blue());
+        unidadConHero.setColor(new Blue());
+        Scorch tierraArrasada = new Scorch("nombre", "descripcion", List.of(new CloseCombatType(), new RangedType(), new SiegeType()));
+
+        closeCombat.placeCard(unidadSinHero, round);
+        closeCombat.placeCard(unidadConHero, round);
+
+        closeCombat.findStrongestCardWithoutHeroModifier(tierraArrasada);
+
+        assertTrue(tierraArrasada.matchesStrongest(unidadSinHero));
+    }
+
+    @Test
+    public void testSeObtienenTodasLasCartasFuertesSinCosiderarLasQueTienenModificadorHero() {
+        Unit unidadSinHero = new Unit("unidad", "sin hero", 5, new CloseCombatType(), List.of());
+        Unit otraUnidadSinHero = new Unit("unidad", "sin hero", 5, new CloseCombatType(), List.of());
+        Unit unidadConHero = new Unit("unidad", "con hero", 8, new CloseCombatType(), List.of(new Hero()));
+        Scorch tierraArrasada = new Scorch("nombre", "descripcion", List.of(new CloseCombatType(), new RangedType(), new SiegeType()));
+        unidadSinHero.setColor(new Blue());
+        unidadConHero.setColor(new Blue());
+        otraUnidadSinHero.setColor(new Blue());
+
+        closeCombat.placeCard(unidadSinHero, round);
+        closeCombat.placeCard(unidadConHero, round);
+        closeCombat.placeCard(otraUnidadSinHero, round);
+
+        closeCombat.findStrongestCardWithoutHeroModifier(tierraArrasada);
+        List<Card> esperadas = List.of(unidadSinHero, otraUnidadSinHero);
+        List<Card> obtenidas = closeCombat.findAllCardsWithoutHeroModifierWithSamePoints(tierraArrasada);
+
+        assertEquals(esperadas, obtenidas);
     }
 }
