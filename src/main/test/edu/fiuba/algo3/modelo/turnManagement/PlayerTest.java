@@ -170,12 +170,13 @@ public class PlayerTest {
     }
 
     @Test
-    public void HandAfterPlayingSomeCards() {
+    public void testVerificarQueLasCartasJugadasNoSeEncuentrenEnLaMano() {
         player.playCard(siegeCard, siege1, round);
         player.playCard(closeCombatCard, closeCombat1, round);
         player.playCard(rangedCard, ranged1, round);
 
-        assertFalse(player.getHand().containsCards(Arrays.asList(siegeCard, closeCombatCard, rangedCard)));
+        Hand hand = player.getHand();
+        assertFalse(hand.containsCards(Arrays.asList(siegeCard, closeCombatCard, rangedCard)));
     }
 
     @Test
