@@ -23,8 +23,8 @@ module edu.fiuba.algo3 {
     opens edu.fiuba.algo3.modelo.sections.rows;
     exports edu.fiuba.algo3.modelo.sections.types;
     opens edu.fiuba.algo3.modelo.sections.types;
-    exports edu.fiuba.algo3.modelo.Colors;
-    opens edu.fiuba.algo3.modelo.Colors;
+    exports edu.fiuba.algo3.modelo.colors;
+    opens edu.fiuba.algo3.modelo.colors;
     exports edu.fiuba.algo3.modelo.turnManagement;
     opens edu.fiuba.algo3.modelo.turnManagement;
 }

@@ -18,7 +18,7 @@ class Player {
   -closeCombat: CloseCombat
   -ranged: Ranged
   -siege: Siege
-  +Player(name: String, health: int, deck: Deck, discardPile : DiscardPile, closeCombat: CloseCombat, ranged: Ranged, siege: Siege, color : Color): Player
+  +Player(name: String, deck: Deck, discardPile : DiscardPile, closeCombat: CloseCombat, ranged: Ranged, siege: Siege, color : Color): Player
   +getDiscardPile(): DiscardPile
   +getHand(): Hand
   +calculatePoints(): int
@@ -96,7 +96,7 @@ abstract class Row <<abstract>> {
   +applyScorch(scorch : Scorch) : void
   +discardCard(card : Card, discardPile : DiscardPile) : void
   +findAllWithSamePoints(scorch : Scorch) : List<Card>
-  +findStrongestCard(scorch : Scorch) : void
+  +findStrongestCard() : Unit
 }
 
 class Ranged {
@@ -125,7 +125,7 @@ class SpecialZone {
   +applyScorchInCloseCombat(scorch : Scorch): void
   +applyScorchInRanged(scorch : Scorch): void
   +applyScorchInSiege(scorch : Scorch): void
-  +applyInAllRows(scorch : Scorch) : void
+  +applyScorchInAllRows(scorch : Scorch) : void
 }
 
 ' =====================
@@ -144,6 +144,7 @@ class Unit {
   -basePoints: int
   -currentPoints: int
   -modifiers: List<Modifier>
+  -hasHeroModifier : boolean
   +Unit(name: String, description: String, points: int, sectionTypes: List<SectionType>, modifiers: List<Modifier>): Unit
   +calculatePoints(): int
   +resetPoints(): void
@@ -152,6 +153,8 @@ class Unit {
   +play(section: Section): void
   +strongerThan(unit : Unit) : Unit
   +samePointsAs(unit : Unit) : boolean
+  +hasHeroAsModifier() : boolean
+  +heroModifier() : void
 }
 
 abstract class Special <<abstract>> {

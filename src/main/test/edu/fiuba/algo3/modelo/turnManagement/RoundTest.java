@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.modelo.turnManagement;
 
-import edu.fiuba.algo3.modelo.Colors.Blue;
-import edu.fiuba.algo3.modelo.Colors.Red;
+import edu.fiuba.algo3.modelo.colors.*;
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
 import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
@@ -51,6 +50,7 @@ public class RoundTest {
         player1 = new Player("nombre1", new Deck(), discardPile1, player1CloseCombatRow, player1RangedRow, player1SiegeRow, new Blue());
         player2 = new Player("nombre2", new Deck(), discardPile2, player2CloseCombatRow, player2RangedRow, player2SiegeRow, new Red());
         unidad = new Unit("Nombre", "Descripcion", 4, new CloseCombatType(), new ArrayList<>());
+        unidad.setColor(new Blue());
         round = new Round(player1, player2);
         specialZone = new SpecialZone(player1CloseCombatRow, player1RangedRow, player1SiegeRow,
                 player2CloseCombatRow, player2RangedRow, player2SiegeRow,

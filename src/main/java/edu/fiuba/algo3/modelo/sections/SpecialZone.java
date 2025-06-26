@@ -97,15 +97,15 @@ public class SpecialZone implements Section {
 
     public void applyScorchInAllRows(Scorch scorch) {
         for (CloseCombat row : closeCombatRows) {
-            row.findStrongestCard(scorch);
+            row.findStrongestCardWithoutHeroModifier(scorch);
         }
 
         for (Ranged row : rangedRows) {
-            row.findStrongestCard(scorch);
+            row.findStrongestCardWithoutHeroModifier(scorch);
         }
 
         for (Siege row : siegeRows) {
-            row.findStrongestCard(scorch);
+            row.findStrongestCardWithoutHeroModifier(scorch);
         }
 
         applyScorchInCloseCombat(scorch);

@@ -21,6 +21,7 @@ class Unit {
   -basePoints: int
   -currentPoints: int
   -modifiers: List<Modifier>
+  -hasHeroModifier : boolean
   +Unit(name: String, description: String, points: int, sectionTypes: List<SectionType>, modifiers: List<Modifier>): Unit
   +calculatePoints(): int
   +resetPoints(): void
@@ -29,6 +30,8 @@ class Unit {
   +play(section: Section): void
   +strongerThan(unit : Unit) : Unit
   +samePointsAs(unit : Unit) : boolean
+  +hasHeroAsModifier() : boolean
+  +heroModifier() : void
 }
 
 abstract class Special <<abstract>> {
