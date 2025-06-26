@@ -67,13 +67,16 @@ skinparam classAttributeIconSize 0
 
   class OnePassedState {
     -passedPlayer: Player
+    +OnePassedState()
     +OnePassedState(passedPlayer: Player)
   }
 
   class BothPlayingState {
+  +BothPlayingState()
   }
 
   class BothPassedState {
+  +BothPassedState()
   }
 
   ' Relaciones de implementación
@@ -86,4 +89,5 @@ skinparam classAttributeIconSize 0
   Round --> Player
   Game --> Player
   Game --> Round
+
 @enduml
