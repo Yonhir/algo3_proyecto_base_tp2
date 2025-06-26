@@ -4,11 +4,14 @@ module edu.fiuba.algo3 {
     requires json.simple;
     exports edu.fiuba.algo3;
     exports edu.fiuba.algo3.vistas;
+<<<<<<< issue-28
     exports edu.fiuba.algo3.vistas.components;
     exports edu.fiuba.algo3.controllers;
     opens edu.fiuba.algo3.controllers;
     exports edu.fiuba.algo3.modelo;
     opens edu.fiuba.algo3.modelo;
+=======
+>>>>>>> testing
     exports edu.fiuba.algo3.modelo.errors;
     opens edu.fiuba.algo3.modelo.errors;
     exports edu.fiuba.algo3.modelo.sections;
@@ -29,6 +32,8 @@ module edu.fiuba.algo3 {
     opens edu.fiuba.algo3.modelo.sections.rows;
     exports edu.fiuba.algo3.modelo.sections.types;
     opens edu.fiuba.algo3.modelo.sections.types;
-    exports edu.fiuba.algo3.modelo.Colors;
-    opens edu.fiuba.algo3.modelo.Colors;
+    exports edu.fiuba.algo3.modelo.colors;
+    opens edu.fiuba.algo3.modelo.colors;
+    exports edu.fiuba.algo3.modelo.turnManagement;
+    opens edu.fiuba.algo3.modelo.turnManagement;
 }

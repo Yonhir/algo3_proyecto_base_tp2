@@ -14,4 +14,8 @@ public class Hand extends CardCollection{
         List<Card> cards = deck.retrieveNRandomCards(n);
         insertCards(cards);
     }
+
+    public boolean containsCards(List<Card> cards) {
+        return this.cards.containsAll(cards);
+    }
 }

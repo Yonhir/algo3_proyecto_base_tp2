@@ -1,0 +1,84 @@
+@startuml
+
+skinparam monochrome true
+hide circle
+skinparam classAttributeIconSize 0
+
+interface RoundState <<interface>> {
+    +playCard(round: Round)
+    +passTurn(round: Round, game: Game)
+}
+
+
+class Game {
+    -player1: Player
+    -player2: Player
+    -currentRound: Round
+    +Game(player1: Player, player2: Player)
+    +startNewRound()
+    +passRound()
+    +isGameOver(): boolean
+    +getGameWinner(): Player
+    +clearBoard()
+    +isDraw(): boolean
+}
+
+class Round {
+    -player1: Player
+    -player2: Player
+    -currentPlayer: Player
+    -opponentPlayer: Player
+    -state: RoundState
+    +Round(player1: Player, player2: Player)
+    +getCurrentPlayer(): Player
+    +getOpponent(): Player
+    +setState(state: RoundState)
+    +playerPlayedCard()
+    +passTurn(game: Game)
+    +assignVictory()
+    +swapPlayers()
+    +getState(): RoundState
+}
+
+class Player {
+    -name: String
+    -discardPile: DiscardPile
+    -hand: Hand
+    -deck: Deck
+    -closeCombat: CloseCombat
+    -ranged: Ranged
+    -siege: Siege
+    -roundsWon: int
+    +Player(name: String, deck: Deck, closeCombat: CloseCombat, ranged: Ranged, siege: Siege, color: Color)
+    +getDiscardPile(): DiscardPile
+    +getHand(): Hand
+    +calculatePoints(): int
+    +playCard(card: Card, row: Row, round: Round)
+    +winRound()
+    +hasWonGame(): boolean
+    +getRoundsWon(): int
+    +discardAllRows()
+    +assignRoundVictoryToBetterPlayer(other: Player)
+    +getWinnerAgainst(other: Player): Player
+}
+
+class BothPlayingState {
+}
+
+class OnePassedState {
+    -passedPlayer: Player
+    +OnePassedState(passedPlayer: Player)
+}
+
+class BothPassedState {
+}
+
+Game --> Round
+Game --> Player
+Round --> Player
+Round --> RoundState
+RoundState <|.. BothPlayingState
+RoundState <|.. OnePassedState
+RoundState <|.. BothPassedState
+
+@enduml

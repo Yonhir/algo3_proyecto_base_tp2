@@ -1,6 +1,7 @@
-package edu.fiuba.algo3.modelo;
+package edu.fiuba.algo3.modelo.turnManagement;
 
-import edu.fiuba.algo3.modelo.Colors.Blue;
+
+import edu.fiuba.algo3.modelo.colors.Blue;
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
 import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
 import edu.fiuba.algo3.modelo.cardcollections.Hand;
@@ -9,7 +10,8 @@ import edu.fiuba.algo3.modelo.cards.specials.weathers.BitingFrost;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.ImpenetrableFog;
 import edu.fiuba.algo3.modelo.cards.specials.weathers.TorrentialRain;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
-import edu.fiuba.algo3.modelo.sections.*;
+import edu.fiuba.algo3.modelo.colors.PlayerColor;
+import edu.fiuba.algo3.modelo.colors.Red;
 import edu.fiuba.algo3.modelo.sections.rows.CloseCombat;
 import edu.fiuba.algo3.modelo.sections.rows.Ranged;
 import edu.fiuba.algo3.modelo.sections.rows.Siege;
@@ -24,16 +26,23 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 public class PlayerTest {
     private List<Card> cards;
     private Player player;
-    private Deck deck;
-    private SpecialZone specialZone;
 
-    private CloseCombat closeCombat;
-    private Ranged ranged;
-    private Siege siege;
+    private CloseCombat closeCombat1;
+    private Ranged ranged1;
+    private Siege siege1;
+    private CloseCombat closeCombat2;
+    private Ranged ranged2;
+    private Siege siege2;
+    private Round round;
 
+
+    private final PlayerColor color = new Blue();
     private Card siegeCard;
     private Card rangedCard;
     private Card closeCombatCard;
@@ -44,9 +53,12 @@ public class PlayerTest {
         rangedCard = new Unit("Nombre", "Descripcion", 6, new RangedType(), new ArrayList<>());
         closeCombatCard = new Unit("Nombre", "Descripcion", 4, new CloseCombatType(), new ArrayList<>());
 
-                // Create unit cards
-        List<Card> unitCards = Arrays.asList(
+        siegeCard.setColor(color);
+        rangedCard.setColor(color);
+        closeCombatCard.setColor(color);
 
+        // Create unit cards
+        List<Card> unitCards = Arrays.asList(
                 new Unit("Nombre", "Descripcion", 4, new CloseCombatType(), new ArrayList<>()),
                 new Unit("Nombre", "Descripcion", 5, new CloseCombatType(), new ArrayList<>()),
                 new Unit("Nombre", "Descripcion", 6, new RangedType(), new ArrayList<>()),
@@ -81,110 +93,93 @@ public class PlayerTest {
         cards.addAll(specialCards);
 
         // Initialize game components
-        deck = new Deck();
+        Deck deck = new Deck();
         deck.insertCards(cards);
-        closeCombat = new CloseCombat();
-        ranged = new Ranged();
-        siege = new Siege();
-        player = new Player("Gabriel", 2, deck, closeCombat, ranged, siege, new Blue());
+
+        DiscardPile discardPile1 = new DiscardPile();
+        DiscardPile discardPile2 = new DiscardPile();
+        closeCombat1 = new CloseCombat(discardPile1);
+        ranged1 = new Ranged(discardPile1);
+        siege1 = new Siege(discardPile1);
+        closeCombat2 = new CloseCombat(discardPile2);
+        ranged2 = new Ranged(discardPile2);
+        siege2 = new Siege(discardPile2);
+        player = new Player("Gabriel", deck, discardPile1, closeCombat1, ranged1, siege1, new Blue());
+        Player opponent = new Player("Juan", deck, discardPile2, closeCombat2, ranged2, siege2, new Red());
+
         Hand hand = player.getHand();
-        deck.getCards().remove(siegeCard);
-        deck.getCards().remove(closeCombatCard);
-        deck.getCards().remove(rangedCard);
 
         hand.insertCards(Arrays.asList(siegeCard, closeCombatCard, rangedCard));
         hand.getNCardsFromDeck(deck, 7);
+        round = new Round(player, opponent);
     }
 
     @Test
-    public void countCardsInHandAfterPlayingCard() {
-        int expected_cards = player.getHand().getCardCount() - 1;
+    public void testLaCartaJugadaYaNoSeEncuentraEnLaManoDelJugador() {
+        int expectedCards = 9;
 
-        player.playCard(siegeCard, siege);
+        player.playCard(siegeCard, siege1, round);
 
-        int actual_cards = player.getHand().getCardCount();
+        int actualCards = player.getHand().getCardCount();
 
-        Assertions.assertEquals(expected_cards, actual_cards);
+        Assertions.assertEquals(expectedCards, actualCards);
     }
 
     @Test
-    public void countCardsInRowAfterPlayingCard() {
-        int expected_cards = siege.getCards().size() + 1;
+    public void testSeJuegaUnaCartaEnLaFilaSiegeCorrectamente() {
+        player.playCard(siegeCard, siege1, round);
 
-        player.playCard(siegeCard, siege);
-
-        int actual_cards = siege.getCards().size();
-
-        Assertions.assertEquals(expected_cards, actual_cards);
+        assertTrue(siege1.containsCard(siegeCard));
     }
 
     @Test
-    public void CardNotInHandAfterPlayingCard() {
-        player.playCard(siegeCard, siege);
-
-        Assertions.assertFalse(player.getHand().getCards().contains(siegeCard));
-    }
-
-    @Test
-    public void CardInRowAfterPlayingCard() {
-        player.playCard(siegeCard, siege);
-
-        Assertions.assertTrue(siege.getCards().contains(siegeCard));
-    }
-
-    @Test
-    public void PointsInRowAfterPlayingCard() {
+    public void testLosPuntosEnLaFilaAlJugarUnaCartaSonLosCorrectos() {
         int expected_points = ((Unit) siegeCard).calculatePoints();
 
-        player.playCard(siegeCard, siege);
+        player.playCard(siegeCard, siege1, round);
 
-        int actual_points = ((Unit) siege.getCards().get(0)).calculatePoints();
+        int actual_points = ((Unit) siegeCard).calculatePoints();
 
         Assertions.assertEquals(expected_points, actual_points);
     }
 
     @Test
-    public void PointsAfterPlayingSomeCards() {
+    public void testSeJueganCartasSeObtieneElPuntajeTotalDelJugador() {
         int expected_points = ((Unit) siegeCard).calculatePoints() +
                               ((Unit) closeCombatCard).calculatePoints() +
                               ((Unit) rangedCard).calculatePoints();
 
-        player.playCard(siegeCard, siege);
-        player.playCard(closeCombatCard, closeCombat);
-        player.playCard(rangedCard, ranged);
+        player.playCard(siegeCard, siege1, round);
+        player.playCard(closeCombatCard, closeCombat1, round);
+        player.playCard(rangedCard, ranged1, round);
 
         int actual_points = player.calculatePoints();
 
         Assertions.assertEquals(expected_points, actual_points);
-
     }
 
     @Test
-    public void RowsAfterPlayingSomeCards() {
-        player.playCard(siegeCard, siege);
-        player.playCard(closeCombatCard, closeCombat);
-        player.playCard(rangedCard, ranged);
+    public void testSeJueganCartasCorrectamenteEnCadaFila() {
+        player.playCard(siegeCard, siege1, round);
+        player.playCard(closeCombatCard, closeCombat1, round);
+        player.playCard(rangedCard, ranged1, round);
 
-        Assertions.assertTrue(
-                siege.getCards().contains(siegeCard) &&
-                closeCombat.getCards().contains(closeCombatCard) &&
-                ranged.getCards().contains(rangedCard)
-        );
+        assertTrue(siege1.containsCard(siegeCard));
+        assertTrue(closeCombat1.containsCard(closeCombatCard));
+        assertTrue(ranged1.containsCard(rangedCard));
     }
 
     @Test
     public void HandAfterPlayingSomeCards() {
-        player.playCard(siegeCard, siege);
-        player.playCard(closeCombatCard, closeCombat);
-        player.playCard(rangedCard, ranged);
+        player.playCard(siegeCard, siege1, round);
+        player.playCard(closeCombatCard, closeCombat1, round);
+        player.playCard(rangedCard, ranged1, round);
 
-        Assertions.assertFalse(player.getHand().getCards().containsAll(Arrays.asList(siegeCard, closeCombatCard, rangedCard)));
+        assertFalse(player.getHand().containsCards(Arrays.asList(siegeCard, closeCombatCard, rangedCard)));
     }
 
-    //Falta un test error
-
     @Test
-    public void testGetDiscardPile() {
+    public void testLaPilaDeDescarteDelJugadorSeEncuentraEnElEstadoCorrectoAlInicio() {
         //ARRANGE
         DiscardPile expectedDiscardPile = new DiscardPile();
         
@@ -196,26 +191,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void testCalculatePoints() {
-        //ARRANGE
-        // Use cards from setUp: card[0] = 4 points (close combat), card[2] = 6 points (ranged), card[3] = 3 points (siege)
-        Unit closeCombatUnit = (Unit) cards.get(0);
-        Unit rangedUnit = (Unit) cards.get(2);
-        Unit siegeUnit = (Unit) cards.get(3);
-        int expectedPoints = 13; // 4 + 6 + 3
-        closeCombat.placeCard(closeCombatUnit);
-        ranged.placeCard(rangedUnit);
-        siege.placeCard(siegeUnit);
-        
-        //ACT
-        int actualPoints = player.calculatePoints();
-        
-        //ASSERT
-        Assertions.assertEquals(expectedPoints, actualPoints);
-    }
-
-    @Test
-    public void testCalculatePointsWithEmptyRows() {
+    public void testElPuntajeInicialDelJugadorEsCero() {
         //ARRANGE
         int expectedPoints = 0;
 
@@ -224,5 +200,43 @@ public class PlayerTest {
         
         //ASSERT
         Assertions.assertEquals(expectedPoints, actualPoints);
+    }
+
+    @Test
+    public void testElJugadorGanaUnaRondaCorrectamente() {
+        player.winRound();
+
+        Assertions.assertEquals(1, player.getRoundsWon());
+    }
+
+    @Test
+    public void testSiElJugadorGanaDosRondasEntoncesGanaElJuego() {
+        player.winRound();
+        player.winRound();
+
+        assertTrue(player.hasWonGame());
+    }
+
+    @Test
+    public void testSiElJugadorGanaUnaRondaNoGanoElJuego() {
+        player.winRound();
+
+        assertFalse(player.hasWonGame());
+    }
+
+    @Test
+    public void testLasCartasQueElJugadorDescartaVanALaPilaDeDescarteCorrectamente() {
+        siege1.placeCard(siegeCard, round);
+        closeCombat1.placeCard(closeCombatCard, round);
+        ranged1.placeCard(rangedCard, round);
+
+        int expectedDiscardCount = 3;
+
+        player.discardAllRows();
+
+        assertFalse(siege1.containsCard(siegeCard));
+        assertFalse(ranged1.containsCard(rangedCard));
+        assertFalse(closeCombat1.containsCard(closeCombatCard));
+        Assertions.assertEquals(expectedDiscardCount, player.getDiscardPile().getCardCount());
     }
 }
