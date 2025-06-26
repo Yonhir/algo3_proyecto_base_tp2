@@ -8,7 +8,7 @@ left to right direction
 
 
 interface Section <<interface>> {
-  +placeCard(card: Card, round: Round): void
+  +placeCard(card: Card, round: Round): 
 }
 
 abstract class SectionType
@@ -25,20 +25,20 @@ abstract class Row <<abstract>> {
   #discardPile : DiscardPile
   #playerColor: PlayerColor
   +Row(sectionType: SectionType, discardPile: DiscardPile): Row
-  +placeCard(card: Card, round: Round): void
-  +placeCard(card: Card): void
-  +addCard(card: Card): void
-  +applyWeather(weather: Weather): void
-  +applyScorch(scorch: Scorch): void
-  +findStrongestCardWithoutHeroModifier(scorch: Scorch): void
+  +placeCard(card: Card, round: Round): 
+  +placeCard(card: Card): 
+  +addCard(card: Card): 
+  +applyWeather(weather: Weather): 
+  +applyScorch(scorch: Scorch): 
+  +findStrongestCardWithoutHeroModifier(scorch: Scorch): 
   +findAllCardsWithoutHeroModifierWithSamePoints(scorch: Scorch): List<Card>
-  +discardCards(card: Card): void
+  +discardCards(card: Card): 
   +containsCard(card: Card): boolean
   +containsCards(cards: List<Card>): boolean
   +calculatePoints(): int
-  +discardCards() : void
+  +discardCards() : 
   +getLastCard(): Unit
-  +serColor(playerColor: PlayerColor): void
+  +serColor(playerColor: PlayerColor): 
   +haveSameSectionType(card: Card): boolean
   +getCardCount(): int
   +getCards(): List<Card>
@@ -66,16 +66,16 @@ class SpecialZone {
   -sectionType: SpecialType
   +SpecialZone(closeCombat1: CloseCombat, ranged1: Ranged, siege1: Siege, 
   closeCombat2: CloseCombat, ranged2: Ranged, siege2: Siege, discardPile1: DiscardPile, discardPile2: DiscardPile) 
-  +placeCard(card: Card, round: Round): void
-  +addCard(card: Card): void
-  +clearZone(): void
-  +applyCloseCombatWeather(weather: Weather): void
-  +applyRangedWeather(weather: Weather): void
-  +applySiegeWeather(weather: Weather): void
-  +applyScorchInCloseCombat(scorch : Scorch): void
-  +applyScorchInRanged(scorch : Scorch): void
-  +applyScorchInSiege(scorch : Scorch): void
-  +applyScorchInAllRows(scorch : Scorch) : void
+  +placeCard(card: Card, round: Round): 
+  +addCard(card: Card): 
+  +clearZone(): 
+  +applyCloseCombatWeather(weather: Weather): 
+  +applyRangedWeather(weather: Weather): 
+  +applySiegeWeather(weather: Weather): 
+  +applyScorchInCloseCombat(scorch : Scorch): 
+  +applyScorchInRanged(scorch : Scorch): 
+  +applyScorchInSiege(scorch : Scorch): 
+  +applyScorchInAllRows(scorch : Scorch) : 
 }
 
 
