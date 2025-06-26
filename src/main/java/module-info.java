@@ -4,14 +4,11 @@ module edu.fiuba.algo3 {
     requires json.simple;
     exports edu.fiuba.algo3;
     exports edu.fiuba.algo3.vistas;
-<<<<<<< issue-28
     exports edu.fiuba.algo3.vistas.components;
     exports edu.fiuba.algo3.controllers;
     opens edu.fiuba.algo3.controllers;
     exports edu.fiuba.algo3.modelo;
     opens edu.fiuba.algo3.modelo;
-=======
->>>>>>> testing
     exports edu.fiuba.algo3.modelo.errors;
     opens edu.fiuba.algo3.modelo.errors;
     exports edu.fiuba.algo3.modelo.sections;
