@@ -26,12 +26,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PlayerTest {
     private List<Card> cards;
     private Player player;
+    private Player opponent;
 
     private CloseCombat closeCombat1;
     private Ranged ranged1;
@@ -105,7 +105,7 @@ public class PlayerTest {
         ranged2 = new Ranged(discardPile2);
         siege2 = new Siege(discardPile2);
         player = new Player("Gabriel", deck, discardPile1, closeCombat1, ranged1, siege1, new Blue());
-        Player opponent = new Player("Juan", deck, discardPile2, closeCombat2, ranged2, siege2, new Red());
+        opponent = new Player("Juan", deck, discardPile2, closeCombat2, ranged2, siege2, new Red());
 
         Hand hand = player.getHand();
 
@@ -122,7 +122,7 @@ public class PlayerTest {
 
         int actualCards = player.getHand().getCardCount();
 
-        Assertions.assertEquals(expectedCards, actualCards);
+        assertEquals(expectedCards, actualCards);
     }
 
     @Test
@@ -140,7 +140,7 @@ public class PlayerTest {
 
         int actual_points = ((Unit) siegeCard).calculatePoints();
 
-        Assertions.assertEquals(expected_points, actual_points);
+        assertEquals(expected_points, actual_points);
     }
 
     @Test
@@ -155,7 +155,7 @@ public class PlayerTest {
 
         int actual_points = player.calculatePoints();
 
-        Assertions.assertEquals(expected_points, actual_points);
+        assertEquals(expected_points, actual_points);
     }
 
     @Test
@@ -170,7 +170,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void HandAfterPlayingSomeCards() {
+    public void testNoQuedanEnLaManoDelJugadorLasCartasJugadas() {
         player.playCard(siegeCard, siege1, round);
         player.playCard(closeCombatCard, closeCombat1, round);
         player.playCard(rangedCard, ranged1, round);
@@ -187,7 +187,7 @@ public class PlayerTest {
         DiscardPile actualDiscardPile = player.getDiscardPile();
         
         //ASSERT
-        Assertions.assertEquals(expectedDiscardPile.getCardCount(), actualDiscardPile.getCardCount());
+        assertEquals(expectedDiscardPile.getCardCount(), actualDiscardPile.getCardCount());
     }
 
     @Test
@@ -199,14 +199,14 @@ public class PlayerTest {
         int actualPoints = player.calculatePoints();
         
         //ASSERT
-        Assertions.assertEquals(expectedPoints, actualPoints);
+        assertEquals(expectedPoints, actualPoints);
     }
 
     @Test
     public void testElJugadorGanaUnaRondaCorrectamente() {
         player.winRound();
 
-        Assertions.assertEquals(1, player.getRoundsWon());
+        assertEquals(1, player.getRoundsWon());
     }
 
     @Test
@@ -237,6 +237,31 @@ public class PlayerTest {
         assertFalse(siege1.containsCard(siegeCard));
         assertFalse(ranged1.containsCard(rangedCard));
         assertFalse(closeCombat1.containsCard(closeCombatCard));
-        Assertions.assertEquals(expectedDiscardCount, player.getDiscardPile().getCardCount());
+        assertEquals(expectedDiscardCount, player.getDiscardPile().getCardCount());
+    }
+
+    @Test
+    public void testSeAsignaGanadorDeLaRondaAlJugadorCorrecto() {
+        closeCombat1.placeCard(closeCombatCard);
+        closeCombat2.placeCard(new Unit("Nombre", "Descripcion", 2, new CloseCombatType(), new ArrayList<>()));
+
+        player.assignRoundVictoryToBetterPlayer(opponent);
+
+        assertEquals(1, player.getRoundsWon());
+    }
+
+    @Test
+    public void testSeObtieneElGanadorDelJuegoCorrecto() {
+        closeCombat1.placeCard(closeCombatCard);
+        closeCombat2.placeCard(new Unit("Nombre", "Descripcion", 2, new CloseCombatType(), new ArrayList<>()));
+
+        player.assignRoundVictoryToBetterPlayer(opponent);
+
+        ranged1.placeCard(rangedCard);
+        ranged2.placeCard(new Unit("Nombre", "Descripcion", 4, new RangedType(), new ArrayList<>()));
+
+        player.assignRoundVictoryToBetterPlayer(opponent);
+
+        assertEquals(player, player.chooseWinnerAgainst(opponent));
     }
 }
