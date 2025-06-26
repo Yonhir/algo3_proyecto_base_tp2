@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.cards;
 
+import edu.fiuba.algo3.modelo.colors.Green;
 import edu.fiuba.algo3.modelo.errors.SectionTypeMismatchError;
 import edu.fiuba.algo3.modelo.sections.Section;
 import edu.fiuba.algo3.modelo.sections.types.SectionType;
@@ -16,6 +17,7 @@ public abstract class Card {
     protected final List<SectionType> sectionTypes;
 
     public Card(String name, String description, List<SectionType> sectionTypes) {
+        this.playerColor = new Green();
         this.name = name;
         this.description = description;
         this.sectionTypes = sectionTypes;

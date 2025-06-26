@@ -155,10 +155,10 @@ public class GameTest {
         Card cartaFuerte2 = new Unit("Arquero", "Fuerte", 9, new RangedType(), new ArrayList<>());
         Card cartaDebil1 = new Unit("debilucho1", "Débil", 2, new CloseCombatType(), new ArrayList<>());
         Card cartaDebil2 = new Unit("debilucho2", "Débil", 1, new RangedType(), new ArrayList<>());
-        cartaFuerte1.setColor(new Blue());
-        cartaFuerte2.setColor(new Blue());
-        cartaDebil1.setColor(new Red());
-        cartaDebil2.setColor(new Red());
+//        cartaFuerte1.setColor(new Blue());
+//        cartaFuerte2.setColor(new Blue());
+//        cartaDebil1.setColor(new Red());
+//        cartaDebil2.setColor(new Red());
 
         deck1.insertCardsInOrder(Arrays.asList(cartaFuerte1, cartaFuerte2));
         deck2.insertCardsInOrder(Arrays.asList(cartaDebil1, cartaDebil2));
