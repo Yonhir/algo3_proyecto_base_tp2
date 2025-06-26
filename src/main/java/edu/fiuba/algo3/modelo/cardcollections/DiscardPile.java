@@ -2,13 +2,14 @@ package edu.fiuba.algo3.modelo.cardcollections;
 
 import edu.fiuba.algo3.modelo.cards.Card;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
+import edu.fiuba.algo3.modelo.colors.PlayerColor;
 import edu.fiuba.algo3.modelo.errors.NotUnitCardError;
-import edu.fiuba.algo3.modelo.errors.SectionTypeMismatchError;
 import edu.fiuba.algo3.modelo.sections.rows.Row;
 
 import java.util.List;
 
 public class DiscardPile extends CardCollection {
+    private PlayerColor color;
 
     @Override
     public void addCard(Card card) {
@@ -23,7 +24,6 @@ public class DiscardPile extends CardCollection {
         for (Card c : cards) {
             addCard(c);
         }
-
     }
 
     public Card getLastCard() {
@@ -32,6 +32,16 @@ public class DiscardPile extends CardCollection {
         }
         int lastCard = (cards.size() - 1);
         return cards.remove(lastCard);
+    }
+
+    public void setColor(PlayerColor color){
+        this.color = color;
+    }
+
+    public void addCardIfHasSameColor(Card card){
+         if (card.haveSameColor(color)){
+             addCard(card);
+         }
     }
 
     public Card getLastUnitCardFromType(Row row){
@@ -44,5 +54,4 @@ public class DiscardPile extends CardCollection {
         }
        throw new NotUnitCardError("No unit card found in discard pile");
     }
-
 }

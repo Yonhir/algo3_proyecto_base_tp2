@@ -23,6 +23,7 @@ public class Player {
     private void setColor(PlayerColor playerColor) {
         setColorToCards(playerColor);
         setColorToRows(playerColor);
+        setColorDiscardPile(playerColor);
     }
 
     private void setColorToRows(PlayerColor playerColor) {
@@ -33,6 +34,10 @@ public class Player {
 
     private void setColorToCards(PlayerColor playerColor) {
         deck.setColorToCards(playerColor);
+    }
+    
+    private void setColorDiscardPile(PlayerColor color){
+        discardPile.setColor(color);
     }
 
     public Player(String name, Deck deck, DiscardPile discardPile, CloseCombat closeCombat, Ranged ranged, Siege siege, PlayerColor playerColor) {

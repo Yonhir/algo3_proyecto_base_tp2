@@ -36,6 +36,13 @@ public abstract class Card {
         return sectionTypes.stream().anyMatch(type -> type.getClass().equals(sectionType.getClass()));
     }
 
+    public boolean haveSameColor(PlayerColor color){
+        return this.playerColor.equals(color);
+    }
 
     public abstract void verifyColor(PlayerColor playerColor);
+
+    public String getName() {
+        return name;
+    }
 }

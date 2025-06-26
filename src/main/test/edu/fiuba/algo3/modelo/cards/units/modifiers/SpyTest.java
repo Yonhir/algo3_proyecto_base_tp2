@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.cards.units.modifiers;
 
+
 import edu.fiuba.algo3.modelo.colors.*;
 import edu.fiuba.algo3.modelo.turnManagement.Player;
 import edu.fiuba.algo3.modelo.turnManagement.Round;
@@ -17,6 +18,7 @@ import edu.fiuba.algo3.modelo.sections.types.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.security.interfaces.DSAKey;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -35,6 +37,7 @@ public class SpyTest {
     private Round round;
 
     private List<Card> cards;
+    private DiscardPile discardPile;
     @BeforeEach
     void setUp(){
         DiscardPile discardPile1 = new DiscardPile();
@@ -109,4 +112,5 @@ public class SpyTest {
 
         assertEquals(expectedCardsInHand, deck.getCardCount());
     }
+
 }

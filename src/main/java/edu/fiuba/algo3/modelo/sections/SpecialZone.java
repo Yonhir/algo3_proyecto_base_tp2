@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.modelo.sections;
 
+import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
+import edu.fiuba.algo3.modelo.cards.specials.weathers.ClearWeather;
 import edu.fiuba.algo3.modelo.turnManagement.Round;
 import edu.fiuba.algo3.modelo.cards.Card;
 import edu.fiuba.algo3.modelo.cards.specials.Scorch;
@@ -9,6 +11,7 @@ import edu.fiuba.algo3.modelo.sections.rows.Ranged;
 import edu.fiuba.algo3.modelo.sections.rows.Siege;
 import edu.fiuba.algo3.modelo.sections.types.SpecialType;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SpecialZone implements Section {
@@ -16,8 +19,12 @@ public class SpecialZone implements Section {
     private final List<Ranged> rangedRows;
     private final List<Siege> siegeRows;
     private final SpecialType sectionType;
+    private final List<Card> weathersCards;
+    private final DiscardPile aDiscardPile;
+    private final DiscardPile otherDicardPile;
 
-    public SpecialZone(CloseCombat aPlayerCloseCombat, Ranged aPlayerRangedRow, Siege aPlayerSiegeRow, CloseCombat otherPlayerCloseCombat, Ranged otherPlayerRangedRow, Siege otherPlayerSiegeRow) {
+
+    public SpecialZone(CloseCombat aPlayerCloseCombat, Ranged aPlayerRangedRow, Siege aPlayerSiegeRow, CloseCombat otherPlayerCloseCombat, Ranged otherPlayerRangedRow, Siege otherPlayerSiegeRow, DiscardPile aDiscardPile, DiscardPile otherDicardPile) {
         if(aPlayerCloseCombat.equals(otherPlayerCloseCombat) || aPlayerRangedRow.equals(otherPlayerRangedRow) || aPlayerSiegeRow.equals(otherPlayerSiegeRow)) {
             throw new IllegalArgumentException("Close combat, ranged and siege rows must be different");
         }
@@ -25,6 +32,9 @@ public class SpecialZone implements Section {
         this.rangedRows = List.of(aPlayerRangedRow, otherPlayerRangedRow);
         this.siegeRows = List.of(aPlayerSiegeRow, otherPlayerSiegeRow);
         this.sectionType = new SpecialType();
+        this.weathersCards = new ArrayList<>();
+        this.aDiscardPile = aDiscardPile;
+        this.otherDicardPile = otherDicardPile;
     }
 
     @Override
@@ -50,6 +60,19 @@ public class SpecialZone implements Section {
         for (Siege row : siegeRows) {
             row.applyWeather(weather);
         }
+    }
+
+    public void addCard(Card card){
+        this.weathersCards.add(card);
+    }
+
+    public void clearZone() {
+        for(Card weather: weathersCards){
+            aDiscardPile.addCardIfHasSameColor(weather);
+            otherDicardPile.addCardIfHasSameColor(weather);
+        }
+        weathersCards.clear();
+        new ClearWeather("Clima Despejado", "Elimina todos los efectos de clima").play(this);
     }
 
     public void applyScorchInCloseCombat(Scorch scorch) {
@@ -86,5 +109,8 @@ public class SpecialZone implements Section {
         applyScorchInCloseCombat(scorch);
         applyScorchInRanged(scorch);
         applyScorchInSiege(scorch);
+
+        aDiscardPile.addCardIfHasSameColor(scorch);
+        otherDicardPile.addCardIfHasSameColor(scorch);
     }
 }

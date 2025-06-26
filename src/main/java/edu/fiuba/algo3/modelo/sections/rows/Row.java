@@ -37,7 +37,7 @@ public abstract class Row implements Section {
         round.playerPlayedCard();
     }
 
-    public void placeCard(Card card){
+    public void placeCard(Card card) {
         card.verifySectionType(this.sectionType);
         card.play(this);
     }
@@ -116,7 +116,6 @@ public abstract class Row implements Section {
     public Unit getLastCard() {
         return lastCard;
     }
-
 
     public void setColor(PlayerColor playerColor) {
         this.playerColor = playerColor;

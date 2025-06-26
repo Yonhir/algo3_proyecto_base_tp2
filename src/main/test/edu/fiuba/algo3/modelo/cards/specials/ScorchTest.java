@@ -42,13 +42,15 @@ public class ScorchTest {
 
         discardPile1 = new DiscardPile();
         discardPile2 = new DiscardPile();
+        discardPile1.setColor(new Blue());
+        discardPile2.setColor(new Red());
         closeCombatRow1 = new CloseCombat(discardPile1);
         rangedRow1 = new Ranged(discardPile1);
         siegeRow1 = new Siege(discardPile1);
         closeCombatRow2 = new CloseCombat(discardPile2);
         rangedRow2 = new Ranged(discardPile2);
         siegeRow2 = new Siege(discardPile2);
-        specialZone = new SpecialZone(closeCombatRow1, rangedRow1, siegeRow1, closeCombatRow2, rangedRow2, siegeRow2);
+        specialZone = new SpecialZone(closeCombatRow1, rangedRow1, siegeRow1, closeCombatRow2, rangedRow2, siegeRow2, discardPile1, discardPile2);
         Player player1 = new Player("nombre", new Deck(), discardPile1, closeCombatRow1, rangedRow1, siegeRow1, new Blue());
         Player player2 = new Player("nombre", new Deck(), discardPile2, closeCombatRow2, rangedRow2, siegeRow2, new Red());
         round = new Round(player1, player2);
@@ -241,7 +243,14 @@ public class ScorchTest {
 
         tierraArrasada.play(specialZone);
 
-        assertEquals(2, discardPile1.getCardCount());
-        assertEquals(2, discardPile2.getCardCount());
+        assertTrue(discardPile1.containsCard(unidad1JugadorP));
+        assertTrue(discardPile1.containsCard(unidad2JugadorP));
+        assertFalse(discardPile1.containsCard(unidad3JugadorP));
+        assertTrue(siegeRow1.containsCard(unidad3JugadorP));
+
+        assertTrue(discardPile2.containsCard(unidad1Oponente));
+        assertTrue(discardPile2.containsCard(unidad2Oponente));
+        assertFalse(discardPile2.containsCard(unidad3Oponente));
+        assertTrue(siegeRow2.containsCard(unidad3Oponente));
     }
 }

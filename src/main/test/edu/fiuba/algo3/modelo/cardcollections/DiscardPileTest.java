@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.cardcollections;
 
+
 import edu.fiuba.algo3.modelo.colors.*;
 import edu.fiuba.algo3.modelo.turnManagement.Player;
 import edu.fiuba.algo3.modelo.turnManagement.Round;
@@ -131,5 +132,50 @@ public class DiscardPileTest {
         List<Integer> pointsExpected = Arrays.asList(5, 7, 3);
 
         assertEquals(pointsGotten, pointsExpected, "Points should be reset to base value");
+    }
+
+    @Test
+    public void testUnaCardDeDiferenteColorDelDiscarPileNoSeAgrega(){
+        Card unitCard = new Unit("Unit1", "Description1", 5, List.of(new CloseCombatType()), new ArrayList<>());
+        PlayerColor colorBlue = new Blue() ;
+        PlayerColor colorRed = new Red();
+
+        unitCard.setColor(colorBlue);
+        discardPile1.setColor(colorRed);
+        discardPile1.addCardIfHasSameColor(unitCard);
+
+        assertTrue(discardPile1.isEmpty());
+    }
+
+    @Test
+    public void testUnaCardDeIgualColorDelDiscarPileSeAgregaCorrectamente(){
+        Card unitCard1 = new Unit("Unit1", "Description1", 5, List.of(new CloseCombatType()), new ArrayList<>());
+        Card unitCard2 = new Unit("Unit2", "Description2", 5, List.of(new CloseCombatType()), new ArrayList<>());
+        PlayerColor colorRed = new Red();
+        PlayerColor colorBlue = new Blue();
+        int expectedCards = 1;
+
+        unitCard1.setColor(colorRed);
+        unitCard2.setColor(colorBlue);
+        discardPile1.setColor(colorRed);
+        discardPile1.addCardIfHasSameColor(unitCard1);
+        discardPile1.addCardIfHasSameColor(unitCard2);
+
+        assertFalse(discardPile1.isEmpty());
+        assertEquals(expectedCards, discardPile1.getCardCount());
+    }
+
+    @Test
+    public void testSeDescartaUnaCartaDelMismoColorQueElDiscardPileSeReseteanLosPuntosCorrectamente() {
+        Unit unitCard1 = new Unit("Unit1", "Description1", 5, List.of(new CloseCombatType()), new ArrayList<>());
+        unitCard1.setPoints(7); // altero los puntos
+        PlayerColor colorRed = new Red();
+        unitCard1.setColor(colorRed);
+        discardPile1.setColor(colorRed);
+
+        discardPile1.addCardIfHasSameColor(unitCard1);
+
+        assertFalse(discardPile1.isEmpty());
+        assertEquals(5, unitCard1.calculatePoints());
     }
 }
