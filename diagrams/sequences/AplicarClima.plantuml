@@ -10,7 +10,7 @@ participant "bitingFrost:BitingFrost" as weather
 participant "closeCombatRow:CloseCombat" as row
 participant "unit:Unit" as unit
 
-TestCase -> specialZone: placeCard(weather)
+TestCase -> specialZone: placeCard(weather, round)
     activate specialZone
     specialZone -> weather: verifySectionType(sectionType)
         activate weather
