@@ -12,84 +12,43 @@ abstract class Card <<abstract>> {
   #name: String
   #description: String
   #sectionTypes: List<SectionType>
+  #playerColor: PlayerColor
   +Card(name: String, description: String, sectionTypes: List<SectionType>): Card
-  +play(section: Section): void
-  +verifySectionType(sectionType: SectionType): void
+  +{abstract}play(section: Section)
+  +verifySectionType(sectionType: SectionType)
+  +{abstract}setColor(playerColor: PlayerColor)
+  +haveSectionType(sectionType: SectionType) : boolean
+  +haveSameColor(color: PlayerColor) : boolean
+  +{abstract}verifyColor(color: PlayerColor)
+  +getName(): String
 }
 
 class Unit {
   -basePoints: int
   -currentPoints: int
   -modifiers: List<Modifier>
-  +Unit(name: String, description: String, points: int, sectionTypes: List<SectionType>, modifiers: List<Modifier>): Unit
+  -hasHeroModifier : boolean
+  +Unit(name: String, description: String, points: int, sectionTypes: List<SectionType>,
+  modifiers: List<Modifier>): Unit
+  +Unit(name: String, description: String, points: int, sectionType: SectionType,
+  modifiers: List<Modifier>): Unit
+  +verifyColor(color: PlayerColor)
+  +setColor(playerColor: PlayerColor)
+  +play(section: Section)
+  +checkHeroModifier()
+  +hasHeroAsModifier() : boolean
   +calculatePoints(): int
-  +resetPoints(): void
-  +setPoints(points: int): void
+  +resetPoints()
+  +setPoints(points: int)
   +haveModifier(modifier: Modifier): boolean
-  +play(section: Section): void
-  +verifySectionType(sectionType: SectionType): void
+  +strongerThan(unit : Unit) : Unit
+  +samePointsAs(unit : Unit) : boolean
 }
 
 abstract class Special <<abstract>> {
-  +verifySectionType(sectionType: SectionType): void
-}
-
-interface Modifier <<interface>> {
-  +apply(row: Row): void
-}
-
-class TightBond {
-}
-
-class Agile {
-}
-
-abstract class Weather <<abstract>> {
-  +Weather(name: String, description: String, sectionType: SectionType): Weather
-  +play(section: Section): void
-  +apply(card: Card, row: Row): void
-  +verifySectionType(sectionType: SectionType): void
-}
-
-class TorrentialRain {
-  +TorrentialRain(name: String, description: String): TorrentialRain
-  +apply(card: Card, row: Row): void
-}
-
-class ImpenetrableFog {
-  +ImpenetrableFog(name: String, description: String): ImpenetrableFog
-  +apply(card: Card, row: Row): void
-}
-
-class BitingFrost {
-  +BitingFrost(name: String, description: String): BitingFrost
-}
-
-class Decoy {
-  +Decoy(name: String, description: String): Decoy
-}
-
-class MoraleBoost{
-  +MoraleBoost(name: String, description: String, sectionsType: SectionsType[])
-  +play(section: Section): void
-}
-
-class TacticalAdvantage {
-  +TacticalAdvantage(name: String, description: String): TacticalAdvantage
-}
-
-class Scorch {
-  +Scorch(name: String, description: String): Scorch
-}
-
-interface Modifier <<interface>> {
-  +apply(row: Row): void
-}
-
-class TightBond {
-}
-
-class Agil {
+  +Special(name: String, description: String, sectionTypes: List<SectionType>): Special
+  +verifyColor(color: PlayerColor)
+  +setColor(playerColor: PlayerColor)
 }
 
 ' =====================
@@ -98,27 +57,5 @@ class Agil {
 
 Card <|-- Unit
 Card <|-- Special
-
-Card --> "*" SectionType
-
-SectionType <|-- CloseCombatType
-SectionType <|-- RangedType
-SectionType <|-- SiegeType
-SectionType <|-- SpecialType
-
-Unit --> "*" Modifier
-
-Modifier <|.. TightBond
-Modifier <|.. Agile
-
-Special <|-- Decoy
-Special <|-- TacticalAdvantage
-Special <|-- Scorch
-Special <|-- MoraleBoost
-Special <|--- Weather
-
-Weather <|-- TorrentialRain
-Weather <|-- ImpenetrableFog
-Weather <|-- BitingFrost
 
 @enduml

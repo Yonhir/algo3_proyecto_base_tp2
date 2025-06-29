@@ -1,0 +1,53 @@
+@startuml
+
+skinparam monochrome true
+hide circle
+skinparam classAttributeIconSize 0
+
+
+
+abstract class Row <<abstract>> {
+  #cards: List<Card>
+  #lastCard: Unit
+  #currentWeather: Weather
+  #sectionType: SectionType
+  #discardPile : DiscardPile
+  #playerColor: PlayerColor
+  +Row(sectionType: SectionType, discardPile: DiscardPile): Row
+  +placeCard(card: Card, round: Round): 
+  +placeCard(card: Card): 
+  +addCard(card: Card): 
+  +applyWeather(weather: Weather): 
+  +applyScorch(scorch: Scorch): 
+  +findStrongestCardWithoutHeroModifier(scorch: Scorch): 
+  +findAllCardsWithoutHeroModifierWithSamePoints(scorch: Scorch): List<Card>
+  +discardCards(card: Card): 
+  +containsCard(card: Card): boolean
+  +containsCards(cards: List<Card>): boolean
+  +calculatePoints(): int
+  +discardCards() : 
+  +getLastCard(): Unit
+  +serColor(playerColor: PlayerColor): 
+  +haveSameSectionType(card: Card): boolean
+  +getCardCount(): int
+  +getCards(): List<Card>
+}
+class Ranged {
+  +Ranged(discardPile : DiscardPile)
+}
+
+class CloseCombat {
+  +CloseCombat(discardPile : DiscardPile)
+}
+
+class Siege {
+  +Siege(discardPile : DiscardPile)
+}
+
+
+Row <|-- Ranged
+Row <|-- CloseCombat
+Row <|-- Siege
+
+
+@enduml

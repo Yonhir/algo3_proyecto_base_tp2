@@ -1,0 +1,58 @@
+@startuml
+skinparam monochrome true
+hide circle
+skinparam classAttributeIconSize 0
+left to right direction
+
+class GwentFileInvalid {
+  +GwentFileInvalid(message: String)
+}
+class NotUnitCardError {
+  +NotUnitCardError(message: String)
+}
+class SectionPlayerMismatchError {
+  +SectionPlayerMismatchError(message: String)
+}
+class SpecialsFileInvalid {
+  +SpecialsFileInvalid(message: String)
+}
+class UnitsFileInvalid {
+  +UnitsFileInvalid(message: String)
+}
+
+class GameLoader {
+  +loadFromResource(resourcePath: String): Game
+}
+class DiscardPile {
+  +getLastUnitCardFromType(type: SectionType): Card
+}
+class MoraleBoost {
+  +verifyColor(section: Section): void
+}
+class Special {
+  +verifyColor(section: Section): void
+}
+class Unit {
+  +verifyColor(section: Section): void
+}
+class SpecialsLoader {
+  +loadFromResource(resourcePath: String): List<Card>
+}
+class UnitsLoader {
+  +loadFromResource(resourcePath: String): List<Card>
+}
+
+GameLoader ..> GwentFileInvalid : throws
+DiscardPile ..> NotUnitCardError : throws
+MoraleBoost ..> SectionPlayerMismatchError : throws
+Unit ..> SectionPlayerMismatchError : throws
+Special ..> SectionPlayerMismatchError : throws
+SpecialsLoader ..> SpecialsFileInvalid : throws
+UnitsLoader ..> UnitsFileInvalid : throws
+
+GwentFileInvalid --|> RuntimeException
+NotUnitCardError --|> RuntimeException
+SectionPlayerMismatchError --|> RuntimeException
+SpecialsFileInvalid --|> RuntimeException
+UnitsFileInvalid --|> RuntimeException
+@enduml
