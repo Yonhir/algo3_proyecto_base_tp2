@@ -98,9 +98,9 @@ public abstract class Card extends BaseCardComponent {
             Image image = new Image(imageStream);
             backgroundImage = new ImageView(image);
             
-            // Set the image to fit the card size
-            backgroundImage.setFitWidth(getPrefWidth());
-            backgroundImage.setFitHeight(getPrefHeight());
+            // Set the image to fit the card size using the base dimensions
+            backgroundImage.setFitWidth(baseWidth);
+            backgroundImage.setFitHeight(baseHeight);
             backgroundImage.setPreserveRatio(true);
             
             // Add the image as background (behind other elements)

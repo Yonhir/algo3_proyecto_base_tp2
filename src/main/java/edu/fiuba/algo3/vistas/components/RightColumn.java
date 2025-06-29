@@ -20,18 +20,18 @@ public class RightColumn extends VBox {
     
     private void setupRightColumn() {
         setAlignment(javafx.geometry.Pos.TOP_CENTER);
-        setStyle("-fx-background-color: #BB8FCE; -fx-border-color: #8E44AD; -fx-border-width: 3px;"); // Light purple background
+        setStyle("-fx-background-color: #BC8F8F; -fx-border-color: #8B4513; -fx-border-width: 3px;"); // Brown background
         
         // Create horizontal container for opponent deck and discard pile (top)
         HBox opponentCardsContainer = new HBox(20); // 20px spacing between deck and discard
         opponentCardsContainer.setAlignment(javafx.geometry.Pos.CENTER);
-        opponentCardsContainer.setStyle("-fx-background-color: #E8E8E8; -fx-border-color: #CCCCCC; -fx-border-width: 1px;");
+        opponentCardsContainer.setStyle("-fx-background-color: #D2B48C; -fx-border-color: #A0522D; -fx-border-width: 1px;");
         opponentCardsContainer.getChildren().addAll(opponentDeck, opponentDiscardPile);
         
         // Create horizontal container for player deck and discard pile (bottom)
         HBox playerCardsContainer = new HBox(20); // 20px spacing between deck and discard
         playerCardsContainer.setAlignment(javafx.geometry.Pos.CENTER);
-        playerCardsContainer.setStyle("-fx-background-color: #E8E8E8; -fx-border-color: #CCCCCC; -fx-border-width: 1px;");
+        playerCardsContainer.setStyle("-fx-background-color: #D2B48C; -fx-border-color: #A0522D; -fx-border-width: 1px;");
         playerCardsContainer.getChildren().addAll(playerDeck, playerDiscardPile);
         
         // Create spacing regions

@@ -1,3 +1,4 @@
+/*
 package edu.fiuba.algo3.vistas;
 
 import edu.fiuba.algo3.modelo.cardcollections.Hand;
@@ -39,18 +40,6 @@ public class GameSetupView extends StackPane {
         this.viewManager = viewManager;
         
         showCurrentPhase();
-    }
-    
-    public void setOnNextPhaseRequested(Consumer<Void> handler) {
-        this.onNextPhaseRequested = handler;
-    }
-    
-    public void setOnCardClickRequested(Consumer<Integer> handler) {
-        this.onCardClickRequested = handler;
-    }
-    
-    public void setOnConfirmHandRequested(Consumer<String> handler) {
-        this.onConfirmHandRequested = handler;
     }
     
     private void showCurrentPhase() {
@@ -167,4 +156,7 @@ public class GameSetupView extends StackPane {
         scene = new Scene(this, windowWidth, windowHeight);
         return scene;
     }
-} 
+}
+
+
+ */

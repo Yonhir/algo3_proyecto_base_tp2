@@ -24,7 +24,7 @@ public class CenterColumn extends VBox {
     
     private void setupCenterColumn() {
         setAlignment(javafx.geometry.Pos.CENTER);
-        setStyle("-fx-background-color: #F7DC6F; -fx-border-color: #FFA500; -fx-border-width: 3px;"); // Orange background
+        setStyle("-fx-background-color: #D2691E; -fx-border-color: #A0522D; -fx-border-width: 3px;"); // Brown background
         
         // Create the spacing region between rows
         javafx.scene.layout.Region opponentRowSpacer1 = new javafx.scene.layout.Region();
@@ -35,7 +35,7 @@ public class CenterColumn extends VBox {
         // Create opponent rows container
         VBox opponentRowsContainer = new VBox(); // Reduced spacing
         opponentRowsContainer.setAlignment(javafx.geometry.Pos.CENTER);
-        opponentRowsContainer.setStyle("-fx-background-color: #45B7D1; -fx-border-color: #0080FF; -fx-border-width: 2px;"); // Blue background
+        opponentRowsContainer.setStyle("-fx-background-color: #CD853F; -fx-border-color: #8B4513; -fx-border-width: 2px;"); // Brown background
         opponentRowSpacer1.prefHeightProperty().bind(opponentRowsContainer.heightProperty().multiply(0.03));
         opponentRowSpacer2.prefHeightProperty().bind(opponentRowsContainer.heightProperty().multiply(0.03));
         
@@ -55,7 +55,7 @@ public class CenterColumn extends VBox {
         // Create player rows container
         VBox playerRowsContainer = new VBox(); // Reduced spacing
         playerRowsContainer.setAlignment(javafx.geometry.Pos.CENTER);
-        playerRowsContainer.setStyle("-fx-background-color: #96CEB4; -fx-border-color: #00FF00; -fx-border-width: 2px;"); // Green background
+        playerRowsContainer.setStyle("-fx-background-color: #DEB887; -fx-border-color: #A0522D; -fx-border-width: 2px;"); // Brown background
         playerRowSpacer1.prefHeightProperty().bind(playerRowsContainer.heightProperty().multiply(0.03));
         playerRowSpacer2.prefHeightProperty().bind(playerRowsContainer.heightProperty().multiply(0.03));
         
@@ -75,7 +75,7 @@ public class CenterColumn extends VBox {
         // Create hand container
         VBox handContainer = new VBox(); // Reduced spacing
         handContainer.setAlignment(javafx.geometry.Pos.CENTER);
-        handContainer.setStyle("-fx-background-color: #FFEAA7; -fx-border-color: #FFFF00; -fx-border-width: 2px;"); // Yellow background
+        handContainer.setStyle("-fx-background-color: #F4A460; -fx-border-color: #D2691E; -fx-border-width: 2px;"); // Brown background
         handContainer.getChildren().add(handList);
         
         // Bind container heights to center column height

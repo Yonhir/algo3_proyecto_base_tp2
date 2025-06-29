@@ -1,3 +1,4 @@
+/*
 package edu.fiuba.algo3.controllers;
 
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
@@ -148,4 +149,6 @@ public class GameSetupController {
     public Hand getBluePlayerHand() {
         return bluePlayerHand;
     }
-} 
+}
+
+ */

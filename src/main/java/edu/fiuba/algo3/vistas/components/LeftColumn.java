@@ -14,12 +14,12 @@ public class LeftColumn extends VBox {
     
     private void setupLeftColumn() {
         setAlignment(javafx.geometry.Pos.CENTER);
-        setStyle("-fx-background-color: #DDA0DD; -fx-border-color: #800080; -fx-border-width: 3px;"); // Purple background
+        setStyle("-fx-background-color: #C19A6B; -fx-border-color: #8B4513; -fx-border-width: 3px;"); // Brown background
         
         // Create a special zone container with dynamic width
         VBox specialZoneContainer = new VBox(); // Reduced spacing
         specialZoneContainer.setAlignment(javafx.geometry.Pos.CENTER);
-        specialZoneContainer.setStyle("-fx-background-color: #4ECDC4; -fx-border-color: #00FFFF; -fx-border-width: 2px;"); // Cyan background
+        specialZoneContainer.setStyle("-fx-background-color: #E6BE8A; -fx-border-color: #A0522D; -fx-border-width: 2px;"); // Brown background
         specialZoneContainer.getChildren().add(specialZoneList);
         
         // Create spacing regions for left column

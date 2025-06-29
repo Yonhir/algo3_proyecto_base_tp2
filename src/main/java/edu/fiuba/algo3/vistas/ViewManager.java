@@ -1,7 +1,7 @@
 package edu.fiuba.algo3.vistas;
 
 import edu.fiuba.algo3.controllers.GameController;
-import edu.fiuba.algo3.controllers.GameSetupController;
+// import edu.fiuba.algo3.controllers.GameSetupController;
 import edu.fiuba.algo3.controllers.MainMenuController;
 import edu.fiuba.algo3.modelo.cardcollections.Deck;
 import edu.fiuba.algo3.modelo.cardcollections.DiscardPile;
@@ -18,12 +18,9 @@ import edu.fiuba.algo3.modelo.sections.rows.Siege;
 import edu.fiuba.algo3.modelo.turnManagement.Game;
 import edu.fiuba.algo3.modelo.turnManagement.Player;
 import edu.fiuba.algo3.vistas.components.ErrorDialog;
-import javafx.application.Platform;
-import javafx.geometry.Side;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.util.List;
 
 public class ViewManager {
     public static final String GWENT_JSON_PATH = "gwent.json";
@@ -52,8 +49,6 @@ public class ViewManager {
     public Player redPlayer;
     public Player bluePlayer;
     public Game gameModel;
-    
-
 
     public ViewManager(Stage stage) {
         this.stage = stage;
@@ -75,7 +70,10 @@ public class ViewManager {
     }
 
     public void startGame() {
-        PlayerColor redColor = new Red();
+        showGameView();
+        return;
+        /*
+        Red redColor = new Red();
         redPlayerDeck = new Deck();
         redPlayerDiscardPile = new DiscardPile();
         redCloseCombat = new CloseCombat(redPlayerDiscardPile);
@@ -128,11 +126,13 @@ public class ViewManager {
         }
  
         showGameSetupView();
+
+         */
     }
     
     private void showGameSetupView() {
-
-        GameSetupView gameSetupView = new GameSetupView(redPlayerHand, bluePlayerHand, this);
+        /*
+        // GameSetupView gameSetupView = new GameSetupView(redPlayerHand, bluePlayerHand, this);
         
         // Create and set up the controller
         GameSetupController controller = new GameSetupController(
@@ -150,10 +150,12 @@ public class ViewManager {
         if (isFullScreen) {
             stage.setFullScreen(true);
         }
+
+         */
     }
     
     public void showGameView() {
-        gameModel = new Game(redPlayer, bluePlayer, specialZone);
+        //gameModel = new Game(redPlayer, bluePlayer, specialZone);
         
         gameView = new GameView();
         mainMenuView = null;
@@ -161,6 +163,9 @@ public class ViewManager {
         GameController controller = new GameController(this, gameView);
 
         currentScene = gameView.createScene();
+        
+        // Load sample cards for preview
+        gameView.loadSampleCardsForPreview();
 
         stage.setScene(currentScene);
         if (isFullScreen) {
