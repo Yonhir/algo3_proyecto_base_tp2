@@ -1,7 +1,7 @@
 package edu.fiuba.algo3.controllers;
 
-import edu.fiuba.algo3.vistas.ViewManager;
-import edu.fiuba.algo3.vistas.components.ExitConfirmationDialog;
+import edu.fiuba.algo3.views.ViewManager;
+import edu.fiuba.algo3.views.components.ExitConfirmationDialog;
 import javafx.scene.layout.StackPane;
 
 

@@ -1,9 +1,9 @@
 package edu.fiuba.algo3.controllers;
 
-import edu.fiuba.algo3.vistas.GameView;
-import edu.fiuba.algo3.vistas.ViewManager;
-import edu.fiuba.algo3.vistas.components.ExitConfirmationDialog;
-import edu.fiuba.algo3.vistas.components.GameMenuOverlay;
+import edu.fiuba.algo3.views.GameView;
+import edu.fiuba.algo3.views.ViewManager;
+import edu.fiuba.algo3.views.components.ExitConfirmationDialog;
+import edu.fiuba.algo3.views.components.GameMenuOverlay;
 
 public class GameController {
     private final ViewManager viewManager;
