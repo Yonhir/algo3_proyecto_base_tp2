@@ -9,9 +9,6 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.layout.StackPane;
 
-/**
- * Reusable component for displaying points in a circle
- */
 public class PointsCircle extends StackPane implements Observer {
     
     private Circle circle;
@@ -24,18 +21,15 @@ public class PointsCircle extends StackPane implements Observer {
     }
     
     private void setupCircle(double radius) {
-        // Create circle
         circle = new Circle(radius);
-        circle.setFill(Color.rgb(231, 76, 60)); // Red color for points
-        circle.setStroke(Color.rgb(192, 57, 43)); // Darker red border
+        circle.setFill(Color.rgb(231, 76, 60));
+        circle.setStroke(Color.rgb(192, 57, 43));
         circle.setStrokeWidth(2);
 
-        // Create PointsCircle text
         pointsText = new Text(String.valueOf(points));
         pointsText.setFont(Font.font("Arial", FontWeight.BOLD, radius * 0.8));
         pointsText.setFill(Color.WHITE);
         
-        // Add circle and text to this StackPane
         getChildren().addAll(circle, pointsText);
         setAlignment(javafx.geometry.Pos.CENTER);
     }

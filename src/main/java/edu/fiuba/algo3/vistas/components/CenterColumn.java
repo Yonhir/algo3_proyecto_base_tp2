@@ -1,16 +1,18 @@
 package edu.fiuba.algo3.vistas.components;
 
+import edu.fiuba.algo3.vistas.components.cardlist.UIHand;
+import edu.fiuba.algo3.vistas.components.cardlist.UIRow;
 import javafx.scene.layout.VBox;
 
 public class CenterColumn extends VBox {
     
-    private final Row opponentCloseCombat, opponentRanged, opponentSiege;
-    private final Row playerCloseCombat, playerRanged, playerSiege;
-    private final Hand handList;
+    private final UIRow opponentCloseCombat, opponentRanged, opponentSiege;
+    private final UIRow playerCloseCombat, playerRanged, playerSiege;
+    private final UIHand UIHandList;
     
-    public CenterColumn(Row opponentCloseCombat, Row opponentRanged, Row opponentSiege,
-                       Row playerCloseCombat, Row playerRanged, Row playerSiege,
-                       Hand handList) {
+    public CenterColumn(UIRow opponentCloseCombat, UIRow opponentRanged, UIRow opponentSiege,
+                        UIRow playerCloseCombat, UIRow playerRanged, UIRow playerSiege,
+                        UIHand UIHandList) {
         super();
         this.opponentCloseCombat = opponentCloseCombat;
         this.opponentRanged = opponentRanged;
@@ -18,82 +20,74 @@ public class CenterColumn extends VBox {
         this.playerCloseCombat = playerCloseCombat;
         this.playerRanged = playerRanged;
         this.playerSiege = playerSiege;
-        this.handList = handList;
+        this.UIHandList = UIHandList;
         setupCenterColumn();
     }
     
     private void setupCenterColumn() {
         setAlignment(javafx.geometry.Pos.CENTER);
-        setStyle("-fx-background-color: #D2691E; -fx-border-color: #A0522D; -fx-border-width: 3px;"); // Brown background
+        setStyle("-fx-background-color: #D2691E; -fx-border-color: #A0522D; -fx-border-width: 3px;");
         
-        // Create the spacing region between rows
         javafx.scene.layout.Region opponentRowSpacer1 = new javafx.scene.layout.Region();
         javafx.scene.layout.Region opponentRowSpacer2 = new javafx.scene.layout.Region();
         javafx.scene.layout.Region playerRowSpacer1 = new javafx.scene.layout.Region();
         javafx.scene.layout.Region playerRowSpacer2 = new javafx.scene.layout.Region();
         
-        // Create opponent rows container
-        VBox opponentRowsContainer = new VBox(); // Reduced spacing
+        VBox opponentRowsContainer = new VBox();
         opponentRowsContainer.setAlignment(javafx.geometry.Pos.CENTER);
-        opponentRowsContainer.setStyle("-fx-background-color: #CD853F; -fx-border-color: #8B4513; -fx-border-width: 2px;"); // Brown background
+        opponentRowsContainer.setStyle("-fx-background-color: #CD853F; -fx-border-color: #8B4513; -fx-border-width: 2px;");
         opponentRowSpacer1.prefHeightProperty().bind(opponentRowsContainer.heightProperty().multiply(0.03));
         opponentRowSpacer2.prefHeightProperty().bind(opponentRowsContainer.heightProperty().multiply(0.03));
         
-        // Bind individual row heights to container height
         opponentSiege.prefHeightProperty().bind(opponentRowsContainer.heightProperty().multiply(0.31));
         opponentRanged.prefHeightProperty().bind(opponentRowsContainer.heightProperty().multiply(0.31));
         opponentCloseCombat.prefHeightProperty().bind(opponentRowsContainer.heightProperty().multiply(0.31));
         
         opponentRowsContainer.getChildren().addAll(
-                opponentSiege,  // Siege row (top)
+                opponentSiege,
                 opponentRowSpacer1,
-                opponentRanged,  // Ranged row (middle)
+                opponentRanged,
                 opponentRowSpacer2,
-                opponentCloseCombat   // Close Combat row (bottom)
+                opponentCloseCombat
         );
 
-        // Create player rows container
-        VBox playerRowsContainer = new VBox(); // Reduced spacing
+        VBox playerRowsContainer = new VBox();
         playerRowsContainer.setAlignment(javafx.geometry.Pos.CENTER);
-        playerRowsContainer.setStyle("-fx-background-color: #DEB887; -fx-border-color: #A0522D; -fx-border-width: 2px;"); // Brown background
+        playerRowsContainer.setStyle("-fx-background-color: #DEB887; -fx-border-color: #A0522D; -fx-border-width: 2px;");
         playerRowSpacer1.prefHeightProperty().bind(playerRowsContainer.heightProperty().multiply(0.03));
         playerRowSpacer2.prefHeightProperty().bind(playerRowsContainer.heightProperty().multiply(0.03));
         
-        // Bind individual row heights to container height
         playerCloseCombat.prefHeightProperty().bind(playerRowsContainer.heightProperty().multiply(0.31));
         playerRanged.prefHeightProperty().bind(playerRowsContainer.heightProperty().multiply(0.31));
         playerSiege.prefHeightProperty().bind(playerRowsContainer.heightProperty().multiply(0.31));
         
         playerRowsContainer.getChildren().addAll(
-                playerCloseCombat,   // Close Combat row (top)
+                playerCloseCombat,
                 playerRowSpacer1,
-                playerRanged,   // Ranged row (middle)
+                playerRanged,
                 playerRowSpacer2,
-                playerSiege    // Siege row (bottom)
+                playerSiege
         );
         
-        // Create hand container
-        VBox handContainer = new VBox(); // Reduced spacing
+        VBox handContainer = new VBox();
         handContainer.setAlignment(javafx.geometry.Pos.CENTER);
-        handContainer.setStyle("-fx-background-color: #F4A460; -fx-border-color: #D2691E; -fx-border-width: 2px;"); // Brown background
-        handContainer.getChildren().add(handList);
+        handContainer.setStyle("-fx-background-color: #F4A460; -fx-border-color: #D2691E; -fx-border-width: 2px;");
+        handContainer.getChildren().add(UIHandList);
         
-        // Bind container heights to center column height
         opponentRowsContainer.prefHeightProperty().bind(heightProperty().multiply(0.4));
         playerRowsContainer.prefHeightProperty().bind(heightProperty().multiply(0.4));
         handContainer.prefHeightProperty().bind(heightProperty().multiply(0.13));
         
-        // Create spacing regions
         javafx.scene.layout.Region rowSpacer = new javafx.scene.layout.Region();
-        rowSpacer.prefHeightProperty().bind(heightProperty().multiply(0.02)); // Small spacer between opponent and player rows
+        rowSpacer.prefHeightProperty().bind(heightProperty().multiply(0.02));
         javafx.scene.layout.Region handSpacer = new javafx.scene.layout.Region();
-        handSpacer.prefHeightProperty().bind(heightProperty().multiply(0.05)); // Larger spacer between player rows and hand
+        handSpacer.prefHeightProperty().bind(heightProperty().multiply(0.05));
         
         getChildren().addAll(
             opponentRowsContainer,
-            rowSpacer,  // Small spacer between opponent and player rows
+            rowSpacer,
             playerRowsContainer,
-            handSpacer,  // Larger spacer between player rows and hand
+            handSpacer,
             handContainer
         );
     }

@@ -26,6 +26,9 @@ module edu.fiuba.algo3 {
     exports edu.fiuba.algo3.modelo.json.cards;
     exports edu.fiuba.algo3.vistas;
     exports edu.fiuba.algo3.vistas.components;
+    exports edu.fiuba.algo3.vistas.components.cardlist;
+    exports edu.fiuba.algo3.vistas.components.cardcomponent;
+    exports edu.fiuba.algo3.vistas.components.cardcomponent.card;
 
     opens edu.fiuba.algo3.controllers;
     opens edu.fiuba.algo3.modelo.errors;
@@ -49,4 +52,7 @@ module edu.fiuba.algo3 {
     opens edu.fiuba.algo3.modelo.json.cards;
     opens edu.fiuba.algo3.vistas;
     opens edu.fiuba.algo3.vistas.components;
+    opens edu.fiuba.algo3.vistas.components.cardlist;
+    opens edu.fiuba.algo3.vistas.components.cardcomponent;
+    opens edu.fiuba.algo3.vistas.components.cardcomponent.card;
 }

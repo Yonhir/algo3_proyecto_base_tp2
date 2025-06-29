@@ -1,20 +1,23 @@
-package edu.fiuba.algo3.vistas.components;
+package edu.fiuba.algo3.vistas.components.cardlist;
 
 import edu.fiuba.algo3.modelo.Observable;
 import edu.fiuba.algo3.modelo.cards.Card;
 import edu.fiuba.algo3.modelo.cards.specials.Special;
 import edu.fiuba.algo3.modelo.cards.units.Unit;
+import edu.fiuba.algo3.vistas.components.cardcomponent.card.UICard;
+import edu.fiuba.algo3.vistas.components.cardcomponent.card.UISpecial;
+import edu.fiuba.algo3.vistas.components.cardcomponent.card.UIUnit;
 
-public class Hand extends CardList {
+public class UIHand extends CardList {
 
     private edu.fiuba.algo3.modelo.cardcollections.Hand modelHand;
 
-    public Hand() {
-        super(true); // Hand cards should be draggable
+    public UIHand() {
+        super(true);
     }
     
-    public Hand(edu.fiuba.algo3.modelo.cardcollections.Hand modelHand) {
-        super(true); // Hand cards should be draggable
+    public UIHand(edu.fiuba.algo3.modelo.cardcollections.Hand modelHand) {
+        super(true);
         this.modelHand = modelHand;
         subscribeToModel();
         loadCardsFromModel();
@@ -28,12 +31,10 @@ public class Hand extends CardList {
     
     private void loadCardsFromModel() {
         if (modelHand != null) {
-            // Clear existing cards
             getChildren().clear();
             
-            // Get cards from model and create UI components
             for (Card modelCard : modelHand.getCards()) {
-                edu.fiuba.algo3.vistas.components.Card uiCard = createUICard(modelCard);
+                UICard uiCard = createUICard(modelCard);
                 if (uiCard != null) {
                     addCard(uiCard);
                 }
@@ -41,13 +42,12 @@ public class Hand extends CardList {
         }
     }
     
-    private edu.fiuba.algo3.vistas.components.Card createUICard(Card modelCard) {
+    private UICard createUICard(Card modelCard) {
         if (modelCard instanceof Unit) {
-            return new UnitCard((Unit) modelCard);
+            return new UIUnit((Unit) modelCard);
         } else if (modelCard instanceof Special) {
-            return new SpecialCard((Special) modelCard);
+            return new UISpecial((Special) modelCard);
         } else {
-            // Fallback for unknown card types
             System.err.println("Unknown card type: " + modelCard.getClass().getSimpleName());
             return null;
         }
@@ -55,7 +55,6 @@ public class Hand extends CardList {
 
     @Override
     public void update(Observable observable) {
-        // Update the hand when the model changes
         if (observable == modelHand) {
             loadCardsFromModel();
         }

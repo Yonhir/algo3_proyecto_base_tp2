@@ -1,14 +1,11 @@
-package edu.fiuba.algo3.vistas.components;
+package edu.fiuba.algo3.vistas.components.cardcomponent;
 
 import edu.fiuba.algo3.modelo.Observable;
 import javafx.scene.paint.Color;
 
-/**
- * Component representing the deck of cards (shows back of card design)
- */
-public class Deck extends BaseCardComponent {
+public class UIDiscardPile extends BaseCardComponent {
     
-    public Deck() {
+    public UIDiscardPile() {
         super();
     }
 
@@ -19,20 +16,20 @@ public class Deck extends BaseCardComponent {
 
     @Override
     protected Color getFillColor() {
-        return Color.rgb(139, 69, 19); // Saddle brown for deck back
+        return Color.rgb(169, 169, 169); // Light gray for discard pile
     }
 
     @Override
     protected Color getStrokeColor() {
-        return Color.rgb(101, 67, 33); // Darker brown border
+        return Color.rgb(105, 105, 105); // Darker gray border
     }
 
     @Override
     protected String getScalingMethodName() {
-        return "scaleDeck";
+        return "scaleDiscardPile";
     }
 
-    public void scaleDeck(double scaleFactorX, double scaleFactorY) {
+    public void scaleDiscardPile(double scaleFactorX, double scaleFactorY) {
         scaleComponent(scaleFactorX, scaleFactorY);
     }
 

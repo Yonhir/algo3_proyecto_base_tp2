@@ -2,9 +2,6 @@ package edu.fiuba.algo3.vistas.components;
 
 import javafx.scene.control.Label;
 
-/**
- * Reusable label component for the game with consistent styling
- */
 public class GameLabel extends Label {
     
     public GameLabel(String text) {

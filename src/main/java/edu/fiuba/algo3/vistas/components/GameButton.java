@@ -2,9 +2,6 @@ package edu.fiuba.algo3.vistas.components;
 
 import javafx.scene.control.Button;
 
-/**
- * Reusable button component for the game with consistent styling
- */
 public class GameButton extends Button {
     
     public GameButton(String text) {

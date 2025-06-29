@@ -12,9 +12,8 @@ public class TopBar extends HBox {
     
     private void setupTopBar() {
         setAlignment(javafx.geometry.Pos.TOP_LEFT);
-        setStyle("-fx-background-color: #A0522D; -fx-border-color: #8B4513; -fx-border-width: 2px;"); // Brown background
+        setStyle("-fx-background-color: #A0522D; -fx-border-color: #8B4513; -fx-border-width: 2px;");
         
-        // Create menu button at the top with dynamic size
         menuButton = GameButton.createMenuButton();
         menuButton.setPickOnBounds(false);
         menuButton.setCancelButton(true);

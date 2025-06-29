@@ -1,13 +1,13 @@
-package edu.fiuba.algo3.vistas.components;
+package edu.fiuba.algo3.vistas.components.cardcomponent.card;
 
 import edu.fiuba.algo3.modelo.Observable;
 import edu.fiuba.algo3.modelo.cards.specials.Special;
 
-public class SpecialCard extends Card {
+public class UISpecial extends UICard {
     
     private Special model;
 
-    public SpecialCard(Special special) {
+    public UISpecial(Special special) {
         super(special.getName(), special.getDescription());
         this.model = special;
         subscribeToModel();
@@ -20,15 +20,10 @@ public class SpecialCard extends Card {
     }
     
     public void loadDataFromSpecial() {
-        if (model != null) {
-            // Special cards don't have points, but we could load other data here
-            // For example, special effects, descriptions, etc.
-        }
     }
 
     @Override
     public void update(Observable observable) {
-        // Update the card when the special model changes
         if (observable == model) {
             loadDataFromSpecial();
         }

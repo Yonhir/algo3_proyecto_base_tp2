@@ -1,6 +1,11 @@
 package edu.fiuba.algo3.vistas;
 
 import edu.fiuba.algo3.vistas.components.*;
+import edu.fiuba.algo3.vistas.components.cardcomponent.UIDeck;
+import edu.fiuba.algo3.vistas.components.cardcomponent.UIDiscardPile;
+import edu.fiuba.algo3.vistas.components.cardlist.UIHand;
+import edu.fiuba.algo3.vistas.components.cardlist.UIRow;
+import edu.fiuba.algo3.vistas.components.cardlist.UISpecialZone;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -10,12 +15,12 @@ import javafx.scene.layout.VBox;
 
 
 public class GameView extends StackPane {
-    private final Hand handList;
-    private final Row opponentCloseCombat, opponentRanged, opponentSiege;
-    private final Row playerCloseCombat, playerRanged, playerSiege;
-    private final SpecialZone specialZoneList;
-    private final Deck playerDeck, opponentDeck;
-    private final DiscardPile playerDiscardPile, opponentDiscardPile;
+    private final UIHand UIHandList;
+    private final UIRow opponentCloseCombat, opponentRanged, opponentSiege;
+    private final UIRow playerCloseCombat, playerRanged, playerSiege;
+    private final UISpecialZone UISpecialZoneList;
+    private final UIDeck playerUIDeck, opponentUIDeck;
+    private final UIDiscardPile playerUIDiscardPile, opponentUIDiscardPile;
     private final TopBar topBar;
     private final LeftColumn leftColumn;
     private final CenterColumn centerColumn;
@@ -24,31 +29,31 @@ public class GameView extends StackPane {
     private Scene scene;
 
     public GameView() {
-        handList = new Hand();
-        opponentCloseCombat = new Row();
-        opponentRanged = new Row();
-        opponentSiege = new Row();
-        playerCloseCombat = new Row();
-        playerRanged = new Row();
-        playerSiege = new Row();
-        specialZoneList = new SpecialZone();
-        playerDeck = new Deck();
-        opponentDeck = new Deck();
-        playerDiscardPile = new DiscardPile();
-        opponentDiscardPile = new DiscardPile();
+        UIHandList = new UIHand();
+        opponentCloseCombat = new UIRow();
+        opponentRanged = new UIRow();
+        opponentSiege = new UIRow();
+        playerCloseCombat = new UIRow();
+        playerRanged = new UIRow();
+        playerSiege = new UIRow();
+        UISpecialZoneList = new UISpecialZone();
+        playerUIDeck = new UIDeck();
+        opponentUIDeck = new UIDeck();
+        playerUIDiscardPile = new UIDiscardPile();
+        opponentUIDiscardPile = new UIDiscardPile();
         
         topBar = new TopBar();
-        leftColumn = new LeftColumn(specialZoneList);
+        leftColumn = new LeftColumn(UISpecialZoneList);
         centerColumn = new CenterColumn(opponentCloseCombat, opponentRanged, opponentSiege,
-                                      playerCloseCombat, playerRanged, playerSiege, handList);
-        rightColumn = new RightColumn(playerDeck, opponentDeck, playerDiscardPile, opponentDiscardPile);
+                                      playerCloseCombat, playerRanged, playerSiege, UIHandList);
+        rightColumn = new RightColumn(playerUIDeck, opponentUIDeck, playerUIDiscardPile, opponentUIDiscardPile);
     }
 
     private void setupSceneSizeListeners() {
-        playerDeck.setupSceneSizeListener(scene);
-        playerDiscardPile.setupSceneSizeListener(scene);
-        opponentDeck.setupSceneSizeListener(scene);
-        opponentDiscardPile.setupSceneSizeListener(scene);
+        playerUIDeck.setupSceneSizeListener(scene);
+        playerUIDiscardPile.setupSceneSizeListener(scene);
+        opponentUIDeck.setupSceneSizeListener(scene);
+        opponentUIDiscardPile.setupSceneSizeListener(scene);
     }
 
     public Scene createScene() {

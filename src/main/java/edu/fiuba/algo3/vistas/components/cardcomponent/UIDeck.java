@@ -1,14 +1,11 @@
-package edu.fiuba.algo3.vistas.components;
+package edu.fiuba.algo3.vistas.components.cardcomponent;
 
 import edu.fiuba.algo3.modelo.Observable;
 import javafx.scene.paint.Color;
 
-/**
- * Component representing the discard pile (shows the last discarded card)
- */
-public class DiscardPile extends BaseCardComponent {
+public class UIDeck extends BaseCardComponent {
     
-    public DiscardPile() {
+    public UIDeck() {
         super();
     }
 
@@ -19,20 +16,20 @@ public class DiscardPile extends BaseCardComponent {
 
     @Override
     protected Color getFillColor() {
-        return Color.rgb(169, 169, 169); // Light gray for discard pile
+        return Color.rgb(139, 69, 19); // Saddle brown for deck back
     }
 
     @Override
     protected Color getStrokeColor() {
-        return Color.rgb(105, 105, 105); // Darker gray border
+        return Color.rgb(101, 67, 33); // Darker brown border
     }
 
     @Override
     protected String getScalingMethodName() {
-        return "scaleDiscardPile";
+        return "scaleDeck";
     }
 
-    public void scaleDiscardPile(double scaleFactorX, double scaleFactorY) {
+    public void scaleDeck(double scaleFactorX, double scaleFactorY) {
         scaleComponent(scaleFactorX, scaleFactorY);
     }
 

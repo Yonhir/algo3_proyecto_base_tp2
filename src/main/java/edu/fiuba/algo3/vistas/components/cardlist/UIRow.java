@@ -1,9 +1,8 @@
-package edu.fiuba.algo3.vistas.components;
+package edu.fiuba.algo3.vistas.components.cardlist;
 
 import edu.fiuba.algo3.modelo.Observable;
 
-public class SpecialZone extends CardList {
-
+public class UIRow extends CardList {
     @Override
     public void update(Observable observable) {
 
