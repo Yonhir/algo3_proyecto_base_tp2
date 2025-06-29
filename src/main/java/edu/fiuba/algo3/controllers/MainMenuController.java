@@ -15,9 +15,7 @@ public class MainMenuController {
     }
 
     public void handleStartGame() {
-        // Any business logic before starting the game can go here,
-        // For example validation, initialization, etc.
-        viewManager.startGame();
+        viewManager.showGameView();
     }
 
     public void handleToggleFullScreen() {

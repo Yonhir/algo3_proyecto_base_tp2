@@ -13,7 +13,6 @@ public class GameController {
         this.viewManager = viewManager;
         this.view = view;
 
-        // Set the event handler using JavaFX ActionEvent
         view.setOnMenuRequested(event -> showMenuOverlay());
     }
 
