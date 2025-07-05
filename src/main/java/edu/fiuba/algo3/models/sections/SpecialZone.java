@@ -114,4 +114,8 @@ public class SpecialZone extends Observable implements Section {
         aDiscardPile.addCardIfHasSameColor(scorch);
         otherDicardPile.addCardIfHasSameColor(scorch);
     }
+
+    public List<Card> getWeathersCards() {
+        return weathersCards;
+    }
 }

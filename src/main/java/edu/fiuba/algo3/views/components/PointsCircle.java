@@ -10,6 +10,9 @@ import javafx.scene.text.Text;
 import javafx.scene.layout.StackPane;
 
 public class PointsCircle extends StackPane implements Observer {
+    // Circle constants
+    private static final double STROKE_WIDTH = 2;
+    private static final double FONT_SIZE_RATIO = 0.8;
     
     private Circle circle;
     private Text pointsText;
@@ -24,10 +27,10 @@ public class PointsCircle extends StackPane implements Observer {
         circle = new Circle(radius);
         circle.setFill(Color.rgb(231, 76, 60));
         circle.setStroke(Color.rgb(192, 57, 43));
-        circle.setStrokeWidth(2);
+        circle.setStrokeWidth(STROKE_WIDTH);
 
         pointsText = new Text(String.valueOf(points));
-        pointsText.setFont(Font.font("Arial", FontWeight.BOLD, radius * 0.8));
+        pointsText.setFont(Font.font("Arial", FontWeight.BOLD, radius * FONT_SIZE_RATIO));
         pointsText.setFill(Color.WHITE);
         
         getChildren().addAll(circle, pointsText);
@@ -45,7 +48,7 @@ public class PointsCircle extends StackPane implements Observer {
     
     public void setRadius(double radius) {
         circle.setRadius(radius);
-        pointsText.setFont(Font.font("Arial", FontWeight.BOLD, radius * 0.8));
+        pointsText.setFont(Font.font("Arial", FontWeight.BOLD, radius * FONT_SIZE_RATIO));
     }
     
     public int getPoints() {

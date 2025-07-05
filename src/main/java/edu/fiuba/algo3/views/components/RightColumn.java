@@ -6,6 +6,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
 
 public class RightColumn extends VBox {
+    private static final double SPACER_HEIGHT_RATIO = 0.4;
     
     private final UIDeck playerUIDeck, opponentUIDeck;
     private final UIDiscardPile playerUIDiscardPile, opponentUIDiscardPile;
@@ -35,10 +36,10 @@ public class RightColumn extends VBox {
         playerCardsContainer.getChildren().addAll(playerUIDeck, playerUIDiscardPile);
         
         javafx.scene.layout.Region opponentSpacer = new javafx.scene.layout.Region();
-        opponentSpacer.prefHeightProperty().bind(heightProperty().multiply(0.4));
+        opponentSpacer.prefHeightProperty().bind(heightProperty().multiply(SPACER_HEIGHT_RATIO));
         
         javafx.scene.layout.Region playerSpacer = new javafx.scene.layout.Region();
-        playerSpacer.prefHeightProperty().bind(heightProperty().multiply(0.4));
+        playerSpacer.prefHeightProperty().bind(heightProperty().multiply(SPACER_HEIGHT_RATIO));
         
         VBox.setVgrow(opponentCardsContainer, javafx.scene.layout.Priority.ALWAYS);
         VBox.setVgrow(playerCardsContainer, javafx.scene.layout.Priority.ALWAYS);

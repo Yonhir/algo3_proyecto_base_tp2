@@ -4,6 +4,12 @@ import edu.fiuba.algo3.views.components.cardlist.UISpecialZone;
 import javafx.scene.layout.VBox;
 
 public class LeftColumn extends VBox {
+    // Layout constants
+    private static final double TOP_SPACER_HEIGHT_RATIO = 0.43;
+    private static final double SPECIAL_ZONE_HEIGHT_RATIO = 0.14;
+    private static final double BOTTOM_SPACER_HEIGHT_RATIO = 0.43;
+    
+
     
     private final UISpecialZone UISpecialZoneList;
     
@@ -25,9 +31,9 @@ public class LeftColumn extends VBox {
         javafx.scene.layout.Region topSpacer = new javafx.scene.layout.Region();
         javafx.scene.layout.Region bottomSpacer = new javafx.scene.layout.Region();
 
-        topSpacer.prefHeightProperty().bind(heightProperty().multiply(0.43));
-        specialZoneContainer.prefHeightProperty().bind(heightProperty().multiply(0.14));
-        bottomSpacer.prefHeightProperty().bind(heightProperty().multiply(0.43));
+        topSpacer.prefHeightProperty().bind(heightProperty().multiply(TOP_SPACER_HEIGHT_RATIO));
+        specialZoneContainer.prefHeightProperty().bind(heightProperty().multiply(SPECIAL_ZONE_HEIGHT_RATIO));
+        bottomSpacer.prefHeightProperty().bind(heightProperty().multiply(BOTTOM_SPACER_HEIGHT_RATIO));
         
         getChildren().addAll(topSpacer, specialZoneContainer, bottomSpacer);
     }

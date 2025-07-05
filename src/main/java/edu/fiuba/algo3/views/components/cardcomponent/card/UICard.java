@@ -45,11 +45,6 @@ public abstract class UICard extends BaseCardComponent {
         return Color.rgb(97, 47, 0);
     }
 
-    @Override
-    protected String getScalingMethodName() {
-        return "scaleCard";
-    }
-
     public void scaleCard(double scaleFactorX, double scaleFactorY) {
         scaleComponent(scaleFactorX, scaleFactorY);
         

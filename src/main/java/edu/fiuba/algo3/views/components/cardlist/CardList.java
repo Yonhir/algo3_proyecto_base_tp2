@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class CardList extends Pane implements Observer {
+    // Layout constants
+    private static final double DEFAULT_CARD_LAYOUT_Y = 0;
     
     private final List<UICard> cards;
     private final boolean defaultDraggable;
@@ -26,9 +28,7 @@ public abstract class CardList extends Pane implements Observer {
         setupHoverAnimation();
         
         widthProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue.doubleValue() > 0) {
-                updateOptimalPositioning();
-            }
+            updateOptimalPositioning();
         });
     }
     
@@ -71,7 +71,7 @@ public abstract class CardList extends Pane implements Observer {
             UICard UICard = cards.get(i);
             double xPosition = padding * i;
             UICard.setLayoutX(xPosition);
-            UICard.setLayoutY(0);
+            UICard.setLayoutY(DEFAULT_CARD_LAYOUT_Y);
         }
     }
 
