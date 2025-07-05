@@ -6,13 +6,10 @@ import edu.fiuba.algo3.views.components.cardcomponent.UIDiscardPile;
 import edu.fiuba.algo3.views.components.cardlist.UIHand;
 import edu.fiuba.algo3.views.components.cardlist.UIRow;
 import edu.fiuba.algo3.views.components.cardlist.UISpecialZone;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-
 
 public class GameView extends StackPane {
     private final UIHand UIHandList;
@@ -21,7 +18,6 @@ public class GameView extends StackPane {
     private final UISpecialZone UISpecialZoneList;
     private final UIDeck playerUIDeck, opponentUIDeck;
     private final UIDiscardPile playerUIDiscardPile, opponentUIDiscardPile;
-    private final TopBar topBar;
     private final LeftColumn leftColumn;
     private final CenterColumn centerColumn;
     private final RightColumn rightColumn;
@@ -42,7 +38,6 @@ public class GameView extends StackPane {
         playerUIDiscardPile = new UIDiscardPile();
         opponentUIDiscardPile = new UIDiscardPile();
         
-        topBar = new TopBar();
         leftColumn = new LeftColumn(UISpecialZoneList);
         centerColumn = new CenterColumn(opponentCloseCombat, opponentRanged, opponentSiege,
                                       playerCloseCombat, playerRanged, playerSiege, UIHandList);
@@ -57,8 +52,11 @@ public class GameView extends StackPane {
     }
 
     public Scene createScene() {
-        double windowWidth = 1920;
-        double windowHeight = 1080;
+        // Get screen dimensions automatically
+        javafx.stage.Screen screen = javafx.stage.Screen.getPrimary();
+        javafx.geometry.Rectangle2D bounds = screen.getVisualBounds();
+        double windowWidth = bounds.getWidth();
+        double windowHeight = bounds.getHeight();
 
         HBox gameBoardLayout = new HBox();
         gameBoardLayout.setAlignment(javafx.geometry.Pos.CENTER);
@@ -73,14 +71,10 @@ public class GameView extends StackPane {
         VBox.setVgrow(rightColumn, javafx.scene.layout.Priority.ALWAYS);
         VBox.setVgrow(gameBoardLayout, javafx.scene.layout.Priority.ALWAYS);
 
-        VBox mainContent = new VBox();
-        mainContent.setAlignment(javafx.geometry.Pos.TOP_CENTER);
-        mainContent.setStyle("-fx-background-color: #654321; -fx-border-color: #3E2723; -fx-border-width: 5px;"); // Brown background
-        topBar.prefHeightProperty().bind(mainContent.heightProperty().multiply(0.05));
-        gameBoardLayout.prefHeightProperty().bind(mainContent.heightProperty().multiply(0.95));
-        mainContent.getChildren().addAll(topBar, gameBoardLayout);
+        // Game board now takes full height without top bar
+        gameBoardLayout.prefHeightProperty().bind(heightProperty());
         
-        getChildren().add(mainContent);
+        getChildren().add(gameBoardLayout);
 
         scene = new Scene(this, windowWidth, windowHeight);
 
@@ -92,9 +86,5 @@ public class GameView extends StackPane {
     public void showExitConfirmation() {
         GameMenuOverlay.hide(this);
         ExitConfirmationDialog.show(this);
-    }
-
-    public void setOnMenuRequested(EventHandler<ActionEvent> handler) {
-        topBar.getMenuButton().setOnAction(handler);
     }
 }
