@@ -8,6 +8,7 @@ import edu.fiuba.algo3.models.turnManagement.Round;
 import edu.fiuba.algo3.models.cardcollections.Deck;
 
 import edu.fiuba.algo3.models.cardcollections.DiscardPile;
+import edu.fiuba.algo3.models.cards.Card;
 import edu.fiuba.algo3.models.cards.specials.*;
 import edu.fiuba.algo3.models.cards.specials.weathers.*;
 import edu.fiuba.algo3.models.cards.units.Unit;
@@ -485,4 +486,59 @@ public class SpecialZoneTest {
         assertFalse(player1SiegeRow.containsCard(player1Catapult));
         assertFalse(player2SiegeRow.containsCard(player2Catapult));
     }
+
+    @Test
+    public void testGetWeathersCards_ShouldReturnEmptyList_WhenNoWeatherCardsAdded() {
+        // Act
+        List<Card> weatherCards = specialZone.getWeathersCards();
+        
+        // Assert
+        assertTrue(weatherCards.isEmpty());
+    }
+
+    @Test
+    public void testGetWeathersCards_ShouldReturnAddedWeatherCards() {
+        // Arrange
+        specialZone.addCard(frostWeather);
+        specialZone.addCard(fogWeather);
+        
+        // Act
+        List<Card> weatherCards = specialZone.getWeathersCards();
+        
+        // Assert
+        assertEquals(2, weatherCards.size(), "Should return the correct number of weather cards");
+        assertTrue(weatherCards.contains(frostWeather), "Should contain the frost weather card");
+        assertTrue(weatherCards.contains(fogWeather), "Should contain the fog weather card");
+    }
+
+    @Test
+    public void testGetWeathersCards_ShouldReturnEmptyList_AfterClearZone() {
+        // Arrange
+        specialZone.addCard(frostWeather);
+        specialZone.addCard(fogWeather);
+        specialZone.addCard(rainWeather);
+        
+        // Act
+        specialZone.clearZone();
+        List<Card> weatherCards = specialZone.getWeathersCards();
+        
+        // Assert
+        assertTrue(weatherCards.isEmpty(), "Should return empty list after clearing the zone");
+    }
+
+    @Test
+    public void testGetWeathersCards_ShouldReturnCards_WhenCardsAddedViaPlaceCard() {
+        // Arrange
+        specialZone.placeCard(frostWeather, round);
+        specialZone.placeCard(fogWeather, round);
+        
+        // Act
+        List<Card> weatherCards = specialZone.getWeathersCards();
+        
+        // Assert
+        assertEquals(2, weatherCards.size(), "Should return weather cards added via placeCard");
+        assertTrue(weatherCards.contains(frostWeather), "Should contain frost weather added via placeCard");
+        assertTrue(weatherCards.contains(fogWeather), "Should contain fog weather added via placeCard");
+    }
+
 }
