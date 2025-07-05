@@ -1,5 +1,12 @@
 package edu.fiuba.algo3.views;
 
+import edu.fiuba.algo3.models.cardcollections.Deck;
+import edu.fiuba.algo3.models.cardcollections.Hand;
+import edu.fiuba.algo3.models.cardcollections.DiscardPile;
+import edu.fiuba.algo3.models.sections.rows.CloseCombat;
+import edu.fiuba.algo3.models.sections.rows.Ranged;
+import edu.fiuba.algo3.models.sections.rows.Siege;
+import edu.fiuba.algo3.models.sections.SpecialZone;
 import edu.fiuba.algo3.views.components.*;
 import edu.fiuba.algo3.views.components.cardcomponent.UIDeck;
 import edu.fiuba.algo3.views.components.cardcomponent.UIDiscardPile;
@@ -24,19 +31,26 @@ public class GameView extends StackPane {
     
     private Scene scene;
 
-    public GameView() {
-        UIHandList = new UIHand();
-        opponentCloseCombat = new UIRow();
-        opponentRanged = new UIRow();
-        opponentSiege = new UIRow();
-        playerCloseCombat = new UIRow();
-        playerRanged = new UIRow();
-        playerSiege = new UIRow();
-        UISpecialZoneList = new UISpecialZone();
-        playerUIDeck = new UIDeck();
-        opponentUIDeck = new UIDeck();
-        playerUIDiscardPile = new UIDiscardPile();
-        opponentUIDiscardPile = new UIDiscardPile();
+    public GameView(Hand currentPlayerHand, 
+                   Deck player1Deck, Deck player2Deck,
+                   DiscardPile player1DiscardPile, DiscardPile player2DiscardPile,
+                   CloseCombat player1CloseCombat, Ranged player1Ranged, Siege player1Siege,
+                   CloseCombat player2CloseCombat, Ranged player2Ranged, Siege player2Siege,
+                   SpecialZone specialZone) {
+        
+        UIHandList = new UIHand(currentPlayerHand);
+        opponentCloseCombat = new UIRow(player2CloseCombat);
+        opponentRanged = new UIRow(player2Ranged);
+        opponentSiege = new UIRow(player2Siege);
+        playerCloseCombat = new UIRow(player1CloseCombat);
+        playerRanged = new UIRow(player1Ranged);
+        playerSiege = new UIRow(player1Siege);
+        
+        UISpecialZoneList = new UISpecialZone(specialZone);
+        playerUIDeck = new UIDeck(player1Deck);
+        opponentUIDeck = new UIDeck(player2Deck);
+        playerUIDiscardPile = new UIDiscardPile(player1DiscardPile);
+        opponentUIDiscardPile = new UIDiscardPile(player2DiscardPile);
         
         leftColumn = new LeftColumn(UISpecialZoneList);
         centerColumn = new CenterColumn(opponentCloseCombat, opponentRanged, opponentSiege,

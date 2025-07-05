@@ -1,12 +1,16 @@
 package edu.fiuba.algo3.views.components.cardcomponent;
 
 import edu.fiuba.algo3.models.Observable;
+import edu.fiuba.algo3.models.cardcollections.DiscardPile;
 import javafx.scene.paint.Color;
 
 public class UIDiscardPile extends BaseCardComponent {
+    private final DiscardPile discardPile;
     
-    public UIDiscardPile() {
+    public UIDiscardPile(DiscardPile discardPile) {
         super();
+        this.discardPile = discardPile;
+        this.discardPile.addObserver(this);
     }
 
     @Override
@@ -35,6 +39,7 @@ public class UIDiscardPile extends BaseCardComponent {
 
     @Override
     public void update(Observable observable) {
-
+        // Update UI when discard pile changes (e.g., cards are added)
+        // Could update card count display or visual representation
     }
 }
