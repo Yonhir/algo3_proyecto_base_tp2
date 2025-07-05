@@ -29,15 +29,6 @@ public class UIDeck extends BaseCardComponent {
     }
 
     @Override
-    protected String getScalingMethodName() {
-        return "scaleDeck";
-    }
-
-    public void scaleDeck(double scaleFactorX, double scaleFactorY) {
-        scaleComponent(scaleFactorX, scaleFactorY);
-    }
-
-    @Override
     public void update(Observable observable) {
         // Update UI when deck changes (e.g., cards are drawn)
         // Could update card count display or visual representation

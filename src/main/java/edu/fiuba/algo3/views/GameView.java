@@ -19,10 +19,11 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 public class GameView extends StackPane {
-    private final UIHand UIHandList;
-    private final UIRow opponentCloseCombat, opponentRanged, opponentSiege;
-    private final UIRow playerCloseCombat, playerRanged, playerSiege;
-    private final UISpecialZone UISpecialZoneList;
+    // Layout constants
+    private static final double LEFT_COLUMN_WIDTH_RATIO = 0.2;
+    private static final double CENTER_COLUMN_WIDTH_RATIO = 0.50;
+    private static final double RIGHT_COLUMN_WIDTH_RATIO = 0.3;
+
     private final UIDeck playerUIDeck, opponentUIDeck;
     private final UIDiscardPile playerUIDiscardPile, opponentUIDiscardPile;
     private final LeftColumn leftColumn;
@@ -37,16 +38,16 @@ public class GameView extends StackPane {
                    CloseCombat player1CloseCombat, Ranged player1Ranged, Siege player1Siege,
                    CloseCombat player2CloseCombat, Ranged player2Ranged, Siege player2Siege,
                    SpecialZone specialZone) {
-        
-        UIHandList = new UIHand(currentPlayerHand);
-        opponentCloseCombat = new UIRow(player2CloseCombat);
-        opponentRanged = new UIRow(player2Ranged);
-        opponentSiege = new UIRow(player2Siege);
-        playerCloseCombat = new UIRow(player1CloseCombat);
-        playerRanged = new UIRow(player1Ranged);
-        playerSiege = new UIRow(player1Siege);
-        
-        UISpecialZoneList = new UISpecialZone(specialZone);
+
+        UIHand UIHandList = new UIHand(currentPlayerHand);
+        UIRow opponentCloseCombat = new UIRow(player2CloseCombat);
+        UIRow opponentRanged = new UIRow(player2Ranged);
+        UIRow opponentSiege = new UIRow(player2Siege);
+        UIRow playerCloseCombat = new UIRow(player1CloseCombat);
+        UIRow playerRanged = new UIRow(player1Ranged);
+        UIRow playerSiege = new UIRow(player1Siege);
+
+        UISpecialZone UISpecialZoneList = new UISpecialZone(specialZone);
         playerUIDeck = new UIDeck(player1Deck);
         opponentUIDeck = new UIDeck(player2Deck);
         playerUIDiscardPile = new UIDiscardPile(player1DiscardPile);
@@ -54,7 +55,7 @@ public class GameView extends StackPane {
         
         leftColumn = new LeftColumn(UISpecialZoneList);
         centerColumn = new CenterColumn(opponentCloseCombat, opponentRanged, opponentSiege,
-                                      playerCloseCombat, playerRanged, playerSiege, UIHandList);
+                playerCloseCombat, playerRanged, playerSiege, UIHandList);
         rightColumn = new RightColumn(playerUIDeck, opponentUIDeck, playerUIDiscardPile, opponentUIDiscardPile);
     }
 
@@ -76,16 +77,15 @@ public class GameView extends StackPane {
         gameBoardLayout.setAlignment(javafx.geometry.Pos.CENTER);
         gameBoardLayout.setStyle("-fx-background-color: #8B4513; -fx-border-color: #654321; -fx-border-width: 4px;");
 
-        leftColumn.prefWidthProperty().bind(gameBoardLayout.widthProperty().multiply(0.2));
-        centerColumn.prefWidthProperty().bind(gameBoardLayout.widthProperty().multiply(0.50));
-        rightColumn.prefWidthProperty().bind(gameBoardLayout.widthProperty().multiply(0.3));
+        leftColumn.prefWidthProperty().bind(gameBoardLayout.widthProperty().multiply(LEFT_COLUMN_WIDTH_RATIO));
+        centerColumn.prefWidthProperty().bind(gameBoardLayout.widthProperty().multiply(CENTER_COLUMN_WIDTH_RATIO));
+        rightColumn.prefWidthProperty().bind(gameBoardLayout.widthProperty().multiply(RIGHT_COLUMN_WIDTH_RATIO));
         gameBoardLayout.getChildren().addAll(leftColumn, centerColumn, rightColumn);
 
         VBox.setVgrow(leftColumn, javafx.scene.layout.Priority.ALWAYS);
         VBox.setVgrow(rightColumn, javafx.scene.layout.Priority.ALWAYS);
         VBox.setVgrow(gameBoardLayout, javafx.scene.layout.Priority.ALWAYS);
 
-        // Game board now takes full height without top bar
         gameBoardLayout.prefHeightProperty().bind(heightProperty());
         
         getChildren().add(gameBoardLayout);
@@ -98,7 +98,6 @@ public class GameView extends StackPane {
     }
 
     public void showExitConfirmation() {
-        GameMenuOverlay.hide(this);
         ExitConfirmationDialog.show(this);
     }
 }

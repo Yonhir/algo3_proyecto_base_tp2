@@ -20,21 +20,12 @@ public class UIDiscardPile extends BaseCardComponent {
 
     @Override
     protected Color getFillColor() {
-        return Color.rgb(169, 169, 169); // Light gray for discard pile
+        return Color.rgb(169, 169, 169);
     }
 
     @Override
     protected Color getStrokeColor() {
-        return Color.rgb(105, 105, 105); // Darker gray border
-    }
-
-    @Override
-    protected String getScalingMethodName() {
-        return "scaleDiscardPile";
-    }
-
-    public void scaleDiscardPile(double scaleFactorX, double scaleFactorY) {
-        scaleComponent(scaleFactorX, scaleFactorY);
+        return Color.rgb(105, 105, 105);
     }
 
     @Override

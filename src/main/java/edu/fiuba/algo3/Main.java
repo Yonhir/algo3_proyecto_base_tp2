@@ -82,7 +82,7 @@ public class Main {
             player1Deck.validate();
             player2Deck.validate();
             
-            // Create special zone
+            // Create the SpecialZone
             specialZone = new SpecialZone(
                 player1CloseCombat, player1Ranged, player1Siege,
                 player2CloseCombat, player2Ranged, player2Siege,
@@ -95,7 +95,6 @@ public class Main {
             
         } catch (Exception e) {
             System.err.println("Error initializing game: " + e.getMessage());
-            e.printStackTrace();
         }
     }
     

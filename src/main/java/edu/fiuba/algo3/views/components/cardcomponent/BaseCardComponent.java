@@ -14,6 +14,14 @@ public abstract class BaseCardComponent extends StackPane implements Observer {
     protected static final double CORNER_RADIUS = 6;
     protected static final double BASE_SCENE_WIDTH = 1920.0;
     protected static final double BASE_SCENE_HEIGHT = 1080.0;
+    
+    // Stroke and hover constants
+    protected static final double STROKE_WIDTH = 2;
+    protected static final double HOVER_SCALE_X = 1.05;
+    protected static final double HOVER_SCALE_Y = 1.05;
+    protected static final double HOVER_TRANSLATE_Y = -3;
+    protected static final double NORMAL_SCALE = 1.0;
+    protected static final double NORMAL_TRANSLATE_Y = 0;
 
     protected Rectangle background;
 
@@ -32,13 +40,11 @@ public abstract class BaseCardComponent extends StackPane implements Observer {
 
     protected abstract Color getStrokeColor();
 
-    protected abstract String getScalingMethodName();
-
     protected void setupBackground() {
         background = new Rectangle(BASE_CARD_WIDTH, BASE_CARD_HEIGHT);
         background.setFill(getFillColor());
         background.setStroke(getStrokeColor());
-        background.setStrokeWidth(2);
+        background.setStrokeWidth(STROKE_WIDTH);
         background.setArcWidth(CORNER_RADIUS);
         background.setArcHeight(CORNER_RADIUS);
 
@@ -52,15 +58,15 @@ public abstract class BaseCardComponent extends StackPane implements Observer {
     
     private void setupHoverEffects() {
         setOnMouseEntered(e -> {
-            setScaleX(1.05);
-            setScaleY(1.05);
-            setTranslateY(-3);
+            setScaleX(HOVER_SCALE_X);
+            setScaleY(HOVER_SCALE_Y);
+            setTranslateY(HOVER_TRANSLATE_Y);
         });
         
         setOnMouseExited(e -> {
-            setScaleX(1.0);
-            setScaleY(1.0);
-            setTranslateY(0);
+            setScaleX(NORMAL_SCALE);
+            setScaleY(NORMAL_SCALE);
+            setTranslateY(NORMAL_TRANSLATE_Y);
         });
     }
 
