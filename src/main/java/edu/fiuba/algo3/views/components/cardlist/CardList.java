@@ -103,16 +103,12 @@ public abstract class CardList extends Pane implements Observer {
     }
     
     protected void loadCardsFromModel() {
-        if (model != null) {
-            getChildren().clear();
-            
-            List<Card> modelCards = getCardsFromModel();
-            for (Card modelCard : modelCards) {
-                UICard uiCard = createUICard(modelCard);
-                if (uiCard != null) {
-                    addCard(uiCard);
-                }
-            }
+        getChildren().clear();
+        
+        List<Card> modelCards = getCardsFromModel();
+        for (Card modelCard : modelCards) {
+            UICard uiCard = createUICard(modelCard);
+            addCard(uiCard);
         }
     }
     
