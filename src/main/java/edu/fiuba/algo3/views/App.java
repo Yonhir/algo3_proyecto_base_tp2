@@ -56,9 +56,8 @@ public class App extends Application {
         this.stage = stage;
         showGameView();
         
-        // Handle window close request (X button)
         stage.setOnCloseRequest(event -> {
-            event.consume(); // Prevent default close behavior
+            event.consume();
             showExitConfirmation();
         });
         
