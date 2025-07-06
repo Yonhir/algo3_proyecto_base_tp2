@@ -122,7 +122,7 @@ public class SpecialZoneTest {
     }
 
     @Test
-    public void testBitingFrostAffectsPlayer1CloseCombatRow() {
+    public void testLaEscarchaAfectaALasUnidadesCuerpoACuerpoDelJugador1() {
         // Arrange
         player1CloseCombatRow.placeCard(player1Soldier, round);
         player2CloseCombatRow.placeCard(player2Soldier, round);
@@ -135,7 +135,7 @@ public class SpecialZoneTest {
     }
 
     @Test
-    public void testBitingFrostAffectsPlayer2CloseCombatRow() {
+    public void testLaEscarchaAfectaALasUnidadesCuerpoACuerpoDelJugador2() {
         // Arrange
         player1CloseCombatRow.placeCard(player1Soldier, round);
         player2CloseCombatRow.placeCard(player2Soldier, round);
@@ -148,7 +148,7 @@ public class SpecialZoneTest {
     }
 
     @Test
-    public void testImpenetrableFogAffectsPlayer1RangedRow() {
+    public void testLaNieblaAfectaALasUnidadesADistanciaDelJugador1() {
         // Arrange
         player1RangedRow.placeCard(player1Archer, round);
         player2RangedRow.placeCard(player2Archer, round);
@@ -161,7 +161,7 @@ public class SpecialZoneTest {
     }
 
     @Test
-    public void testImpenetrableFogAffectsPlayer2RangedRow() {
+    public void testLaNieblaAfectaALasUnidadesADistanciaDelJugador2() {
         // Arrange
         player1RangedRow.placeCard(player1Archer, round);
         player2RangedRow.placeCard(player2Archer, round);
@@ -174,7 +174,7 @@ public class SpecialZoneTest {
     }
 
     @Test
-    public void testTorrentialRainAffectsPlayer1SiegeRow() {
+    public void testLaLluviaAfectaALasUnidadesDeAsedioDelJugador1() {
         // Arrange
         player1SiegeRow.placeCard(player1Catapult, round);
         player2SiegeRow.placeCard(player2Catapult, round);
@@ -187,7 +187,7 @@ public class SpecialZoneTest {
     }
 
     @Test
-    public void testTorrentialRainAffectsPlayer2SiegeRow() {
+    public void testLaLluviaAfectaALasUnidadesDeAsedioDelJugador2() {
         // Arrange
         player1SiegeRow.placeCard(player1Catapult, round);
         player2SiegeRow.placeCard(player2Catapult, round);
@@ -200,7 +200,7 @@ public class SpecialZoneTest {
     }
 
     @Test
-    public void testBitingFrostOnlyAffectsCloseCombatUnits() {
+    public void testLaEscarchaSoloAfectaALasUnidadesCuerpoACuerpo() {
         // Arrange
         player1CloseCombatRow.placeCard(player1Soldier, round);
         player1RangedRow.placeCard(player1Archer, round);
@@ -214,7 +214,7 @@ public class SpecialZoneTest {
     }
 
     @Test
-    public void testImpenetrableFogOnlyAffectsRangedUnits() {
+    public void testLaNieblaSoloAfectaALasUnidadesADistancia() {
         // Arrange
         player1CloseCombatRow.placeCard(player1Soldier, round);
         player1RangedRow.placeCard(player1Archer, round);
@@ -228,7 +228,7 @@ public class SpecialZoneTest {
     }
 
     @Test
-    public void testTorrentialRainOnlyAffectsSiegeUnits() {
+    public void testLaLluviaSoloAfectaALasUnidadesDeAsedio() {
         // Arrange
         player1CloseCombatRow.placeCard(player1Soldier, round);
         player1RangedRow.placeCard(player1Archer, round);
@@ -242,7 +242,7 @@ public class SpecialZoneTest {
     }
 
     @Test
-    public void testNewCloseCombatUnitsAreAffectedByExistingFrost() {
+    public void testLasNuevasUnidadesCuerpoACuerpoSonAfectadasPorLaEscarchaExistente() {
         // Arrange
         specialZone.placeCard(frostWeather, round);
         
@@ -254,7 +254,7 @@ public class SpecialZoneTest {
     }
 
     @Test
-    public void testNewRangedUnitsAreAffectedByExistingFog() {
+    public void testLasNuevasUnidadesADistanciaSonAfectadasPorLaNieblaExistente() {
         // Arrange
         specialZone.placeCard(fogWeather, round);
         
@@ -266,7 +266,7 @@ public class SpecialZoneTest {
     }
 
     @Test
-    public void testNewSiegeUnitsAreAffectedByExistingRain() {
+    public void testLasNuevasUnidadesDeAsedioSonAfectadasPorLaLluviaExistente() {
         // Arrange
         specialZone.placeCard(rainWeather, round);
         
@@ -278,7 +278,7 @@ public class SpecialZoneTest {
     }
 
     @Test
-    public void testClearZoneWeatherRemovesAllWeatherEffectsFromCloseCombat() {
+    public void testElClimaDespejadoEliminaTodosLosEfectosDeClimaDeLasUnidadesCuerpoACuerpo() {
         // Arrange
         setupAllWeatherEffects();
         
@@ -292,7 +292,7 @@ public class SpecialZoneTest {
     }
 
     @Test
-    public void testClearZoneWeatherRemovesAllWeatherEffectsFromRanged() {
+    public void testElClimaDespejadoEliminaTodosLosEfectosDeClimaDeLasUnidadesADistancia() {
         // Arrange
         setupAllWeatherEffects();
         
@@ -306,7 +306,7 @@ public class SpecialZoneTest {
     }
 
     @Test
-    public void testClearZoneWeatherRemovesAllWeatherEffectsFromSiege() {
+    public void testElClimaDespejadoEliminaTodosLosEfectosDeClimaDeLasUnidadesDeAsedio() {
         // Arrange
         setupAllWeatherEffects();
         
@@ -320,7 +320,7 @@ public class SpecialZoneTest {
     }
 
     @Test
-    public void testFrostAffectsBothPlayersCloseCombat() {
+    public void testLaEscarchaAfectaALasUnidadesCuerpoACuerpoDeAmbosJugadores() {
         // Arrange
         player1CloseCombatRow.placeCard(player1Soldier, round);
         player2CloseCombatRow.placeCard(player2Soldier, round);
@@ -334,7 +334,7 @@ public class SpecialZoneTest {
     }
 
     @Test
-    public void testFogAffectsBothPlayersRanged() {
+    public void testLaNieblaAfectaALasUnidadesADistanciaDeAmbosJugadores() {
         // Arrange
         player1RangedRow.placeCard(player1Archer, round);
         player2RangedRow.placeCard(player2Archer, round);
@@ -348,7 +348,7 @@ public class SpecialZoneTest {
     }
 
     @Test
-    public void testRainAffectsBothPlayersSiege() {
+    public void testLaLluviaAfectaALasUnidadesDeAsedioDeAmbosJugadores() {
         // Arrange
         player1SiegeRow.placeCard(player1Catapult, round);
         player2SiegeRow.placeCard(player2Catapult, round);
@@ -362,7 +362,7 @@ public class SpecialZoneTest {
     }
 
     @Test
-    public void testClearZoneWeatherRemovesEffectsFromBothPlayers() {
+    public void testElClimaDespejadoEliminaLosEfectosDeAmbosJugadores() {
         // Arrange
         player1CloseCombatRow.placeCard(player1Soldier, round);
         player1RangedRow.placeCard(player1Archer, round);
@@ -391,7 +391,7 @@ public class SpecialZoneTest {
     }
 
     @Test
-    public void testSpecialZoneConstructor_ShouldThrowException_WhenCloseCombatRowsAreRepeated() {
+    public void testElConstructorDeSpecialZoneDeberiaLanzarExcepcionCuandoLasFilasCuerpoACuerpoSeRepiten() {
         // Arrange
 
         CloseCombat sharedCloseCombatRow = new CloseCombat(discardPile1);
@@ -410,7 +410,7 @@ public class SpecialZoneTest {
     }
 
     @Test
-    public void testSpecialZoneConstructor_ShouldThrowException_WhenRangedRowsAreRepeated() {
+    public void testElConstructorDeSpecialZoneDeberiaLanzarExcepcionCuandoLasFilasADistanciaSeRepiten() {
         // Arrange
       
         Ranged sharedRangedRow = new Ranged(discardPile1);
@@ -429,7 +429,7 @@ public class SpecialZoneTest {
     }
 
     @Test
-    public void testSpecialZoneConstructor_ShouldThrowException_WhenSiegeRowsAreRepeated() {
+    public void testElConstructorDeSpecialZoneDeberiaLanzarExcepcionCuandoLasFilasDeAsedioSeRepiten() {
         // Arrange
 
       Siege sharedSiegeRow = new Siege(discardPile1);
@@ -448,7 +448,7 @@ public class SpecialZoneTest {
     }
 
     @Test
-    public void testSpecialZoneConstructor_ShouldThrowException_WhenMultipleRowsAreRepeated() {
+    public void testElConstructorDeSpecialZoneDeberiaLanzarExcepcionCuandoMultiplesFilasSeRepiten() {
         // Arrange
 
         CloseCombat sharedCloseCombatRow = new CloseCombat(discardPile1);
@@ -488,7 +488,7 @@ public class SpecialZoneTest {
     }
 
     @Test
-    public void testGetWeathersCards_ShouldReturnEmptyList_WhenNoWeatherCardsAdded() {
+    public void testObtenerCartasDeClimaDeberiaRetornarListaVaciaCuandoNoSeAgreganCartasDeClima() {
         // Act
         List<Card> weatherCards = specialZone.getWeathersCards();
         
@@ -497,7 +497,7 @@ public class SpecialZoneTest {
     }
 
     @Test
-    public void testGetWeathersCards_ShouldReturnAddedWeatherCards() {
+    public void testObtenerCartasDeClimaDeberiaRetornarLasCartasDeClimaAgregadas() {
         // Arrange
         specialZone.addCard(frostWeather);
         specialZone.addCard(fogWeather);
@@ -512,7 +512,7 @@ public class SpecialZoneTest {
     }
 
     @Test
-    public void testGetWeathersCards_ShouldReturnEmptyList_AfterClearZone() {
+    public void testObtenerCartasDeClimaDeberiaRetornarListaVaciaDespuesDeLimpiarLaZona() {
         // Arrange
         specialZone.addCard(frostWeather);
         specialZone.addCard(fogWeather);
@@ -527,7 +527,7 @@ public class SpecialZoneTest {
     }
 
     @Test
-    public void testGetWeathersCards_ShouldReturnCards_WhenCardsAddedViaPlaceCard() {
+    public void testObtenerCartasDeClimaDeberiaRetornarCartasCuandoLasCartasSeAgreganViaPlaceCard() {
         // Arrange
         specialZone.placeCard(frostWeather, round);
         specialZone.placeCard(fogWeather, round);
