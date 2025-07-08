@@ -13,6 +13,7 @@ import edu.fiuba.algo3.models.turnManagement.Game;
 import edu.fiuba.algo3.models.turnManagement.Player;
 import edu.fiuba.algo3.models.json.GameLoader;
 import edu.fiuba.algo3.views.App;
+import javafx.application.Application;
 
 public class Main {
     // Static attributes to save initialized objects
@@ -26,23 +27,10 @@ public class Main {
     private static Game game;
 
     public static void main(String[] args) {
-        // Initialize game objects and save them in static attributes
-        initializeGame();
-
-        // Deal initial cards to players
-        dealInitialCards();
-        
-        // Start the JavaFX application with all game objects
-        App.main(args, 
-                game.getCurrentRound().getCurrentPlayer().getHand(),
-                player1Deck, player2Deck,
-                player1DiscardPile, player2DiscardPile,
-                player1CloseCombat, player1Ranged, player1Siege,
-                player2CloseCombat, player2Ranged, player2Siege,
-                specialZone);
+        Application.launch(App.class, args);
     }
     
-    private static void initializeGame() {
+    public static void initializeGame(String nombreJugador1, String nombreJugador2) {
         try {
             // Create card collections for player 1
             player1Deck = new Deck();
@@ -63,9 +51,9 @@ public class Main {
             player2Siege = new Siege(player2DiscardPile);
             
             // Create players first (they will create their own hands internally)
-            Player player1 = new Player("Player 1", player1Deck, player1DiscardPile, 
+            Player player1 = new Player(nombreJugador1, player1Deck, player1DiscardPile,
                 player1CloseCombat, player1Ranged, player1Siege, new Blue());
-            Player player2 = new Player("Player 2", player2Deck, player2DiscardPile, 
+            Player player2 = new Player(nombreJugador2, player2Deck, player2DiscardPile,
                 player2CloseCombat, player2Ranged, player2Siege, new Red());
             
             // Get the hands from the players
@@ -98,7 +86,7 @@ public class Main {
         }
     }
     
-    private static void dealInitialCards() {
+    public static void dealInitialCards() {
         // Deal initial cards to players (10 cards each)
         player1Hand.getNCardsFromDeck(player1Deck, 10);
         player2Hand.getNCardsFromDeck(player2Deck, 10);
@@ -107,4 +95,18 @@ public class Main {
         System.out.println("Player 1: " + player1Hand.getCardCount() + " cards in hand");
         System.out.println("Player 2: " + player2Hand.getCardCount() + " cards in hand");
     }
+
+    public static Hand getCurrentPlayerHand() { return game.getCurrentRound().getCurrentPlayer().getHand(); }
+    public static Deck getPlayer1Deck() { return player1Deck; }
+    public static Deck getPlayer2Deck() { return player2Deck; }
+    public static DiscardPile getPlayer1DiscardPile() { return player1DiscardPile; }
+    public static DiscardPile getPlayer2DiscardPile() { return player2DiscardPile; }
+    public static CloseCombat getPlayer1CloseCombat() { return player1CloseCombat; }
+    public static CloseCombat getPlayer2CloseCombat() { return player2CloseCombat; }
+    public static Ranged getPlayer1Ranged() { return player1Ranged; }
+    public static Ranged getPlayer2Ranged() { return player2Ranged; }
+    public static Siege getPlayer1Siege() { return player1Siege; }
+    public static Siege getPlayer2Siege() { return player2Siege; }
+    public static SpecialZone getSpecialZone() { return specialZone; }
+
 }
