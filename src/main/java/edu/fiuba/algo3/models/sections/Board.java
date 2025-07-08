@@ -74,10 +74,17 @@ public class Board {
         currentPlayerHand = game.currentPlayerHand();
     }
 
-    private Game startGameWith(Player a, Player b, SpecialZone zone) {
-        return ThreadLocalRandom.current().nextInt(2) == 0
-                ? new Game(a, b, zone)
-                : new Game(b, a, zone);
+    private static Game startGameWith(Player aPlayer, Player anotherPlayer, SpecialZone specialZone) {
+        int minimum = 0;
+        int middle = 1;
+        int maximum = 2;
+
+        int number = ThreadLocalRandom.current().nextInt(minimum, maximum);
+
+        if (number >= middle) {
+            return new Game(anotherPlayer, aPlayer, specialZone);
+        }
+        return new Game(aPlayer, anotherPlayer, specialZone);
     }
 
 
