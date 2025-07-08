@@ -33,7 +33,7 @@ public class SpecialZone extends Observable implements Section {
         this.rangedRows = List.of(aPlayerRangedRow, otherPlayerRangedRow);
         this.siegeRows = List.of(aPlayerSiegeRow, otherPlayerSiegeRow);
         this.sectionType = new SpecialType();
-        this.weathersCards = new ArrayList<>();
+        this.weathersCards = new ArrayList<Card>();
         this.aDiscardPile = aDiscardPile;
         this.otherDicardPile = otherDicardPile;
     }
@@ -72,8 +72,8 @@ public class SpecialZone extends Observable implements Section {
             aDiscardPile.addCardIfHasSameColor(weather);
             otherDicardPile.addCardIfHasSameColor(weather);
         }
-        weathersCards.clear();
         new ClearWeather("Clima Despejado", "Elimina todos los efectos de clima").play(this);
+        weathersCards.clear();
     }
 
     public void applyScorchInCloseCombat(Scorch scorch) {
@@ -113,5 +113,9 @@ public class SpecialZone extends Observable implements Section {
 
         aDiscardPile.addCardIfHasSameColor(scorch);
         otherDicardPile.addCardIfHasSameColor(scorch);
+    }
+
+    public List<Card> getWeathersCards() {
+        return weathersCards;
     }
 }

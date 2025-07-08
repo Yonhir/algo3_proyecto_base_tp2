@@ -4,7 +4,6 @@ module edu.fiuba.algo3 {
     requires json.simple;
 
     exports edu.fiuba.algo3;
-    exports edu.fiuba.algo3.controllers;
     exports edu.fiuba.algo3.models.errors;
     exports edu.fiuba.algo3.models.sections;
     exports edu.fiuba.algo3.models.cardcollections;
@@ -30,7 +29,6 @@ module edu.fiuba.algo3 {
     exports edu.fiuba.algo3.views.components.cardcomponent;
     exports edu.fiuba.algo3.views.components.cardcomponent.card;
 
-    opens edu.fiuba.algo3.controllers;
     opens edu.fiuba.algo3.models.errors;
     opens edu.fiuba.algo3.models.sections;
     opens edu.fiuba.algo3.models.cardcollections;
