@@ -48,9 +48,7 @@ public class NameInputView {
                 fade.setFromValue(1.0);
                 fade.setToValue(0.0);
                 fade.setOnFinished(event -> {
-                    Main.initializeGame(nombre1, nombre2);
-                    Main.dealInitialCards();
-                    App.startGame(stage);
+                    App.startGame(stage, nombre1, nombre2);
                 });
                 fade.play();
             } catch (Exception ex) {
