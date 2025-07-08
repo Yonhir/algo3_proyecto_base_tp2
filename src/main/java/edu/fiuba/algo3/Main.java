@@ -14,6 +14,8 @@ import edu.fiuba.algo3.models.turnManagement.Player;
 import edu.fiuba.algo3.models.json.GameLoader;
 import edu.fiuba.algo3.views.App;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 public class Main {
     // Static attributes to save initialized objects
     private static Hand player1Hand, player2Hand;
@@ -90,8 +92,7 @@ public class Main {
             );
             
             // Create game
-            game = new Game(player1, player2, specialZone);
-            
+            game = startGameWith(player1, player2, specialZone);
             
         } catch (Exception e) {
             System.err.println("Error initializing game: " + e.getMessage());
@@ -106,5 +107,18 @@ public class Main {
         System.out.println("Initial cards dealt successfully!");
         System.out.println("Player 1: " + player1Hand.getCardCount() + " cards in hand");
         System.out.println("Player 2: " + player2Hand.getCardCount() + " cards in hand");
+    }
+
+    private static Game startGameWith(Player aPlayer, Player anotherPlayer, SpecialZone specialZone) {
+        int minimum = 0;
+        int middle = 1;
+        int maximum = 2;
+
+        int number = ThreadLocalRandom.current().nextInt(minimum, maximum);
+
+        if (number >= middle) {
+            return new Game(anotherPlayer, aPlayer, specialZone);
+        }
+        return new Game(aPlayer, anotherPlayer, specialZone);
     }
 }
