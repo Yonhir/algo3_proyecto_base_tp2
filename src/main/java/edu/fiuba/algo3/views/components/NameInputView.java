@@ -48,7 +48,15 @@ public class NameInputView {
                 fade.setFromValue(1.0);
                 fade.setToValue(0.0);
                 fade.setOnFinished(event -> {
-                    App.startGame(stage, nombre1, nombre2);
+                    Main.nombreJugador1 = nombre1;
+                    Main.nombreJugador2 = nombre2;
+                    App app = new App();
+                    try {
+                        app.start(stage);
+                    } catch (Exception ex) {
+                        errorLabel.setText("No se pudo iniciar el juego.");
+                        ex.printStackTrace();
+                    }
                 });
                 fade.play();
             } catch (Exception ex) {
