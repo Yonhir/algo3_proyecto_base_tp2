@@ -17,6 +17,8 @@ import edu.fiuba.algo3.views.GameInitializer;
 import edu.fiuba.algo3.views.GameState;
 import javafx.application.Application;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 public class Main {
     public static GameState initialState;
     public static String nombreJugador1;
@@ -25,6 +27,7 @@ public class Main {
     public static void main(String[] args) {
         try {
             initialState = new GameInitializer().createInitialState("Jugador 1", "Jugador 2");
+
         } catch (Exception e) {
             System.err.println("No se pudo inicializar el juego: " + e.getMessage());
             return;
