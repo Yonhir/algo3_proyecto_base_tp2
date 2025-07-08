@@ -1,24 +1,13 @@
 package edu.fiuba.algo3.views;
 
 import edu.fiuba.algo3.Main;
-import edu.fiuba.algo3.models.cardcollections.Deck;
-import edu.fiuba.algo3.models.cardcollections.Hand;
-import edu.fiuba.algo3.models.cardcollections.DiscardPile;
-import edu.fiuba.algo3.models.colors.Blue;
-import edu.fiuba.algo3.models.colors.Red;
-import edu.fiuba.algo3.models.json.GameLoader;
-import edu.fiuba.algo3.models.sections.rows.CloseCombat;
-import edu.fiuba.algo3.models.sections.rows.Ranged;
-import edu.fiuba.algo3.models.sections.rows.Siege;
-import edu.fiuba.algo3.models.sections.SpecialZone;
-import edu.fiuba.algo3.models.turnManagement.Game;
-import edu.fiuba.algo3.models.turnManagement.Player;
-import edu.fiuba.algo3.views.components.ExitConfirmationDialog;
+import edu.fiuba.algo3.models.sections.Board;
 import edu.fiuba.algo3.views.components.NameInputView;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+
+import static edu.fiuba.algo3.Main.board;
 
 public class App extends Application {
     private Stage stage;
@@ -36,25 +25,24 @@ public class App extends Application {
             }
 
             try {
-                GameInitializer initializer = new GameInitializer();
-                Main.initialState = initializer.createInitialState(Main.nombreJugador1, Main.nombreJugador2);
+                Main.board = new Board(Main.nombreJugador1, Main.nombreJugador2);
             } catch (Exception e) {
                 System.err.println("No se pudo inicializar el juego: " + e.getMessage());
                 return;
             }
 
-            GameState estado = Main.initialState;
 
-            GameView gameView = new GameView(
-                    estado.currentPlayerHand,
-                    estado.player1Deck, estado.player2Deck,
-                    estado.player1DiscardPile, estado.player2DiscardPile,
-                    estado.player1CloseCombat, estado.player1Ranged, estado.player1Siege,
-                    estado.player2CloseCombat, estado.player2Ranged, estado.player2Siege,
-                    estado.specialZone
+        GameView gameView = new GameView(
+                board.currentPlayerHand(),
+                board.player1Deck(), board.player2Deck(),
+                board.player1DiscardPile(), board.player2DiscardPile(),
+                board.player1CloseCombat(), board.player1Ranged(), board.player1Siege(),
+                board.player2CloseCombat(), board.player2Ranged(), board.player2Siege(),
+                board.specialZone()
             );
 
-            Scene scene = gameView.createScene();
+
+        Scene scene = gameView.createScene();
             stage.setScene(scene);
             stage.setFullScreen(true);
             stage.setTitle("Gwent - Juego en curso");
