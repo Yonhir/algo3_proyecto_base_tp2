@@ -33,12 +33,12 @@ public class App extends Application {
 
 
         GameView gameView = new GameView(
-                board.currentPlayerHand(),
-                board.player1Deck(), board.player2Deck(),
-                board.player1DiscardPile(), board.player2DiscardPile(),
-                board.player1CloseCombat(), board.player1Ranged(), board.player1Siege(),
-                board.player2CloseCombat(), board.player2Ranged(), board.player2Siege(),
-                board.specialZone()
+                board.getCurrentPlayerHand(),
+                board.getPlayer1Deck(), board.getPlayer2Deck(),
+                board.getPlayer1DiscardPile(), board.getPlayer2DiscardPile(),
+                board.getPlayer1CloseCombat(), board.getPlayer1Ranged(), board.getPlayer1Siege(),
+                board.getPlayer2CloseCombat(), board.getPlayer2Ranged(), board.getPlayer2Siege(),
+                board.getSpecialZone()
             );
 
 

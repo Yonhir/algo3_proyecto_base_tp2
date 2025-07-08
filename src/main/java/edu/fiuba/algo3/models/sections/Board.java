@@ -88,17 +88,17 @@ public class Board {
     }
 
 
-    public Hand currentPlayerHand() { return currentPlayerHand; }
-    public Deck player1Deck() { return player1Deck; }
-    public Deck player2Deck() { return player2Deck; }
-    public DiscardPile player1DiscardPile() { return player1DiscardPile; }
-    public DiscardPile player2DiscardPile() { return player2DiscardPile; }
-    public CloseCombat player1CloseCombat() { return player1CloseCombat; }
-    public CloseCombat player2CloseCombat() { return player2CloseCombat; }
-    public Ranged player1Ranged() { return player1Ranged; }
-    public Ranged player2Ranged() { return player2Ranged; }
-    public Siege player1Siege() { return player1Siege; }
-    public Siege player2Siege() { return player2Siege; }
-    public SpecialZone specialZone() { return specialZone; }
-    public Game game() { return game; }
+    public Hand getCurrentPlayerHand() { return currentPlayerHand; }
+    public Deck getPlayer1Deck() { return player1Deck; }
+    public Deck getPlayer2Deck() { return player2Deck; }
+    public DiscardPile getPlayer1DiscardPile() { return player1DiscardPile; }
+    public DiscardPile getPlayer2DiscardPile() { return player2DiscardPile; }
+    public CloseCombat getPlayer1CloseCombat() { return player1CloseCombat; }
+    public CloseCombat getPlayer2CloseCombat() { return player2CloseCombat; }
+    public Ranged getPlayer1Ranged() { return player1Ranged; }
+    public Ranged getPlayer2Ranged() { return player2Ranged; }
+    public Siege getPlayer1Siege() { return player1Siege; }
+    public Siege getPlayer2Siege() { return player2Siege; }
+    public SpecialZone getSpecialZone() { return specialZone; }
+    public Game getGame() { return game; }
 }
