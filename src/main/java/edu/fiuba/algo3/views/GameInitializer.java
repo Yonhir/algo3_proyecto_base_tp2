@@ -13,8 +13,10 @@ import edu.fiuba.algo3.models.sections.rows.Siege;
 import edu.fiuba.algo3.models.turnManagement.Game;
 import edu.fiuba.algo3.models.turnManagement.Player;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 public class GameInitializer {
-    public GameState createInitialState(String nombreJugador1, String nombreJugador2) throws Exception {
+    public GameState createInitialState(String nombreJugador1, String nombreJugador2) {
         Deck player1Deck = new Deck();
         DiscardPile player1DiscardPile = new DiscardPile();
         Deck player2Deck = new Deck();
@@ -50,7 +52,7 @@ public class GameInitializer {
                 player1DiscardPile, player2DiscardPile
         );
 
-        Game game = new Game(player1, player2, specialZone);
+        Game game = startGameWith(player1, player2, specialZone);
 
         player1Hand.getNCardsFromDeck(player1Deck, 10);
         player2Hand.getNCardsFromDeck(player2Deck, 10);
@@ -65,6 +67,21 @@ public class GameInitializer {
                 specialZone,
                 game
         );
+
+
+    }
+
+    private static Game startGameWith(Player aPlayer, Player anotherPlayer, SpecialZone specialZone) {
+        int minimum = 0;
+        int middle = 1;
+        int maximum = 2;
+
+        int number = ThreadLocalRandom.current().nextInt(minimum, maximum);
+
+        if (number >= middle) {
+            return new Game(anotherPlayer, aPlayer, specialZone);
+        }
+        return new Game(aPlayer, anotherPlayer, specialZone);
     }
 }
 

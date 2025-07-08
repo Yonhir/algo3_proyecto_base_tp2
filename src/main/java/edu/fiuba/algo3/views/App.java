@@ -28,7 +28,6 @@ public class App extends Application {
             this.stage = stage;
 
             if (Main.nombreJugador1 == null || Main.nombreJugador2 == null) {
-                // aún no ingresaron los nombres → mostrar NameInputView
                 NameInputView nameInputView = new NameInputView();
                 stage.setScene(nameInputView.createScene(stage));
                 stage.setTitle("Ingresar Nombres De Jugadores");
@@ -37,7 +36,6 @@ public class App extends Application {
             }
 
             try {
-                // ya están los nombres → crear modelo
                 GameInitializer initializer = new GameInitializer();
                 Main.initialState = initializer.createInitialState(Main.nombreJugador1, Main.nombreJugador2);
             } catch (Exception e) {
