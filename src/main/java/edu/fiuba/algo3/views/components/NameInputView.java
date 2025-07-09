@@ -15,7 +15,11 @@ import javafx.util.Duration;
 
 public class NameInputView {
 
-    public Scene createScene(Stage stage) {
+    public interface OnStartGame {
+        void start(String nombreJugador1, String nombreJugador2);
+    }
+
+    public Scene createScene(Stage stage, OnStartGame callback) {
         VBox layout = new VBox(20);
         layout.setPadding(new Insets(50));
         layout.setAlignment(Pos.CENTER);
@@ -48,15 +52,7 @@ public class NameInputView {
                 fade.setFromValue(1.0);
                 fade.setToValue(0.0);
                 fade.setOnFinished(event -> {
-                    Main.nombreJugador1 = nombre1;
-                    Main.nombreJugador2 = nombre2;
-                    App app = new App();
-                    try {
-                        app.start(stage);
-                    } catch (Exception ex) {
-                        errorLabel.setText("No se pudo iniciar el juego.");
-                        ex.printStackTrace();
-                    }
+                    callback.start(nombre1, nombre2);
                 });
                 fade.play();
             } catch (Exception ex) {
