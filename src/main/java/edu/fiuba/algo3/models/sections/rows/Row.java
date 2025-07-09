@@ -126,6 +126,8 @@ public abstract class Row extends Observable implements Section {
         return card.haveSectionType(sectionType);
     }
 
+    public boolean haveSamePlayerColor(Card card) { return card.haveSameColor(playerColor); }
+
     public boolean containsCards(List<Card> cards){
         return this.cards.containsAll(cards);
     }

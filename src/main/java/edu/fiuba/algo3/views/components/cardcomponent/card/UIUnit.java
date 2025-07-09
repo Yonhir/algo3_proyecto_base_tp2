@@ -1,8 +1,12 @@
 package edu.fiuba.algo3.views.components.cardcomponent.card;
 
+import edu.fiuba.algo3.controllers.GameState;
 import edu.fiuba.algo3.models.Observable;
+import edu.fiuba.algo3.models.cards.Card;
 import edu.fiuba.algo3.models.cards.units.Unit;
 import edu.fiuba.algo3.views.components.PointsCircle;
+import edu.fiuba.algo3.views.components.cardlist.UIRow;
+import javafx.scene.input.MouseEvent;
 
 public class UIUnit extends UICard {
     // Circle positioning constants
@@ -79,5 +83,27 @@ public class UIUnit extends UICard {
         double translateY = -newHeight * SCALED_TRANSLATE_Y_RATIO;
         pointsCircle.setTranslateX(translateX);
         pointsCircle.setTranslateY(translateY);
+    }
+
+    public Card getModel(){
+        return model;
+    }
+
+    protected void encenderRows(){
+        for(UIRow row : GameState.getInstance().getRows()) {
+            row.encender(model);
+        }
+    }
+
+    protected void apagarRows(){
+        for(UIRow row : GameState.getInstance().getRows()) {
+            row.apagar();
+        }
+    }
+
+    protected void colocarCarta(MouseEvent event){
+        for(UIRow row : GameState.getInstance().getRows()) {
+            row.colocarCartaPorArrastre(this, event);
+        }
     }
 }

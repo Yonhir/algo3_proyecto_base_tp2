@@ -1,12 +1,11 @@
 package edu.fiuba.algo3.models.json.cards.specials.weathers;
 
 import edu.fiuba.algo3.models.cards.specials.weathers.*;
-import org.json.simple.JSONObject;
 
 
 public class WeatherJsonConverter {
     
-    public Weather createWeatherCard(String name, String description, JSONObject jsonSpecial) {
+    public Weather createWeatherCard(String name, String description) {
         switch (name) {
             case "Escarcha mordaz":
                 return new BitingFrost(name, description);

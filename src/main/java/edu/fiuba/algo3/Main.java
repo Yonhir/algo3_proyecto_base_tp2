@@ -1,5 +1,6 @@
 package edu.fiuba.algo3;
 
+import edu.fiuba.algo3.controllers.GameState;
 import edu.fiuba.algo3.models.cardcollections.Deck;
 import edu.fiuba.algo3.models.cardcollections.Hand;
 import edu.fiuba.algo3.models.cardcollections.DiscardPile;
@@ -63,15 +64,15 @@ public class Main {
             player2Siege = new Siege(player2DiscardPile);
             
             // Create players first (they will create their own hands internally)
-            Player player1 = new Player("Player 1", player1Deck, player1DiscardPile, 
+            Player player1 = new Player("Player 1", player1Deck, player1DiscardPile,
                 player1CloseCombat, player1Ranged, player1Siege, new Blue());
-            Player player2 = new Player("Player 2", player2Deck, player2DiscardPile, 
+            Player player2 = new Player("Player 2", player2Deck, player2DiscardPile,
                 player2CloseCombat, player2Ranged, player2Siege, new Red());
-            
+
             // Get the hands from the players
             player1Hand = player1.getHand();
             player2Hand = player2.getHand();
-            
+
             // Load decks from JSON file using the actual player hands
             GameLoader gameLoader = new GameLoader();
             gameLoader.loadFromResource("gwent.json", 
@@ -81,7 +82,7 @@ public class Main {
             // Validate decks
             player1Deck.validate();
             player2Deck.validate();
-            
+
             // Create the SpecialZone
             specialZone = new SpecialZone(
                 player1CloseCombat, player1Ranged, player1Siege,
@@ -91,8 +92,8 @@ public class Main {
             
             // Create game
             game = new Game(player1, player2, specialZone);
-            
-            
+
+            GameState.getInstance().setRoundActual(game.getCurrentRound());
         } catch (Exception e) {
             System.err.println("Error initializing game: " + e.getMessage());
         }
@@ -100,8 +101,8 @@ public class Main {
     
     private static void dealInitialCards() {
         // Deal initial cards to players (10 cards each)
-        player1Hand.getNCardsFromDeck(player1Deck, 10);
-        player2Hand.getNCardsFromDeck(player2Deck, 10);
+        player1Hand.getNCardsFromDeck(player1Deck, 13);
+        player2Hand.getNCardsFromDeck(player2Deck, 13);
         
         System.out.println("Initial cards dealt successfully!");
         System.out.println("Player 1: " + player1Hand.getCardCount() + " cards in hand");

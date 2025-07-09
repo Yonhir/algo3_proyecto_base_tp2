@@ -13,6 +13,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class Deck extends CardCollection {
+    private PlayerColor cardColor;
 
     public void validate() {
         List<DeckValidator> validators = Arrays.asList(
@@ -22,6 +23,8 @@ public class Deck extends CardCollection {
         for (DeckValidator deckV : validators) {
             deckV.validate(this.cards);
         }
+
+        setColorToCards(cardColor);
     }
 
     public long getUnitsCount() {
@@ -49,6 +52,7 @@ public class Deck extends CardCollection {
         for (Card card : cards) {
             card.setColor(playerColor);
         }
+        cardColor = playerColor;
     }
 
     public void insertCardsInOrder(List<Card> cardsToInsert) {

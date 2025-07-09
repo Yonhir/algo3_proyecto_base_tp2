@@ -1,12 +1,16 @@
 package edu.fiuba.algo3.views.components.cardcomponent.card;
 
+import edu.fiuba.algo3.models.cards.Card;
 import edu.fiuba.algo3.views.components.cardcomponent.BaseCardComponent;
+import javafx.scene.Node;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 
 public abstract class UICard extends BaseCardComponent {
     
@@ -112,8 +116,10 @@ public abstract class UICard extends BaseCardComponent {
         
         dragDeltaX = getTranslateX() - event.getSceneX();
         dragDeltaY = getTranslateY() - event.getSceneY();
-        
+
         toFront();
+
+        encenderRows();
         
         event.consume();
     }
@@ -138,7 +144,11 @@ public abstract class UICard extends BaseCardComponent {
         
         setTranslateX(originalX);
         setTranslateY(originalY);
-        
+
+        colocarCarta(event);
+
+        apagarRows();
+
         event.consume();
     }
     
@@ -154,5 +164,21 @@ public abstract class UICard extends BaseCardComponent {
     public void updateOriginalPosition() {
         originalX = getTranslateX();
         originalY = getTranslateY();
+    }
+
+    public abstract Card getModel();
+
+    protected abstract void encenderRows();
+
+    protected abstract void apagarRows();
+
+    protected abstract void colocarCarta(MouseEvent event);
+
+    protected ArrayList<Node> getBoard(){
+        VBox board = (VBox) getParent().getParent().getParent();
+
+        ArrayList<Node> rows = new ArrayList<>(board.getChildrenUnmodifiable().subList(0, 3));
+
+        return rows;
     }
 }
