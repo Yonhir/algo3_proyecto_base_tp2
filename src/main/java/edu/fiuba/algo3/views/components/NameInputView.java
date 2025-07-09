@@ -1,9 +1,7 @@
 package edu.fiuba.algo3.views.components;
 
-import edu.fiuba.algo3.Main;
-import edu.fiuba.algo3.views.App;
 
-import javafx.animation.FadeTransition;
+import edu.fiuba.algo3.controllers.NameInputController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -11,7 +9,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 public class NameInputView {
 
@@ -38,27 +35,11 @@ public class NameInputView {
         Button startButton = new Button("Iniciar Juego");
         startButton.setStyle("-fx-background-color: #D2691E; -fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold; -fx-padding: 10 20 10 20;");
 
+        NameInputController controller = new NameInputController(stage, layout, errorLabel, callback);
         startButton.setOnAction(e -> {
             String nombre1 = player1Field.getText().trim();
             String nombre2 = player2Field.getText().trim();
-
-            if (nombre1.isEmpty() || nombre2.isEmpty()) {
-                errorLabel.setText("Ambos jugadores deben ingresar su nombre.");
-                return;
-            }
-
-            try {
-                FadeTransition fade = new FadeTransition(Duration.millis(1000), layout);
-                fade.setFromValue(1.0);
-                fade.setToValue(0.0);
-                fade.setOnFinished(event -> {
-                    callback.start(nombre1, nombre2);
-                });
-                fade.play();
-            } catch (Exception ex) {
-                errorLabel.setText("Error al iniciar: " + ex.getMessage());
-                ex.printStackTrace();
-            }
+            controller.handleStart(nombre1, nombre2);
         });
 
         VBox form = new VBox(15, player1Field, player2Field, startButton, errorLabel);
