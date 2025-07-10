@@ -2,7 +2,6 @@ package edu.fiuba.algo3.views.components;
 
 import edu.fiuba.algo3.controllers.PlayerNameScreenController;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
