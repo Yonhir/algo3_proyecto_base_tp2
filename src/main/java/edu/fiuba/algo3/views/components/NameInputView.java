@@ -16,7 +16,7 @@ public class NameInputView {
         void start(String nombreJugador1, String nombreJugador2);
     }
 
-    public Scene createScene(Stage stage, OnStartGame callback) {
+    public Scene createScene(OnStartGame callback) {
         VBox layout = new VBox(20);
         layout.setPadding(new Insets(50));
         layout.setAlignment(Pos.CENTER);
