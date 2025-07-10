@@ -87,7 +87,7 @@ public class Board {
         return new Game(aPlayer, anotherPlayer, specialZone);
     }
 
-
+    public Player getCurrentPlayer() { return game.getCurrentPlayer(); }
     public Hand getCurrentPlayerHand() { return currentPlayerHand; }
     public Deck getPlayer1Deck() { return player1Deck; }
     public Deck getPlayer2Deck() { return player2Deck; }

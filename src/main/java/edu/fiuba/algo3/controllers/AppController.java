@@ -2,18 +2,19 @@ package edu.fiuba.algo3.controllers;
 
 import edu.fiuba.algo3.models.sections.Board;
 import edu.fiuba.algo3.views.GameView;
+import edu.fiuba.algo3.views.components.PlayerNameScreenView;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class AppController {
     private final Stage stage;
+    private Board board;
 
     public AppController(Stage stage) {
         this.stage = stage;
     }
 
     public void startGameWithNames(String nombreJugador1, String nombreJugador2) {
-        Board board;
         try {
             board = new Board(nombreJugador1, nombreJugador2);
         } catch (Exception e) {
@@ -21,6 +22,16 @@ public class AppController {
             return;
         }
 
+        PlayerNameScreenView playerNameScreenView = new PlayerNameScreenView(board.getCurrentPlayer().getName());
+
+        stage.setScene(playerNameScreenView.createScene(() -> { startGame(); }));
+
+        stage.setFullScreen(true);
+        stage.setTitle("Gwent - Juego en curso");
+        stage.show();
+    }
+
+    public void startGame() {
         GameView gameView = new GameView(
                 board.getCurrentPlayerHand(),
                 board.getPlayer1Deck(), board.getPlayer2Deck(),

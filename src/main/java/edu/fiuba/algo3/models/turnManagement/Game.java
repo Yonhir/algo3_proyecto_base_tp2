@@ -52,9 +52,10 @@ public class Game {
         return currentRound;
     }
 
+    public Player getCurrentPlayer() { return currentRound.getCurrentPlayer(); }
 
     public Hand currentPlayerHand() {
-        return this.getCurrentRound().getCurrentPlayer().getHand();
+        return getCurrentPlayer().getHand();
     }
 }
 

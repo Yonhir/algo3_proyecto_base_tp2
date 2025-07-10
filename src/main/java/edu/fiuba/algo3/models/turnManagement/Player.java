@@ -98,6 +98,8 @@ public class Player {
         }
     }
 
+    public String getName() { return name; }
+
     public Player chooseWinnerAgainst(Player other) {
         if (this.hasWonGame()) {
             return this;
