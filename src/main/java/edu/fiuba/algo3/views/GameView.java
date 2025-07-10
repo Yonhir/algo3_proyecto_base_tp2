@@ -13,6 +13,8 @@ import edu.fiuba.algo3.views.components.cardcomponent.UIDiscardPile;
 import edu.fiuba.algo3.views.components.cardlist.UIHand;
 import edu.fiuba.algo3.views.components.cardlist.UIRow;
 import edu.fiuba.algo3.views.components.cardlist.UISpecialZone;
+import edu.fiuba.algo3.views.components.PassTurnButton;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -29,6 +31,7 @@ public class GameView extends StackPane {
     private final LeftColumn leftColumn;
     private final CenterColumn centerColumn;
     private final RightColumn rightColumn;
+    private final PassTurnButton passButton;
     
     private Scene scene;
 
@@ -52,7 +55,7 @@ public class GameView extends StackPane {
         opponentUIDeck = new UIDeck(player2Deck);
         playerUIDiscardPile = new UIDiscardPile(player1DiscardPile);
         opponentUIDiscardPile = new UIDiscardPile(player2DiscardPile);
-        
+        passButton = new PassTurnButton("Pass");
         leftColumn = new LeftColumn(UISpecialZoneList);
         centerColumn = new CenterColumn(opponentCloseCombat, opponentRanged, opponentSiege,
                 playerCloseCombat, playerRanged, playerSiege, UIHandList);
@@ -87,8 +90,20 @@ public class GameView extends StackPane {
         VBox.setVgrow(gameBoardLayout, javafx.scene.layout.Priority.ALWAYS);
 
         gameBoardLayout.prefHeightProperty().bind(heightProperty());
-        
+
+        passButton.setPrefWidth(200);
+        passButton.setPrefHeight(70);
+        passButton.setStyle("-fx-font-size: 30px; -fx-font-weight: bold; -fx-background-color: #e74c3c");
+        passButton.setOnAction(e -> {
+            System.out.println("el jugador pasó el turno");
+        });
+
         getChildren().add(gameBoardLayout);
+
+        StackPane.setAlignment(passButton, Pos.BOTTOM_RIGHT);
+        StackPane.setMargin(passButton, new javafx.geometry.Insets(0, 300, 150, 0));
+
+        getChildren().add(passButton);
 
         scene = new Scene(this, windowWidth, windowHeight);
 
