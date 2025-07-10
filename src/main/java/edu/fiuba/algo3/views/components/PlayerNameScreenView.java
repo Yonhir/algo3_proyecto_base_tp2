@@ -29,7 +29,7 @@ public class PlayerNameScreenView extends StackPane{
         layout.setStyle("-fx-background-color: #C19A6B; -fx-border-color: #8B4513; -fx-border-width: 5px;");
         layout.setAlignment(Pos.CENTER);
 
-        Label playerName = new Label("Jugador: " + name);
+        Label playerName = new Label("Es el turno del Jugador: " + name);
         playerName.setStyle("-fx-font-size: 36px; -fx-text-fill: #4B2E0F; -fx-font-weight: bold;");
 
         Button continueBtn = new Button("Continuar");
