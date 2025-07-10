@@ -91,13 +91,6 @@ public class GameView extends StackPane {
 
         gameBoardLayout.prefHeightProperty().bind(heightProperty());
 
-        passButton.setPrefWidth(200);
-        passButton.setPrefHeight(70);
-        passButton.setStyle("-fx-font-size: 30px; -fx-font-weight: bold; -fx-background-color: #e74c3c");
-        passButton.setOnAction(e -> {
-            System.out.println("el jugador pasó el turno");
-        });
-
         getChildren().add(gameBoardLayout);
 
         StackPane.setAlignment(passButton, Pos.BOTTOM_RIGHT);
