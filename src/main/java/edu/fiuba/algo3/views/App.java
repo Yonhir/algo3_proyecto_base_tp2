@@ -1,16 +1,11 @@
 package edu.fiuba.algo3.views;
 
-import edu.fiuba.algo3.Main;
 import edu.fiuba.algo3.controllers.AppController;
-import edu.fiuba.algo3.models.sections.Board;
 import edu.fiuba.algo3.views.components.NameInputView;
 import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class App extends Application {
-    private String nombreJugador1;
-    private String nombreJugador2;
     private Stage stage;
 
     @Override

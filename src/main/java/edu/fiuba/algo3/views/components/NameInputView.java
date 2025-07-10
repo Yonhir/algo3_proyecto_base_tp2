@@ -1,7 +1,7 @@
 package edu.fiuba.algo3.views.components;
 
 
-import edu.fiuba.algo3.controllers.NameInputController;
+import edu.fiuba.algo3.controllers.StartGameHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -35,12 +35,8 @@ public class NameInputView {
         Button startButton = new Button("Iniciar Juego");
         startButton.setStyle("-fx-background-color: #D2691E; -fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold; -fx-padding: 10 20 10 20;");
 
-        NameInputController controller = new NameInputController(stage, layout, errorLabel, callback);
-        startButton.setOnAction(e -> {
-            String nombre1 = player1Field.getText().trim();
-            String nombre2 = player2Field.getText().trim();
-            controller.handleStart(nombre1, nombre2);
-        });
+        StartGameHandler handler = new StartGameHandler(player1Field, player2Field, errorLabel, layout, callback);
+        startButton.setOnAction(handler);
 
         VBox form = new VBox(15, player1Field, player2Field, startButton, errorLabel);
         form.setAlignment(Pos.CENTER);
@@ -48,8 +44,7 @@ public class NameInputView {
         layout.getChildren().addAll(title, form);
 
         StackPane root = new StackPane(layout);
-        Scene scene = new Scene(root, 800, 600);
-        return scene;
+        return new Scene(root, 800, 600);
     }
 
     private TextField createStyledTextField(String prompt) {
