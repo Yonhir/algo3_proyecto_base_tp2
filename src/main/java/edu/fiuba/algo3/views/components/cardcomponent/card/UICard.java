@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.views.components.cardcomponent.card;
 
+import edu.fiuba.algo3.controllers.CardPlayingController;
 import edu.fiuba.algo3.models.cards.Card;
 import edu.fiuba.algo3.views.components.cardcomponent.BaseCardComponent;
 import javafx.scene.Node;
@@ -30,7 +31,7 @@ public abstract class UICard extends BaseCardComponent {
         super();
         this.cardName = name;
         this.description = description;
-        setupDragHandlers();
+        setUpMouseHandlers();
         loadCardImage();
     }
 
@@ -98,10 +99,12 @@ public abstract class UICard extends BaseCardComponent {
         return description;
     }
     
-    private void setupDragHandlers() {
-        setOnMousePressed(this::handleMousePressed);
-        setOnMouseDragged(this::handleMouseDragged);
-        setOnMouseReleased(this::handleMouseReleased);
+    private void setUpMouseHandlers() {
+        CardPlayingController controller = new CardPlayingController(this);
+        setOnMouseClicked(controller);
+        setOnMousePressed(controller);
+        setOnMouseDragged(controller);
+        setOnMouseReleased(controller);
     }
     
     private void handleMousePressed(MouseEvent event) {
