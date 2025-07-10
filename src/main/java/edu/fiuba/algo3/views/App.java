@@ -7,6 +7,7 @@ import edu.fiuba.algo3.models.sections.rows.CloseCombat;
 import edu.fiuba.algo3.models.sections.rows.Ranged;
 import edu.fiuba.algo3.models.sections.rows.Siege;
 import edu.fiuba.algo3.models.sections.SpecialZone;
+import edu.fiuba.algo3.models.turnManagement.Game;
 import edu.fiuba.algo3.views.components.ExitConfirmationDialog;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -25,14 +26,15 @@ public class App extends Application {
     private static Ranged player1Ranged, player2Ranged;
     private static Siege player1Siege, player2Siege;
     private static SpecialZone specialZone;
+    private static Game game;
 
-    public static void main(String[] args, 
-                          Hand currentPlayerHand,
-                          Deck player1Deck, Deck player2Deck,
-                          DiscardPile player1DiscardPile, DiscardPile player2DiscardPile,
-                          CloseCombat player1CloseCombat, Ranged player1Ranged, Siege player1Siege,
-                          CloseCombat player2CloseCombat, Ranged player2Ranged, Siege player2Siege,
-                          SpecialZone specialZone) {
+    public static void main(String[] args,
+                            Game game, Hand currentPlayerHand,
+                            Deck player1Deck, Deck player2Deck,
+                            DiscardPile player1DiscardPile, DiscardPile player2DiscardPile,
+                            CloseCombat player1CloseCombat, Ranged player1Ranged, Siege player1Siege,
+                            CloseCombat player2CloseCombat, Ranged player2Ranged, Siege player2Siege,
+                            SpecialZone specialZone) {
         // Store the game objects
         App.currentPlayerHand = currentPlayerHand;
         App.player1Deck = player1Deck;
@@ -46,7 +48,7 @@ public class App extends Application {
         App.player2Ranged = player2Ranged;
         App.player2Siege = player2Siege;
         App.specialZone = specialZone;
-        
+        App.game = game;
         // Start the JavaFX application
         launch(args);
     }
@@ -67,7 +69,7 @@ public class App extends Application {
 
     private void showGameView() {
         gameView = new GameView(
-            currentPlayerHand,
+            game, currentPlayerHand,
             player1Deck, player2Deck,
             player1DiscardPile, player2DiscardPile,
             player1CloseCombat, player1Ranged, player1Siege,

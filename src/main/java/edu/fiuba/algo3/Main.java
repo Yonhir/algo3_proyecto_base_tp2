@@ -36,7 +36,7 @@ public class Main {
         
         // Start the JavaFX application with all game objects
         App.main(args, 
-                game.getCurrentRound().getCurrentPlayer().getHand(),
+                game, game.getCurrentRound().getCurrentPlayer().getHand(),
                 player1Deck, player2Deck,
                 player1DiscardPile, player2DiscardPile,
                 player1CloseCombat, player1Ranged, player1Siege,

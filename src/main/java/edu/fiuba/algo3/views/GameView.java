@@ -7,6 +7,7 @@ import edu.fiuba.algo3.models.sections.rows.CloseCombat;
 import edu.fiuba.algo3.models.sections.rows.Ranged;
 import edu.fiuba.algo3.models.sections.rows.Siege;
 import edu.fiuba.algo3.models.sections.SpecialZone;
+import edu.fiuba.algo3.models.turnManagement.Game;
 import edu.fiuba.algo3.views.components.*;
 import edu.fiuba.algo3.views.components.cardcomponent.UIDeck;
 import edu.fiuba.algo3.views.components.cardcomponent.UIDiscardPile;
@@ -35,12 +36,12 @@ public class GameView extends StackPane {
     
     private Scene scene;
 
-    public GameView(Hand currentPlayerHand, 
-                   Deck player1Deck, Deck player2Deck,
-                   DiscardPile player1DiscardPile, DiscardPile player2DiscardPile,
-                   CloseCombat player1CloseCombat, Ranged player1Ranged, Siege player1Siege,
-                   CloseCombat player2CloseCombat, Ranged player2Ranged, Siege player2Siege,
-                   SpecialZone specialZone) {
+    public GameView(Game game, Hand currentPlayerHand,
+                    Deck player1Deck, Deck player2Deck,
+                    DiscardPile player1DiscardPile, DiscardPile player2DiscardPile,
+                    CloseCombat player1CloseCombat, Ranged player1Ranged, Siege player1Siege,
+                    CloseCombat player2CloseCombat, Ranged player2Ranged, Siege player2Siege,
+                    SpecialZone specialZone) {
 
         UIHand UIHandList = new UIHand(currentPlayerHand);
         UIRow opponentCloseCombat = new UIRow(player2CloseCombat);
@@ -55,7 +56,7 @@ public class GameView extends StackPane {
         opponentUIDeck = new UIDeck(player2Deck);
         playerUIDiscardPile = new UIDiscardPile(player1DiscardPile);
         opponentUIDiscardPile = new UIDiscardPile(player2DiscardPile);
-        passButton = new PassTurnButton("Pass");
+        passButton = new PassTurnButton("Pass", game);
         leftColumn = new LeftColumn(UISpecialZoneList);
         centerColumn = new CenterColumn(opponentCloseCombat, opponentRanged, opponentSiege,
                 playerCloseCombat, playerRanged, playerSiege, UIHandList);
