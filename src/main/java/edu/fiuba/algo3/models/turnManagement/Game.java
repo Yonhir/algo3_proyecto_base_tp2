@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.models.turnManagement;
 
+import edu.fiuba.algo3.models.cardcollections.Hand;
 import edu.fiuba.algo3.models.sections.SpecialZone;
 
 public class Game {
@@ -49,6 +50,11 @@ public class Game {
 
     public Round getCurrentRound() {
         return currentRound;
+    }
+
+
+    public Hand currentPlayerHand() {
+        return this.getCurrentRound().getCurrentPlayer().getHand();
     }
 }
 
