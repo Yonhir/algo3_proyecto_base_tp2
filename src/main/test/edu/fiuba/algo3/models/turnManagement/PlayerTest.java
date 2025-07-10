@@ -272,4 +272,15 @@ public class PlayerTest {
 
         assertEquals(player, player.chooseWinnerAgainst(opponent));
     }
+
+    @Test void testObtenerElNombreDeLosJugadores() {
+        String expectedName = "Gabriel";
+        String expectedNameOpponent = "Juan";
+
+        String actualName = player.getName();
+        String actualNameOpponent = opponent.getName();
+
+        assertEquals(expectedName, actualName);
+        assertEquals(expectedNameOpponent, actualNameOpponent);
+    }
 }
