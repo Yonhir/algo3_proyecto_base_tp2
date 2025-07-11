@@ -4,12 +4,9 @@ import edu.fiuba.algo3.models.Observable;
 import edu.fiuba.algo3.models.cards.specials.Special;
 
 public class UISpecial extends UICard {
-    
-    private Special model;
 
     public UISpecial(Special special) {
-        super(special.getName(), special.getDescription());
-        this.model = special;
+        super(special);
         subscribeToModel();
     }
     
@@ -27,9 +24,5 @@ public class UISpecial extends UICard {
         if (observable == model) {
             loadDataFromSpecial();
         }
-    }
-    
-    public Special getModel() {
-        return model;
     }
 }
