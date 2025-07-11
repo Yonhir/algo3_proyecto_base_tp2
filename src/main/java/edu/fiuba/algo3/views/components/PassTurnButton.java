@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.views.components;
 
+import edu.fiuba.algo3.controllers.PassTurnController;
 import edu.fiuba.algo3.models.turnManagement.Game;
 import javafx.scene.control.Button;
 
@@ -7,12 +8,13 @@ public class PassTurnButton extends Button {
 
     public PassTurnButton(String text, Game game) {
         super(text);
+        PassTurnController controller = new PassTurnController();
 
         setPrefWidth(200);
         setPrefHeight(70);
         setStyle("-fx-font-size: 30px; -fx-font-weight: bold; -fx-background-color: #e74c3c");
         setOnAction(e -> {
-            game.passRound();
+            controller.passTurn(game);
         });
     }
 }
