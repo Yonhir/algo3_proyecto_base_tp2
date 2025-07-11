@@ -3,8 +3,6 @@ package edu.fiuba.algo3.views.components;
 import edu.fiuba.algo3.views.components.cardcomponent.UIDeck;
 import edu.fiuba.algo3.views.components.cardcomponent.UIDiscardPile;
 import edu.fiuba.algo3.views.components.cardlist.CardInfoView;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
 

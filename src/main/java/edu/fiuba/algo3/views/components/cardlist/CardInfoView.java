@@ -19,7 +19,7 @@ import java.io.InputStream;
 
 public class CardInfoView extends StackPane {
 
-    private BooleanProperty showInfo = new SimpleBooleanProperty(false);;
+    private final BooleanProperty showInfo = new SimpleBooleanProperty(false);
 
     public CardInfoView() {
         buttonClose();

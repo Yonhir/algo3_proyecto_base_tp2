@@ -4,27 +4,17 @@ import edu.fiuba.algo3.models.cards.Card;
 import edu.fiuba.algo3.views.components.RightColumn;
 import edu.fiuba.algo3.views.components.cardcomponent.BaseCardComponent;
 import edu.fiuba.algo3.views.components.cardlist.CardInfoView;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.input.KeyCode;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import javax.swing.*;
 import java.io.InputStream;
 
 public abstract class UICard extends BaseCardComponent {
 
     protected ImageView backgroundImage;
 
-    private boolean showingInfo = false;
     private double dragDeltaX;
     private double dragDeltaY;
     private boolean isDragging = false;
