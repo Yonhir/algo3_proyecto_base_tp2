@@ -21,13 +21,15 @@ public class AppController {
             return;
         }
 
+        CardPlayingController controllerCards = new CardPlayingController();
+
         GameView gameView = new GameView(
                 board.getCurrentPlayerHand(),
                 board.getPlayer1Deck(), board.getPlayer2Deck(),
                 board.getPlayer1DiscardPile(), board.getPlayer2DiscardPile(),
                 board.getPlayer1CloseCombat(), board.getPlayer1Ranged(), board.getPlayer1Siege(),
                 board.getPlayer2CloseCombat(), board.getPlayer2Ranged(), board.getPlayer2Siege(),
-                board.getSpecialZone()
+                board.getSpecialZone(), controllerCards
         );
 
         Scene scene = gameView.createScene();

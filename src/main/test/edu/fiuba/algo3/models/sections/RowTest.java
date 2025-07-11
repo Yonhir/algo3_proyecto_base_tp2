@@ -211,4 +211,12 @@ public class RowTest {
 
         assertEquals(esperadas, obtenidas);
     }
+
+    @Test
+    public void testVerificarQueCartaYFilaTienenMismoColor() {
+        Unit arquero = new Unit("arquero", "tira flechas", 10, List.of(new RangedType()), List.of() );
+        arquero.setColor(new Blue());
+
+        assertTrue(ranged.haveSamePlayerColor(arquero));
+    }
 }

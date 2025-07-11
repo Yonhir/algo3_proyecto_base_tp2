@@ -1,8 +1,17 @@
 package edu.fiuba.algo3.views.components.cardcomponent.card;
 
+import edu.fiuba.algo3.controllers.CardPlayingController;
+import edu.fiuba.algo3.controllers.GameState;
 import edu.fiuba.algo3.models.Observable;
+import edu.fiuba.algo3.models.cards.Card;
 import edu.fiuba.algo3.models.cards.units.Unit;
 import edu.fiuba.algo3.views.components.PointsCircle;
+import edu.fiuba.algo3.views.components.cardlist.UIRow;
+import edu.fiuba.algo3.views.components.cardlist.UISpecialZone;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Region;
+
+import java.util.ArrayList;
 
 public class UIUnit extends UICard {
     // Circle positioning constants
@@ -16,8 +25,8 @@ public class UIUnit extends UICard {
     private int points;
     private final Unit model;
     
-    public UIUnit(Unit unit) {
-        super(unit.getName(), unit.getDescription());
+    public UIUnit(Unit unit, CardPlayingController controllerCards) {
+        super(unit.getName(), unit.getDescription(), controllerCards);
         this.model = unit;
         this.points = unit.calculatePoints();
         setupPointsDisplay();
@@ -79,5 +88,27 @@ public class UIUnit extends UICard {
         double translateY = -newHeight * SCALED_TRANSLATE_Y_RATIO;
         pointsCircle.setTranslateX(translateX);
         pointsCircle.setTranslateY(translateY);
+    }
+
+    public Card getModel(){
+        return model;
+    }
+
+    public void switchOnRows(ArrayList<UIRow> rows){
+        for(UIRow row : rows) {
+            row.switchOn(model);
+        }
+    }
+
+    public void switchOffRows(ArrayList<UIRow> rows){
+        for(UIRow row : rows) {
+            row.switchOff();
+        }
+    }
+
+    public void placeUICard(MouseEvent event, ArrayList<Region> board, ArrayList<UIRow> rows, UISpecialZone specialZone){
+        for(UIRow row : rows) {
+            row.placeCardDragging(this, event);
+        }
     }
 }

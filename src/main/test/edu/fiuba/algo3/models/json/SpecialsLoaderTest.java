@@ -1,7 +1,7 @@
 package edu.fiuba.algo3.models.json;
 
 import edu.fiuba.algo3.models.cards.specials.MoraleBoost;
-import edu.fiuba.algo3.models.cards.specials.ScorchCard;
+import edu.fiuba.algo3.models.cards.specials.Scorch;
 import edu.fiuba.algo3.models.cards.specials.Special;
 import edu.fiuba.algo3.models.cards.specials.weathers.*;
 import edu.fiuba.algo3.models.errors.SpecialsFileInvalid;
@@ -67,7 +67,7 @@ public class SpecialsLoaderTest {
         
         // Assert
         boolean foundScorchCard = loadedSpecials.stream()
-                .anyMatch(special -> special instanceof ScorchCard);
+                .anyMatch(special -> special instanceof Scorch);
         assertTrue(foundScorchCard);
     }
 

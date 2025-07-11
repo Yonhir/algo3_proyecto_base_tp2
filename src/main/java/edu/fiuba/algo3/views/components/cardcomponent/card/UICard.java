@@ -1,32 +1,34 @@
 package edu.fiuba.algo3.views.components.cardcomponent.card;
 
+import edu.fiuba.algo3.controllers.CardPlayingController;
+import edu.fiuba.algo3.models.cards.Card;
 import edu.fiuba.algo3.views.components.cardcomponent.BaseCardComponent;
+import edu.fiuba.algo3.views.components.cardlist.UIRow;
+import edu.fiuba.algo3.views.components.cardlist.UISpecialZone;
+import javafx.scene.Node;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 
 public abstract class UICard extends BaseCardComponent {
     
     protected String cardName;
     protected String description;
     protected ImageView backgroundImage;
-    
-    private double dragDeltaX;
-    private double dragDeltaY;
-    private boolean isDragging = false;
-    private boolean isDraggable = false;
-    
-    private double originalX = 0;
-    private double originalY = 0;
-    
-    public UICard(String name, String description) {
+    protected CardPlayingController cardPlayingController;
+
+    public UICard(String name, String description, CardPlayingController controllerCards) {
         super();
+        this.cardPlayingController = controllerCards;
         this.cardName = name;
         this.description = description;
-        setupDragHandlers();
+        setUpMouseHandlers();
         loadCardImage();
     }
 
@@ -94,65 +96,27 @@ public abstract class UICard extends BaseCardComponent {
         return description;
     }
     
-    private void setupDragHandlers() {
-        setOnMousePressed(this::handleMousePressed);
-        setOnMouseDragged(this::handleMouseDragged);
-        setOnMouseReleased(this::handleMouseReleased);
+    private void setUpMouseHandlers() {
+        setOnMousePressed(cardPlayingController);
+        setOnMouseDragged(cardPlayingController);
+        setOnMouseReleased(cardPlayingController);
     }
-    
-    private void handleMousePressed(MouseEvent event) {
-        if (!isDraggable) {
-            return;
-        }
-        
-        isDragging = true;
-        
-        originalX = getTranslateX();
-        originalY = getTranslateY();
-        
-        dragDeltaX = getTranslateX() - event.getSceneX();
-        dragDeltaY = getTranslateY() - event.getSceneY();
-        
-        toFront();
-        
-        event.consume();
-    }
-    
-    private void handleMouseDragged(MouseEvent event) {
-        if (!isDraggable || !isDragging) {
-            return;
-        }
-        
-        setTranslateX(event.getSceneX() + dragDeltaX);
-        setTranslateY(event.getSceneY() + dragDeltaY);
-        
-        event.consume();
-    }
-    
-    private void handleMouseReleased(MouseEvent event) {
-        if (!isDraggable) {
-            return;
-        }
-        
-        isDragging = false;
-        
-        setTranslateX(originalX);
-        setTranslateY(originalY);
-        
-        event.consume();
-    }
-    
-    public void resetPosition() {
-        setTranslateX(originalX);
-        setTranslateY(originalY);
-    }
-    
-    public void setDraggable(boolean draggable) {
-        this.isDraggable = draggable;
-    }
-    
-    public void updateOriginalPosition() {
-        originalX = getTranslateX();
-        originalY = getTranslateY();
+
+    public void setDraggable(boolean draggable) { cardPlayingController.setDraggable(draggable); }
+
+    public abstract Card getModel();
+
+    public abstract void switchOnRows(ArrayList<UIRow> rows);
+
+    public abstract void switchOffRows(ArrayList<UIRow> rows);
+
+    public abstract void placeUICard(MouseEvent event, ArrayList<Region> board, ArrayList<UIRow> rows, UISpecialZone specialZone);
+
+    protected ArrayList<Node> getBoard(){
+        VBox board = (VBox) getParent().getParent().getParent();
+
+        ArrayList<Node> rows = new ArrayList<>(board.getChildrenUnmodifiable().subList(0, 3));
+
+        return rows;
     }
 }

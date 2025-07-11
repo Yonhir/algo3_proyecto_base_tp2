@@ -1,8 +1,11 @@
 package edu.fiuba.algo3.views.components;
 
+import edu.fiuba.algo3.controllers.CardPlayingController;
 import edu.fiuba.algo3.views.components.cardlist.UIHand;
 import edu.fiuba.algo3.views.components.cardlist.UIRow;
 import javafx.scene.layout.VBox;
+
+import java.util.List;
 
 public class CenterColumn extends VBox {
     // Layout constants
@@ -21,7 +24,7 @@ public class CenterColumn extends VBox {
     
     public CenterColumn(UIRow opponentCloseCombat, UIRow opponentRanged, UIRow opponentSiege,
                         UIRow playerCloseCombat, UIRow playerRanged, UIRow playerSiege,
-                        UIHand UIHandList) {
+                        UIHand UIHandList, CardPlayingController controllerCards) {
         super();
         this.opponentCloseCombat = opponentCloseCombat;
         this.opponentRanged = opponentRanged;
@@ -30,10 +33,11 @@ public class CenterColumn extends VBox {
         this.playerRanged = playerRanged;
         this.playerSiege = playerSiege;
         this.UIHandList = UIHandList;
-        setupCenterColumn();
+        controllerCards.setUIRows(List.of(opponentCloseCombat, opponentRanged, opponentSiege, playerCloseCombat, playerRanged, playerSiege));
+        setupCenterColumn(controllerCards);
     }
     
-    private void setupCenterColumn() {
+    private void setupCenterColumn(CardPlayingController controllerCards) {
         setAlignment(javafx.geometry.Pos.CENTER);
         setStyle("-fx-background-color: #D2691E; -fx-border-color: #A0522D; -fx-border-width: 3px;");
         
@@ -99,5 +103,7 @@ public class CenterColumn extends VBox {
             handSpacer,
             handContainer
         );
+
+        controllerCards.setBoard(List.of(opponentRowsContainer, rowSpacer, playerRowsContainer));
     }
 } 
