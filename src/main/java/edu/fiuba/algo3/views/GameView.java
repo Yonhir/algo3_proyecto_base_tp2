@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.views;
 
+import edu.fiuba.algo3.controllers.CardPlayingController;
 import edu.fiuba.algo3.models.cardcollections.Deck;
 import edu.fiuba.algo3.models.cardcollections.Hand;
 import edu.fiuba.algo3.models.cardcollections.DiscardPile;
@@ -37,9 +38,9 @@ public class GameView extends StackPane {
                    DiscardPile player1DiscardPile, DiscardPile player2DiscardPile,
                    CloseCombat player1CloseCombat, Ranged player1Ranged, Siege player1Siege,
                    CloseCombat player2CloseCombat, Ranged player2Ranged, Siege player2Siege,
-                   SpecialZone specialZone) {
+                   SpecialZone specialZone, CardPlayingController controllerCards) {
 
-        UIHand UIHandList = new UIHand(currentPlayerHand);
+        UIHand UIHandList = new UIHand(currentPlayerHand, controllerCards);
         UIRow opponentCloseCombat = new UIRow(player2CloseCombat);
         UIRow opponentRanged = new UIRow(player2Ranged);
         UIRow opponentSiege = new UIRow(player2Siege);
@@ -52,10 +53,10 @@ public class GameView extends StackPane {
         opponentUIDeck = new UIDeck(player2Deck);
         playerUIDiscardPile = new UIDiscardPile(player1DiscardPile);
         opponentUIDiscardPile = new UIDiscardPile(player2DiscardPile);
-        
-        leftColumn = new LeftColumn(UISpecialZoneList);
+
+        leftColumn = new LeftColumn(UISpecialZoneList, controllerCards);
         centerColumn = new CenterColumn(opponentCloseCombat, opponentRanged, opponentSiege,
-                playerCloseCombat, playerRanged, playerSiege, UIHandList);
+                playerCloseCombat, playerRanged, playerSiege, UIHandList, controllerCards);
         rightColumn = new RightColumn(playerUIDeck, opponentUIDeck, playerUIDiscardPile, opponentUIDiscardPile);
     }
 

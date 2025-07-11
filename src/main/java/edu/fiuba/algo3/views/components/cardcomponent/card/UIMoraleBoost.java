@@ -1,30 +1,34 @@
 package edu.fiuba.algo3.views.components.cardcomponent.card;
 
-import edu.fiuba.algo3.controllers.GameState;
+import edu.fiuba.algo3.controllers.CardPlayingController;
 import edu.fiuba.algo3.models.cards.specials.MoraleBoost;
 import edu.fiuba.algo3.views.components.cardlist.UIRow;
+import edu.fiuba.algo3.views.components.cardlist.UISpecialZone;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Region;
+
+import java.util.ArrayList;
 
 public class UIMoraleBoost extends UISpecial{
-    UIMoraleBoost(MoraleBoost moraleBoost){
-        super(moraleBoost);
+    UIMoraleBoost(MoraleBoost moraleBoost, CardPlayingController controllerCards){
+        super(moraleBoost, controllerCards);
     }
 
-    protected void encenderRows(){
-        for(UIRow row : GameState.getInstance().getRows()) {
-            row.encender(model);
+    public void switchOnRows(ArrayList<UIRow> rows){
+        for(UIRow row : rows) {
+            row.switchOn(model);
         }
     }
 
-    protected void apagarRows(){
-        for(UIRow row : GameState.getInstance().getRows()) {
-            row.apagar();
+    public void switchOffRows(ArrayList<UIRow> rows){
+        for(UIRow row : rows) {
+            row.switchOff();
         }
     }
 
-    protected void colocarCarta(MouseEvent event){
-        for(UIRow row : GameState.getInstance().getRows()) {
-            row.colocarCartaPorArrastre(this, event);
+    public void placeUICard(MouseEvent event, ArrayList<Region> board, ArrayList<UIRow> rows, UISpecialZone specialZone){
+        for(UIRow row : rows) {
+            row.placeCardDragging(this, event);
         }
     }
 }

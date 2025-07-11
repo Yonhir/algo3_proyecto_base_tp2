@@ -10,7 +10,7 @@ import javafx.scene.input.MouseEvent;
 import java.util.List;
 
 public class UIRow extends CardList {
-    private boolean encendidoAlMoverCarta;
+    private boolean switchedOn;
 
     public UIRow() {
         super(false);
@@ -18,7 +18,7 @@ public class UIRow extends CardList {
 
     public UIRow(Row modelRow) {
         super(false);
-        encendidoAlMoverCarta = false;
+        switchedOn = false;
         setModel(modelRow);
         GameState.getInstance().setRows(this);
     }
@@ -28,29 +28,29 @@ public class UIRow extends CardList {
         return ((Row) model).getCards();
     }
 
-    public void encenderSpecial(){
+    public void switchOnSpecial(){
         setStyle("-fx-border-color: #FFD700; -fx-border-width: 2px; -fx-background-color: transparent;");
-        encendidoAlMoverCarta = true;
+        switchedOn = true;
     }
 
-    public void encender(Card card) {
+    public void switchOn(Card card) {
         Row row = (Row) model;
         if(row.haveSameSectionType(card) && row.haveSamePlayerColor(card)) {
             setStyle("-fx-border-color: #FFD700; -fx-border-width: 2px; -fx-background-color: transparent;");
-            encendidoAlMoverCarta = true;
+            switchedOn = true;
         }
     }
 
-    public void apagar() {
-        if (encendidoAlMoverCarta) {
+    public void switchOff() {
+        if (switchedOn) {
             setStyle("-fx-border-color: #8B4513; -fx-border-width: 2px; -fx-background-color: transparent;");
-            encendidoAlMoverCarta = false;
+            switchedOn = false;
         }
     }
 
-    public void colocarCartaPorArrastre(UICard uiCard, MouseEvent event) {
+    public void placeCardDragging(UICard uiCard, MouseEvent event) {
         Row row = (Row) model;
-        if (encendidoAlMoverCarta) {
+        if (switchedOn) {
             Bounds bounds = localToScene(getBoundsInLocal());
             if (bounds.contains(event.getSceneX(), event.getSceneY())) {
                 row.placeCard(uiCard.getModel());
@@ -61,7 +61,7 @@ public class UIRow extends CardList {
         }
     }
 
-    public void actualizarCartas(){
+    public void updateCards(){
         update(model);
     }
 }

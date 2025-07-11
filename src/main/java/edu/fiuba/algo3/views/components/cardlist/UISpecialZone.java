@@ -26,14 +26,14 @@ public class UISpecialZone extends CardList {
         return ((SpecialZone) model).getWeathersCards();
     }
 
-    public void colocarCartaPorArrastre(UICard uiCard){
+    public void placeCardDragging(UICard uiCard){
         SpecialZone specialZone = (SpecialZone) model;
         specialZone.placeCard(uiCard.getModel(), GameState.getInstance().getRoundActual());
         addCard(uiCard);
         update(model);
         update(uiCard.getModel());
         for(UIRow row : GameState.getInstance().getRows()) {
-            row.actualizarCartas();
+            row.updateCards();
         }
     }
 }

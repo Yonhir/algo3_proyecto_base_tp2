@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.views.components;
 
+import edu.fiuba.algo3.controllers.CardPlayingController;
 import edu.fiuba.algo3.views.components.cardlist.UISpecialZone;
 import javafx.scene.layout.VBox;
 
@@ -13,9 +14,10 @@ public class LeftColumn extends VBox {
     
     private final UISpecialZone UISpecialZoneList;
     
-    public LeftColumn(UISpecialZone UISpecialZoneList) {
+    public LeftColumn(UISpecialZone UISpecialZoneList, CardPlayingController controllerCards) {
         super();
         this.UISpecialZoneList = UISpecialZoneList;
+        controllerCards.setUISpecialZone(UISpecialZoneList);
         setupLeftColumn();
     }
     

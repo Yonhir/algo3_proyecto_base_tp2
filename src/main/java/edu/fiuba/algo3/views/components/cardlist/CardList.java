@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.views.components.cardlist;
 
+import edu.fiuba.algo3.controllers.CardPlayingController;
 import edu.fiuba.algo3.models.Observable;
 import edu.fiuba.algo3.models.Observer;
 import edu.fiuba.algo3.models.cards.Card;
@@ -90,10 +91,10 @@ public abstract class CardList extends Pane implements Observer {
         return new ArrayList<>(cards);
     }
     
-    protected void setModel(Observable model) {
+    protected void setModel(Observable model, CardPlayingController controllerCards) {
         this.model = model;
         subscribeToModel();
-        loadCardsFromModel();
+        loadCardsFromModel(controllerCards);
     }
     
     protected void subscribeToModel() {
@@ -101,27 +102,27 @@ public abstract class CardList extends Pane implements Observer {
             model.addObserver(this);
         }
     }
-    
-    protected void loadCardsFromModel() {
+
+    protected void loadCardsFromModel(CardPlayingController controllerCards) {
         getChildren().clear();
-        
+
         List<Card> modelCards = getCardsFromModel();
         for (Card modelCard : modelCards) {
-            UICard uiCard = createUICard(modelCard);
+            UICard uiCard = createUICard(modelCard, controllerCards);
             addCard(uiCard);
         }
     }
-    
-    protected UICard createUICard(Card modelCard) {
-        return UICardFactory.createUICard(modelCard);
+
+    protected UICard createUICard(Card modelCard, CardPlayingController controllerCards) {
+        return UICardFactory.createUICard(modelCard, controllerCards);
     }
     
     protected abstract List<Card> getCardsFromModel();
-    
+
     protected boolean isModel(Observable observable) {
         return observable == model;
     }
-    
+
     @Override
     public void update(Observable observable) {
         if (isModel(observable)) {
