@@ -114,8 +114,8 @@ public class PlayerTest {
 
         Hand hand = player.getHand();
 
-        hand.insertCards(Arrays.asList(siegeCard, closeCombatCard, rangedCard));
-        hand.getNCardsFromDeck(deck, 7);
+        hand.insertCards(Arrays.asList(siegeCard, closeCombatCard, rangedCard, weather));
+        hand.getNCardsFromDeck(deck, 6);
 
         round = new Round(player, opponent);
     }
@@ -151,9 +151,9 @@ public class PlayerTest {
 
     @Test
     public void testSeJueganCartasSeObtieneElPuntajeTotalDelJugador() {
-        int expected_points = ((Unit) siegeCard).calculatePoints() +
-                              ((Unit) closeCombatCard).calculatePoints() +
-                              ((Unit) rangedCard).calculatePoints();
+        int expected_points = (siegeCard).calculatePoints() +
+                              (closeCombatCard).calculatePoints() +
+                              (rangedCard).calculatePoints();
 
         player.playCard(siegeCard, siege1, round);
         player.playCard(closeCombatCard, closeCombat1, round);
