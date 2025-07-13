@@ -23,6 +23,8 @@ public class BoardTest {
         Board board = new Board("Jugador 1", "Jugador 2");
 
         assertNotNull(board.getCurrentPlayerHand());
+        assertNotNull(board.getCurrentPlayerDeck());
+        assertNotNull(board.getCurrentPlayerDiscardPile());
         assertNotNull(board.getPlayer1Deck());
         assertNotNull(board.getPlayer2Deck());
         assertNotNull(board.getPlayer1DiscardPile());
