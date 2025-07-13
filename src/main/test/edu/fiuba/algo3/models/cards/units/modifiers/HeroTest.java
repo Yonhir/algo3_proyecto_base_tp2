@@ -38,19 +38,19 @@ public class HeroTest {
 
     @BeforeEach
     void setUp() {
-        cartaConLegendaria = new Unit("cerys", "descripcion", 10, List.of(new CloseCombatType()), List.of(new Hero()));
-        discardPile1 = new DiscardPile();
-        discardPile2 = new DiscardPile();
-        cartaConLegendaria.setColor(new Blue());
-        closeCombat1 = new CloseCombat(discardPile1);
-        ranged1 = new Ranged(discardPile1);
-        siege1 = new Siege(discardPile1);
-        closeCombat2 = new CloseCombat(discardPile2);
-        ranged2 = new Ranged(discardPile2);
-        siege2 = new Siege(discardPile2);
-
         Player player1 = new Player("jugador 1", new Blue());
         Player player2 = new Player("jugador 2", new Red());
+
+        cartaConLegendaria = new Unit("cerys", "descripcion", 10, List.of(new CloseCombatType()), List.of(new Hero()));
+        discardPile1 = player1.getDiscardPile();
+        discardPile2 = player2.getDiscardPile();
+        cartaConLegendaria.setColor(new Blue());
+        closeCombat1 = player1.getCloseCombatRow();
+        ranged1 = player1.getRangedRow();
+        siege1 = player1.getSiegeRow();
+        closeCombat2 = player2.getCloseCombatRow();
+        ranged2 = player2.getRangedRow();
+        siege2 = player2.getSiegeRow();
 
         round = new Round(player1, player2);
         puntosEsperados = 10;

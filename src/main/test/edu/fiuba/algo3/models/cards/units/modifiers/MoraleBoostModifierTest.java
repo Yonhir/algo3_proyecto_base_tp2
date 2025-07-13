@@ -25,29 +25,19 @@ public class MoraleBoostModifierTest {
     private CloseCombat closeCombat;
     private Ranged ranged;
     private Siege siege;
-    private CloseCombat closeCombat2;
-    private Ranged ranged2;
-    private Siege siege2;
     private MoraleBoostModifier modifierMoral;
     private Unit cardMoraleBoost;
     private Round round;
-    private Deck deck;
 
 
     @BeforeEach
     void setUp() {
-        deck = new Deck();
-
-        DiscardPile discardPile1 = new DiscardPile();
-        DiscardPile discardPile2 = new DiscardPile();
-        closeCombat = new CloseCombat(discardPile1);
-        ranged = new Ranged(discardPile1);
-        siege = new Siege(discardPile1);
-        closeCombat2 = new CloseCombat(discardPile2);
-        ranged2 = new Ranged(discardPile2);
-        siege2 = new Siege(discardPile2);
         Player player = new Player("Gabriel", new Blue());
         Player opponent = new Player("Juan", new Red());
+
+        closeCombat = player.getCloseCombatRow();
+        ranged = player.getRangedRow();
+        siege = player.getSiegeRow();
 
         round = new Round(player, opponent);
 

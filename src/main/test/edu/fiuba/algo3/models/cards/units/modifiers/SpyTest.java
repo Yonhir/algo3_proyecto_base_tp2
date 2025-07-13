@@ -1,6 +1,5 @@
 package edu.fiuba.algo3.models.cards.units.modifiers;
 
-
 import edu.fiuba.algo3.models.colors.*;
 import edu.fiuba.algo3.models.turnManagement.Player;
 import edu.fiuba.algo3.models.turnManagement.Round;
@@ -36,11 +35,12 @@ public class SpyTest {
     private Round round;
 
     private List<Card> cards;
-    private DiscardPile discardPile;
+
     @BeforeEach
     void setUp(){
-        DiscardPile discardPile1 = new DiscardPile();
-        DiscardPile discardPile2 = new DiscardPile();
+        Player player = new Player("Gabriel", new Blue());
+        Player opponent = new Player("Juan", new Red());
+
         SectionType cct = new CloseCombatType();
         SectionType r = new RangedType();
         SectionType s = new SiegeType();
@@ -68,15 +68,11 @@ public class SpyTest {
                 new MoraleBoost("Nombre", "Descripcion", List.of(r)),
                 new MoraleBoost("Nombre", "Descripcion", List.of(r))));
 
-        RangedRowOwner = new Ranged(discardPile1);
-        CloseCombat closeCombat = new CloseCombat(discardPile1);
-        Siege siege = new Siege(discardPile1);
+        RangedRowOwner = player.getRangedRow();
 
-        RangedRowOpponent = new Ranged(discardPile2);
-        CloseCombat closeCombat2 = new CloseCombat(discardPile2);
-        Siege siege2 = new Siege(discardPile2);
+        RangedRowOpponent = opponent.getRangedRow();
 
-        deck = new Deck();
+        deck = player.getDeck();
         deck.insertCards(cards);
 
         hand = new Hand();
@@ -85,10 +81,9 @@ public class SpyTest {
 
         carta_espia.setColor(new Blue());
 
-        Player player = new Player("Gabriel", new Blue());
-        Player opponent = new Player("Juan", new Red());
         round = new Round(player, opponent);
     }
+
     @Test
     public void testLaCartaSeJuegaEnLasFilasPropiasException() {
         assertThrows(SectionPlayerMismatchError.class, () -> RangedRowOwner.placeCard(carta_espia, round));
@@ -111,5 +106,4 @@ public class SpyTest {
 
         assertEquals(expectedCardsInHand, deck.getCardCount());
     }
-
 }
