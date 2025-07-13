@@ -2,6 +2,7 @@ package edu.fiuba.algo3.controllers;
 
 import edu.fiuba.algo3.models.sections.Board;
 import edu.fiuba.algo3.views.GameView;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -34,6 +35,13 @@ public class AppController {
         stage.setScene(scene);
         stage.setFullScreen(true);
         stage.setTitle("Gwent - Juego en curso");
+
+        Platform.runLater(() -> {
+            gameView.showInitialDiscardPhase(
+                    board.getCurrentPlayerHand(),
+                    board.getCurrentPlayerDiscardPile(),
+                    board.getCurrentPlayerDeck());
+        });
 
         stage.setOnCloseRequest(event -> {
             event.consume();

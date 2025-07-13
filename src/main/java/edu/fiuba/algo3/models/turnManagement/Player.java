@@ -59,6 +59,9 @@ public class Player {
     public Hand getHand(){
         return hand;
     }
+    public Deck getDeck(){
+        return deck;
+    }
 
     public int calculatePoints() {
         return closeCombat.calculatePoints() + ranged.calculatePoints() + siege.calculatePoints();

@@ -29,7 +29,7 @@ public class GameView extends StackPane {
     private final LeftColumn leftColumn;
     private final CenterColumn centerColumn;
     private final RightColumn rightColumn;
-    
+
     private Scene scene;
 
     public GameView(Hand currentPlayerHand, 
@@ -87,7 +87,7 @@ public class GameView extends StackPane {
         VBox.setVgrow(gameBoardLayout, javafx.scene.layout.Priority.ALWAYS);
 
         gameBoardLayout.prefHeightProperty().bind(heightProperty());
-        
+
         getChildren().add(gameBoardLayout);
 
         scene = new Scene(this, windowWidth, windowHeight);
@@ -100,4 +100,9 @@ public class GameView extends StackPane {
     public void showExitConfirmation() {
         ExitConfirmationDialog.show(this);
     }
+
+    public void showInitialDiscardPhase(Hand hand, DiscardPile discardPile, Deck deck) {
+        DiscardCardDialog.show(this, hand, discardPile, deck);
+    }
+
 }
