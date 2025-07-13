@@ -105,4 +105,20 @@ public class Player {
         }
         return other;
     }
+
+    public Deck getDeck() {
+        return deck;
+    }
+
+    public CloseCombat getCloseCombatRow() {
+        return closeCombat;
+    }
+
+    public Ranged getRangedRow() {
+        return ranged;
+    }
+
+    public Siege getSiegeRow() {
+        return siege;
+    }
 }

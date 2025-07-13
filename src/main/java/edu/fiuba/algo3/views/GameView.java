@@ -32,18 +32,18 @@ public class GameView extends StackPane {
     public GameView(Board board) {
 
         UIHand UIHandList = new UIHand(board.getCurrentPlayerHand());
-        UIRow opponentCloseCombat = new UIRow(board.getPlayer2CloseCombat());
-        UIRow opponentRanged = new UIRow(board.getPlayer2Ranged());
-        UIRow opponentSiege = new UIRow(board.getPlayer2Siege());
-        UIRow playerCloseCombat = new UIRow(board.getPlayer1CloseCombat());
-        UIRow playerRanged = new UIRow(board.getPlayer1Ranged());
-        UIRow playerSiege = new UIRow(board.getPlayer1Siege());
+        UIRow opponentCloseCombat = new UIRow(board.getOpponentCloseCombat());
+        UIRow opponentRanged = new UIRow(board.getOpponentRanged());
+        UIRow opponentSiege = new UIRow(board.getOpponentSiege());
+        UIRow playerCloseCombat = new UIRow(board.getCurrentPlayerCloseCombat());
+        UIRow playerRanged = new UIRow(board.getCurrentPlayerRanged());
+        UIRow playerSiege = new UIRow(board.getCurrentPlayerSiege());
 
         UISpecialZone UISpecialZoneList = new UISpecialZone(board.getSpecialZone());
-        playerUIDeck = new UIDeck(board.getPlayer1Deck());
-        opponentUIDeck = new UIDeck(board.getPlayer2Deck());
-        playerUIDiscardPile = new UIDiscardPile(board.getPlayer1DiscardPile());
-        opponentUIDiscardPile = new UIDiscardPile(board.getPlayer2DiscardPile());
+        playerUIDeck = new UIDeck(board.getCurrentPlayerDeck());
+        opponentUIDeck = new UIDeck(board.getOpponentDeck());
+        playerUIDiscardPile = new UIDiscardPile(board.getCurrentPlayerDiscardPile());
+        opponentUIDiscardPile = new UIDiscardPile(board.getOpponentDiscardPile());
         passButton = new PassTurnButton("Pass", board.getGame());
         leftColumn = new LeftColumn(UISpecialZoneList);
         centerColumn = new CenterColumn(opponentCloseCombat, opponentRanged, opponentSiege,

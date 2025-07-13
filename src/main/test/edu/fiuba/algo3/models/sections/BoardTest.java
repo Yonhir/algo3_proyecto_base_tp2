@@ -23,16 +23,16 @@ public class BoardTest {
         Board board = new Board("Jugador 1", "Jugador 2");
 
         assertNotNull(board.getCurrentPlayerHand());
-        assertNotNull(board.getPlayer1Deck());
-        assertNotNull(board.getPlayer2Deck());
-        assertNotNull(board.getPlayer1DiscardPile());
-        assertNotNull(board.getPlayer2DiscardPile());
-        assertNotNull(board.getPlayer1CloseCombat());
-        assertNotNull(board.getPlayer2CloseCombat());
-        assertNotNull(board.getPlayer1Ranged());
-        assertNotNull(board.getPlayer2Ranged());
-        assertNotNull(board.getPlayer1Siege());
-        assertNotNull(board.getPlayer2Siege());
+        assertNotNull(board.getCurrentPlayerDeck());
+        assertNotNull(board.getOpponentDeck());
+        assertNotNull(board.getCurrentPlayerDiscardPile());
+        assertNotNull(board.getOpponentDiscardPile());
+        assertNotNull(board.getCurrentPlayerCloseCombat());
+        assertNotNull(board.getOpponentCloseCombat());
+        assertNotNull(board.getCurrentPlayerRanged());
+        assertNotNull(board.getOpponentRanged());
+        assertNotNull(board.getCurrentPlayerSiege());
+        assertNotNull(board.getOpponentSiege());
         assertNotNull(board.getSpecialZone());
         assertNotNull(board.getGame());
     }
