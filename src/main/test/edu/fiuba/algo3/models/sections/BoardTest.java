@@ -8,7 +8,7 @@ public class BoardTest {
 
     @Test
     public void testBoardContieneUnaManoInicialParaElJugadorActual() {
-        Board board = new Board("Jugador 1", "Jugador 2");
+        Board board = new Board();
 
         Hand manoActual = board.getCurrentPlayerHand();
 
@@ -17,7 +17,7 @@ public class BoardTest {
 
     @Test
     public void testBoardInicializaTodosLosComponentesCorrectamente() {
-        Board board = new Board("Jugador 1", "Jugador 2");
+        Board board = new Board();
 
         Assertions.assertNotNull(board.getCurrentPlayerHand());
         Assertions.assertNotNull(board.getOpponentHand());

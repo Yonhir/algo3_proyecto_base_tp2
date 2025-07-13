@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Screen;
 
 public class GameView extends StackPane {
     // Layout constants
@@ -30,6 +31,7 @@ public class GameView extends StackPane {
     private Scene scene;
 
     public GameView(Board board) {
+        setStyle("-fx-background-color: #8B4513;");
 
         UIHand UIHandList = new UIHand(board.getCurrentPlayerHand());
         UIRow opponentCloseCombat = new UIRow(board.getOpponentCloseCombat());
@@ -44,18 +46,11 @@ public class GameView extends StackPane {
         opponentUIDeck = new UIDeck(board.getOpponentDeck());
         playerUIDiscardPile = new UIDiscardPile(board.getCurrentPlayerDiscardPile());
         opponentUIDiscardPile = new UIDiscardPile(board.getOpponentDiscardPile());
-        passButton = new PassTurnButton("Pass", board.getGame());
+        passButton = new PassTurnButton(board.getGame());
         leftColumn = new LeftColumn(UISpecialZoneList);
         centerColumn = new CenterColumn(opponentCloseCombat, opponentRanged, opponentSiege,
                 playerCloseCombat, playerRanged, playerSiege, UIHandList);
         rightColumn = new RightColumn(playerUIDeck, opponentUIDeck, playerUIDiscardPile, opponentUIDiscardPile, passButton);
-    }
-
-    private void setupSceneSizeListeners() {
-        playerUIDeck.setupSceneSizeListener(scene);
-        playerUIDiscardPile.setupSceneSizeListener(scene);
-        opponentUIDeck.setupSceneSizeListener(scene);
-        opponentUIDiscardPile.setupSceneSizeListener(scene);
     }
 
     public Scene createScene() {
@@ -83,8 +78,6 @@ public class GameView extends StackPane {
         getChildren().add(gameBoardLayout);
 
         scene = new Scene(this, windowWidth, windowHeight);
-
-        setupSceneSizeListeners();
 
         return scene;
     }

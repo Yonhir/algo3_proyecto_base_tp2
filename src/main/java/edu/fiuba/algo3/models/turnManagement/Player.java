@@ -20,6 +20,18 @@ public class Player {
     private final Siege siege;
     private int roundsWon = 0;
 
+    public Player(String name, PlayerColor playerColor) {
+        this.name = name;
+        this.discardPile = new DiscardPile();
+        hand = new Hand();
+        this.deck = new Deck();
+        this.closeCombat = new CloseCombat(this.discardPile);
+        this.ranged = new Ranged(this.discardPile);
+        this.siege = new Siege(this.discardPile);
+
+        setColor(playerColor);
+    }
+
     private void setColor(PlayerColor playerColor) {
         setColorToCards(playerColor);
         setColorToRows(playerColor);
@@ -38,18 +50,6 @@ public class Player {
     
     private void setColorDiscardPile(PlayerColor color){
         discardPile.setColor(color);
-    }
-
-    public Player(String name, PlayerColor playerColor) {
-        this.name = name;
-        this.discardPile = new DiscardPile();
-        hand = new Hand();
-        this.deck = new Deck();
-        this.closeCombat = new CloseCombat(this.discardPile);
-        this.ranged = new Ranged(this.discardPile);
-        this.siege = new Siege(this.discardPile);
-
-        setColor(playerColor);
     }
 
     public DiscardPile getDiscardPile() {
@@ -123,21 +123,5 @@ public class Player {
 
     public void changeName(String newName) {
         name = newName;
-    }
-
-    public Row getCloseCombat() {
-        return closeCombat;
-    }
-
-    public Row getRanged() {
-        return ranged;
-    }
-
-    public Row getSiege() {
-        return siege;
-    }
-
-    public Deck getDeck() {
-        return deck;
     }
 }
