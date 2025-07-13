@@ -57,36 +57,28 @@ public abstract class UICard extends BaseCardComponent {
     }
     
     private void loadCardImage() {
-        if (cardName == null || cardName.trim().isEmpty()) {
-            return;
-        }
+        InputStream imageStream = ImageNameMapper.getImageStream(cardName);
         
-        String pngPath = "/images/" + cardName + ".png";
-        InputStream pngStream = getClass().getResourceAsStream(pngPath);
-        
-        if (pngStream != null) {
-            loadImageFromStream(pngStream);
-            return;
-        }
-        
-        String webpPath = "/images/" + cardName + ".webp";
-        InputStream webpStream = getClass().getResourceAsStream(webpPath);
-        
-        if (webpStream != null) {
-            loadImageFromStream(webpStream);
-        }
-    }
-    
-    private void loadImageFromStream(InputStream imageStream) {
-        try {
-            Image image = new Image(imageStream);
-            backgroundImage = new ImageView(image);
-            backgroundImage.setFitWidth(baseWidth);
-            backgroundImage.setFitHeight(baseHeight);
-            backgroundImage.setPreserveRatio(true);
-            getChildren().add(0, backgroundImage);
-        } catch (Exception e) {
-            System.err.println("Error loading image for card " + cardName + ": " + e.getMessage());
+        if (imageStream != null) {
+            try {
+                Image image = new Image(imageStream);
+                backgroundImage = new ImageView(image);
+                backgroundImage.setFitWidth(baseWidth);
+                backgroundImage.setFitHeight(baseHeight);
+                backgroundImage.setPreserveRatio(true);
+                
+                getChildren().add(backgroundImage);
+                
+                // Make the background rectangle transparent when image is loaded
+                if (background != null) {
+                    background.setFill(javafx.scene.paint.Color.TRANSPARENT);
+                    background.setStroke(javafx.scene.paint.Color.TRANSPARENT);
+                }
+            } catch (Exception e) {
+                System.err.println("Error loading image for card " + cardName + ": " + e.getMessage());
+            }
+        } else {
+            System.err.println("Warning: Could not find image for card: " + cardName);
         }
     }
     
