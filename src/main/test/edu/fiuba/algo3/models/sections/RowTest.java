@@ -38,19 +38,14 @@ public class RowTest {
 
     @BeforeEach
     void setUp() {
-        Deck deck = new Deck();
-        discardPile1 = new DiscardPile();
-        DiscardPile discardPile2 = new DiscardPile();
-        closeCombat = new CloseCombat(discardPile1);
-        ranged = new Ranged(discardPile1);
-        siege = new Siege(discardPile1);
-
-        CloseCombat closeCombat2 = new CloseCombat(discardPile2);
-        Ranged ranged2 = new Ranged(discardPile2);
-        Siege siege2 = new Siege(discardPile2);
-
         Player player = new Player("Gabriel", new Blue());
         Player opponent = new Player("Juan", new Red());
+
+        discardPile1 = player.getDiscardPile();
+        closeCombat = player.getCloseCombatRow();
+        ranged = player.getRangedRow();
+        siege = player.getSiegeRow();
+
         round = new Round(player, opponent);
     }
 

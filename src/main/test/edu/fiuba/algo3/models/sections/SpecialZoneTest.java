@@ -1,7 +1,5 @@
 package edu.fiuba.algo3.models.sections;
 
-
-
 import edu.fiuba.algo3.models.colors.*;
 import edu.fiuba.algo3.models.turnManagement.Player;
 import edu.fiuba.algo3.models.turnManagement.Round;
@@ -47,34 +45,25 @@ public class SpecialZoneTest {
     private Weather rainWeather;
 
     private Round round;
-    private Deck deck;
-    private CloseCombat closeCombat;
-    private Ranged ranged;
-    private Siege siege;
 
     private DiscardPile discardPile1;
     private DiscardPile discardPile2;
 
     @BeforeEach
     public void setup() {
+        Player player = new Player("Gabriel", new Blue());
+        Player opponent = new Player("Juan", new Red());
 
-        discardPile1 = new DiscardPile();
-        discardPile1.setColor(new Blue());
-        discardPile2 = new DiscardPile();
-        discardPile2.setColor(new Blue());
-        deck = new Deck();
-       // closeCombat = new CloseCombat(discardPile);
-       // ranged = new Ranged(discardPile);
-       // siege = new Siege(discardPile);
+        discardPile1 = player.getDiscardPile();
+        discardPile2 = opponent.getDiscardPile();
 
-        // Initialize rows for both players
-        player1CloseCombatRow = new CloseCombat(discardPile1);
-        player1RangedRow = new Ranged(discardPile1);
-        player1SiegeRow = new Siege(discardPile1);
+        player1CloseCombatRow = player.getCloseCombatRow();
+        player1RangedRow = player.getRangedRow();
+        player1SiegeRow = player.getSiegeRow();
 
-        player2CloseCombatRow = new CloseCombat(discardPile2);
-        player2RangedRow = new Ranged(discardPile2);
-        player2SiegeRow = new Siege(discardPile2);
+        player2CloseCombatRow = opponent.getCloseCombatRow();
+        player2RangedRow = opponent.getRangedRow();
+        player2SiegeRow = opponent.getSiegeRow();
 
         // Initialize weather zone with both players' rows
         specialZone = new SpecialZone(
@@ -106,8 +95,6 @@ public class SpecialZoneTest {
         fogWeather.setColor(new Blue());
         rainWeather.setColor(new Blue());
 
-        Player player = new Player("Gabriel", new Blue());
-        Player opponent = new Player("Juan", new Red());
         round = new Round(player, opponent);
     }
 
