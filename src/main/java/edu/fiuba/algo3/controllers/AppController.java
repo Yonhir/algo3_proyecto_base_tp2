@@ -23,7 +23,7 @@ public class AppController {
         }
 
         GameView gameView = new GameView(
-                board.getCurrentPlayerHand(),
+                board.getGame(), board.getCurrentPlayerHand(),
                 board.getPlayer1Deck(), board.getPlayer2Deck(),
                 board.getPlayer1DiscardPile(), board.getPlayer2DiscardPile(),
                 board.getPlayer1CloseCombat(), board.getPlayer1Ranged(), board.getPlayer1Siege(),

@@ -5,6 +5,7 @@ import edu.fiuba.algo3.models.cardcollections.Deck;
 import edu.fiuba.algo3.models.cardcollections.DiscardPile;
 import edu.fiuba.algo3.models.cardcollections.Hand;
 import edu.fiuba.algo3.models.cards.Card;
+import edu.fiuba.algo3.models.sections.Section;
 import edu.fiuba.algo3.models.sections.rows.CloseCombat;
 import edu.fiuba.algo3.models.sections.rows.Ranged;
 import edu.fiuba.algo3.models.sections.rows.Row;
@@ -67,8 +68,8 @@ public class Player {
         return closeCombat.calculatePoints() + ranged.calculatePoints() + siege.calculatePoints();
     }
 
-    public void playCard(Card card, Row row, Round round) {
-        row.placeCard(card, round);
+    public void playCard(Card card, Section section, Round round) {
+        section.placeCard(card, round);
         hand.retrieveCard(card);
     }
 
