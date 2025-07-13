@@ -18,8 +18,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Board {
     private final Hand currentPlayerHand;
-    private final Hand player1Hand;
-    private final Hand player2Hand;
+    private final Hand opponentHand;
     private final SpecialZone specialZone;
     private final Game game;
     private final Player currentPlayer;
@@ -29,8 +28,8 @@ public class Board {
         Player player1 = createPlayerWith(nombreJugador1, new Blue());
         Player player2 = createPlayerWith(nombreJugador2, new Red());
 
-        player1Hand = player1.getHand();
-        player2Hand = player2.getHand();
+        Hand player1Hand = player1.getHand();
+        Hand player2Hand = player2.getHand();
         Deck player1Deck = player1.getDeck();
         Deck player2Deck = player2.getDeck();
 
@@ -56,6 +55,7 @@ public class Board {
         Round currentRound = game.getCurrentRound();
         currentPlayer = currentRound.getCurrentPlayer();
         opponent = currentRound.getOpponent();
+        opponentHand = opponent.getHand();
     }
 
     private Player createPlayerWith(String name, PlayerColor color) {
@@ -83,8 +83,7 @@ public class Board {
     }
 
     public Hand getCurrentPlayerHand() { return currentPlayerHand; }
-    public Hand getPlayer1Hand(){ return player1Hand;}
-    public Hand getPlayer2Hand(){ return  player2Hand;}
+    public Hand getOpponentHand(){ return opponentHand;}
     public Deck getCurrentPlayerDeck() { return currentPlayer.getDeck(); }
     public Deck getOpponentDeck() { return opponent.getDeck(); }
     public DiscardPile getCurrentPlayerDiscardPile() { return currentPlayer.getDiscardPile(); }

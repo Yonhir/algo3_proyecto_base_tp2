@@ -33,8 +33,8 @@ public class AppController {
             return;
         }
         stage.setTitle("Juego en curso - Gwent");
-        PlayerPreparationView.show(stage, nombreJugador1, board.getPlayer1Hand(), board.getCurrentPlayerDiscardPile(), board.getCurrentPlayerDeck(),
-                () -> PlayerPreparationView.show(stage, nombreJugador2, board.getPlayer2Hand(), board.getOpponentDiscardPile(), board.getOpponentDeck(),
+        PlayerPreparationView.show(stage, nombreJugador1, board.getCurrentPlayerHand(), board.getCurrentPlayerDiscardPile(), board.getCurrentPlayerDeck(),
+                () -> PlayerPreparationView.show(stage, nombreJugador2, board.getOpponentHand(), board.getOpponentDiscardPile(), board.getOpponentDeck(),
                         () -> displayBoard(board)
                 )
         );
