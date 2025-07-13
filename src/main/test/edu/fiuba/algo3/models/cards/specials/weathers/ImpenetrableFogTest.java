@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.models.cards.specials.weathers;
 
 import edu.fiuba.algo3.models.colors.*;
-import edu.fiuba.algo3.models.cardcollections.Deck;
 import edu.fiuba.algo3.models.cardcollections.DiscardPile;
 import edu.fiuba.algo3.models.cards.units.Unit;
 import edu.fiuba.algo3.models.sections.Section;
@@ -47,8 +46,8 @@ public class ImpenetrableFogTest {
         siege1 = new Siege(discardPile1);
         siege2 = new Siege(discardPile2);
 
-        player1 = new Player("nombre", new Deck(), discardPile1, closeCombat1, ranged1, siege1, new Blue());
-        player2 = new Player("nombre", new Deck(), discardPile2, closeCombat2, ranged2, siege2, new Red());
+        player1 = new Player("nombre", new Blue());
+        player2 = new Player("nombre", new Red());
     }
 
     @Test

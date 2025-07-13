@@ -61,8 +61,8 @@ public class WeatherTest {
         player2CloseCombatRow = new CloseCombat(discardPile2);
         player2RangedRow = new Ranged(discardPile2);
         player2SiegeRow = new Siege(discardPile2);
-        player = new Player("Gabriel", deck, discardPile1, player1CloseCombatRow, player1RangedRow, player1SiegeRow, new Blue());
-        opponent = new Player("Juan", deck, discardPile2, player2CloseCombatRow, player2RangedRow, player2SiegeRow, new Red());
+        player = new Player("Gabriel", new Blue());
+        opponent = new Player("Juan", new Red());
         round = new Round(player, opponent);
 
 

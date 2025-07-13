@@ -46,8 +46,8 @@ public class MoraleBoostModifierTest {
         closeCombat2 = new CloseCombat(discardPile2);
         ranged2 = new Ranged(discardPile2);
         siege2 = new Siege(discardPile2);
-        Player player = new Player("Gabriel", deck, discardPile1, closeCombat, ranged, siege, new Blue());
-        Player opponent = new Player("Juan", deck, discardPile2, closeCombat2, ranged2, siege2, new Red());
+        Player player = new Player("Gabriel", new Blue());
+        Player opponent = new Player("Juan", new Red());
 
         round = new Round(player, opponent);
 

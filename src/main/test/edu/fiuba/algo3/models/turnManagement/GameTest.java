@@ -71,8 +71,8 @@ public class GameTest {
 
 
         round = new Round(player1, player2);
-        player1 = new Player("nombre1", deck1, discardPile1, player1CloseCombatRow, player1RangedRow, player1SiegeRow, new Blue());
-        player2 = new Player("nombre2", deck2, discardPile2, player2CloseCombatRow, player2RangedRow, player2SiegeRow, new Red());
+        player1 = new Player("nombre1", new Blue());
+        player2 = new Player("nombre2", new Red());
         game = new Game(player1, player2, specialZone);
     }
 
@@ -166,8 +166,8 @@ public class GameTest {
         Ranged ranged2 = new Ranged(discardPile2);
         Siege siege2 = new Siege(discardPile2);
 
-        Player player1 = new Player("Jugador1", deck1, discardPile1, cc1, ranged1, siege1, new Blue());
-        Player player2 = new Player("Jugador2", deck2, discardPile2, cc2, ranged2, siege2, new Red());
+        Player player1 = new Player("Jugador1", new Blue());
+        Player player2 = new Player("Jugador2", new Red());
 
         SpecialZone specialZone = new SpecialZone(cc1, ranged1, siege1, cc2, ranged2, siege2, discardPile1, discardPile2);
         Game game = new Game(player1, player2, specialZone);

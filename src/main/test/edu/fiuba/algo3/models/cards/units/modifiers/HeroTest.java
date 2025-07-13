@@ -1,6 +1,5 @@
 package edu.fiuba.algo3.models.cards.units.modifiers;
 
-import edu.fiuba.algo3.models.cardcollections.Deck;
 import edu.fiuba.algo3.models.cardcollections.DiscardPile;
 import edu.fiuba.algo3.models.cards.specials.MoraleBoost;
 import edu.fiuba.algo3.models.cards.specials.Scorch;
@@ -50,8 +49,8 @@ public class HeroTest {
         ranged2 = new Ranged(discardPile2);
         siege2 = new Siege(discardPile2);
 
-        Player player1 = new Player("jugador 1", new Deck(), discardPile1, closeCombat1, ranged1, siege1, new Blue());
-        Player player2 = new Player("jugador 2", new Deck(), discardPile2, closeCombat2, ranged2, siege2, new Red());
+        Player player1 = new Player("jugador 1", new Blue());
+        Player player2 = new Player("jugador 2", new Red());
 
         round = new Round(player1, player2);
         puntosEsperados = 10;

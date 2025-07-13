@@ -25,8 +25,8 @@ public class Board {
     private final Player opponent;
 
     public Board(String nombreJugador1, String nombreJugador2) {
-        Player player1 = createPlayerWith(nombreJugador1, new Blue());
-        Player player2 = createPlayerWith(nombreJugador2, new Red());
+        Player player1 = new Player(nombreJugador1, new Blue());
+        Player player2 = new Player(nombreJugador2, new Red());
 
         Hand player1Hand = player1.getHand();
         Hand player2Hand = player2.getHand();
@@ -56,17 +56,6 @@ public class Board {
         currentPlayer = currentRound.getCurrentPlayer();
         opponent = currentRound.getOpponent();
         opponentHand = opponent.getHand();
-    }
-
-    private Player createPlayerWith(String name, PlayerColor color) {
-        Deck playerDeck = new Deck();
-        DiscardPile playerDiscardPile = new DiscardPile();
-
-        CloseCombat playerCloseCombat = new CloseCombat(playerDiscardPile);
-        Ranged playerRanged = new Ranged(playerDiscardPile);
-        Siege playerSiege = new Siege(playerDiscardPile);
-
-        return new Player(name, playerDeck, playerDiscardPile, playerCloseCombat, playerRanged, playerSiege, color);
     }
 
     private static Game startGameWith(Player aPlayer, Player anotherPlayer, SpecialZone specialZone) {

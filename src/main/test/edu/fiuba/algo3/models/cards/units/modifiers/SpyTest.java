@@ -85,8 +85,8 @@ public class SpyTest {
 
         carta_espia.setColor(new Blue());
 
-        Player player = new Player("Gabriel", deck, discardPile1, closeCombat, RangedRowOwner, siege, new Blue());
-        Player opponent = new Player("Juan", new Deck(), discardPile2, closeCombat2, RangedRowOpponent, siege2, new Red());
+        Player player = new Player("Gabriel", new Blue());
+        Player opponent = new Player("Juan", new Red());
         round = new Round(player, opponent);
     }
     @Test

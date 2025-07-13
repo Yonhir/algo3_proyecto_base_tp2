@@ -106,8 +106,8 @@ public class SpecialZoneTest {
         fogWeather.setColor(new Blue());
         rainWeather.setColor(new Blue());
 
-        Player player = new Player("Gabriel", new Deck(), discardPile1, player1CloseCombatRow, player1RangedRow, player1SiegeRow, new Blue());
-        Player opponent = new Player("Juan", new Deck(), discardPile2, player2CloseCombatRow, player2RangedRow, player2SiegeRow, new Red());
+        Player player = new Player("Gabriel", new Blue());
+        Player opponent = new Player("Juan", new Red());
         round = new Round(player, opponent);
     }
 

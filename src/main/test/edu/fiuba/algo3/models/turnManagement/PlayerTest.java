@@ -109,8 +109,8 @@ public class PlayerTest {
         closeCombat2 = new CloseCombat(discardPile2);
         ranged2 = new Ranged(discardPile2);
         siege2 = new Siege(discardPile2);
-        player = new Player("Gabriel", deck, discardPile1, closeCombat1, ranged1, siege1, new Blue());
-        opponent = new Player("Juan", deck, discardPile2, closeCombat2, ranged2, siege2, new Red());
+        player = new Player("Gabriel", new Blue());
+        opponent = new Player("Juan", new Red());
 
         Hand hand = player.getHand();
 
