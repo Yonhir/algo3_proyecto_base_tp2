@@ -17,12 +17,8 @@ import edu.fiuba.algo3.models.turnManagement.Round;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Board {
-    private final Hand currentPlayerHand;
-    private final Hand opponentHand;
     private final SpecialZone specialZone;
     private final Game game;
-    private final Player currentPlayer;
-    private final Player opponent;
 
     public Board(String nombreJugador1, String nombreJugador2) {
         Player player1 = new Player(nombreJugador1, new Blue());
@@ -50,12 +46,6 @@ public class Board {
 
         player1Hand.getNCardsFromDeck(player1Deck, 10);
         player2Hand.getNCardsFromDeck(player2Deck, 10);
-
-        currentPlayerHand = game.currentPlayerHand();
-        Round currentRound = game.getCurrentRound();
-        currentPlayer = currentRound.getCurrentPlayer();
-        opponent = currentRound.getOpponent();
-        opponentHand = opponent.getHand();
     }
 
     private static Game startGameWith(Player aPlayer, Player anotherPlayer, SpecialZone specialZone) {
@@ -71,18 +61,18 @@ public class Board {
         return new Game(aPlayer, anotherPlayer, specialZone);
     }
 
-    public Hand getCurrentPlayerHand() { return currentPlayerHand; }
-    public Hand getOpponentHand(){ return opponentHand;}
-    public Deck getCurrentPlayerDeck() { return currentPlayer.getDeck(); }
-    public Deck getOpponentDeck() { return opponent.getDeck(); }
-    public DiscardPile getCurrentPlayerDiscardPile() { return currentPlayer.getDiscardPile(); }
-    public DiscardPile getOpponentDiscardPile() { return opponent.getDiscardPile(); }
-    public CloseCombat getCurrentPlayerCloseCombat() { return currentPlayer.getCloseCombatRow(); }
-    public CloseCombat getOpponentCloseCombat() { return opponent.getCloseCombatRow(); }
-    public Ranged getCurrentPlayerRanged() { return currentPlayer.getRangedRow(); }
-    public Ranged getOpponentRanged() { return opponent.getRangedRow(); }
-    public Siege getCurrentPlayerSiege() { return currentPlayer.getSiegeRow(); }
-    public Siege getOpponentSiege() { return opponent.getSiegeRow(); }
+    public Hand getCurrentPlayerHand() { return game.currentPlayerHand(); }
+    public Hand getOpponentHand(){ return game.getCurrentRound().getOpponent().getHand(); }
+    public Deck getCurrentPlayerDeck() { return game.getCurrentRound().getCurrentPlayer().getDeck(); }
+    public Deck getOpponentDeck() { return game.getCurrentRound().getOpponent().getDeck(); }
+    public DiscardPile getCurrentPlayerDiscardPile() { return game.getCurrentRound().getCurrentPlayer().getDiscardPile(); }
+    public DiscardPile getOpponentDiscardPile() { return game.getCurrentRound().getOpponent().getDiscardPile(); }
+    public CloseCombat getCurrentPlayerCloseCombat() { return game.getCurrentRound().getCurrentPlayer().getCloseCombatRow(); }
+    public CloseCombat getOpponentCloseCombat() { return game.getCurrentRound().getOpponent().getCloseCombatRow(); }
+    public Ranged getCurrentPlayerRanged() { return game.getCurrentRound().getCurrentPlayer().getRangedRow(); }
+    public Ranged getOpponentRanged() { return game.getCurrentRound().getOpponent().getRangedRow(); }
+    public Siege getCurrentPlayerSiege() { return game.getCurrentRound().getCurrentPlayer().getSiegeRow(); }
+    public Siege getOpponentSiege() { return game.getCurrentRound().getOpponent().getSiegeRow(); }
     public SpecialZone getSpecialZone() { return specialZone; }
     public Game getGame() { return game; }
 }

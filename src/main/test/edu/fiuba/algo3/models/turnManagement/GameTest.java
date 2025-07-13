@@ -42,27 +42,31 @@ public class GameTest {
 
     private Deck deck1;
     private Deck deck2;
-    private List<Card> especiales;
-    private List<Card> unidades;
+
     private Card unit1;
     private Card special2;
+
     @BeforeEach
     public void setUp() {
         unit1 = new Unit("Nombre", "Descripcion", 4, new CloseCombatType(), new ArrayList<Modifier>());
         special2 = new TorrentialRain("Nombre", "Descripcion");
-        deck1 = new Deck();
-        deck2 = new Deck();
+        player1 = new Player("nombre1", new Blue());
+        player2 = new Player("nombre2", new Red());
+        deck1 = player1.getDeck();
+        deck2 = player2.getDeck();
+        unit1.setColor(new Blue());
+        special2.setColor(new Red());
         deck1.addCard(unit1);
         deck2.addCard(special2);
 
-        discardPile1 = new DiscardPile();
-        discardPile2 = new DiscardPile();
-        player1CloseCombatRow = new CloseCombat(discardPile1);
-        player1RangedRow = new Ranged(discardPile1);
-        player1SiegeRow = new Siege(discardPile1);
-        player2CloseCombatRow = new CloseCombat(discardPile2);
-        player2RangedRow = new Ranged(discardPile2);
-        player2SiegeRow = new Siege(discardPile2);
+        discardPile1 = player1.getDiscardPile();
+        discardPile2 = player2.getDiscardPile();
+        player1CloseCombatRow = player1.getCloseCombatRow();
+        player1RangedRow = player1.getRangedRow();
+        player1SiegeRow = player1.getSiegeRow();
+        player2CloseCombatRow = player2.getCloseCombatRow();
+        player2RangedRow = player2.getRangedRow();
+        player2SiegeRow = player2.getSiegeRow();
         specialZone = new SpecialZone(
                 player1CloseCombatRow, player1RangedRow, player1SiegeRow,
                 player2CloseCombatRow, player2RangedRow, player2SiegeRow,
@@ -71,8 +75,6 @@ public class GameTest {
 
 
         round = new Round(player1, player2);
-        player1 = new Player("nombre1", new Blue());
-        player2 = new Player("nombre2", new Red());
         game = new Game(player1, player2, specialZone);
     }
 
@@ -128,7 +130,7 @@ public class GameTest {
 
     @Test
     public void testClearBoardAndAllCardsGoToTheirCorrespondingDiscardPile(){
-        player1CloseCombatRow.placeCard(unit1,round);
+        player1CloseCombatRow.placeCard(unit1, round);
         specialZone.placeCard(special2, round);
 
         game.passRound();
@@ -144,30 +146,34 @@ public class GameTest {
     @Test
     public void testPartidaCompletaConVictoriaFinalDelJugador1() {
         //Preparación de mazos
-        Deck deck1 = new Deck();
-        Deck deck2 = new Deck();
+        Player player1 = new Player("Jugador1", new Blue());
+        Player player2 = new Player("Jugador2", new Red());
+
+        Deck deck1 = player1.getDeck();
+        Deck deck2 = player2.getDeck();
 
         Card cartaFuerte1 = new Unit("Espadachín", "Fuerte", 10, new CloseCombatType(), new ArrayList<>());
+        cartaFuerte1.setColor(new Blue());
         Card cartaFuerte2 = new Unit("Arquero", "Fuerte", 9, new RangedType(), new ArrayList<>());
+        cartaFuerte2.setColor(new Blue());
         Card cartaDebil1 = new Unit("debilucho1", "Débil", 2, new CloseCombatType(), new ArrayList<>());
+        cartaDebil1.setColor(new Red());
         Card cartaDebil2 = new Unit("debilucho2", "Débil", 1, new RangedType(), new ArrayList<>());
+        cartaDebil2.setColor(new Red());
 
         deck1.insertCardsInOrder(Arrays.asList(cartaFuerte1, cartaFuerte2));
         deck2.insertCardsInOrder(Arrays.asList(cartaDebil1, cartaDebil2));
 
-        DiscardPile discardPile1 = new DiscardPile();
-        DiscardPile discardPile2 = new DiscardPile();
+        DiscardPile discardPile1 = player1.getDiscardPile();
+        DiscardPile discardPile2 = player2.getDiscardPile();
 
-        CloseCombat cc1 = new CloseCombat(discardPile1);
-        Ranged ranged1 = new Ranged(discardPile1);
-        Siege siege1 = new Siege(discardPile1);
+        CloseCombat cc1 = player1.getCloseCombatRow();
+        Ranged ranged1 = player1.getRangedRow();
+        Siege siege1 = player1.getSiegeRow();
 
-        CloseCombat cc2 = new CloseCombat(discardPile2);
-        Ranged ranged2 = new Ranged(discardPile2);
-        Siege siege2 = new Siege(discardPile2);
-
-        Player player1 = new Player("Jugador1", new Blue());
-        Player player2 = new Player("Jugador2", new Red());
+        CloseCombat cc2 = player2.getCloseCombatRow();
+        Ranged ranged2 = player2.getRangedRow();
+        Siege siege2 = player2.getSiegeRow();
 
         SpecialZone specialZone = new SpecialZone(cc1, ranged1, siege1, cc2, ranged2, siege2, discardPile1, discardPile2);
         Game game = new Game(player1, player2, specialZone);
