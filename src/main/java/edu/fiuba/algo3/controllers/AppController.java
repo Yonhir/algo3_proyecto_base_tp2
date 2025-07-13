@@ -21,14 +21,7 @@ public class AppController {
             return;
         }
 
-        GameView gameView = new GameView(
-                board.getGame(), board.getCurrentPlayerHand(),
-                board.getPlayer1Deck(), board.getPlayer2Deck(),
-                board.getPlayer1DiscardPile(), board.getPlayer2DiscardPile(),
-                board.getPlayer1CloseCombat(), board.getPlayer1Ranged(), board.getPlayer1Siege(),
-                board.getPlayer2CloseCombat(), board.getPlayer2Ranged(), board.getPlayer2Siege(),
-                board.getSpecialZone()
-        );
+        GameView gameView = new GameView(board);
 
         Scene scene = gameView.createScene();
         stage.setScene(scene);
