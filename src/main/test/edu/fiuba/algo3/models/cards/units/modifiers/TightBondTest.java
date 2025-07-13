@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TightBondTest {
-    private DiscardPile discardPile;
     private Unit catapult1;
     private Unit catapult2;
     private Unit catapult3;
@@ -28,18 +27,11 @@ public class TightBondTest {
 
     @BeforeEach
     void setUp() {
-        discardPile = new DiscardPile();
-        DiscardPile discardPile2 = new DiscardPile();
+        Player player = new Player("Gabriel", new Blue());
+        Player opponent = new Player("Juan", new Red());
 
-        CloseCombat closeCombat = new CloseCombat(discardPile);
-        Ranged ranged = new Ranged(discardPile);
-        siegeRow = new Siege(discardPile);
-        CloseCombat closeCombat2 = new CloseCombat(discardPile2);
-        Ranged ranged2 = new Ranged(discardPile2);
-        Siege siege2 = new Siege(discardPile2);
-        Deck deck = new Deck();
-        Player player = new Player("Gabriel", deck, discardPile, closeCombat, ranged, siegeRow, new Blue());
-        Player opponent = new Player("Juan", new Deck(), discardPile2, closeCombat2, ranged2, siege2, new Red());
+        siegeRow = player.getSiegeRow();
+
         round = new Round(player, opponent);
 
         // Create three different TightBond modifiers

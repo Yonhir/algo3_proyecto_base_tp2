@@ -8,7 +8,6 @@ import edu.fiuba.algo3.models.cards.Card;
 import edu.fiuba.algo3.models.sections.Section;
 import edu.fiuba.algo3.models.sections.rows.CloseCombat;
 import edu.fiuba.algo3.models.sections.rows.Ranged;
-import edu.fiuba.algo3.models.sections.rows.Row;
 import edu.fiuba.algo3.models.sections.rows.Siege;
 
 public class Player {
@@ -41,14 +40,14 @@ public class Player {
         discardPile.setColor(color);
     }
 
-    public Player(String name, Deck deck, DiscardPile discardPile, CloseCombat closeCombat, Ranged ranged, Siege siege, PlayerColor playerColor) {
+    public Player(String name, PlayerColor playerColor) {
         this.name = name;
-        this.discardPile = discardPile;
+        this.discardPile = new DiscardPile();
         hand = new Hand();
-        this.deck = deck;
-        this.closeCombat = closeCombat;
-        this.ranged = ranged;
-        this.siege = siege;
+        this.deck = new Deck();
+        this.closeCombat = new CloseCombat(this.discardPile);
+        this.ranged = new Ranged(this.discardPile);
+        this.siege = new Siege(this.discardPile);
 
         setColor(playerColor);
     }
@@ -59,9 +58,6 @@ public class Player {
 
     public Hand getHand(){
         return hand;
-    }
-    public Deck getDeck(){
-        return deck;
     }
 
     public int calculatePoints() {
@@ -107,5 +103,21 @@ public class Player {
             return this;
         }
         return other;
+    }
+
+    public Deck getDeck() {
+        return deck;
+    }
+
+    public CloseCombat getCloseCombatRow() {
+        return closeCombat;
+    }
+
+    public Ranged getRangedRow() {
+        return ranged;
+    }
+
+    public Siege getSiegeRow() {
+        return siege;
     }
 }

@@ -1,13 +1,6 @@
 package edu.fiuba.algo3.views;
 
-import edu.fiuba.algo3.models.cardcollections.Deck;
-import edu.fiuba.algo3.models.cardcollections.Hand;
-import edu.fiuba.algo3.models.cardcollections.DiscardPile;
-import edu.fiuba.algo3.models.sections.rows.CloseCombat;
-import edu.fiuba.algo3.models.sections.rows.Ranged;
-import edu.fiuba.algo3.models.sections.rows.Siege;
-import edu.fiuba.algo3.models.sections.SpecialZone;
-import edu.fiuba.algo3.models.turnManagement.Game;
+import edu.fiuba.algo3.models.sections.Board;
 import edu.fiuba.algo3.views.components.*;
 import edu.fiuba.algo3.views.components.cardcomponent.UIDeck;
 import edu.fiuba.algo3.views.components.cardcomponent.UIDiscardPile;
@@ -37,27 +30,22 @@ public class GameView extends StackPane {
     
     private Scene scene;
 
-    public GameView(Game game, Hand currentPlayerHand,
-                    Deck player1Deck, Deck player2Deck,
-                    DiscardPile player1DiscardPile, DiscardPile player2DiscardPile,
-                    CloseCombat player1CloseCombat, Ranged player1Ranged, Siege player1Siege,
-                    CloseCombat player2CloseCombat, Ranged player2Ranged, Siege player2Siege,
-                    SpecialZone specialZone) {
+    public GameView(Board board) {
 
-        UIHand UIHandList = new UIHand(currentPlayerHand);
-        UIRow opponentCloseCombat = new UIRow(player2CloseCombat);
-        UIRow opponentRanged = new UIRow(player2Ranged);
-        UIRow opponentSiege = new UIRow(player2Siege);
-        UIRow playerCloseCombat = new UIRow(player1CloseCombat);
-        UIRow playerRanged = new UIRow(player1Ranged);
-        UIRow playerSiege = new UIRow(player1Siege);
+        UIHand UIHandList = new UIHand(board.getCurrentPlayerHand());
+        UIRow opponentCloseCombat = new UIRow(board.getOpponentCloseCombat());
+        UIRow opponentRanged = new UIRow(board.getOpponentRanged());
+        UIRow opponentSiege = new UIRow(board.getOpponentSiege());
+        UIRow playerCloseCombat = new UIRow(board.getCurrentPlayerCloseCombat());
+        UIRow playerRanged = new UIRow(board.getCurrentPlayerRanged());
+        UIRow playerSiege = new UIRow(board.getCurrentPlayerSiege());
 
-        UISpecialZone UISpecialZoneList = new UISpecialZone(specialZone);
-        playerUIDeck = new UIDeck(player1Deck);
-        opponentUIDeck = new UIDeck(player2Deck);
-        playerUIDiscardPile = new UIDiscardPile(player1DiscardPile);
-        opponentUIDiscardPile = new UIDiscardPile(player2DiscardPile);
-        passButton = new PassTurnButton("Pass", game);
+        UISpecialZone UISpecialZoneList = new UISpecialZone(board.getSpecialZone());
+        playerUIDeck = new UIDeck(board.getCurrentPlayerDeck());
+        opponentUIDeck = new UIDeck(board.getOpponentDeck());
+        playerUIDiscardPile = new UIDiscardPile(board.getCurrentPlayerDiscardPile());
+        opponentUIDiscardPile = new UIDiscardPile(board.getOpponentDiscardPile());
+        passButton = new PassTurnButton("Pass", board.getGame());
         leftColumn = new LeftColumn(UISpecialZoneList);
         centerColumn = new CenterColumn(opponentCloseCombat, opponentRanged, opponentSiege,
                 playerCloseCombat, playerRanged, playerSiege, UIHandList);
