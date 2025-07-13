@@ -1,46 +1,44 @@
 package edu.fiuba.algo3.models.sections;
 
 import edu.fiuba.algo3.models.cardcollections.Hand;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.Assert.assertNotNull;
 
 public class BoardTest {
 
     @Test
     public void testBoardContieneUnaManoInicialParaElJugadorActual() {
-
         Board board = new Board("Jugador 1", "Jugador 2");
 
         Hand manoActual = board.getCurrentPlayerHand();
 
-        assertNotNull(manoActual);
+        Assertions.assertNotNull(manoActual);
     }
 
     @Test
     public void testBoardInicializaTodosLosComponentesCorrectamente() {
         Board board = new Board("Jugador 1", "Jugador 2");
 
-        assertNotNull(board.getCurrentPlayerHand());
-        assertNotNull(board.getOpponentHand());
+        Assertions.assertNotNull(board.getCurrentPlayerHand());
+        Assertions.assertNotNull(board.getOpponentHand());
 
-        assertNotNull(board.getCurrentPlayerDeck());
-        assertNotNull(board.getOpponentDeck());
+        Assertions.assertNotNull(board.getCurrentPlayerDeck());
+        Assertions.assertNotNull(board.getOpponentDeck());
 
-        assertNotNull(board.getCurrentPlayerDiscardPile());
-        assertNotNull(board.getOpponentDiscardPile());
+        Assertions.assertNotNull(board.getCurrentPlayerDiscardPile());
+        Assertions.assertNotNull(board.getOpponentDiscardPile());
 
-        assertNotNull(board.getCurrentPlayerCloseCombat());
-        assertNotNull(board.getOpponentCloseCombat());
+        Assertions.assertNotNull(board.getCurrentPlayerCloseCombat());
+        Assertions.assertNotNull(board.getOpponentCloseCombat());
 
-        assertNotNull(board.getCurrentPlayerRanged());
-        assertNotNull(board.getOpponentRanged());
+        Assertions.assertNotNull(board.getCurrentPlayerRanged());
+        Assertions.assertNotNull(board.getOpponentRanged());
 
-        assertNotNull(board.getCurrentPlayerSiege());
-        assertNotNull(board.getOpponentSiege());
+        Assertions.assertNotNull(board.getCurrentPlayerSiege());
+        Assertions.assertNotNull(board.getOpponentSiege());
 
-        assertNotNull(board.getSpecialZone());
+        Assertions.assertNotNull(board.getSpecialZone());
 
-        assertNotNull(board.getGame());
+        Assertions.assertNotNull(board.getGame());
     }
 }
