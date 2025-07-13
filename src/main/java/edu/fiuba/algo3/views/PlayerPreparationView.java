@@ -38,6 +38,7 @@ public class PlayerPreparationView {
 
         screenPreparation.getChildren().addAll(labelTurn, continueButton);
         stage.setScene(new Scene(screenPreparation, 1000, 700));
+        stage.setFullScreen(true);
     }
 }
 

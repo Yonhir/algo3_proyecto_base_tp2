@@ -14,7 +14,6 @@ public class UIUnit extends UICard {
     
     private PointsCircle pointsCircle;
     private int points;
-   // private final Unit model;
     
     public UIUnit(Unit unit) {
         super(unit.getName(), unit.getDescription());

@@ -36,7 +36,7 @@ public class ButtonContinueForPreparationHandler implements EventHandler<ActionE
         dialogPane.setStyle("-fx-background-color: #C19A6B; -fx-border-color: #8B4513; -fx-border-width: 5px;");
         Scene scene = new Scene(dialogPane, 1000, 700);
         stage.setScene(scene);
-
+        stage.setFullScreen(true);
         DiscardCardDialog.show(dialogPane, hand, playerName, discardPile, deck, onContinue);
     }
 }
