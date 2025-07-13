@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.views.components.cardcomponent.card;
 
+import edu.fiuba.algo3.models.cards.Card;
 import edu.fiuba.algo3.views.components.cardcomponent.BaseCardComponent;
 import javafx.scene.paint.Color;
 import javafx.scene.input.MouseEvent;
@@ -21,6 +22,8 @@ public abstract class UICard extends BaseCardComponent {
     
     private double originalX = 0;
     private double originalY = 0;
+
+    protected  Card model;
     
     public UICard(String name, String description) {
         super();
@@ -28,6 +31,10 @@ public abstract class UICard extends BaseCardComponent {
         this.description = description;
         setupDragHandlers();
         loadCardImage();
+    }
+
+    public Card getModelCard(){
+        return model;
     }
 
     @Override
