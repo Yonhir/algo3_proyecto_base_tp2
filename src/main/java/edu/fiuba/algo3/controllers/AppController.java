@@ -49,7 +49,7 @@ public class AppController {
             System.err.println("No se pudo inicializar el juego: " + e.getMessage());
             return;
         }
-
+        stage.setTitle("Juego en curso - Gwent");
         PlayerPreparationView.show(stage, nombreJugador1, board.getPlayer1Hand(), board.getPlayer1DiscardPile(), board.getPlayer1Deck(),
                 () -> PlayerPreparationView.show(stage, nombreJugador2, board.getPlayer2Hand(), board.getPlayer2DiscardPile(), board.getPlayer2Deck(),
                         () -> displayBoard(board)
