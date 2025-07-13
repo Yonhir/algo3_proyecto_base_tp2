@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.views;
 
 import edu.fiuba.algo3.models.sections.Board;
-import edu.fiuba.algo3.models.turnManagement.Player;
 import edu.fiuba.algo3.views.components.*;
 import edu.fiuba.algo3.views.components.cardcomponent.UIDeck;
 import edu.fiuba.algo3.views.components.cardcomponent.UIDiscardPile;
@@ -31,25 +30,20 @@ public class GameView extends StackPane {
     private Scene scene;
 
     public GameView(Board board) {
-        super();
-        
-        Player currentPlayer = board.getCurrentPlayer();
-        Player opponent = board.getOpponent();
 
-        // Extract components from board
         UIHand UIHandList = new UIHand(board.getCurrentPlayerHand());
-        UIRow opponentCloseCombat = new UIRow(opponent.getCloseCombat());
-        UIRow opponentRanged = new UIRow(opponent.getRanged());
-        UIRow opponentSiege = new UIRow(opponent.getSiege());
-        UIRow playerCloseCombat = new UIRow(currentPlayer.getCloseCombat());
-        UIRow playerRanged = new UIRow(currentPlayer.getRanged());
-        UIRow playerSiege = new UIRow(currentPlayer.getSiege());
+        UIRow opponentCloseCombat = new UIRow(board.getOpponentCloseCombat());
+        UIRow opponentRanged = new UIRow(board.getOpponentRanged());
+        UIRow opponentSiege = new UIRow(board.getOpponentSiege());
+        UIRow playerCloseCombat = new UIRow(board.getCurrentPlayerCloseCombat());
+        UIRow playerRanged = new UIRow(board.getCurrentPlayerRanged());
+        UIRow playerSiege = new UIRow(board.getCurrentPlayerSiege());
 
         UISpecialZone UISpecialZoneList = new UISpecialZone(board.getSpecialZone());
-        playerUIDeck = new UIDeck(currentPlayer.getDeck());
-        opponentUIDeck = new UIDeck(opponent.getDeck());
-        playerUIDiscardPile = new UIDiscardPile(currentPlayer.getDiscardPile());
-        opponentUIDiscardPile = new UIDiscardPile(opponent.getDiscardPile());
+        playerUIDeck = new UIDeck(board.getCurrentPlayerDeck());
+        opponentUIDeck = new UIDeck(board.getOpponentDeck());
+        playerUIDiscardPile = new UIDiscardPile(board.getCurrentPlayerDiscardPile());
+        opponentUIDiscardPile = new UIDiscardPile(board.getOpponentDiscardPile());
         passButton = new PassTurnButton("Pass", board.getGame());
         leftColumn = new LeftColumn(UISpecialZoneList);
         centerColumn = new CenterColumn(opponentCloseCombat, opponentRanged, opponentSiege,

@@ -104,12 +104,14 @@ public abstract class CardList extends Pane implements Observer {
     
     protected void loadCardsFromModel() {
         getChildren().clear();
+        cards.clear();
         
         List<Card> modelCards = getCardsFromModel();
         for (Card modelCard : modelCards) {
             UICard uiCard = createUICard(modelCard);
             addCard(uiCard);
         }
+        updateOptimalPositioning();
     }
     
     protected UICard createUICard(Card modelCard) {

@@ -98,24 +98,26 @@ public class PlayerTest {
         cards.addAll(specialCards);
 
         // Initialize game components
-        Deck deck = new Deck();
-        deck.insertCards(cards);
+        player = new Player("Gabriel", new Blue());
+        opponent = new Player("Juan", new Red());
 
-        discardPile1 = new DiscardPile();
-        discardPile2 = new DiscardPile();
-        closeCombat1 = new CloseCombat(discardPile1);
-        ranged1 = new Ranged(discardPile1);
-        siege1 = new Siege(discardPile1);
-        closeCombat2 = new CloseCombat(discardPile2);
-        ranged2 = new Ranged(discardPile2);
-        siege2 = new Siege(discardPile2);
-        player = new Player("Gabriel", deck, discardPile1, closeCombat1, ranged1, siege1, new Blue());
-        opponent = new Player("Juan", deck, discardPile2, closeCombat2, ranged2, siege2, new Red());
+        Deck deck1 = player.getDeck();
+        Deck deck2 = opponent.getDeck();
+        deck1.insertCards(cards);
+        deck2.insertCards(cards);
+        discardPile1 = player.getDiscardPile();
+        discardPile2 = opponent.getDiscardPile();
+        closeCombat1 = player.getCloseCombatRow();
+        ranged1 = player.getRangedRow();
+        siege1 = player.getSiegeRow();
+        closeCombat2 = opponent.getCloseCombatRow();
+        ranged2 = opponent.getRangedRow();
+        siege2 = opponent.getSiegeRow();
 
         Hand hand = player.getHand();
 
         hand.insertCards(Arrays.asList(siegeCard, closeCombatCard, rangedCard, weather));
-        hand.getNCardsFromDeck(deck, 6);
+        hand.getNCardsFromDeck(deck1, 6);
 
         round = new Round(player, opponent);
     }

@@ -1,6 +1,5 @@
 package edu.fiuba.algo3.models.cards.specials;
 
-import edu.fiuba.algo3.models.cardcollections.Deck;
 import edu.fiuba.algo3.models.cardcollections.DiscardPile;
 import edu.fiuba.algo3.models.cards.units.Unit;
 import edu.fiuba.algo3.models.colors.Blue;
@@ -103,8 +102,8 @@ public class MoraleBoostTest {
         moraleBoost.setColor(new Blue());
         siege.setColor(new Red());
 
-        Player player = new Player("player", new Deck(), new DiscardPile(), new CloseCombat(new DiscardPile()), new Ranged(new DiscardPile()), new Siege(new DiscardPile()), new Red());
-        Player player1 = new Player("player", new Deck(), new DiscardPile(), new CloseCombat(new DiscardPile()), new Ranged(new DiscardPile()), new Siege(new DiscardPile()), new Blue());
+        Player player = new Player("player", new Red());
+        Player player1 = new Player("player", new Blue());
 
         assertThrows(SectionPlayerMismatchError.class, () -> siege.placeCard(moraleBoost, new Round(player, player1)));
     }
