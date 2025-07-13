@@ -25,6 +25,7 @@ public class GameView extends StackPane {
     private final LeftColumn leftColumn;
     private final CenterColumn centerColumn;
     private final RightColumn rightColumn;
+
     private final PassTurnButton passButton;
     
     private Scene scene;
@@ -97,4 +98,5 @@ public class GameView extends StackPane {
     public void showExitConfirmation() {
         ExitConfirmationDialog.show(this);
     }
+
 }
