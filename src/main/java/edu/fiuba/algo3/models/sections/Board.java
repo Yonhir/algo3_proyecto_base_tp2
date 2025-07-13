@@ -23,14 +23,16 @@ public class Board {
     private final Siege player1Siege, player2Siege;
     private final SpecialZone specialZone;
     private final Game game;
+    private final Player player1, player2;
 
-    public Board(String nombreJugador1, String nombreJugador2) {
+    public Board() {
+        String player1Name = "Player Blue";
+        String player2Name  = "Player Red";
 
         player1Deck = new Deck();
         player2Deck = new Deck();
         player1DiscardPile = new DiscardPile();
         player2DiscardPile = new DiscardPile();
-
 
         player1CloseCombat = new CloseCombat(player1DiscardPile);
         player1Ranged = new Ranged(player1DiscardPile);
@@ -40,10 +42,9 @@ public class Board {
         player2Ranged = new Ranged(player2DiscardPile);
         player2Siege = new Siege(player2DiscardPile);
 
-
-        Player player1 = new Player(nombreJugador1, player1Deck, player1DiscardPile,
+        player1 = new Player(player1Name, player1Deck, player1DiscardPile,
                 player1CloseCombat, player1Ranged, player1Siege, new Blue());
-        Player player2 = new Player(nombreJugador2, player2Deck, player2DiscardPile,
+        player2 = new Player(player2Name, player2Deck, player2DiscardPile,
                 player2CloseCombat, player2Ranged, player2Siege, new Red());
 
         Hand player1Hand = player1.getHand();
@@ -87,6 +88,10 @@ public class Board {
         return new Game(aPlayer, anotherPlayer, specialZone);
     }
 
+    public void setPlayerNames(String player1Name, String player2Name) {
+        player1.changeName(player1Name);
+        player2.changeName(player2Name);
+    }
 
     public Hand getCurrentPlayerHand() { return currentPlayerHand; }
     public Deck getPlayer1Deck() { return player1Deck; }

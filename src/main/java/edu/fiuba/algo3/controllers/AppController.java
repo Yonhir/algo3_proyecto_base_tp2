@@ -7,19 +7,15 @@ import javafx.stage.Stage;
 
 public class AppController {
     private final Stage stage;
+    private final Board board;
 
-    public AppController(Stage stage) {
+    public AppController(Stage stage, Board board) {
         this.stage = stage;
+        this.board = board;
     }
 
-    public void startGameWithNames(String nombreJugador1, String nombreJugador2) {
-        Board board;
-        try {
-            board = new Board(nombreJugador1, nombreJugador2);
-        } catch (Exception e) {
-            System.err.println("No se pudo inicializar el juego: " + e.getMessage());
-            return;
-        }
+    public void startGameWithNames(String player1Name, String player2Name) {
+        board.setPlayerNames(player1Name, player2Name);
 
         GameView gameView = new GameView(
                 board.getGame(), board.getCurrentPlayerHand(),

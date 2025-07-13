@@ -12,7 +12,7 @@ import edu.fiuba.algo3.models.sections.rows.Row;
 import edu.fiuba.algo3.models.sections.rows.Siege;
 
 public class Player {
-    private final String name;
+    private String name;
     private final DiscardPile discardPile;
     private final Hand hand;
     private final Deck deck;
@@ -104,5 +104,9 @@ public class Player {
             return this;
         }
         return other;
+    }
+
+    public void changeName(String newName) {
+        name = newName;
     }
 }
