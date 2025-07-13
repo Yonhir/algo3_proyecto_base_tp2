@@ -38,7 +38,6 @@ public class WeatherTest {
     private Weather rainWeather;
     private Weather clearWeather;
     private Round round;
-    private Deck deck;
     private CloseCombat player2CloseCombatRow;
     private Ranged player2RangedRow;
     private Siege player2SiegeRow;
@@ -50,19 +49,18 @@ public class WeatherTest {
 
     @BeforeEach
     public void setup() {
-        discardPile1 = new DiscardPile();
-        discardPile2 = new DiscardPile();
-        deck = new Deck();
-
-
-        player1CloseCombatRow = new CloseCombat(discardPile1);
-        player1RangedRow = new Ranged(discardPile1);
-        player1SiegeRow = new Siege(discardPile1);
-        player2CloseCombatRow = new CloseCombat(discardPile2);
-        player2RangedRow = new Ranged(discardPile2);
-        player2SiegeRow = new Siege(discardPile2);
         player = new Player("Gabriel", new Blue());
         opponent = new Player("Juan", new Red());
+
+        discardPile1 = player.getDiscardPile();
+        discardPile2 = opponent.getDiscardPile();
+
+        player1CloseCombatRow = player.getCloseCombatRow();
+        player1RangedRow = player.getRangedRow();
+        player1SiegeRow = player.getSiegeRow();
+        player2CloseCombatRow = opponent.getCloseCombatRow();
+        player2RangedRow = opponent.getRangedRow();
+        player2SiegeRow = opponent.getSiegeRow();
         round = new Round(player, opponent);
 
 

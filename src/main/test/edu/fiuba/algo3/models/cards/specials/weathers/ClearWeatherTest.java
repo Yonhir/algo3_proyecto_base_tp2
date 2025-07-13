@@ -40,15 +40,17 @@ public class ClearWeatherTest {
 
     @BeforeEach
     void setUp() {
-        discardPile1 = new DiscardPile();
-        discardPile2 = new DiscardPile();
-        clear = new ClearWeather("nombre", "descripcion");
-        closeCombat1 = new CloseCombat(discardPile1);
-        closeCombat2 = new CloseCombat(discardPile2);
-        ranged1 = new Ranged(discardPile1);
-        ranged2 = new Ranged(discardPile2);
-        siege1 = new Siege(discardPile1);
-        siege2 = new Siege(discardPile2);
+        player1 = new Player("nombre", new Blue());
+        player2 = new Player("nombre", new Red());
+
+        discardPile1 = player1.getDiscardPile();
+        discardPile2 = player2.getDiscardPile();
+        closeCombat1 = player1.getCloseCombatRow();
+        closeCombat2 = player2.getCloseCombatRow();
+        ranged1 = player1.getRangedRow();
+        ranged2 = player2.getRangedRow();
+        siege1 = player1.getSiegeRow();
+        siege2 = player2.getSiegeRow();
 
         clear = new ClearWeather("nombre", "descripcion");
         bitingFrost = new BitingFrost("nombre", "descripcion");
@@ -60,8 +62,6 @@ public class ClearWeatherTest {
         fog.setColor(new Blue());
         rain.setColor(new Blue());
 
-        player1 = new Player("nombre", new Blue());
-        player2 = new Player("nombre", new Red());
         round = new Round(player1, player2);
     }
 

@@ -36,22 +36,22 @@ public class ScorchTest {
 
     @BeforeEach
     void setUp() {
+        Player player1 = new Player("nombre", new Blue());
+        Player player2 = new Player("nombre", new Red());
+
         tierraArrasada = new Scorch("Tierra arrasada", "Desscripcion", List.of(new CloseCombatType(), new RangedType(), new SiegeType()));
         tierraArrasada.setColor(new Blue());
 
-        discardPile1 = new DiscardPile();
-        discardPile2 = new DiscardPile();
-        discardPile1.setColor(new Blue());
-        discardPile2.setColor(new Red());
-        closeCombatRow1 = new CloseCombat(discardPile1);
-        rangedRow1 = new Ranged(discardPile1);
-        siegeRow1 = new Siege(discardPile1);
-        closeCombatRow2 = new CloseCombat(discardPile2);
-        rangedRow2 = new Ranged(discardPile2);
-        siegeRow2 = new Siege(discardPile2);
+        discardPile1 = player1.getDiscardPile();
+        discardPile2 = player2.getDiscardPile();
+        closeCombatRow1 = player1.getCloseCombatRow();
+        rangedRow1 = player1.getRangedRow();
+        siegeRow1 = player1.getSiegeRow();
+        closeCombatRow2 = player2.getCloseCombatRow();
+        rangedRow2 = player2.getRangedRow();
+        siegeRow2 = player2.getSiegeRow();
         specialZone = new SpecialZone(closeCombatRow1, rangedRow1, siegeRow1, closeCombatRow2, rangedRow2, siegeRow2, discardPile1, discardPile2);
-        Player player1 = new Player("nombre", new Blue());
-        Player player2 = new Player("nombre", new Red());
+
         round = new Round(player1, player2);
     }
 
