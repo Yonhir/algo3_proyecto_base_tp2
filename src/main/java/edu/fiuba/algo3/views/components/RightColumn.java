@@ -12,16 +12,17 @@ public class RightColumn extends VBox {
     private final UIDiscardPile playerUIDiscardPile, opponentUIDiscardPile;
     
     public RightColumn(UIDeck playerUIDeck, UIDeck opponentUIDeck,
-                       UIDiscardPile playerUIDiscardPile, UIDiscardPile opponentUIDiscardPile) {
+                       UIDiscardPile playerUIDiscardPile, UIDiscardPile opponentUIDiscardPile,
+                       PassTurnButton passTurnButton) {
         super();
         this.playerUIDeck = playerUIDeck;
         this.opponentUIDeck = opponentUIDeck;
         this.playerUIDiscardPile = playerUIDiscardPile;
         this.opponentUIDiscardPile = opponentUIDiscardPile;
-        setupRightColumn();
+        setupRightColumn(passTurnButton);
     }
     
-    private void setupRightColumn() {
+    private void setupRightColumn(PassTurnButton passTurnButton) {
         setAlignment(javafx.geometry.Pos.TOP_CENTER);
         setStyle("-fx-background-color: #BC8F8F; -fx-border-color: #8B4513; -fx-border-width: 3px;");
         
@@ -43,6 +44,6 @@ public class RightColumn extends VBox {
         
         VBox.setVgrow(opponentCardsContainer, javafx.scene.layout.Priority.ALWAYS);
         VBox.setVgrow(playerCardsContainer, javafx.scene.layout.Priority.ALWAYS);
-        getChildren().addAll(opponentCardsContainer, opponentSpacer, playerSpacer, playerCardsContainer);
+        getChildren().addAll(opponentCardsContainer, opponentSpacer, passTurnButton, playerSpacer, playerCardsContainer);
     }
 } 

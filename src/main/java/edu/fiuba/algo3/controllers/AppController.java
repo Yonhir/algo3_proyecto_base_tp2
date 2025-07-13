@@ -1,11 +1,13 @@
 package edu.fiuba.algo3.controllers;
 
+import edu.fiuba.algo3.models.Observable;
+import edu.fiuba.algo3.models.Observer;
 import edu.fiuba.algo3.models.sections.Board;
 import edu.fiuba.algo3.views.GameView;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class AppController {
+public class AppController implements Observer {
     private final Stage stage;
     private final Board board;
 
@@ -16,15 +18,11 @@ public class AppController {
 
     public void startGameWithNames(String player1Name, String player2Name) {
         board.setPlayerNames(player1Name, player2Name);
+        loadGameView();
+    }
 
-        GameView gameView = new GameView(
-                board.getGame(), board.getCurrentPlayerHand(),
-                board.getPlayer1Deck(), board.getPlayer2Deck(),
-                board.getPlayer1DiscardPile(), board.getPlayer2DiscardPile(),
-                board.getPlayer1CloseCombat(), board.getPlayer1Ranged(), board.getPlayer1Siege(),
-                board.getPlayer2CloseCombat(), board.getPlayer2Ranged(), board.getPlayer2Siege(),
-                board.getSpecialZone()
-        );
+    public void loadGameView() {
+        GameView gameView = new GameView(board);
 
         Scene scene = gameView.createScene();
         stage.setScene(scene);
@@ -37,5 +35,10 @@ public class AppController {
         });
 
         stage.show();
+    }
+
+    @Override
+    public void update(Observable observable) {
+        loadGameView();
     }
 }

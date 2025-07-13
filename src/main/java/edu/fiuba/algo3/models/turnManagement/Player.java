@@ -109,4 +109,20 @@ public class Player {
     public void changeName(String newName) {
         name = newName;
     }
+
+    public Row getCloseCombat() {
+        return closeCombat;
+    }
+
+    public Row getRanged() {
+        return ranged;
+    }
+
+    public Row getSiege() {
+        return siege;
+    }
+
+    public Deck getDeck() {
+        return deck;
+    }
 }

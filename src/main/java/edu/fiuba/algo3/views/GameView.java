@@ -1,13 +1,7 @@
 package edu.fiuba.algo3.views;
 
-import edu.fiuba.algo3.models.cardcollections.Deck;
-import edu.fiuba.algo3.models.cardcollections.Hand;
-import edu.fiuba.algo3.models.cardcollections.DiscardPile;
-import edu.fiuba.algo3.models.sections.rows.CloseCombat;
-import edu.fiuba.algo3.models.sections.rows.Ranged;
-import edu.fiuba.algo3.models.sections.rows.Siege;
-import edu.fiuba.algo3.models.sections.SpecialZone;
-import edu.fiuba.algo3.models.turnManagement.Game;
+import edu.fiuba.algo3.models.sections.Board;
+import edu.fiuba.algo3.models.turnManagement.Player;
 import edu.fiuba.algo3.views.components.*;
 import edu.fiuba.algo3.views.components.cardcomponent.UIDeck;
 import edu.fiuba.algo3.views.components.cardcomponent.UIDiscardPile;
@@ -36,31 +30,31 @@ public class GameView extends StackPane {
     
     private Scene scene;
 
-    public GameView(Game game, Hand currentPlayerHand,
-                    Deck player1Deck, Deck player2Deck,
-                    DiscardPile player1DiscardPile, DiscardPile player2DiscardPile,
-                    CloseCombat player1CloseCombat, Ranged player1Ranged, Siege player1Siege,
-                    CloseCombat player2CloseCombat, Ranged player2Ranged, Siege player2Siege,
-                    SpecialZone specialZone) {
+    public GameView(Board board) {
+        super();
+        
+        Player currentPlayer = board.getCurrentPlayer();
+        Player opponent = board.getOpponent();
 
-        UIHand UIHandList = new UIHand(currentPlayerHand);
-        UIRow opponentCloseCombat = new UIRow(player2CloseCombat);
-        UIRow opponentRanged = new UIRow(player2Ranged);
-        UIRow opponentSiege = new UIRow(player2Siege);
-        UIRow playerCloseCombat = new UIRow(player1CloseCombat);
-        UIRow playerRanged = new UIRow(player1Ranged);
-        UIRow playerSiege = new UIRow(player1Siege);
+        // Extract components from board
+        UIHand UIHandList = new UIHand(board.getCurrentPlayerHand());
+        UIRow opponentCloseCombat = new UIRow(opponent.getCloseCombat());
+        UIRow opponentRanged = new UIRow(opponent.getRanged());
+        UIRow opponentSiege = new UIRow(opponent.getSiege());
+        UIRow playerCloseCombat = new UIRow(currentPlayer.getCloseCombat());
+        UIRow playerRanged = new UIRow(currentPlayer.getRanged());
+        UIRow playerSiege = new UIRow(currentPlayer.getSiege());
 
-        UISpecialZone UISpecialZoneList = new UISpecialZone(specialZone);
-        playerUIDeck = new UIDeck(player1Deck);
-        opponentUIDeck = new UIDeck(player2Deck);
-        playerUIDiscardPile = new UIDiscardPile(player1DiscardPile);
-        opponentUIDiscardPile = new UIDiscardPile(player2DiscardPile);
-        passButton = new PassTurnButton("Pass", game);
+        UISpecialZone UISpecialZoneList = new UISpecialZone(board.getSpecialZone());
+        playerUIDeck = new UIDeck(currentPlayer.getDeck());
+        opponentUIDeck = new UIDeck(opponent.getDeck());
+        playerUIDiscardPile = new UIDiscardPile(currentPlayer.getDiscardPile());
+        opponentUIDiscardPile = new UIDiscardPile(opponent.getDiscardPile());
+        passButton = new PassTurnButton("Pass", board.getGame());
         leftColumn = new LeftColumn(UISpecialZoneList);
         centerColumn = new CenterColumn(opponentCloseCombat, opponentRanged, opponentSiege,
                 playerCloseCombat, playerRanged, playerSiege, UIHandList);
-        rightColumn = new RightColumn(playerUIDeck, opponentUIDeck, playerUIDiscardPile, opponentUIDiscardPile);
+        rightColumn = new RightColumn(playerUIDeck, opponentUIDeck, playerUIDiscardPile, opponentUIDiscardPile, passButton);
     }
 
     private void setupSceneSizeListeners() {
@@ -93,11 +87,6 @@ public class GameView extends StackPane {
         gameBoardLayout.prefHeightProperty().bind(heightProperty());
 
         getChildren().add(gameBoardLayout);
-
-        StackPane.setAlignment(passButton, Pos.BOTTOM_RIGHT);
-        StackPane.setMargin(passButton, new javafx.geometry.Insets(0, 300, 150, 0));
-
-        getChildren().add(passButton);
 
         scene = new Scene(this, windowWidth, windowHeight);
 

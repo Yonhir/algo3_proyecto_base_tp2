@@ -15,7 +15,6 @@ import edu.fiuba.algo3.models.turnManagement.Player;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Board {
-    private final Hand currentPlayerHand;
     private final Deck player1Deck, player2Deck;
     private final DiscardPile player1DiscardPile, player2DiscardPile;
     private final CloseCombat player1CloseCombat, player2CloseCombat;
@@ -70,9 +69,6 @@ public class Board {
 
         player1Hand.getNCardsFromDeck(player1Deck, 10);
         player2Hand.getNCardsFromDeck(player2Deck, 10);
-
-
-        currentPlayerHand = game.currentPlayerHand();
     }
 
     private static Game startGameWith(Player aPlayer, Player anotherPlayer, SpecialZone specialZone) {
@@ -93,7 +89,7 @@ public class Board {
         player2.changeName(player2Name);
     }
 
-    public Hand getCurrentPlayerHand() { return currentPlayerHand; }
+    public Hand getCurrentPlayerHand() { return game.currentPlayerHand(); }
     public Deck getPlayer1Deck() { return player1Deck; }
     public Deck getPlayer2Deck() { return player2Deck; }
     public DiscardPile getPlayer1DiscardPile() { return player1DiscardPile; }
@@ -106,4 +102,12 @@ public class Board {
     public Siege getPlayer2Siege() { return player2Siege; }
     public SpecialZone getSpecialZone() { return specialZone; }
     public Game getGame() { return game; }
+
+    public Player getCurrentPlayer() {
+        return game.getCurrentPlayer();
+    }
+
+    public Player getOpponent() {
+        return game.getOpponentPlayer();
+    }
 }

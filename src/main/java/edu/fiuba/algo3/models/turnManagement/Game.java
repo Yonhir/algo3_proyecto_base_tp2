@@ -56,5 +56,13 @@ public class Game {
     public Hand currentPlayerHand() {
         return this.getCurrentRound().getCurrentPlayer().getHand();
     }
+
+    public Player getCurrentPlayer() {
+        return this.getCurrentRound().getCurrentPlayer();
+    }
+
+    public Player getOpponentPlayer() {
+        return this.getCurrentRound().getOpponent();
+    }
 }
 
