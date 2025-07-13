@@ -21,6 +21,7 @@ public class ButtonConfirmDiscardHandler implements EventHandler<ActionEvent> {
     private final DiscardPile discardPile;
     private final Deck deck;
     private final Set<Card> selectedCards;
+    private final Runnable onFinish;
 
     public ButtonConfirmDiscardHandler(
             StackPane rootPane,
@@ -29,7 +30,8 @@ public class ButtonConfirmDiscardHandler implements EventHandler<ActionEvent> {
             Hand hand,
             DiscardPile discardPile,
             Deck deck,
-            Set<Card> selectedCards
+            Set<Card> selectedCards,
+            Runnable onFinish
     ) {
         this.rootPane = rootPane;
         this.dialogContent = dialogContent;
@@ -38,6 +40,7 @@ public class ButtonConfirmDiscardHandler implements EventHandler<ActionEvent> {
         this.discardPile = discardPile;
         this.deck = deck;
         this.selectedCards = selectedCards;
+        this.onFinish = onFinish;
     }
 
     @Override
@@ -51,6 +54,7 @@ public class ButtonConfirmDiscardHandler implements EventHandler<ActionEvent> {
         hand.getNCardsFromDeck(deck, amountCards);
 
         rootPane.getChildren().removeAll(overlay , dialogContent);
+        onFinish.run();
     }
 }
 

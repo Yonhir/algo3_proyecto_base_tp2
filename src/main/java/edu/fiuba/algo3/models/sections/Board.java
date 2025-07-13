@@ -16,8 +16,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Board {
     private final Hand currentPlayerHand;
-    private final DiscardPile currentPlayerDiscardPile;
-    private final Deck currentPlayerDeck;
+    private final Hand player1Hand, player2Hand;;
     private final Deck player1Deck, player2Deck;
     private final DiscardPile player1DiscardPile, player2DiscardPile;
     private final CloseCombat player1CloseCombat, player2CloseCombat;
@@ -48,8 +47,8 @@ public class Board {
         Player player2 = new Player(nombreJugador2, player2Deck, player2DiscardPile,
                 player2CloseCombat, player2Ranged, player2Siege, new Red());
 
-        Hand player1Hand = player1.getHand();
-        Hand player2Hand = player2.getHand();
+        player1Hand = player1.getHand();
+        player2Hand = player2.getHand();
 
 
         new GameLoader().loadFromResource("gwent.json",
@@ -74,8 +73,7 @@ public class Board {
 
 
         currentPlayerHand = game.currentPlayerHand();
-        currentPlayerDeck = game.currentPlayerDeck();;
-        currentPlayerDiscardPile = game.currentPlayerDiscardPile();
+
     }
 
     private static Game startGameWith(Player aPlayer, Player anotherPlayer, SpecialZone specialZone) {
@@ -93,8 +91,8 @@ public class Board {
 
 
     public Hand getCurrentPlayerHand() { return currentPlayerHand; }
-    public Deck getCurrentPlayerDeck(){ return currentPlayerDeck;}
-    public DiscardPile getCurrentPlayerDiscardPile(){ return currentPlayerDiscardPile;}
+    public Hand getPlayer1Hand(){ return player1Hand;}
+    public Hand getPlayer2Hand(){ return  player2Hand;}
     public Deck getPlayer1Deck() { return player1Deck; }
     public Deck getPlayer2Deck() { return player2Deck; }
     public DiscardPile getPlayer1DiscardPile() { return player1DiscardPile; }

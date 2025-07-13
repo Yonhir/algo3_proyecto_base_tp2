@@ -54,16 +54,10 @@ public class Game {
         return currentRound;
     }
 
-
     public Hand currentPlayerHand() {
         return this.getCurrentRound().getCurrentPlayer().getHand();
     }
-    public Deck currentPlayerDeck(){
-        return this.getCurrentRound().getCurrentPlayer().getDeck();
-    }
 
-    public DiscardPile currentPlayerDiscardPile(){
-        return this.getCurrentRound().getCurrentPlayer().getDiscardPile();
-    }
+
 }
 

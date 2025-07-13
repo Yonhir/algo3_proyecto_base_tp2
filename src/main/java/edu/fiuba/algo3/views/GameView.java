@@ -111,8 +111,4 @@ public class GameView extends StackPane {
         ExitConfirmationDialog.show(this);
     }
 
-    public void showInitialDiscardPhase(Hand hand, DiscardPile discardPile, Deck deck) {
-        DiscardCardDialog.show(this, hand, discardPile, deck);
-    }
-
 }
