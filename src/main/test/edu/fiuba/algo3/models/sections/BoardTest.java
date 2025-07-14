@@ -19,6 +19,8 @@ public class BoardTest {
     public void testBoardInicializaTodosLosComponentesCorrectamente() {
         Board board = new Board("Jugador 1", "Jugador 2");
 
+        Assertions.assertNotNull(board.getCurrentPlayer());
+
         Assertions.assertNotNull(board.getCurrentPlayerHand());
         Assertions.assertNotNull(board.getOpponentHand());
 
