@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.views.components.cardcomponent.card;
 
+import edu.fiuba.algo3.models.cards.Card;
 import edu.fiuba.algo3.views.components.cardcomponent.BaseCardComponent;
 import javafx.scene.paint.Color;
 import javafx.scene.input.MouseEvent;
@@ -21,6 +22,8 @@ public abstract class UICard extends BaseCardComponent {
     
     private double originalX = 0;
     private double originalY = 0;
+
+    protected  Card model;
     
     public UICard(String name, String description) {
         super();
@@ -28,6 +31,10 @@ public abstract class UICard extends BaseCardComponent {
         this.description = description;
         setupDragHandlers();
         loadCardImage();
+    }
+
+    public Card getModelCard(){
+        return model;
     }
 
     @Override
@@ -57,36 +64,28 @@ public abstract class UICard extends BaseCardComponent {
     }
     
     private void loadCardImage() {
-        if (cardName == null || cardName.trim().isEmpty()) {
-            return;
-        }
+        InputStream imageStream = ImageNameMapper.getImageStream(cardName);
         
-        String pngPath = "/images/" + cardName + ".png";
-        InputStream pngStream = getClass().getResourceAsStream(pngPath);
-        
-        if (pngStream != null) {
-            loadImageFromStream(pngStream);
-            return;
-        }
-        
-        String webpPath = "/images/" + cardName + ".webp";
-        InputStream webpStream = getClass().getResourceAsStream(webpPath);
-        
-        if (webpStream != null) {
-            loadImageFromStream(webpStream);
-        }
-    }
-    
-    private void loadImageFromStream(InputStream imageStream) {
-        try {
-            Image image = new Image(imageStream);
-            backgroundImage = new ImageView(image);
-            backgroundImage.setFitWidth(baseWidth);
-            backgroundImage.setFitHeight(baseHeight);
-            backgroundImage.setPreserveRatio(true);
-            getChildren().add(0, backgroundImage);
-        } catch (Exception e) {
-            System.err.println("Error loading image for card " + cardName + ": " + e.getMessage());
+        if (imageStream != null) {
+            try {
+                Image image = new Image(imageStream);
+                backgroundImage = new ImageView(image);
+                backgroundImage.setFitWidth(baseWidth);
+                backgroundImage.setFitHeight(baseHeight);
+                backgroundImage.setPreserveRatio(true);
+                
+                getChildren().add(backgroundImage);
+                
+                // Make the background rectangle transparent when image is loaded
+                if (background != null) {
+                    background.setFill(javafx.scene.paint.Color.TRANSPARENT);
+                    background.setStroke(javafx.scene.paint.Color.TRANSPARENT);
+                }
+            } catch (Exception e) {
+                System.err.println("Error loading image for card " + cardName + ": " + e.getMessage());
+            }
+        } else {
+            System.err.println("Warning: Could not find image for card: " + cardName);
         }
     }
     

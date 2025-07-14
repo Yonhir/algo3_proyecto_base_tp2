@@ -35,7 +35,6 @@ public class Game {
             throw new IllegalStateException("Game is not over yet.");
         }
         return player1.chooseWinnerAgainst(player2);
-
     }
 
     public void clearBoard() {
@@ -52,10 +51,10 @@ public class Game {
         return currentRound;
     }
 
-    public Player getCurrentPlayer() { return currentRound.getCurrentPlayer(); }
-
     public Hand currentPlayerHand() {
-        return getCurrentPlayer().getHand();
+        return this.getCurrentRound().getCurrentPlayer().getHand();
     }
+
+    public Player getCurrentPlayer() { return  getCurrentRound().getCurrentPlayer(); }
 }
 

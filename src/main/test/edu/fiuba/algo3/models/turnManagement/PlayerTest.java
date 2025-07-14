@@ -12,6 +12,7 @@ import edu.fiuba.algo3.models.cards.specials.weathers.TorrentialRain;
 import edu.fiuba.algo3.models.cards.units.Unit;
 import edu.fiuba.algo3.models.colors.PlayerColor;
 import edu.fiuba.algo3.models.colors.Red;
+import edu.fiuba.algo3.models.sections.SpecialZone;
 import edu.fiuba.algo3.models.sections.rows.CloseCombat;
 import edu.fiuba.algo3.models.sections.rows.Ranged;
 import edu.fiuba.algo3.models.sections.rows.Siege;
@@ -42,10 +43,13 @@ public class PlayerTest {
 
 
     private final PlayerColor color = new Blue();
-    private Card siegeCard;
-    private Card rangedCard;
-    private Card closeCombatCard;
-    private DiscardPile discardPile;
+    private Unit siegeCard;
+    private Unit rangedCard;
+    private Unit closeCombatCard;
+    private DiscardPile discardPile1;
+    private DiscardPile discardPile2;
+
+    private TorrentialRain weather;
 
     @BeforeEach
     void setUp() {
@@ -77,11 +81,12 @@ public class PlayerTest {
 
         );
 
+        weather = new TorrentialRain("Lluvia", "Reduce todas las unidades de asedio a 1 punto");
         // Create special cards (weather cards)
         List<Card> specialCards = Arrays.asList(
                 new BitingFrost("Escarcha", "Reduce todas las unidades cuerpo a cuerpo a 1 punto"),
                 new ImpenetrableFog("Niebla", "Reduce todas las unidades a distancia a 1 punto"),
-                new TorrentialRain("Lluvia", "Reduce todas las unidades de asedio a 1 punto"),
+                weather,
                 new BitingFrost("Escarcha", "Reduce todas las unidades cuerpo a cuerpo a 1 punto"),
                 new ImpenetrableFog("Niebla", "Reduce todas las unidades a distancia a 1 punto"),
                 new TorrentialRain("Lluvia", "Reduce todas las unidades de asedio a 1 punto")
@@ -93,24 +98,26 @@ public class PlayerTest {
         cards.addAll(specialCards);
 
         // Initialize game components
-        Deck deck = new Deck();
-        deck.insertCards(cards);
+        player = new Player("Gabriel", new Blue());
+        opponent = new Player("Juan", new Red());
 
-        DiscardPile discardPile1 = new DiscardPile();
-        DiscardPile discardPile2 = new DiscardPile();
-        closeCombat1 = new CloseCombat(discardPile1);
-        ranged1 = new Ranged(discardPile1);
-        siege1 = new Siege(discardPile1);
-        closeCombat2 = new CloseCombat(discardPile2);
-        ranged2 = new Ranged(discardPile2);
-        siege2 = new Siege(discardPile2);
-        player = new Player("Gabriel", deck, discardPile1, closeCombat1, ranged1, siege1, new Blue());
-        opponent = new Player("Juan", deck, discardPile2, closeCombat2, ranged2, siege2, new Red());
+        Deck deck1 = player.getDeck();
+        Deck deck2 = opponent.getDeck();
+        deck1.insertCards(cards);
+        deck2.insertCards(cards);
+        discardPile1 = player.getDiscardPile();
+        discardPile2 = opponent.getDiscardPile();
+        closeCombat1 = player.getCloseCombatRow();
+        ranged1 = player.getRangedRow();
+        siege1 = player.getSiegeRow();
+        closeCombat2 = opponent.getCloseCombatRow();
+        ranged2 = opponent.getRangedRow();
+        siege2 = opponent.getSiegeRow();
 
         Hand hand = player.getHand();
 
-        hand.insertCards(Arrays.asList(siegeCard, closeCombatCard, rangedCard));
-        hand.getNCardsFromDeck(deck, 7);
+        hand.insertCards(Arrays.asList(siegeCard, closeCombatCard, rangedCard, weather));
+        hand.getNCardsFromDeck(deck1, 6);
 
         round = new Round(player, opponent);
     }
@@ -146,9 +153,9 @@ public class PlayerTest {
 
     @Test
     public void testSeJueganCartasSeObtieneElPuntajeTotalDelJugador() {
-        int expected_points = ((Unit) siegeCard).calculatePoints() +
-                              ((Unit) closeCombatCard).calculatePoints() +
-                              ((Unit) rangedCard).calculatePoints();
+        int expected_points = (siegeCard).calculatePoints() +
+                              (closeCombatCard).calculatePoints() +
+                              (rangedCard).calculatePoints();
 
         player.playCard(siegeCard, siege1, round);
         player.playCard(closeCombatCard, closeCombat1, round);
@@ -273,14 +280,13 @@ public class PlayerTest {
         assertEquals(player, player.chooseWinnerAgainst(opponent));
     }
 
-    @Test void testObtenerElNombreDeLosJugadores() {
-        String expectedName = "Gabriel";
-        String expectedNameOpponent = "Juan";
+    @Test
+    public void testElJugadorPuedeJugarUnaCartaEnSpecialZoneCorrectamente() {
+        SpecialZone specialZone = new SpecialZone(closeCombat1, ranged1, siege1, closeCombat2, ranged2, siege2, discardPile1, discardPile2);
 
-        String actualName = player.getName();
-        String actualNameOpponent = opponent.getName();
+        siege1.placeCard(siegeCard, round);
+        player.playCard(weather, specialZone, round);
 
-        assertEquals(expectedName, actualName);
-        assertEquals(expectedNameOpponent, actualNameOpponent);
+        assertEquals(1, siegeCard.calculatePoints());
     }
 }

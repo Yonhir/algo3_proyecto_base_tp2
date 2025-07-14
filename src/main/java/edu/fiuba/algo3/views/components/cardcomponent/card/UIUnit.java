@@ -14,7 +14,6 @@ public class UIUnit extends UICard {
     
     private PointsCircle pointsCircle;
     private int points;
-    private final Unit model;
     
     public UIUnit(Unit unit) {
         super(unit.getName(), unit.getDescription());
@@ -43,7 +42,7 @@ public class UIUnit extends UICard {
     
     public void loadDataFromUnit() {
         if (model != null) {
-            this.points = model.calculatePoints();
+            this.points = ((Unit)model).calculatePoints();
             if (pointsCircle != null) {
                 pointsCircle.setPoints(points);
             } else {
