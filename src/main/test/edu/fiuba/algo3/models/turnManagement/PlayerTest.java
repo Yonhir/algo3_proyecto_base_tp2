@@ -289,4 +289,22 @@ public class PlayerTest {
 
         assertEquals(1, siegeCard.calculatePoints());
     }
+
+    @Test
+    public void testElJugadorPuedeCambiarSuNombreCorrectamente() {
+        String nuevoNombre = "NuevoNombre";
+        
+        player.changeName(nuevoNombre);
+        
+        assertEquals(nuevoNombre, player.getName());
+    }
+
+    @Test
+    public void testElJugadorObtieneSuNombreCorrectamente() {
+        String nombreEsperado = "Gabriel";
+        
+        String nombreActual = player.getName();
+        
+        assertEquals(nombreEsperado, nombreActual);
+    }
 }

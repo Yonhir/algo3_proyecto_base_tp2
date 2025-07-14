@@ -124,4 +124,8 @@ public class Player {
     public void changeName(String newName) {
         name = newName;
     }
+
+    public String getName() {
+        return name;
+    }
 }

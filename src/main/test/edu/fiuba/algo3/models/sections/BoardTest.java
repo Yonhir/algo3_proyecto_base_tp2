@@ -41,4 +41,23 @@ public class BoardTest {
 
         Assertions.assertNotNull(board.getGame());
     }
+
+    @Test
+    public void testSetPlayerNamesCambiaLosNombresDeLosJugadoresCorrectamente() {
+        Board board = new Board();
+        String nuevoNombre1 = "JugadorUno";
+        String nuevoNombre2 = "JugadorDos";
+        
+        board.setPlayerNames(nuevoNombre1, nuevoNombre2);
+        
+        // Verificar que los nombres se cambiaron correctamente accediendo a través del Game
+        String nombreJugador1 = board.getGame().getCurrentRound().getCurrentPlayer().getName();
+        String nombreJugador2 = board.getGame().getCurrentRound().getOpponent().getName();
+        
+        // Los nombres pueden estar en cualquier orden debido a la selección aleatoria
+        boolean nombresCambiados = (nombreJugador1.equals(nuevoNombre1) && nombreJugador2.equals(nuevoNombre2)) ||
+                                   (nombreJugador1.equals(nuevoNombre2) && nombreJugador2.equals(nuevoNombre1));
+        
+        Assertions.assertTrue(nombresCambiados);
+    }
 }
