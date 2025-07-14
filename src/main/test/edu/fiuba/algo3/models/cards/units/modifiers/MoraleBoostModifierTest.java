@@ -104,4 +104,11 @@ public class MoraleBoostModifierTest {
         int actualPoints = siege.calculatePoints();
         assertEquals(expectedPoints, actualPoints);
     }
+
+    @Test
+    public void testDevolverString() {
+        String expectedString = "Morale Boost";
+
+        assertEquals(expectedString, cardMoraleBoost.getStringModifiers());
+    }
 }

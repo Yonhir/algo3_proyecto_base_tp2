@@ -136,4 +136,11 @@ public class TightBondTest {
         // Assert
         assertEquals(expectedPoints, finalRowPoints, "Total points should be 38 ((8*2)*2 for TightBond units) + 6 (regular unit)");
     }
+
+    @Test
+    public void testDevolverString() {
+        String expectedString = "TightBond";
+
+        assertEquals(expectedString, catapult1.getStringModifiers());
+    }
 }

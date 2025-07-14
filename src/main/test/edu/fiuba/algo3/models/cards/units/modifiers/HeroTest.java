@@ -132,4 +132,11 @@ public class HeroTest {
 
         assertTrue(closeCombat1.containsCard(cartaConLegendaria));
     }
+
+    @Test
+    public void testDevolverString() {
+        String expectedString = "Hero";
+
+        assertEquals(expectedString, cartaConLegendaria.getStringModifiers());
+    }
 }

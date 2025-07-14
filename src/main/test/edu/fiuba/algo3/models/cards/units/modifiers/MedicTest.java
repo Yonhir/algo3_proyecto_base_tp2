@@ -105,4 +105,10 @@ public class MedicTest {
         assertTrue(closeCombat.containsCards(List.of(unit1, medicCard)));
     }
 
+    @Test
+    public void testDevolverString() {
+        String expectedString = "Medic";
+
+        assertEquals(expectedString, ((Unit) medicCard).getStringModifiers());
+    }
 }

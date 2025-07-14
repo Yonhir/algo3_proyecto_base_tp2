@@ -106,4 +106,11 @@ public class SpyTest {
 
         assertEquals(expectedCardsInHand, deck.getCardCount());
     }
+
+    @Test
+    public void testDevolverString() {
+        String expectedString = "Spy";
+
+        assertEquals(expectedString, carta_espia.getStringModifiers());
+    }
 }

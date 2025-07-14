@@ -16,8 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AgileTest {
     Card cartaConAgile;
@@ -64,5 +63,12 @@ public class AgileTest {
 
         assertTrue(ranged.containsCard(cartaConAgileDosFilas));
         assertThrows(SectionTypeMismatchError.class, () -> cartaConAgileDosFilas.play(closeCombat));
+    }
+
+    @Test
+    public void testDevolverString() {
+        String expectedString = "Agile";
+
+        assertEquals(expectedString, ((Unit) cartaConAgile).getStringModifiers());
     }
 }

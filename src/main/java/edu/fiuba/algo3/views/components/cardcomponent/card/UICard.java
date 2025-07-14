@@ -4,10 +4,12 @@ import edu.fiuba.algo3.models.cards.Card;
 import edu.fiuba.algo3.views.components.RightColumn;
 import edu.fiuba.algo3.views.components.cardcomponent.BaseCardComponent;
 import edu.fiuba.algo3.views.components.cardlist.CardInfoView;
+import javafx.scene.control.Tooltip;
 import javafx.scene.paint.Color;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.util.Duration;
 
 import java.io.InputStream;
 
@@ -106,6 +108,7 @@ public abstract class UICard extends BaseCardComponent {
         setOnMousePressed(this::handleMousePressed);
         setOnMouseDragged(this::handleMouseDragged);
         setOnMouseReleased(this::handleMouseReleased);
+        setOnMouseEntered(this::handleMouseEntered);
     }
     
     private void handleMousePressed(MouseEvent event) {
@@ -149,12 +152,21 @@ public abstract class UICard extends BaseCardComponent {
         
         event.consume();
     }
-    
+
+    private void handleMouseEntered(MouseEvent event) {
+        Tooltip tooltip = new Tooltip("Double click to view card info\nOne click to select card");
+
+        tooltip.setShowDelay(Duration.seconds(0.4));
+        tooltip.setHideDelay(Duration.ZERO);
+
+        Tooltip.install(this, tooltip);
+    }
+
     public void resetPosition() {
         setTranslateX(originalX);
         setTranslateY(originalY);
     }
-    
+
     public void setDraggable(boolean draggable) {
         this.isDraggable = draggable;
     }
