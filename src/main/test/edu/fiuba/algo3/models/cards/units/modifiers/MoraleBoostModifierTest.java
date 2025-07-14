@@ -107,7 +107,8 @@ public class MoraleBoostModifierTest {
 
     @Test
     public void testDevolverString() {
-        String expectedString = "Morale Boost";
+        String expectedString = "MoraleBoostModifier";
+        cardMoraleBoost = new Unit("Nombre", "Descripcion", 10, new SiegeType(), List.of(modifierMoral));
 
         assertEquals(expectedString, cardMoraleBoost.getStringModifiers());
     }

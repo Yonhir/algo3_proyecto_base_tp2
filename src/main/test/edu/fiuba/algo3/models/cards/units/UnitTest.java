@@ -100,4 +100,12 @@ public class UnitTest {
 
         assertFalse(unidad.haveModifier(modificador));
     }
+
+    @Test
+    public void testDevolverString() {
+        String expectedString = "";
+        Unit unidad = new Unit("nombre", "descripcion", 6, new CloseCombatType(), List.of());
+
+        assertEquals(expectedString, unidad.getStringModifiers());
+    }
 }
