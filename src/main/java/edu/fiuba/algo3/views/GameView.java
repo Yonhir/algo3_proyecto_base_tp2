@@ -46,7 +46,7 @@ public class GameView extends StackPane {
         playerUIDiscardPile = new UIDiscardPile(board.getCurrentPlayerDiscardPile());
         opponentUIDiscardPile = new UIDiscardPile(board.getOpponentDiscardPile());
         passButton = new PassTurnButton("Pass", board.getGame());
-        leftColumn = new LeftColumn(UISpecialZoneList);
+        leftColumn = new LeftColumn(UISpecialZoneList, board.getCurrentPlayer(), board.getOpponentPlayer());
         centerColumn = new CenterColumn(opponentCloseCombat, opponentRanged, opponentSiege,
                 playerCloseCombat, playerRanged, playerSiege, UIHandList);
         rightColumn = new RightColumn(playerUIDeck, opponentUIDeck, playerUIDiscardPile, opponentUIDiscardPile);

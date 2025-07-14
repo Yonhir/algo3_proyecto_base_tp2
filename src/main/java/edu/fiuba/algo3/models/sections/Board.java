@@ -60,7 +60,8 @@ public class Board {
         }
         return new Game(aPlayer, anotherPlayer, specialZone);
     }
-
+    public Player getCurrentPlayer(){ return game.getCurrentPlayer();}
+    public Player getOpponentPlayer(){ return game.getOpponentPlayer();}
     public Hand getCurrentPlayerHand() { return game.currentPlayerHand(); }
     public Hand getOpponentHand(){ return game.getCurrentRound().getOpponent().getHand(); }
     public Deck getCurrentPlayerDeck() { return game.getCurrentRound().getCurrentPlayer().getDeck(); }
