@@ -5,8 +5,10 @@ import edu.fiuba.algo3.models.cards.specials.Special;
 
 public class UISpecial extends UICard {
 
+
     public UISpecial(Special special) {
-        super(special);
+        super(special.getName(), special.getDescription());
+        this.model = special;
         subscribeToModel();
     }
     

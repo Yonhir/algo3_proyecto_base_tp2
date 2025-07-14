@@ -16,18 +16,25 @@ public class UIUnit extends UICard {
     private int points;
     
     public UIUnit(Unit unit) {
-        super(unit);
+        super(unit.getName(), unit.getDescription());
+        this.model = unit;
         this.points = unit.calculatePoints();
         setupPointsDisplay();
         subscribeToModel();
     }
-    
+
+    public String getModifiers(){
+        Unit card =(Unit) model;
+        return card.getStringModifiers();
+    }
+
     private void subscribeToModel() {
         if (model != null) {
             model.addObserver(this);
         }
     }
-    
+
+
     private void setupPointsDisplay() {
         double circleRadius = Math.min(getPrefWidth(), getPrefHeight()) * CIRCLE_RADIUS_RATIO;
         
@@ -41,8 +48,7 @@ public class UIUnit extends UICard {
     
     public void loadDataFromUnit() {
         if (model != null) {
-            Unit unitModel = (Unit) model;
-            this.points = unitModel.calculatePoints();
+            this.points = ((Unit)model).calculatePoints();
             if (pointsCircle != null) {
                 pointsCircle.setPoints(points);
             } else {

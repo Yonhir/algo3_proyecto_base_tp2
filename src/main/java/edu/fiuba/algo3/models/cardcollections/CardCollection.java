@@ -20,6 +20,7 @@ public abstract class CardCollection extends Observable {
 
     public void insertCards(List<Card> cards) {
         this.cards.addAll(cards);
+        notifyObservers();
     }
 
     public List<Card> getCards() {
@@ -38,6 +39,7 @@ public abstract class CardCollection extends Observable {
         if (!cards.remove(card)) {
             throw new TheCardWasNotFound("The card is not in the deck");
         }
+        notifyObservers();
     }
     public boolean containsCard(Card card) {
         return this.cards.contains(card);

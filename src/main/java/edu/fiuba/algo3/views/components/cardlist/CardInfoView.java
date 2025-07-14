@@ -1,21 +1,20 @@
 package edu.fiuba.algo3.views.components.cardlist;
 
+import edu.fiuba.algo3.controllers.ButtonCloseDescription;
 import edu.fiuba.algo3.views.components.cardcomponent.card.UICard;
+import edu.fiuba.algo3.views.components.cardcomponent.card.UIUnit;
 import javafx.animation.FadeTransition;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
-
-import java.io.InputStream;
 
 public class CardInfoView extends StackPane {
 
@@ -38,21 +37,16 @@ public class CardInfoView extends StackPane {
                         "-fx-font-weight: bold;"
         );
 
+        btnClose.toFront();
+
         getChildren().add(btnClose);
         StackPane.setAlignment(btnClose, Pos.TOP_RIGHT);
         StackPane.setMargin(btnClose, new Insets(10));
-        btnClose.setOnAction(this::buttonClose);
+        btnClose.setOnAction(new ButtonCloseDescription(showInfo, this));
     }
 
-    private void buttonClose(ActionEvent event) {
-        if (showInfo.getValue()) {
-            getChildren().remove(getChildren().size()-1);
-            showInfo.set(false);
-        }
-    }
-
-    private void alert(String message){
-        Label toast = new Label(message);
+    private void alert(){
+        Label toast = new Label("Cierra la imagen anterior antes de abrir otra");
         toast.setTextFill(Color.WHITE);
         toast.setStyle(
                 "-fx-background-color: rgba(0,0,0,0.7);" +
@@ -86,30 +80,40 @@ public class CardInfoView extends StackPane {
 
     public void showInfoCard(UICard card) {
         if (showInfo.get()) {
-            alert("Cierra la imagen anterior antes de abrir otra");
+            alert();
             return;
         }
+        VBox infoBox = new VBox(10);
 
-        String cardName = card.getModel().getName();
-        if (cardName == null || cardName.trim().isEmpty()) {
-            return;
+        ImageView imageView = new ImageView(card.getBackgroundImage());
+
+        imageView.setFitWidth(240);
+        imageView.setFitHeight(360);
+
+        infoBox.getChildren().add(imageView);
+
+        Label nameLabel = new Label(card.getCardName());
+
+        infoBox.getChildren().add(nameLabel);
+
+        if (card.getDescription() != null){
+            Label descriptionLabel = new Label(card.getDescription());
+            infoBox.getChildren().add(descriptionLabel);
         }
 
-        String pngPath = "/images/" + cardName + ".png";
-        InputStream pngStream = getClass().getResourceAsStream(pngPath);
-
-        if (pngStream != null) {
-            Image image = new Image(pngStream);
-
-            ImageView imageView = new ImageView(image);
-            imageView.setPreserveRatio(true);
-
-            imageView.fitWidthProperty().bind(widthProperty());
-            imageView.fitHeightProperty().bind(heightProperty());
-
-            getChildren().add(imageView);
-
-            showInfo.set(true);
+        if (card instanceof UIUnit){
+            Label modifiersLabel = new Label(((UIUnit) card).getModifiers());
+            infoBox.getChildren().add(modifiersLabel);
         }
+
+        infoBox.setAlignment(Pos.TOP_CENTER);
+
+        infoBox.mouseTransparentProperty().setValue(true);
+
+        getChildren().add(infoBox);
+
+        StackPane.setMargin(infoBox, new Insets(15));
+
+        showInfo.set(true);
     }
 }

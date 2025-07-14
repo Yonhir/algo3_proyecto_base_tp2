@@ -15,9 +15,7 @@ public class App extends Application {
         NameInputView nameInputView = new NameInputView();
         AppController controller = new AppController(stage);
 
-        stage.setScene(nameInputView.createScene(stage, (nombre1, nombre2) -> {
-            controller.startGameWithNames(nombre1, nombre2);
-        }));
+        stage.setScene(nameInputView.createScene(stage, controller::startGameWithNames));
 
         stage.setTitle("Ingresar Nombres De Jugadores");
         stage.show();
@@ -25,6 +23,5 @@ public class App extends Application {
 
     public static void main(String[] args) {
         Application.launch(App.class, args);
-
     }
 }

@@ -12,9 +12,11 @@ import javafx.scene.image.ImageView;
 import java.io.InputStream;
 
 public abstract class UICard extends BaseCardComponent {
-
+    
+    protected String cardName;
+    protected String description;
     protected ImageView backgroundImage;
-
+    
     private double dragDeltaX;
     private double dragDeltaY;
     private boolean isDragging = false;
@@ -22,14 +24,22 @@ public abstract class UICard extends BaseCardComponent {
     
     private double originalX = 0;
     private double originalY = 0;
-    protected final Card model;
 
-    public UICard(Card model) {
+    protected Card model;
+
+    public UICard(String name, String description) {
         super();
-        this.model = model;
+        this.cardName = name;
+        this.description = description;
         setupDragHandlers();
         loadCardImage();
         giveInfo();
+    }
+
+    public Image getBackgroundImage() { return backgroundImage.getImage(); }
+
+    public Card getModelCard(){
+        return model;
     }
 
     @Override
@@ -59,42 +69,39 @@ public abstract class UICard extends BaseCardComponent {
     }
     
     private void loadCardImage() {
-        String cardName = model.getName();
-        if (cardName == null || cardName.trim().isEmpty()) {
-            return;
-        }
+        InputStream imageStream = ImageNameMapper.getImageStream(cardName);
         
-        String pngPath = "/images/" + cardName + ".png";
-        InputStream pngStream = getClass().getResourceAsStream(pngPath);
-        
-        if (pngStream != null) {
-            loadImageFromStream(pngStream);
-            return;
-        }
-        
-        String webpPath = "/images/" + cardName + ".webp";
-        InputStream webpStream = getClass().getResourceAsStream(webpPath);
-        
-        if (webpStream != null) {
-            loadImageFromStream(webpStream);
+        if (imageStream != null) {
+            try {
+                Image image = new Image(imageStream);
+                backgroundImage = new ImageView(image);
+                backgroundImage.setFitWidth(baseWidth);
+                backgroundImage.setFitHeight(baseHeight);
+                backgroundImage.setPreserveRatio(true);
+
+                getChildren().add(backgroundImage);
+
+                // Make the background rectangle transparent when image is loaded
+                if (background != null) {
+                    background.setFill(javafx.scene.paint.Color.TRANSPARENT);
+                    background.setStroke(javafx.scene.paint.Color.TRANSPARENT);
+                }
+            } catch (Exception e) {
+                System.err.println("Error loading image for card " + cardName + ": " + e.getMessage());
+            }
+        } else {
+            System.err.println("Warning: Could not find image for card: " + cardName);
         }
     }
     
-    private void loadImageFromStream(InputStream imageStream) {
-        try {
-            Image image = new Image(imageStream);
-            backgroundImage = new ImageView(image);
-            backgroundImage.setFitWidth(baseWidth);
-            backgroundImage.setFitHeight(baseHeight);
-            backgroundImage.setPreserveRatio(true);
-            getChildren().add(0, backgroundImage);
-        } catch (Exception e) {
-            System.err.println("Error loading image for card " + model.getName() + ": " + e.getMessage());
-        }
+    public String getDescription() {
+        return description;
     }
 
-    public Card getModel() { return model; }
-    
+    public String getCardName() {
+        return cardName;
+    }
+
     private void setupDragHandlers() {
         setOnMousePressed(this::handleMousePressed);
         setOnMouseDragged(this::handleMouseDragged);

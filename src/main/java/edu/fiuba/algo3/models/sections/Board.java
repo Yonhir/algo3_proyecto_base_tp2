@@ -4,6 +4,7 @@ import edu.fiuba.algo3.models.cardcollections.Deck;
 import edu.fiuba.algo3.models.cardcollections.DiscardPile;
 import edu.fiuba.algo3.models.cardcollections.Hand;
 import edu.fiuba.algo3.models.colors.Blue;
+import edu.fiuba.algo3.models.colors.PlayerColor;
 import edu.fiuba.algo3.models.colors.Red;
 import edu.fiuba.algo3.models.json.GameLoader;
 import edu.fiuba.algo3.models.sections.rows.CloseCombat;
@@ -11,67 +12,40 @@ import edu.fiuba.algo3.models.sections.rows.Ranged;
 import edu.fiuba.algo3.models.sections.rows.Siege;
 import edu.fiuba.algo3.models.turnManagement.Game;
 import edu.fiuba.algo3.models.turnManagement.Player;
+import edu.fiuba.algo3.models.turnManagement.Round;
 
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Board {
-    private final Hand currentPlayerHand;
-    private final Deck player1Deck, player2Deck;
-    private final DiscardPile player1DiscardPile, player2DiscardPile;
-    private final CloseCombat player1CloseCombat, player2CloseCombat;
-    private final Ranged player1Ranged, player2Ranged;
-    private final Siege player1Siege, player2Siege;
     private final SpecialZone specialZone;
     private final Game game;
 
     public Board(String nombreJugador1, String nombreJugador2) {
-
-        player1Deck = new Deck();
-        player2Deck = new Deck();
-        player1DiscardPile = new DiscardPile();
-        player2DiscardPile = new DiscardPile();
-
-
-        player1CloseCombat = new CloseCombat(player1DiscardPile);
-        player1Ranged = new Ranged(player1DiscardPile);
-        player1Siege = new Siege(player1DiscardPile);
-
-        player2CloseCombat = new CloseCombat(player2DiscardPile);
-        player2Ranged = new Ranged(player2DiscardPile);
-        player2Siege = new Siege(player2DiscardPile);
-
-
-        Player player1 = new Player(nombreJugador1, player1Deck, player1DiscardPile,
-                player1CloseCombat, player1Ranged, player1Siege, new Blue());
-        Player player2 = new Player(nombreJugador2, player2Deck, player2DiscardPile,
-                player2CloseCombat, player2Ranged, player2Siege, new Red());
+        Player player1 = new Player(nombreJugador1, new Blue());
+        Player player2 = new Player(nombreJugador2, new Red());
 
         Hand player1Hand = player1.getHand();
         Hand player2Hand = player2.getHand();
-
+        Deck player1Deck = player1.getDeck();
+        Deck player2Deck = player2.getDeck();
 
         new GameLoader().loadFromResource("gwent.json",
-                player1Deck, player1Hand, player1DiscardPile,
-                player2Deck, player2Hand, player2DiscardPile);
+                player1Deck, player1Hand, player1.getDiscardPile(),
+                player2Deck, player2Hand, player2.getDiscardPile());
+
         player1Deck.validate();
         player2Deck.validate();
 
-
         specialZone = new SpecialZone(
-                player1CloseCombat, player1Ranged, player1Siege,
-                player2CloseCombat, player2Ranged, player2Siege,
-                player1DiscardPile, player2DiscardPile
+                player1.getCloseCombatRow(), player1.getRangedRow(), player1.getSiegeRow(),
+                player2.getCloseCombatRow(), player2.getRangedRow(), player2.getSiegeRow(),
+                player1.getDiscardPile(), player2.getDiscardPile()
         );
-
 
         game = startGameWith(player1, player2, specialZone);
 
-
         player1Hand.getNCardsFromDeck(player1Deck, 10);
         player2Hand.getNCardsFromDeck(player2Deck, 10);
-
-
-        currentPlayerHand = game.currentPlayerHand();
     }
 
     private static Game startGameWith(Player aPlayer, Player anotherPlayer, SpecialZone specialZone) {
@@ -87,18 +61,18 @@ public class Board {
         return new Game(aPlayer, anotherPlayer, specialZone);
     }
 
-
-    public Hand getCurrentPlayerHand() { return currentPlayerHand; }
-    public Deck getPlayer1Deck() { return player1Deck; }
-    public Deck getPlayer2Deck() { return player2Deck; }
-    public DiscardPile getPlayer1DiscardPile() { return player1DiscardPile; }
-    public DiscardPile getPlayer2DiscardPile() { return player2DiscardPile; }
-    public CloseCombat getPlayer1CloseCombat() { return player1CloseCombat; }
-    public CloseCombat getPlayer2CloseCombat() { return player2CloseCombat; }
-    public Ranged getPlayer1Ranged() { return player1Ranged; }
-    public Ranged getPlayer2Ranged() { return player2Ranged; }
-    public Siege getPlayer1Siege() { return player1Siege; }
-    public Siege getPlayer2Siege() { return player2Siege; }
+    public Hand getCurrentPlayerHand() { return game.currentPlayerHand(); }
+    public Hand getOpponentHand(){ return game.getCurrentRound().getOpponent().getHand(); }
+    public Deck getCurrentPlayerDeck() { return game.getCurrentRound().getCurrentPlayer().getDeck(); }
+    public Deck getOpponentDeck() { return game.getCurrentRound().getOpponent().getDeck(); }
+    public DiscardPile getCurrentPlayerDiscardPile() { return game.getCurrentRound().getCurrentPlayer().getDiscardPile(); }
+    public DiscardPile getOpponentDiscardPile() { return game.getCurrentRound().getOpponent().getDiscardPile(); }
+    public CloseCombat getCurrentPlayerCloseCombat() { return game.getCurrentRound().getCurrentPlayer().getCloseCombatRow(); }
+    public CloseCombat getOpponentCloseCombat() { return game.getCurrentRound().getOpponent().getCloseCombatRow(); }
+    public Ranged getCurrentPlayerRanged() { return game.getCurrentRound().getCurrentPlayer().getRangedRow(); }
+    public Ranged getOpponentRanged() { return game.getCurrentRound().getOpponent().getRangedRow(); }
+    public Siege getCurrentPlayerSiege() { return game.getCurrentRound().getCurrentPlayer().getSiegeRow(); }
+    public Siege getOpponentSiege() { return game.getCurrentRound().getOpponent().getSiegeRow(); }
     public SpecialZone getSpecialZone() { return specialZone; }
     public Game getGame() { return game; }
 }
