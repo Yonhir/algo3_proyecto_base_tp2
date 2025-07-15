@@ -3,7 +3,6 @@ module edu.fiuba.algo3 {
     requires javafx.graphics;
     requires json.simple;
     requires java.desktop;
-    requires junit;
 
     exports edu.fiuba.algo3;
     exports edu.fiuba.algo3.models.errors;
