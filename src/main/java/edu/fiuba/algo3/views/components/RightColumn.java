@@ -14,13 +14,14 @@ public class RightColumn extends VBox {
     private PassTurnButton passButton;
 
     public RightColumn(UIDeck playerUIDeck, UIDeck opponentUIDeck,
-                       UIDiscardPile playerUIDiscardPile, UIDiscardPile opponentUIDiscardPile, PassTurnButton passButton) {
+                       UIDiscardPile playerUIDiscardPile, UIDiscardPile opponentUIDiscardPile, PassTurnButton passButton, CardInfoView cardViewer) {
         super();
         this.playerUIDeck = playerUIDeck;
         this.opponentUIDeck = opponentUIDeck;
         this.playerUIDiscardPile = playerUIDiscardPile;
         this.opponentUIDiscardPile = opponentUIDiscardPile;
         this.passButton = passButton;
+        this.cardViewer = cardViewer;
         setupRightColumn();
     }
     
@@ -38,7 +39,6 @@ public class RightColumn extends VBox {
         playerCardsContainer.setStyle("-fx-background-color: #D2B48C; -fx-border-color: #A0522D; -fx-border-width: 1px;");
         playerCardsContainer.getChildren().addAll(playerUIDeck, playerUIDiscardPile);
 
-        cardViewer = new CardInfoView();
         cardViewer.prefHeightProperty().bind(heightProperty().multiply(SPACER_HEIGHT_RATIO));
 
         VBox.setVgrow(opponentCardsContainer, javafx.scene.layout.Priority.ALWAYS);
@@ -46,11 +46,4 @@ public class RightColumn extends VBox {
         VBox.setVgrow(cardViewer, javafx.scene.layout.Priority.ALWAYS);
         getChildren().addAll(opponentCardsContainer, cardViewer, passButton, playerCardsContainer);
     }
-
-    public void setPassButtonEnabled(boolean enabled) {
-        passButton.setDisable(!enabled);
-    }
-
-
-    public CardInfoView getCardViewer() { return cardViewer;}
 }

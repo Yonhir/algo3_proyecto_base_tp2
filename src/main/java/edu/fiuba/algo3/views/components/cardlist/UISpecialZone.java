@@ -29,4 +29,8 @@ public class UISpecialZone extends CardList {
         addCard(card);
         update(model);
     }
+
+    public SpecialZone getModel() {
+        return (SpecialZone) model;
+    }
 }

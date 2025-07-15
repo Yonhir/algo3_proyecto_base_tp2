@@ -1,51 +1,52 @@
 package edu.fiuba.algo3.controllers;
 
+import edu.fiuba.algo3.models.cards.Card;
+import edu.fiuba.algo3.models.errors.SectionTypeMismatchError;
+import edu.fiuba.algo3.models.sections.rows.Row;
+import edu.fiuba.algo3.models.sections.types.SpecialType;
+import edu.fiuba.algo3.models.turnManagement.Player;
 import edu.fiuba.algo3.models.turnManagement.Round;
 import edu.fiuba.algo3.views.components.cardcomponent.card.UICard;
 import edu.fiuba.algo3.views.components.cardlist.UIHand;
 import edu.fiuba.algo3.views.components.cardlist.UIRow;
 import edu.fiuba.algo3.views.components.cardlist.UISpecialZone;
-import javafx.beans.property.BooleanProperty;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 
-import java.util.List;
-
 public class RowHandler implements EventHandler<MouseEvent> {
 
-    private final BooleanProperty selected;
     private final UIHand hand;
     private final Round currentRound;
-    private final UISpecialZone specialZone;
-    private final List<UIRow> rows;
+    private final UIRow row;
 
-    public RowHandler(List<UIRow> rows, UISpecialZone specialZone, UIHand hand, Round currentRound, BooleanProperty cardSelected) {
-        selected = cardSelected;
-        this.specialZone = specialZone;
+    public RowHandler(UIRow row, UIHand hand, Round currentRound) {
+        this.row = row;
         this.hand = hand;
         this.currentRound = currentRound;
-        this.rows = rows;
     }
 
     @Override
     public void handle(MouseEvent event) {
-        //puede que el selected card este de mas, ya que puedo verificar si hand tiene en su carta seleccionada un null
-        if(!selected.get()) return;
-        UIRow row = (UIRow) event.getSource();
+        System.out.println("DEBUG: RowHandler.handle() called");
         UICard card = hand.getSelectedCard();
-
-        row.playCard(card, currentRound, specialZone);
-
-        hand.setSelectedCard(null);
-        selected.set(false);
-        switchOffRows();
+        
+        if (card != null) {
+            playCard(card);
+            hand.setSelectedCard(null);
+        }
+        
         event.consume();
     }
+    
+    private void playCard(UICard card) {
+        Card cardToPlay = card.getModelCard();
+        Player currentPlayer = currentRound.getCurrentPlayer();
+        Row modelRow = (Row) row.getModel();
 
-    private void switchOffRows() {
-        for (UIRow row : rows) {
-            row.switchOff();
+        try{
+            currentPlayer.playCard(cardToPlay, modelRow, currentRound);
+        }catch(SectionTypeMismatchError e){
+            System.out.println("DEBUG: Error playing card: " + e.getMessage());
         }
     }
-
 }

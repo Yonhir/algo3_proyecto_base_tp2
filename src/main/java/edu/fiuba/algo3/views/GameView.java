@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.views;
 
-import edu.fiuba.algo3.controllers.CardPlayingController;
+import edu.fiuba.algo3.controllers.RowHandler;
 import edu.fiuba.algo3.models.sections.Board;
 import edu.fiuba.algo3.views.components.*;
 import edu.fiuba.algo3.views.components.cardcomponent.UIDeck;
@@ -15,6 +15,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+
+import java.util.List;
 
 public class GameView extends StackPane {
     // Layout constants
@@ -43,17 +45,41 @@ public class GameView extends StackPane {
         UIDiscardPile playerUIDiscardPile = new UIDiscardPile(board.getCurrentPlayerDiscardPile());
         UIDiscardPile opponentUIDiscardPile = new UIDiscardPile(board.getOpponentDiscardPile());
         PassTurnButton passButton = new PassTurnButton(board.getGame());
+        
+        CardInfoView cardViewer = new CardInfoView();
+
         leftColumn = new LeftColumn(UISpecialZoneList, board.getCurrentPlayer(), board.getOpponentPlayer());
         centerColumn = new CenterColumn(opponentCloseCombat, opponentRanged, opponentSiege,
                 playerCloseCombat, playerRanged, playerSiege, UIHandList);
-        rightColumn = new RightColumn(playerUIDeck, opponentUIDeck, playerUIDiscardPile, opponentUIDiscardPile, passButton);
+        rightColumn = new RightColumn(playerUIDeck, opponentUIDeck, playerUIDiscardPile, opponentUIDiscardPile, passButton, cardViewer);
 
-        new CardPlayingController(leftColumn, centerColumn, rightColumn, board.getRound());
+        // Create list of all rows for the controller
+        List<UIRow> allRows = List.of(
+            opponentCloseCombat, opponentRanged, opponentSiege,
+            playerCloseCombat, playerRanged, playerSiege
+        );
+        
+        // Set up UIHand with CardInfoView
+        UIHandList.setCardInfoView(cardViewer);
+        
+        // Set up CardInfoView with rows for row switching
+        cardViewer.setRows(allRows);
+        
+        // Create RowHandler instances for each row and set up event handlers
+        setupRowHandlers(allRows, UIHandList, board.getRound());
+        
         String currentPlayerName = board.getCurrentPlayer().getName();
         playerNameScreen = new PlayerNameScreen(currentPlayerName);
 
         // Initialize the layout
         initializeLayout();
+    }
+
+    private void setupRowHandlers(List<UIRow> rows, UIHand hand, edu.fiuba.algo3.models.turnManagement.Round currentRound) {
+        for (UIRow row : rows) {
+            RowHandler rowHandler = new RowHandler(row, hand, currentRound);
+            row.setOnMouseClicked(rowHandler);
+        }
     }
 
     private void showPlayerNameScreen() {

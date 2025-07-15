@@ -15,5 +15,6 @@ public class UIHandCardSelectHandler implements EventHandler<MouseEvent> {
     @Override
     public void handle(MouseEvent event) {
         hand.setSelectedCard(card);
+        event.consume();
     }
-} 
+}

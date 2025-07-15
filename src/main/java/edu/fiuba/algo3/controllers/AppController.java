@@ -60,7 +60,6 @@ public class AppController implements Observer {
     }
 
     public void loadGameView() {
-        // Check if game is finished before loading GameView
         if (board.getGame().gameFinished()) {
             loadGameWinnerView();
             return;

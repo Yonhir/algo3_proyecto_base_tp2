@@ -3,23 +3,29 @@ package edu.fiuba.algo3.views.components;
 import edu.fiuba.algo3.controllers.ButtonCloseDescription;
 import edu.fiuba.algo3.views.components.cardcomponent.card.UICard;
 import edu.fiuba.algo3.views.components.cardcomponent.card.UIUnit;
+import edu.fiuba.algo3.views.components.cardlist.UIRow;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+
+import java.util.List;
 
 public class CardInfoView extends StackPane {
 
     private final BooleanProperty isCardInfoVisible = new SimpleBooleanProperty(false);
+    private List<UIRow> rows;
 
     public CardInfoView() {
         createCancelButton();
-        // createInfoBox();
+    }
+
+    public void setRows(List<UIRow> rows) {
+        this.rows = rows;
     }
 
     private void createCancelButton(){
@@ -175,5 +181,27 @@ public class CardInfoView extends StackPane {
         getChildren().add(infoBox);
 
         isCardInfoVisible.set(true);
+        
+        // Switch on rows when showing card info
+        if (rows != null) {
+            switchOnRows(card);
+        }
+    }
+    
+    private void switchOnRows(UICard card) {
+        // Switch off rows first if there was a previous selection
+        switchOffRows();
+        
+        for (UIRow row : rows) {
+            row.switchOn(card.getModelCard());
+        }
+    }
+
+    private void switchOffRows() {
+        if (rows != null) {
+            for (UIRow row : rows) {
+                row.switchOff();
+            }
+        }
     }
 }
