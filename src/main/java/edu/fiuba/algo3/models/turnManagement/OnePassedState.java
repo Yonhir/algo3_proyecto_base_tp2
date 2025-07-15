@@ -9,7 +9,10 @@ public class OnePassedState implements RoundState {
 
     @Override
     public void playCard(Round round) {
-
+        Player current = round.getCurrentPlayer();
+        if (current.equals(passedPlayer)) {
+            throw new IllegalStateException("Ya pasaste, no puedes jugar más cartas en esta ronda.");
+        }
     }
 
     @Override

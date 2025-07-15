@@ -47,5 +47,10 @@ public class RightColumn extends VBox {
         getChildren().addAll(opponentCardsContainer, cardViewer, passButton, playerCardsContainer);
     }
 
+    public void setPassButtonEnabled(boolean enabled) {
+        passButton.setDisable(!enabled);
+    }
+
+
     public CardInfoView getCardViewer() { return cardViewer;}
 }
