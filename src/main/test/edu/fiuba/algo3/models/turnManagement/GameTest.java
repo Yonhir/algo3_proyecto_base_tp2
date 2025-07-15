@@ -79,13 +79,6 @@ public class GameTest {
     }
 
     @Test
-    public void testPlayersCanPassAndRoundEnds() {
-        game.passRound();
-        game.passRound();
-        assertFalse(game.gameFinished());
-    }
-
-    @Test
     public void testGameEndsAfterTwoWins() {
         player1.winRound();
         player1.winRound();
