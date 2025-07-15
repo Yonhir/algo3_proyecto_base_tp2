@@ -43,7 +43,6 @@ public class Deck extends CardCollection {
         Collections.shuffle(cards);
         List<Card> selectedCards = new ArrayList<>(cards.subList(0, n));
         cards.subList(0, n).clear();
-        notifyObservers();
         return selectedCards;
     }
 
@@ -84,7 +83,6 @@ public class Deck extends CardCollection {
         }
         List<Card> selectedCards = new ArrayList<>(cards.subList(0, n));
         cards.subList(0, n).clear();
-        notifyObservers();
         return selectedCards;
     }
 }

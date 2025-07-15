@@ -21,16 +21,12 @@ public class UIDeck extends BaseCardComponent {
         cardCountLabel.setMouseTransparent(true);
 
         getChildren().add(cardCountLabel);
-        updateCardCount();
+        this.update(deck);
     }
 
     @Override
     protected void initializeComponent() {
         setupBackground();
-
-    }
-    private void updateCardCount() {
-        cardCountLabel.setText(String.valueOf(deck.getCardCount()));
     }
 
     @Override
@@ -45,6 +41,8 @@ public class UIDeck extends BaseCardComponent {
 
     @Override
     public void update(Observable observable) {
-        updateCardCount();
+        cardCountLabel.setText(String.valueOf(deck.getCardCount()));
+        // Update UI when deck changes (e.g., cards are drawn)
+        // Could update card count display or visual representation
     }
 }
