@@ -100,4 +100,13 @@ public class UnitTest {
 
         assertFalse(unidad.haveModifier(modificador));
     }
+
+    @Test
+    public void testGetSectionTypeDevuelveElPrimerSectionType() {
+        RangedType ranged = new RangedType();
+        CloseCombatType closeCombat = new CloseCombatType();
+        Unit unidad = new Unit("Arco", "Unidad de prueba", 5, List.of(ranged, closeCombat), List.of());
+
+        assertEquals(ranged, unidad.getSectionType());
+    }
 }
