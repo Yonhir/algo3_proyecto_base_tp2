@@ -11,7 +11,7 @@ import edu.fiuba.algo3.models.sections.rows.Ranged;
 import edu.fiuba.algo3.models.sections.rows.Siege;
 
 public class Player {
-    private final String name;
+    private String name;
     private final DiscardPile discardPile;
     private final Hand hand;
     private final Deck deck;
@@ -73,7 +73,7 @@ public class Player {
     }
 
     private void setColorToCards(PlayerColor playerColor) {
-        deck.setColorToCards(playerColor);
+        deck.setColor(playerColor);
     }
 
     private void setColorDiscardPile(PlayerColor color){
@@ -115,13 +115,23 @@ public class Player {
             this.winRound();
         } else if (myPoints < otherPoints) {
             other.winRound();
+        } else {
+            this.winRound();
+            other.winRound();
         }
     }
 
     public Player chooseWinnerAgainst(Player other) {
         if (this.hasWonGame()) {
+            if (other.hasWonGame()) {
+                return null;
+            }
             return this;
         }
         return other;
+    }
+
+    public void changeName(String newName) {
+        name = newName;
     }
 }

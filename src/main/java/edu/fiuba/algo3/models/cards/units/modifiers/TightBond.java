@@ -35,4 +35,9 @@ public class TightBond implements Modifier {
             }
         }
     }
+    
+    @Override
+    public String getDescription() {
+        return "Vínculo Fuerte: Multiplica los puntos por el número de cartas con el mismo nombre";
+    }
 }

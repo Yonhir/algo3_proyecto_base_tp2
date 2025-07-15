@@ -132,4 +132,12 @@ public class HeroTest {
 
         assertTrue(closeCombat1.containsCard(cartaConLegendaria));
     }
+
+    @Test
+    public void testGetDescription() {
+        String expectedDescription = "Héroe: No puede ser afectado por ningún efecto";
+        Hero heroModifier = new Hero();
+
+        assertEquals(expectedDescription, heroModifier.getDescription());
+    }
 }

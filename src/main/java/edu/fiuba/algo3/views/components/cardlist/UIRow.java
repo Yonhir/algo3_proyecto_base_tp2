@@ -8,11 +8,16 @@ import edu.fiuba.algo3.models.sections.rows.Row;
 import edu.fiuba.algo3.models.sections.types.CloseCombatType;
 import edu.fiuba.algo3.models.sections.types.SectionType;
 import edu.fiuba.algo3.views.components.PointsCircle;
+import edu.fiuba.algo3.views.components.cardcomponent.card.SectionTypeIconMapper;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import edu.fiuba.algo3.models.sections.types.SpecialType;
+import edu.fiuba.algo3.models.turnManagement.Player;
+import edu.fiuba.algo3.models.turnManagement.Round;
+import edu.fiuba.algo3.views.components.cardcomponent.card.UICard;
 
 import java.io.InputStream;
 import java.util.List;
@@ -22,19 +27,21 @@ public abstract class UIRow extends CardList {
     private static final double INITIAL_TRANSLATE_X = -25;
     private static final double INITIAL_TRANSLATE_Y = 30;
 
+    private boolean switchedOn;
     private int points;
     private final Row modelRow;
     private PointsCircle pointsCircle;
     protected SectionType type;
 
     public UIRow() {
-        super(false);
+        super();
         this.points = 0;
         modelRow = null;
     }
 
     public UIRow(Row modelRow) {
-        super(false);
+        super();
+        switchedOn = false;
         this.modelRow = modelRow;
         setModel(modelRow);
         this.points = modelRow.calculatePoints();
@@ -96,5 +103,43 @@ public abstract class UIRow extends CardList {
         StackPane.setAlignment(sectionIcon, Pos.CENTER);
 
         getChildren().add(sectionIcon);
+    }
+
+    public void switchOn(Card card) {
+        Row row = (Row) model;
+        if(row.haveSameSectionType(card) && row.haveSamePlayerColor(card)) {
+            applyHoverStyle();
+            switchedOn = true;
+        }
+
+        if(card.haveSectionType(new SpecialType())){
+            applyHoverStyle();
+            switchedOn = true;
+        }
+    }
+
+    public void switchOff() {
+        if (switchedOn) {
+            applyDefaultStyle();
+            switchedOn = false;
+        }
+    }
+
+    public void playCard(UICard card, Round currentRound, UISpecialZone specialZone) {
+        if (switchedOn) {
+            Card cardToPlay = card.getModelCard();
+
+            if (cardToPlay.haveSectionType(new SpecialType())) {
+                specialZone.playCard(card, currentRound);
+            }else{
+                Row row = (Row) model;
+                Player currentPlayer = currentRound.getCurrentPlayer();
+                currentPlayer.playCard(cardToPlay, row, currentRound);
+                addCard(card);
+                update(model);
+            }
+
+            update(currentRound.getCurrentPlayer().getHand());
+        }
     }
 }

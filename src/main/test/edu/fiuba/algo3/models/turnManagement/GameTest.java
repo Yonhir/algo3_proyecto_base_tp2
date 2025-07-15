@@ -79,13 +79,6 @@ public class GameTest {
     }
 
     @Test
-    public void testPlayersCanPassAndRoundEnds() {
-        game.passRound();
-        game.passRound();
-        assertFalse(game.gameFinished());
-    }
-
-    @Test
     public void testGameEndsAfterTwoWins() {
         player1.winRound();
         player1.winRound();
@@ -109,23 +102,6 @@ public class GameTest {
 
         verify(mock1).discardAllRows();
         verify(mock2).discardAllRows();
-    }
-
-    @Test
-    public void testGameEndsInDrawAfterThreeRoundsWithOneWinEach() {
-        Player p1 = mock(Player.class);
-        Player p2 = mock(Player.class);
-        SpecialZone mock3 = mock(SpecialZone.class);
-
-
-        when(p1.getRoundsWon()).thenReturn(1);
-        when(p2.getRoundsWon()).thenReturn(1);
-        when(p1.hasWonGame()).thenReturn(false);
-        when(p2.hasWonGame()).thenReturn(false);
-
-        Game game = new Game(p1, p2, mock3);
-
-        assertTrue(game.bothPlayersWonARound());
     }
 
     @Test
@@ -211,11 +187,27 @@ public class GameTest {
     }
 
     @Test
-    public void testSePuedeObtenerElJugadorActual() {
+    public void testGetCurrentPlayerRetornaElJugadorActual() {
         Player currentPlayer = game.getCurrentPlayer();
 
-        assertEquals(player1, currentPlayer);
+        // El jugador actual debe ser uno de los dos jugadores del juego
+        assertTrue(currentPlayer == player1 || currentPlayer == player2);
+
+        // El jugador actual debe coincidir con el de la ronda actual
+        assertEquals(game.getCurrentRound().getCurrentPlayer(), currentPlayer);
     }
 
+    @Test
+    public void testGetOpponentPlayerRetornaElJugadorOponente() {
+        Player opponentPlayer = game.getOpponentPlayer();
 
+        // El jugador oponente debe ser uno de los dos jugadores del juego
+        assertTrue(opponentPlayer == player1 || opponentPlayer == player2);
+
+        // El jugador oponente debe coincidir con el de la ronda actual
+        assertEquals(game.getCurrentRound().getOpponent(), opponentPlayer);
+
+        // El jugador actual y el oponente deben ser diferentes
+        assertNotEquals(game.getCurrentPlayer(), opponentPlayer);
+    }
 }

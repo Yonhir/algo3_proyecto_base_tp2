@@ -3,8 +3,6 @@ package edu.fiuba.algo3.models.cards.units.modifiers;
 import edu.fiuba.algo3.models.colors.*;
 import edu.fiuba.algo3.models.turnManagement.Player;
 import edu.fiuba.algo3.models.turnManagement.Round;
-import edu.fiuba.algo3.models.cardcollections.Deck;
-import edu.fiuba.algo3.models.cardcollections.DiscardPile;
 import edu.fiuba.algo3.models.cards.units.Unit;
 import edu.fiuba.algo3.models.colors.Blue;
 import edu.fiuba.algo3.models.sections.rows.CloseCombat;
@@ -103,5 +101,13 @@ public class MoraleBoostModifierTest {
 
         int actualPoints = siege.calculatePoints();
         assertEquals(expectedPoints, actualPoints);
+    }
+
+    @Test
+    public void testGetDescription() {
+        String expectedDescription = "Impulso de Moral: Aumenta en 1 punto a todas las demás unidades de la fila";
+        MoraleBoostModifier moraleBoostModifier = new MoraleBoostModifier();
+
+        assertEquals(expectedDescription, moraleBoostModifier.getDescription());
     }
 }

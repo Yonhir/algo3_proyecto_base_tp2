@@ -3,11 +3,7 @@ package edu.fiuba.algo3.models.cards.units.modifiers;
 import edu.fiuba.algo3.models.colors.*;
 import edu.fiuba.algo3.models.turnManagement.Player;
 import edu.fiuba.algo3.models.turnManagement.Round;
-import edu.fiuba.algo3.models.cardcollections.Deck;
-import edu.fiuba.algo3.models.cardcollections.DiscardPile;
 import edu.fiuba.algo3.models.cards.units.Unit;
-import edu.fiuba.algo3.models.sections.rows.CloseCombat;
-import edu.fiuba.algo3.models.sections.rows.Ranged;
 import edu.fiuba.algo3.models.sections.rows.Siege;
 import edu.fiuba.algo3.models.sections.types.SiegeType;
 import org.junit.jupiter.api.BeforeEach;
@@ -135,5 +131,13 @@ public class TightBondTest {
 
         // Assert
         assertEquals(expectedPoints, finalRowPoints, "Total points should be 38 ((8*2)*2 for TightBond units) + 6 (regular unit)");
+    }
+
+    @Test
+    public void testGetDescription() {
+        String expectedDescription = "Vínculo Fuerte: Multiplica los puntos por el número de cartas con el mismo nombre";
+        TightBond tightBondModifier = new TightBond();
+
+        assertEquals(expectedDescription, tightBondModifier.getDescription());
     }
 }

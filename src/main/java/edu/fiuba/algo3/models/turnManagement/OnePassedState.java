@@ -1,15 +1,9 @@
 package edu.fiuba.algo3.models.turnManagement;
 
 public class OnePassedState implements RoundState {
-    private final Player passedPlayer;
-
-    public OnePassedState(Player passedPlayer) {
-        this.passedPlayer = passedPlayer;
-    }
 
     @Override
     public void playCard(Round round) {
-        round.swapPlayers();
     }
 
     @Override
