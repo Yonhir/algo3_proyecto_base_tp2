@@ -73,7 +73,7 @@ public class Player {
     }
 
     private void setColorToCards(PlayerColor playerColor) {
-        deck.setColorToCards(playerColor);
+        deck.setColor(playerColor);
     }
 
     private void setColorDiscardPile(PlayerColor color){

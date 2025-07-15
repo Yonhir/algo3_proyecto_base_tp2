@@ -5,6 +5,9 @@ import edu.fiuba.algo3.models.cards.specials.weathers.BitingFrost;
 import edu.fiuba.algo3.models.cards.specials.weathers.ImpenetrableFog;
 import edu.fiuba.algo3.models.cards.specials.weathers.TorrentialRain;
 import edu.fiuba.algo3.models.cards.units.Unit;
+import edu.fiuba.algo3.models.colors.Blue;
+import edu.fiuba.algo3.models.colors.PlayerColor;
+import edu.fiuba.algo3.models.colors.Red;
 import edu.fiuba.algo3.models.errors.InvalidCardAmountError;
 import edu.fiuba.algo3.models.errors.NotEnoughSpecialsCardsError;
 import edu.fiuba.algo3.models.errors.NotEnoughUnitsCardsError;
@@ -168,5 +171,28 @@ public class DeckTest {
         assertThrows(InvalidCardAmountError.class, () -> {
             mazo.retrieveNRandomCards(0);
         });
+    }
+
+    @Test
+    public void testSetColorAsignaColorATodasLasCartasDelMazo() {
+        Deck mazo = new Deck();
+        cartas.addAll(unidades);
+        cartas.addAll(especiales);
+        mazo.insertCards(cartas);
+        PlayerColor colorAzul = new Blue();
+
+        mazo.setColor(colorAzul);
+
+        for (Card carta : cartas) {
+            assertEquals(colorAzul, carta.getPlayerColor());
+        }
+    }
+
+    @Test
+    public void testSetColorConMazoVacioNoLanzaExcepcion() {
+        Deck mazo = new Deck();
+        PlayerColor colorRojo = new Red();
+
+        mazo.setColor(colorRojo);
     }
 }

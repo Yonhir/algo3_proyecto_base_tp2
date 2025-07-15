@@ -24,7 +24,6 @@ public class Deck extends CardCollection {
         for (DeckValidator deckV : validators) {
             deckV.validate(this.cards);
         }
-        setColorToCards(playerColor);
     }
 
     public long getUnitsCount() {
@@ -48,15 +47,20 @@ public class Deck extends CardCollection {
         return selectedCards;
     }
 
-    public void setColorToCards(PlayerColor playerColor) {
+    public void setColor(PlayerColor playerColor) {
+        this.playerColor = playerColor;
+        setColorToCards();
+    }
+    
+    private void setColorToCards() {
         for (Card card : cards) {
             card.setColor(playerColor);
         }
-        this.playerColor = playerColor;
     }
 
     public void insertCardsInOrder(List<Card> cardsToInsert) {
         cards.addAll(0, cardsToInsert);
+        setColorToCards();
     }
 
     public List<Card> retrieveNTopCards(int n) {
