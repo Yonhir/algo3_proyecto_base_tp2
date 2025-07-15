@@ -26,7 +26,7 @@ public class AppController implements Observer {
     public AppController(Stage stage, Board board) {
         this.stage = stage;
         this.board = board;
-        this.currentRound = board.getGame().getCurrentRound();
+        this.currentRound = board.getRound();
         this.currentRound.addObserver(this);
 
         // Initialize the main scene with a root pane
@@ -87,6 +87,8 @@ public class AppController implements Observer {
 
     public void restartGame() {
         board.restartGame();
+        this.currentRound = board.getRound();
+        this.currentRound.addObserver(this);
         loadNameInputView();
     }
 
@@ -124,8 +126,8 @@ public class AppController implements Observer {
 
     @Override
     public void update(Observable observable) {
-        if (currentRound != board.getGame().getCurrentRound()) {
-            currentRound = board.getGame().getCurrentRound();
+        if (currentRound != board.getRound()) {
+            currentRound = board.getRound();
             currentRound.addObserver(this);
         }
         loadGameView();
