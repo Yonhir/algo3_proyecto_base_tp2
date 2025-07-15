@@ -20,26 +20,6 @@ public class Player {
     private final Siege siege;
     private int roundsWon = 0;
 
-    private void setColor(PlayerColor playerColor) {
-        setColorToCards(playerColor);
-        setColorToRows(playerColor);
-        setColorDiscardPile(playerColor);
-    }
-
-    private void setColorToRows(PlayerColor playerColor) {
-        closeCombat.setColor(playerColor);
-        ranged.setColor(playerColor);
-        siege.setColor(playerColor);
-    }
-
-    private void setColorToCards(PlayerColor playerColor) {
-        deck.setColorToCards(playerColor);
-    }
-    
-    private void setColorDiscardPile(PlayerColor color){
-        discardPile.setColor(color);
-    }
-
     public Player(String name, PlayerColor playerColor) {
         this.name = name;
         this.discardPile = new DiscardPile();
@@ -55,12 +35,49 @@ public class Player {
     public String getName(){
         return name;
     }
+
     public DiscardPile getDiscardPile() {
         return discardPile;
     }
 
     public Hand getHand(){
         return hand;
+    }
+
+    public Deck getDeck() {
+        return deck;
+    }
+
+    public CloseCombat getCloseCombatRow() {
+        return closeCombat;
+    }
+
+    public Ranged getRangedRow() {
+        return ranged;
+    }
+
+    public Siege getSiegeRow() {
+        return siege;
+    }
+
+    private void setColor(PlayerColor playerColor) {
+        setColorToCards(playerColor);
+        setColorToRows(playerColor);
+        setColorDiscardPile(playerColor);
+    }
+
+    private void setColorToRows(PlayerColor playerColor) {
+        closeCombat.setColor(playerColor);
+        ranged.setColor(playerColor);
+        siege.setColor(playerColor);
+    }
+
+    private void setColorToCards(PlayerColor playerColor) {
+        deck.setColorToCards(playerColor);
+    }
+
+    private void setColorDiscardPile(PlayerColor color){
+        discardPile.setColor(color);
     }
 
     public int calculatePoints() {
@@ -101,28 +118,10 @@ public class Player {
         }
     }
 
-    public String getName() { return name; }
-
     public Player chooseWinnerAgainst(Player other) {
         if (this.hasWonGame()) {
             return this;
         }
         return other;
-    }
-
-    public Deck getDeck() {
-        return deck;
-    }
-
-    public CloseCombat getCloseCombatRow() {
-        return closeCombat;
-    }
-
-    public Ranged getRangedRow() {
-        return ranged;
-    }
-
-    public Siege getSiegeRow() {
-        return siege;
     }
 }

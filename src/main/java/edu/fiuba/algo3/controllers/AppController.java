@@ -3,7 +3,7 @@ package edu.fiuba.algo3.controllers;
 import edu.fiuba.algo3.models.sections.Board;
 import edu.fiuba.algo3.views.GameView;
 import edu.fiuba.algo3.views.PlayerPreparationView;
-import edu.fiuba.algo3.views.components.PlayerNameScreenView;
+import edu.fiuba.algo3.views.components.PlayerNameScreen;
 import javafx.stage.Stage;
 
 public class AppController {
@@ -36,9 +36,7 @@ public class AppController {
         stage.setTitle("Juego en curso - Gwent");
         PlayerPreparationView.show(stage, nombreJugador1, board.getCurrentPlayerHand(), board.getCurrentPlayerDiscardPile(), board.getCurrentPlayerDeck(),
                 () -> PlayerPreparationView.show(stage, nombreJugador2, board.getOpponentHand(), board.getOpponentDiscardPile(), board.getOpponentDeck(),
-                        () -> PlayerNameScreenView.show(board.getCurrentPlayer().getName(), stage,
-                                () ->  displayBoard(board)
-                        )
+                        () -> displayBoard(board)
                 )
         );
     }

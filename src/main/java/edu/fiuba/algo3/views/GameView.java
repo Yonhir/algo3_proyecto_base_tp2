@@ -8,6 +8,7 @@ import edu.fiuba.algo3.views.components.cardlist.UIHand;
 import edu.fiuba.algo3.views.components.cardlist.UIRow;
 import edu.fiuba.algo3.views.components.cardlist.UISpecialZone;
 import edu.fiuba.algo3.views.components.PassTurnButton;
+import edu.fiuba.algo3.views.components.PlayerNameScreen;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
@@ -27,11 +28,11 @@ public class GameView extends StackPane {
     private final RightColumn rightColumn;
 
     private final PassTurnButton passButton;
+    private PlayerNameScreen playerNameScreen;
     
     private Scene scene;
 
     public GameView(Board board) {
-
         UIHand UIHandList = new UIHand(board.getCurrentPlayerHand());
         UIRow opponentCloseCombat = new UIRow(board.getOpponentCloseCombat());
         UIRow opponentRanged = new UIRow(board.getOpponentRanged());
@@ -50,13 +51,14 @@ public class GameView extends StackPane {
         centerColumn = new CenterColumn(opponentCloseCombat, opponentRanged, opponentSiege,
                 playerCloseCombat, playerRanged, playerSiege, UIHandList);
         rightColumn = new RightColumn(playerUIDeck, opponentUIDeck, playerUIDiscardPile, opponentUIDiscardPile);
+
+        String currentPlayerName = board.getCurrentPlayer().getName();
+        playerNameScreen = new PlayerNameScreen(currentPlayerName);
     }
 
-    private void setupSceneSizeListeners() {
-        playerUIDeck.setupSceneSizeListener(scene);
-        playerUIDiscardPile.setupSceneSizeListener(scene);
-        opponentUIDeck.setupSceneSizeListener(scene);
-        opponentUIDiscardPile.setupSceneSizeListener(scene);
+    private void showPlayerNameScreen() {   
+        getChildren().add(playerNameScreen);
+        StackPane.setAlignment(playerNameScreen, Pos.CENTER);
     }
 
     public Scene createScene() {
@@ -89,8 +91,8 @@ public class GameView extends StackPane {
         getChildren().add(passButton);
 
         scene = new Scene(this, windowWidth, windowHeight);
-
-        setupSceneSizeListeners();
+        
+        showPlayerNameScreen();
 
         return scene;
     }

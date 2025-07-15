@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.views.components;
+package edu.fiuba.algo3.views;
 
 
 import edu.fiuba.algo3.controllers.StartGameHandler;
@@ -8,7 +8,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 
 public class NameInputView {
 

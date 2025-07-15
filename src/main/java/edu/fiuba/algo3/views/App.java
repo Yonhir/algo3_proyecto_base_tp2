@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.views;
 
 import edu.fiuba.algo3.controllers.AppController;
-import edu.fiuba.algo3.views.components.NameInputView;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
