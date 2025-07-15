@@ -6,6 +6,7 @@ import edu.fiuba.algo3.models.cards.units.Unit;
 import edu.fiuba.algo3.models.colors.PlayerColor;
 import edu.fiuba.algo3.models.errors.InvalidCardAmountError;
 import edu.fiuba.algo3.models.errors.NotEnoughCardsInDeckError;
+import edu.fiuba.algo3.models.turnManagement.Player;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,6 +14,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class Deck extends CardCollection {
+    private PlayerColor playerColor;
 
     public void validate() {
         List<DeckValidator> validators = Arrays.asList(
@@ -22,6 +24,7 @@ public class Deck extends CardCollection {
         for (DeckValidator deckV : validators) {
             deckV.validate(this.cards);
         }
+        setColorToCards(playerColor);
     }
 
     public long getUnitsCount() {
@@ -49,6 +52,7 @@ public class Deck extends CardCollection {
         for (Card card : cards) {
             card.setColor(playerColor);
         }
+        this.playerColor = playerColor;
     }
 
     public void insertCardsInOrder(List<Card> cardsToInsert) {

@@ -1,15 +1,10 @@
 package edu.fiuba.algo3.views.components.cardcomponent.card;
 
 import edu.fiuba.algo3.models.cards.Card;
-import edu.fiuba.algo3.views.components.RightColumn;
 import edu.fiuba.algo3.views.components.cardcomponent.BaseCardComponent;
-import edu.fiuba.algo3.views.components.cardlist.CardInfoView;
-import javafx.scene.control.Tooltip;
 import javafx.scene.paint.Color;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.util.Duration;
 
 import java.io.InputStream;
 
@@ -18,14 +13,6 @@ public abstract class UICard extends BaseCardComponent {
     protected String cardName;
     protected String description;
     protected ImageView backgroundImage;
-    
-    private double dragDeltaX;
-    private double dragDeltaY;
-    private boolean isDragging = false;
-    private boolean isDraggable = false;
-    
-    private double originalX = 0;
-    private double originalY = 0;
 
     protected Card model;
 
@@ -33,9 +20,7 @@ public abstract class UICard extends BaseCardComponent {
         super();
         this.cardName = name;
         this.description = description;
-        setupDragHandlers();
         loadCardImage();
-        giveInfo();
     }
 
     public Image getBackgroundImage() { return backgroundImage.getImage(); }
@@ -95,7 +80,7 @@ public abstract class UICard extends BaseCardComponent {
             System.err.println("Warning: Could not find image for card: " + cardName);
         }
     }
-    
+
     public String getDescription() {
         return description;
     }
@@ -103,92 +88,4 @@ public abstract class UICard extends BaseCardComponent {
     public String getCardName() {
         return cardName;
     }
-
-    private void setupDragHandlers() {
-        setOnMousePressed(this::handleMousePressed);
-        setOnMouseDragged(this::handleMouseDragged);
-        setOnMouseReleased(this::handleMouseReleased);
-        setOnMouseEntered(this::handleMouseEntered);
-    }
-    
-    private void handleMousePressed(MouseEvent event) {
-        if (!isDraggable) {
-            return;
-        }
-        
-        isDragging = true;
-        
-        originalX = getTranslateX();
-        originalY = getTranslateY();
-        
-        dragDeltaX = getTranslateX() - event.getSceneX();
-        dragDeltaY = getTranslateY() - event.getSceneY();
-        
-        toFront();
-        
-        event.consume();
-    }
-    
-    private void handleMouseDragged(MouseEvent event) {
-        if (!isDraggable || !isDragging) {
-            return;
-        }
-        
-        setTranslateX(event.getSceneX() + dragDeltaX);
-        setTranslateY(event.getSceneY() + dragDeltaY);
-        
-        event.consume();
-    }
-    
-    private void handleMouseReleased(MouseEvent event) {
-        if (!isDraggable) {
-            return;
-        }
-        
-        isDragging = false;
-        
-        setTranslateX(originalX);
-        setTranslateY(originalY);
-        
-        event.consume();
-    }
-
-    private void handleMouseEntered(MouseEvent event) {
-        Tooltip tooltip = new Tooltip("Double click to view card info\nOne click to select card");
-
-        tooltip.setShowDelay(Duration.seconds(0.4));
-        tooltip.setHideDelay(Duration.ZERO);
-
-        Tooltip.install(this, tooltip);
-    }
-
-    public void resetPosition() {
-        setTranslateX(originalX);
-        setTranslateY(originalY);
-    }
-
-    public void setDraggable(boolean draggable) {
-        this.isDraggable = draggable;
-    }
-    
-    public void updateOriginalPosition() {
-        originalX = getTranslateX();
-        originalY = getTranslateY();
-    }
-
-    public void giveInfo() {
-        setOnMouseClicked(this::showInfo);
-    }
-
-    private void showInfo(MouseEvent event) {
-        if (event.getClickCount() == 2) {
-            RightColumn rightColumn = (RightColumn) getParent().getParent().getParent().getParent().getChildrenUnmodifiable().get(2);
-            CardInfoView cardViewer = rightColumn.getCardViewer();
-
-            cardViewer.showInfoCard(this);
-
-            event.consume();
-        }
-    }
-
 }

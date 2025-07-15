@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.views.components.cardlist;
+package edu.fiuba.algo3.views.components;
 
 import edu.fiuba.algo3.controllers.ButtonCloseDescription;
 import edu.fiuba.algo3.views.components.cardcomponent.card.UICard;

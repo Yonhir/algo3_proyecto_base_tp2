@@ -14,21 +14,14 @@ public abstract class CardList extends Pane implements Observer {
     private static final double DEFAULT_CARD_LAYOUT_Y = 0;
     
     private final List<UICard> cards;
-    private final boolean defaultDraggable;
     protected Observable model;
 
     public CardList() {
-        this(false);
-    }
-    
-    public CardList(boolean defaultDraggable) {
         super();
-        this.defaultDraggable = defaultDraggable;
         HBox.setHgrow(this, javafx.scene.layout.Priority.ALWAYS);
         this.cards = new ArrayList<>();
         
         setupCardListStyling();
-        setupHoverAnimation();
         
         widthProperty().addListener((observable, oldValue, newValue) -> updateOptimalPositioning());
     }
@@ -38,17 +31,12 @@ public abstract class CardList extends Pane implements Observer {
         javafx.scene.layout.HBox.setHgrow(this, javafx.scene.layout.Priority.ALWAYS);
         applyDefaultStyle();
     }
-    
-    private void setupHoverAnimation() {
-        setOnMouseEntered(e -> applyHoverStyle());
-        setOnMouseExited(e -> applyDefaultStyle());
-    }
-    
-    private void applyDefaultStyle() {
+
+    protected void applyDefaultStyle() {
         setStyle("-fx-border-color: #8B4513; -fx-border-width: 2px; -fx-background-color: transparent;");
     }
-    
-    private void applyHoverStyle() {
+
+    protected void applyHoverStyle() {
         setStyle("-fx-border-color: #FFD700; -fx-border-width: 2px; -fx-background-color: transparent;");
     }
 
@@ -76,19 +64,12 @@ public abstract class CardList extends Pane implements Observer {
     }
 
     public void addCard(UICard UICard) {
-        setCardDraggable(UICard);
         cards.add(UICard);
         getChildren().add(UICard);
         updateOptimalPositioning();
     }
 
-    protected void setCardDraggable(UICard UICard) {
-        UICard.setDraggable(defaultDraggable);
-    }
-
-    public List<UICard> getCards() {
-        return new ArrayList<>(cards);
-    }
+    public List<UICard> getCards() { return cards; }
     
     protected void setModel(Observable model) {
         this.model = model;

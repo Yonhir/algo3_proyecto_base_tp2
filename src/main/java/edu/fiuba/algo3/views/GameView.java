@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.views;
 
+import edu.fiuba.algo3.controllers.CardPlayingController;
 import edu.fiuba.algo3.models.sections.Board;
 import edu.fiuba.algo3.views.components.*;
 import edu.fiuba.algo3.views.components.cardcomponent.UIDeck;
@@ -50,6 +51,8 @@ public class GameView extends StackPane {
         centerColumn = new CenterColumn(opponentCloseCombat, opponentRanged, opponentSiege,
                 playerCloseCombat, playerRanged, playerSiege, UIHandList);
         rightColumn = new RightColumn(playerUIDeck, opponentUIDeck, playerUIDiscardPile, opponentUIDiscardPile);
+
+        new CardPlayingController(leftColumn, centerColumn, rightColumn, board.getRound());
     }
 
     private void setupSceneSizeListeners() {
