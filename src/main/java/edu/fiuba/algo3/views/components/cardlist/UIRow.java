@@ -96,7 +96,7 @@ public abstract class UIRow extends CardList {
         double size = 80;
         sectionIcon.setFitHeight(size);
         sectionIcon.setFitWidth(size);
-
+        sectionIcon.setOpacity(0.5);
         getChildren().add(0, sectionIcon);
     }
 
