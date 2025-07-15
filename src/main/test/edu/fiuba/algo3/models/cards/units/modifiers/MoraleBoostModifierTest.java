@@ -106,10 +106,10 @@ public class MoraleBoostModifierTest {
     }
 
     @Test
-    public void testDevolverString() {
-        String expectedString = "MoraleBoostModifier";
-        cardMoraleBoost = new Unit("Nombre", "Descripcion", 10, new SiegeType(), List.of(modifierMoral));
+    public void testGetDescription() {
+        String expectedDescription = "Impulso de Moral: Aumenta en 1 punto a todas las demás unidades de la fila";
+        MoraleBoostModifier moraleBoostModifier = new MoraleBoostModifier();
 
-        assertEquals(expectedString, cardMoraleBoost.getStringModifiers());
+        assertEquals(expectedDescription, moraleBoostModifier.getDescription());
     }
 }

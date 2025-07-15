@@ -134,9 +134,10 @@ public class HeroTest {
     }
 
     @Test
-    public void testDevolverString() {
-        String expectedString = "Hero";
+    public void testGetDescription() {
+        String expectedDescription = "Héroe: No puede ser afectado por ningún efecto";
+        Hero heroModifier = new Hero();
 
-        assertEquals(expectedString, cartaConLegendaria.getStringModifiers());
+        assertEquals(expectedDescription, heroModifier.getDescription());
     }
 }

@@ -108,9 +108,10 @@ public class SpyTest {
     }
 
     @Test
-    public void testDevolverString() {
-        String expectedString = "Spy";
+    public void testGetDescription() {
+        String expectedDescription = "Espía: Roba 2 cartas del mazo y se coloca en el lado del oponente";
+        Spy spyModifier = new Spy(deck, hand);
 
-        assertEquals(expectedString, carta_espia.getStringModifiers());
+        assertEquals(expectedDescription, spyModifier.getDescription());
     }
 }

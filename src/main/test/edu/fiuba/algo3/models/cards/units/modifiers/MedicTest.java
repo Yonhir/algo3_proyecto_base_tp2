@@ -106,9 +106,10 @@ public class MedicTest {
     }
 
     @Test
-    public void testDevolverString() {
-        String expectedString = "Medic";
+    public void testGetDescription() {
+        String expectedDescription = "Médico: Revive una carta de unidad del cementerio";
+        Medic medicModifier = new Medic(discardPile);
 
-        assertEquals(expectedString, ((Unit) medicCard).getStringModifiers());
+        assertEquals(expectedDescription, medicModifier.getDescription());
     }
 }

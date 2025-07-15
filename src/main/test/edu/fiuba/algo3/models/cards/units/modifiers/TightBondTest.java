@@ -138,9 +138,10 @@ public class TightBondTest {
     }
 
     @Test
-    public void testDevolverString() {
-        String expectedString = "TightBond";
+    public void testGetDescription() {
+        String expectedDescription = "Vínculo Fuerte: Multiplica los puntos por el número de cartas con el mismo nombre";
+        TightBond tightBondModifier = new TightBond();
 
-        assertEquals(expectedString, catapult1.getStringModifiers());
+        assertEquals(expectedDescription, tightBondModifier.getDescription());
     }
 }

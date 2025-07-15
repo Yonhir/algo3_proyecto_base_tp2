@@ -103,15 +103,7 @@ public class Unit extends Card {
         return this.currentPoints == card.calculatePoints();
     }
 
-    public String getStringModifiers() {
-        StringBuilder modifiersString = new StringBuilder();
-        for (Modifier modifier : modifiers) {
-            String mod = modifier.getClass().getName().substring(45);
-            modifiersString.append(mod).append(", ");
-        }
-        if (modifiersString.length() > 0) {
-            modifiersString.setLength(modifiersString.length() - 2);
-        }
-        return modifiersString.toString();
+    public List<Modifier> getModifiers() {
+        return modifiers;
     }
 }

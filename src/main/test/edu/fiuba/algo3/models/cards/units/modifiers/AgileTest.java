@@ -66,9 +66,10 @@ public class AgileTest {
     }
 
     @Test
-    public void testDevolverString() {
-        String expectedString = "Agile";
+    public void testGetDescription() {
+        String expectedDescription = "Ágil: Se pueden ubicar en dos o más secciones";
+        Agile agileModifier = new Agile();
 
-        assertEquals(expectedString, ((Unit) cartaConAgile).getStringModifiers());
+        assertEquals(expectedDescription, agileModifier.getDescription());
     }
 }

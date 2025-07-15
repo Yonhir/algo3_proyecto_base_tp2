@@ -2,6 +2,7 @@ package edu.fiuba.algo3.views.components.cardcomponent.card;
 
 import edu.fiuba.algo3.models.Observable;
 import edu.fiuba.algo3.models.cards.units.Unit;
+import edu.fiuba.algo3.models.cards.units.modifiers.Modifier;
 import edu.fiuba.algo3.views.components.PointsCircle;
 
 public class UIUnit extends UICard {
@@ -24,8 +25,12 @@ public class UIUnit extends UICard {
     }
 
     public String getModifiers(){
-        Unit card =(Unit) model;
-        return card.getStringModifiers();
+        Unit card = (Unit) model;
+        StringBuilder modifiersString = new StringBuilder();
+        for (Modifier modifier : card.getModifiers()) {
+            modifiersString.append(modifier.getDescription()).append("\n");
+        }
+        return modifiersString.toString();
     }
 
     private void subscribeToModel() {
