@@ -106,4 +106,12 @@ public class SpyTest {
 
         assertEquals(expectedCardsInHand, deck.getCardCount());
     }
+
+    @Test
+    public void testGetDescription() {
+        String expectedDescription = "Espía: Roba 2 cartas del mazo y se coloca en el lado del oponente";
+        Spy spyModifier = new Spy(deck, hand);
+
+        assertEquals(expectedDescription, spyModifier.getDescription());
+    }
 }

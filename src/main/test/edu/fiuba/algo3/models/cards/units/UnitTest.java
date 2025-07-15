@@ -2,6 +2,7 @@ package edu.fiuba.algo3.models.cards.units;
 
 import edu.fiuba.algo3.models.cardcollections.DiscardPile;
 import edu.fiuba.algo3.models.cards.units.modifiers.Agile;
+import edu.fiuba.algo3.models.cards.units.modifiers.Modifier;
 import edu.fiuba.algo3.models.cards.units.modifiers.MoraleBoostModifier;
 import edu.fiuba.algo3.models.sections.rows.Ranged;
 import edu.fiuba.algo3.models.sections.types.CloseCombatType;
@@ -99,5 +100,28 @@ public class UnitTest {
         Unit unidad = new Unit("carta", "con 2 modificadores", 4, List.of(new RangedType(), new CloseCombatType()), List.of());
 
         assertFalse(unidad.haveModifier(modificador));
+    }
+
+    @Test
+    public void testGetModifiersRetornaLaListaDeModificadores() {
+        MoraleBoostModifier modificador1 = new MoraleBoostModifier();
+        Agile modificador2 = new Agile();
+        List<Modifier> modificadores = List.of(modificador1, modificador2);
+        Unit unidad = new Unit("carta", "con modificadores", 4, new RangedType(), modificadores);
+
+        List<Modifier> modificadoresObtenidos = unidad.getModifiers();
+
+        assertEquals(modificadores.size(), modificadoresObtenidos.size());
+        assertTrue(modificadoresObtenidos.contains(modificador1));
+        assertTrue(modificadoresObtenidos.contains(modificador2));
+    }
+
+    @Test
+    public void testGetModifiersRetornaListaVaciaCuandoNoHayModificadores() {
+        Unit unidad = new Unit("carta", "sin modificadores", 4, new RangedType(), List.of());
+
+        List<Modifier> modificadoresObtenidos = unidad.getModifiers();
+
+        assertTrue(modificadoresObtenidos.isEmpty());
     }
 }

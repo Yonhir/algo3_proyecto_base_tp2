@@ -16,8 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AgileTest {
     Card cartaConAgile;
@@ -64,5 +63,13 @@ public class AgileTest {
 
         assertTrue(ranged.containsCard(cartaConAgileDosFilas));
         assertThrows(SectionTypeMismatchError.class, () -> cartaConAgileDosFilas.play(closeCombat));
+    }
+
+    @Test
+    public void testGetDescription() {
+        String expectedDescription = "Ágil: Se pueden ubicar en dos o más secciones";
+        Agile agileModifier = new Agile();
+
+        assertEquals(expectedDescription, agileModifier.getDescription());
     }
 }

@@ -104,4 +104,12 @@ public class MoraleBoostModifierTest {
         int actualPoints = siege.calculatePoints();
         assertEquals(expectedPoints, actualPoints);
     }
+
+    @Test
+    public void testGetDescription() {
+        String expectedDescription = "Impulso de Moral: Aumenta en 1 punto a todas las demás unidades de la fila";
+        MoraleBoostModifier moraleBoostModifier = new MoraleBoostModifier();
+
+        assertEquals(expectedDescription, moraleBoostModifier.getDescription());
+    }
 }
