@@ -43,7 +43,7 @@ public class LeftColumn extends VBox {
         topSpacer.prefHeightProperty().bind(heightProperty().multiply(SPACER_HEIGHT_RATIO));
         bottomSpacer.prefHeightProperty().bind(heightProperty().multiply(SPACER_HEIGHT_RATIO));
 
-        getChildren().addAll(topSpacer, UICurrentPlayer, specialZoneContainer, UIOpponentPlayer, bottomSpacer);
+        getChildren().addAll(topSpacer, UIOpponentPlayer, specialZoneContainer, UICurrentPlayer, bottomSpacer);
 
 
     }
