@@ -39,27 +39,24 @@ public class CardHandler implements EventHandler<MouseEvent> {
     public void handle(MouseEvent event) {
         UICard card = (UICard) event.getSource();
         if (event.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
-            clickOnCard(card, event);
+            clickOnCard(card);
         }else if (event.getEventType().equals(MouseEvent.MOUSE_ENTERED)) {
             enteredOnCard(card);
         }else if (event.getEventType().equals(MouseEvent.MOUSE_EXITED)) {
             exitedOnCard(card);
         }
-    }
-
-    private void clickOnCard(UICard card, MouseEvent event) {
-        placeCard(card, event);
-        showInfo(card, event);
         event.consume();
     }
 
-    private void placeCard(UICard card, MouseEvent event) {
-        if (event.getClickCount() == 1) {
-            cardSelected.set(true);
-            hand.setSelectedCard(card);
-            switchOnRows(card);
+    private void clickOnCard(UICard card) {
+        switchOnRows(card);
+        showInfo(card);
+    }
 
-        }
+    private void showInfo(UICard card) {
+        cardSelected.set(true);
+        hand.setSelectedCard(card);
+        cardInfoView.showInfoCard(card);
     }
 
     private void switchOnRows(UICard card) {
@@ -72,14 +69,6 @@ public class CardHandler implements EventHandler<MouseEvent> {
     private void switchOffRows() {
         for (UIRow row : rows) {
             row.switchOff();
-        }
-    }
-
-    private void showInfo(UICard card, MouseEvent event) {
-        if (event.getClickCount() == 2) {
-            cardSelected.set(true);
-            hand.setSelectedCard(card);
-            cardInfoView.showInfoCard(card);
         }
     }
 

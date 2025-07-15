@@ -1,8 +1,6 @@
 package edu.fiuba.algo3.views.components;
 
-import edu.fiuba.algo3.views.components.cardlist.CardList;
 import edu.fiuba.algo3.models.turnManagement.Player;
-import edu.fiuba.algo3.views.components.cardcomponent.UIPlayerInfo;
 import edu.fiuba.algo3.views.components.cardlist.UISpecialZone;
 import javafx.scene.layout.VBox;
 

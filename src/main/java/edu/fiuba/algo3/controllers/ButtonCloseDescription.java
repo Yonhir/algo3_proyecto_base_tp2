@@ -1,24 +1,24 @@
 package edu.fiuba.algo3.controllers;
 
+import edu.fiuba.algo3.views.components.CardInfoView;
 import javafx.beans.property.BooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.layout.StackPane;
 
 public class ButtonCloseDescription  implements EventHandler<ActionEvent> {
 
-    private final StackPane parent;
+    private final CardInfoView cardInfoView;
     private final BooleanProperty showInfo;
 
-    public ButtonCloseDescription(BooleanProperty showInfo, StackPane parent) {
+    public ButtonCloseDescription(BooleanProperty showInfo, CardInfoView cardInfoView) {
         this.showInfo = showInfo;
-        this.parent = parent;
+        this.cardInfoView = cardInfoView;
     }
 
     @Override
     public void handle(ActionEvent event) {
         if (showInfo.getValue()) {
-            parent.getChildren().remove(parent.getChildren().size() - 1);
+            cardInfoView.getChildren().remove(cardInfoView.getChildren().size() - 1);
             showInfo.set(false);
         }
     }

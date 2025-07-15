@@ -27,7 +27,6 @@ public class GameView extends StackPane {
     private final LeftColumn leftColumn;
     private final CenterColumn centerColumn;
     private final RightColumn rightColumn;
-
     private final PassTurnButton passButton;
     private PlayerNameScreen playerNameScreen;
     
@@ -51,7 +50,7 @@ public class GameView extends StackPane {
         leftColumn = new LeftColumn(UISpecialZoneList, board.getCurrentPlayer(), board.getOpponentPlayer());
         centerColumn = new CenterColumn(opponentCloseCombat, opponentRanged, opponentSiege,
                 playerCloseCombat, playerRanged, playerSiege, UIHandList);
-        rightColumn = new RightColumn(playerUIDeck, opponentUIDeck, playerUIDiscardPile, opponentUIDiscardPile);
+        rightColumn = new RightColumn(playerUIDeck, opponentUIDeck, playerUIDiscardPile, opponentUIDiscardPile, passButton);
 
         new CardPlayingController(leftColumn, centerColumn, rightColumn, board.getRound());
         String currentPlayerName = board.getCurrentPlayer().getName();
@@ -86,11 +85,6 @@ public class GameView extends StackPane {
         gameBoardLayout.prefHeightProperty().bind(heightProperty());
 
         getChildren().add(gameBoardLayout);
-
-        StackPane.setAlignment(passButton, Pos.BOTTOM_RIGHT);
-        StackPane.setMargin(passButton, new javafx.geometry.Insets(0, 300, 150, 0));
-
-        getChildren().add(passButton);
 
         scene = new Scene(this, windowWidth, windowHeight);
         

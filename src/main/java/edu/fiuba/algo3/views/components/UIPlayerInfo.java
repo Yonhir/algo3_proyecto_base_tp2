@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.views.components.cardcomponent;
+package edu.fiuba.algo3.views.components;
 
 import edu.fiuba.algo3.models.turnManagement.Player;
 import javafx.geometry.Insets;
