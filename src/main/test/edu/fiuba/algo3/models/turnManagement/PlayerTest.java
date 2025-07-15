@@ -291,6 +291,49 @@ public class PlayerTest {
     }
 
     @Test
+    public void testChooseWinnerAgainstRetornaNullCuandoAmbosJugadoresHanGanadoDosRondas() {
+        // Arrange: Both players win 2 rounds each
+        player.winRound();
+        player.winRound();
+        opponent.winRound();
+        opponent.winRound();
+
+        // Act
+        Player winner = player.chooseWinnerAgainst(opponent);
+
+        // Assert: Should return null for draw
+        assertNull(winner);
+    }
+
+    @Test
+    public void testChooseWinnerAgainstRetornaJugadorCuandoSoloElHaGanadoDosRondas() {
+        // Arrange: Only player wins 2 rounds
+        player.winRound();
+        player.winRound();
+        opponent.winRound(); // Only 1 round
+
+        // Act
+        Player winner = player.chooseWinnerAgainst(opponent);
+
+        // Assert: Should return player as winner
+        assertEquals(player, winner);
+    }
+
+    @Test
+    public void testChooseWinnerAgainstRetornaOponenteCuandoSoloElOponenteHaGanadoDosRondas() {
+        // Arrange: Only opponent wins 2 rounds
+        player.winRound(); // Only 1 round
+        opponent.winRound();
+        opponent.winRound();
+
+        // Act
+        Player winner = player.chooseWinnerAgainst(opponent);
+
+        // Assert: Should return opponent as winner
+        assertEquals(opponent, winner);
+    }
+
+    @Test
     public void testElJugadorPuedeJugarUnaCartaEnSpecialZoneCorrectamente() {
         SpecialZone specialZone = new SpecialZone(closeCombat1, ranged1, siege1, closeCombat2, ranged2, siege2, discardPile1, discardPile2);
 
