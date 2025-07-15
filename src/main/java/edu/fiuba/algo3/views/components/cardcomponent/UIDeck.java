@@ -2,15 +2,26 @@ package edu.fiuba.algo3.views.components.cardcomponent;
 
 import edu.fiuba.algo3.models.Observable;
 import edu.fiuba.algo3.models.cardcollections.Deck;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
 public class UIDeck extends BaseCardComponent {
     private final Deck deck;
-    
+    private final Label cardCountLabel;
+
+
     public UIDeck(Deck deck) {
         super();
         this.deck = deck;
         this.deck.addObserver(this);
+        this.cardCountLabel = new Label();
+        cardCountLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: white;");
+        cardCountLabel.setMouseTransparent(true);
+
+        getChildren().add(cardCountLabel);
+        this.update(deck);
     }
 
     @Override
@@ -30,6 +41,7 @@ public class UIDeck extends BaseCardComponent {
 
     @Override
     public void update(Observable observable) {
+        cardCountLabel.setText(String.valueOf(deck.getCardCount()));
         // Update UI when deck changes (e.g., cards are drawn)
         // Could update card count display or visual representation
     }
