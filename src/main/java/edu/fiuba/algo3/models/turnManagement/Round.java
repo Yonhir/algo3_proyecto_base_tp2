@@ -1,6 +1,8 @@
 package edu.fiuba.algo3.models.turnManagement;
 
-public class Round {
+import edu.fiuba.algo3.models.Observable;
+
+public class Round extends Observable {
     private final Player player1;
     private final Player player2;
     private Player currentPlayer;
@@ -29,10 +31,12 @@ public class Round {
 
     public void playerPlayedCard() {
         state.playCard(this);
+        notifyObservers();
     }
 
     public void passTurn(Game game) {
         state.passTurn(this, game);
+        notifyObservers();
     }
 
     public void assignVictory() {

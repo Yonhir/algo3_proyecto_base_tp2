@@ -19,8 +19,8 @@ public class LeftColumn extends VBox {
     public LeftColumn(UISpecialZone UISpecialZoneList, Player currentPlayer, Player opponentPlayer) {
         super();
         this.UISpecialZoneList = UISpecialZoneList;
-        this.UICurrentPlayer = new UIPlayerInfo(currentPlayer);
-        this.UIOpponentPlayer = new UIPlayerInfo(opponentPlayer);
+        this.UICurrentPlayer = new UIPlayerInfo(currentPlayer, true);
+        this.UIOpponentPlayer = new UIPlayerInfo(opponentPlayer, false);
         setupLeftColumn();
     }
     
@@ -43,14 +43,9 @@ public class LeftColumn extends VBox {
         topSpacer.prefHeightProperty().bind(heightProperty().multiply(SPACER_HEIGHT_RATIO));
         bottomSpacer.prefHeightProperty().bind(heightProperty().multiply(SPACER_HEIGHT_RATIO));
 
-        getChildren().addAll(topSpacer, UICurrentPlayer, specialZoneContainer, UIOpponentPlayer, bottomSpacer);
+        getChildren().addAll(topSpacer, UIOpponentPlayer, specialZoneContainer, UICurrentPlayer, bottomSpacer);
 
 
-    }
-
-    public void refreshPlayerInfo() {
-        UICurrentPlayer.refresh();
-        UIOpponentPlayer.refresh();
     }
 
     public UISpecialZone getUISpecialZone() { return UISpecialZoneList; }

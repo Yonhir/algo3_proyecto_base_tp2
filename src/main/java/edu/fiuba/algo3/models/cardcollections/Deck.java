@@ -6,7 +6,6 @@ import edu.fiuba.algo3.models.cards.units.Unit;
 import edu.fiuba.algo3.models.colors.PlayerColor;
 import edu.fiuba.algo3.models.errors.InvalidCardAmountError;
 import edu.fiuba.algo3.models.errors.NotEnoughCardsInDeckError;
-import edu.fiuba.algo3.models.turnManagement.Player;
 
 import java.util.ArrayList;
 import java.util.Arrays;

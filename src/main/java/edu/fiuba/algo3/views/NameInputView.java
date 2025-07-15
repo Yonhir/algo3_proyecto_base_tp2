@@ -1,21 +1,20 @@
 package edu.fiuba.algo3.views;
 
-
-import edu.fiuba.algo3.controllers.StartGameHandler;
+import edu.fiuba.algo3.controllers.AppController;
+import edu.fiuba.algo3.controllers.StartGameButtonHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
-public class NameInputView {
+public class NameInputView extends StackPane {
 
-    public interface OnStartGame {
-        void start(String nombreJugador1, String nombreJugador2);
+    public NameInputView(AppController appController) {
+        initializeLayout(appController);
     }
 
-    public Scene createScene(OnStartGame callback) {
+    private void initializeLayout(AppController appController) {
         VBox layout = new VBox(20);
         layout.setPadding(new Insets(50));
         layout.setAlignment(Pos.CENTER);
@@ -34,7 +33,7 @@ public class NameInputView {
         Button startButton = new Button("Iniciar Juego");
         startButton.setStyle("-fx-background-color: #D2691E; -fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold; -fx-padding: 10 20 10 20;");
 
-        StartGameHandler handler = new StartGameHandler(player1Field, player2Field, errorLabel, layout, callback);
+        StartGameButtonHandler handler = new StartGameButtonHandler(player1Field, player2Field, errorLabel, appController);
         startButton.setOnAction(handler);
 
         VBox form = new VBox(15, player1Field, player2Field, startButton, errorLabel);
@@ -42,8 +41,7 @@ public class NameInputView {
 
         layout.getChildren().addAll(title, form);
 
-        StackPane root = new StackPane(layout);
-        return new Scene(root, 800, 600);
+        getChildren().add(layout);
     }
 
     private TextField createStyledTextField(String prompt) {

@@ -1,6 +1,5 @@
 package edu.fiuba.algo3.controllers;
 
-import edu.fiuba.algo3.models.turnManagement.Player;
 import edu.fiuba.algo3.models.turnManagement.Round;
 import edu.fiuba.algo3.views.components.cardcomponent.card.UICard;
 import edu.fiuba.algo3.views.components.cardlist.UIHand;

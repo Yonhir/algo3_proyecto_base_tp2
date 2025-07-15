@@ -40,7 +40,7 @@ public class RightColumn extends VBox {
 
         cardViewer = new CardInfoView();
         cardViewer.prefHeightProperty().bind(heightProperty().multiply(SPACER_HEIGHT_RATIO));
-        
+
         VBox.setVgrow(opponentCardsContainer, javafx.scene.layout.Priority.ALWAYS);
         VBox.setVgrow(playerCardsContainer, javafx.scene.layout.Priority.ALWAYS);
         VBox.setVgrow(cardViewer, javafx.scene.layout.Priority.ALWAYS);
@@ -48,4 +48,4 @@ public class RightColumn extends VBox {
     }
 
     public CardInfoView getCardViewer() { return cardViewer;}
-} 
+}
