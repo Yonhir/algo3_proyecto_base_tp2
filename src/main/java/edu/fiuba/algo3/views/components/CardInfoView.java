@@ -94,16 +94,15 @@ public class CardInfoView extends StackPane {
                 "-fx-padding: 20px;"
         );
 
-        // Card Image with shadow effect
-        ImageView imageView = new ImageView(card.getBackgroundImage());
-        imageView.setFitWidth(280);
-        imageView.setFitHeight(420);
-        imageView.setStyle(
+        // Bigger copy of the UICard
+        UICard bigCard = card.copy();
+        bigCard.scaleCard(2.0, 2.0); // Make it 100% bigger (double the size)
+        bigCard.setStyle(
                 "-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0, 0, 5); " +
                 "-fx-background-radius: 10px;"
         );
 
-        infoBox.getChildren().add(imageView);
+        infoBox.getChildren().add(bigCard);
 
         // Card Name with elegant styling
         Label nameLabel = new Label(card.getCardName());

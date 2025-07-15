@@ -90,4 +90,9 @@ public class UIUnit extends UICard {
         pointsCircle.setTranslateX(translateX);
         pointsCircle.setTranslateY(translateY);
     }
+
+    @Override
+    protected UICard createCopy() {
+        return new UIUnit((Unit) this.model);
+    }
 }

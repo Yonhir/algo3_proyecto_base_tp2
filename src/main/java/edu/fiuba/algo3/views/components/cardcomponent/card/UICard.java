@@ -88,4 +88,11 @@ public abstract class UICard extends BaseCardComponent {
     public String getCardName() {
         return cardName;
     }
+
+    public UICard copy() {
+        UICard copy = createCopy();
+        return copy;
+    }
+
+    protected abstract UICard createCopy();
 }
