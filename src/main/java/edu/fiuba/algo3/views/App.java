@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.views;
 
 import edu.fiuba.algo3.controllers.AppController;
-import edu.fiuba.algo3.views.components.NameInputView;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -15,7 +14,7 @@ public class App extends Application {
         NameInputView nameInputView = new NameInputView();
         AppController controller = new AppController(stage);
 
-        stage.setScene(nameInputView.createScene(stage, controller::startGameWithNames));
+        stage.setScene(nameInputView.createScene(controller::startGameWithNames));
 
         stage.setTitle("Ingresar Nombres De Jugadores");
         stage.show();

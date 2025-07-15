@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.controllers;
 
-import edu.fiuba.algo3.views.components.NameInputView;
+import edu.fiuba.algo3.views.NameInputView;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
