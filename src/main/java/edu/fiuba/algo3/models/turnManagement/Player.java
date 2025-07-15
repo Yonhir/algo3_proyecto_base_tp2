@@ -115,11 +115,17 @@ public class Player {
             this.winRound();
         } else if (myPoints < otherPoints) {
             other.winRound();
+        } else {
+            this.winRound();
+            other.winRound();
         }
     }
 
     public Player chooseWinnerAgainst(Player other) {
         if (this.hasWonGame()) {
+            if (other.hasWonGame()) {
+                return null;
+            }
             return this;
         }
         return other;

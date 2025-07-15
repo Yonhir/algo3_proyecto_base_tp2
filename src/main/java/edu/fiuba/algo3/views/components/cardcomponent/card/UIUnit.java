@@ -53,7 +53,6 @@ public class UIUnit extends UICard {
         }
     }
 
-
     private void setupPointsDisplay() {
         double circleRadius = Math.min(getPrefWidth(), getPrefHeight()) * CIRCLE_RADIUS_RATIO;
         
@@ -110,6 +109,7 @@ public class UIUnit extends UICard {
         sectionIcon.setLayoutX(newWidth - iconSize - 10);
         sectionIcon.setLayoutY(10);
     }
+
     private void setupSectionIcon(SectionType type) {
         InputStream iconStream = SectionTypeIconMapper.getIconStream(type);
         if (iconStream == null) return;

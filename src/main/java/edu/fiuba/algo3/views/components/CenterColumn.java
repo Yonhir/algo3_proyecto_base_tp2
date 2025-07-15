@@ -103,10 +103,4 @@ public class CenterColumn extends VBox {
             handContainer
         );
     }
-
-    public List<UIRow> getUIRows() { return List.of(opponentCloseCombat,opponentRanged, opponentSiege, playerCloseCombat, playerRanged, playerSiege); }
-
-    public List<UICard> getUICards() { return UIHandList.getCards(); }
-
-    public UIHand getUIHand() { return UIHandList; }
 }

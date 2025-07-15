@@ -54,6 +54,14 @@ public abstract class UICard extends BaseCardComponent {
             backgroundImage.setFitHeight(newHeight);
         }
     }
+
+    public void select() {
+        setStyle("-fx-border-color: #1E90FF; -fx-border-width: 3;");
+    }
+
+    public void unselect() {
+        setStyle("");
+    }
     
     private void loadCardImage() {
         InputStream imageStream = ImageNameMapper.getImageStream(cardName);

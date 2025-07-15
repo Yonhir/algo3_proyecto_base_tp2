@@ -2,16 +2,16 @@ package edu.fiuba.algo3.views.components.cardlist;
 
 import edu.fiuba.algo3.models.cards.Card;
 import edu.fiuba.algo3.models.sections.SpecialZone;
-import edu.fiuba.algo3.models.turnManagement.Player;
-import edu.fiuba.algo3.models.turnManagement.Round;
-import edu.fiuba.algo3.views.components.cardcomponent.card.UICard;
+import edu.fiuba.algo3.models.sections.types.SpecialType;
 
 import java.util.List;
 
 public class UISpecialZone extends CardList {
+    private boolean switchedOn;
 
     public UISpecialZone(SpecialZone modelSpecialZone) {
         super();
+        switchedOn = false;
         setModel(modelSpecialZone);
     }
 
@@ -20,13 +20,21 @@ public class UISpecialZone extends CardList {
         return ((SpecialZone) model).getWeathersCards();
     }
 
-    public void playCard(UICard card, Round currentRound) {
-        Card cardToPlay = card.getModelCard();
-        Player currentPlayer = currentRound.getCurrentPlayer();
-        SpecialZone specialZone = (SpecialZone) model;
+    public void switchOn(Card card) {
+        if (card.haveSectionType(new SpecialType())) {
+            applyHoverStyle();
+            switchedOn = true;
+        }
+    }
 
-        currentPlayer.playCard(cardToPlay, specialZone, currentRound);
-        addCard(card);
-        update(model);
+    public void switchOff() {
+        if (switchedOn) {
+            applyDefaultStyle();
+            switchedOn = false;
+        }
+    }
+
+    public SpecialZone getModel() {
+        return (SpecialZone) model;
     }
 }

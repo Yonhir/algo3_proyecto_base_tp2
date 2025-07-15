@@ -47,6 +47,4 @@ public class LeftColumn extends VBox {
 
 
     }
-
-    public UISpecialZone getUISpecialZone() { return UISpecialZoneList; }
 }

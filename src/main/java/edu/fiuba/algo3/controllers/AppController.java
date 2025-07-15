@@ -1,13 +1,20 @@
 package edu.fiuba.algo3.controllers;
 
+import edu.fiuba.algo3.models.cardcollections.Deck;
+import edu.fiuba.algo3.models.cardcollections.DiscardPile;
+import edu.fiuba.algo3.models.cardcollections.Hand;
 import edu.fiuba.algo3.models.Observable;
 import edu.fiuba.algo3.models.Observer;
 import edu.fiuba.algo3.models.sections.Board;
 import edu.fiuba.algo3.models.turnManagement.Round;
 import edu.fiuba.algo3.views.GameView;
+import edu.fiuba.algo3.views.GameWinnerView;
 import edu.fiuba.algo3.views.NameInputView;
 import edu.fiuba.algo3.views.PlayerPreparationView;
+import edu.fiuba.algo3.models.turnManagement.Player;
 import javafx.animation.FadeTransition;
+import javafx.event.EventHandler;
+import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
@@ -24,7 +31,7 @@ public class AppController implements Observer {
     public AppController(Stage stage, Board board) {
         this.stage = stage;
         this.board = board;
-        this.currentRound = board.getGame().getCurrentRound();
+        this.currentRound = board.getRound();
         this.currentRound.addObserver(this);
 
         // Initialize the main scene with a root pane
@@ -44,28 +51,42 @@ public class AppController implements Observer {
 
     public void startGameWithNames(String player1Name, String player2Name) {
         board.setPlayerNames(player1Name, player2Name);
-
-        // Start with player 1 preparation
-        loadPlayerPreparationView(player1Name, board.getCurrentPlayerHand(), board.getCurrentPlayerDiscardPile(), board.getCurrentPlayerDeck(),
-            () -> loadPlayerPreparationView(player2Name, board.getOpponentHand(), board.getOpponentDiscardPile(), board.getOpponentDeck(),
-                this::loadGameView));
+        loadPlayer1PreparationView();
     }
 
-    private void loadPlayerPreparationView(String playerName, edu.fiuba.algo3.models.cardcollections.Hand hand,
-                                           edu.fiuba.algo3.models.cardcollections.DiscardPile discardPile,
-                                           edu.fiuba.algo3.models.cardcollections.Deck deck,
-                                           Runnable onContinue) {
-        PlayerPreparationView preparationView = new PlayerPreparationView(playerName, hand, discardPile, deck, onContinue);
+    private void loadPlayerPreparationView(String playerName, Hand hand, DiscardPile discardPile, Deck deck, EventHandler<ActionEvent> onContinueHandler) {
+        PlayerPreparationView preparationView = new PlayerPreparationView(playerName, hand, discardPile, deck, onContinueHandler);
         transitionToView(preparationView);
     }
 
     public void loadGameView() {
+        if (board.getGame().gameFinished()) {
+            loadGameWinnerView();
+            return;
+        }
+
         GameView gameView = new GameView(board);
         transitionToView(gameView);
         stage.setOnCloseRequest(closeEvent -> {
             closeEvent.consume();
             gameView.showExitConfirmation();
         });
+    }
+
+    private void loadGameWinnerView() {
+        Player winner = board.getGame().gameWinner();
+        Player player1 = board.getPlayer1();
+        Player player2 = board.getPlayer2();
+        
+        GameWinnerView winnerView = new GameWinnerView(winner, player1, player2, this);
+        transitionToView(winnerView);
+    }
+
+    public void restartGame() {
+        board.restartGame();
+        this.currentRound = board.getRound();
+        this.currentRound.addObserver(this);
+        loadNameInputView();
     }
 
     public void transitionToView(Node newView) {
@@ -100,10 +121,32 @@ public class AppController implements Observer {
         }
     }
 
+    public void loadPlayer1PreparationView() {
+        Player player1 = board.getPlayer1();
+        loadPlayerPreparationView(
+            player1.getName(),
+            player1.getHand(),
+            player1.getDiscardPile(),
+            player1.getDeck(),
+            new ButtonConfirmPlayer1PreparationHandler(this)
+        );
+    }
+
+    public void loadPlayer2PreparationView() {
+        Player player2 = board.getPlayer2();
+        loadPlayerPreparationView(
+            player2.getName(),
+            player2.getHand(),
+            player2.getDiscardPile(),
+            player2.getDeck(),
+            new ButtonConfirmPlayer2PreparationHandler(this)
+        );
+    }
+
     @Override
     public void update(Observable observable) {
-        if (currentRound != board.getGame().getCurrentRound()) {
-            currentRound = board.getGame().getCurrentRound();
+        if (currentRound != board.getRound()) {
+            currentRound = board.getRound();
             currentRound.addObserver(this);
         }
         loadGameView();

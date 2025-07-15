@@ -39,10 +39,12 @@ public class Board {
         Hand player2Hand = player2.getHand();
         Deck player1Deck = player1.getDeck();
         Deck player2Deck = player2.getDeck();
+        DiscardPile player1DiscardPile = player1.getDiscardPile();
+        DiscardPile player2DiscardPile = player2.getDiscardPile();
 
         new GameLoader().loadFromResource("gwent.json",
-                player1Deck, player1Hand, player1.getDiscardPile(),
-                player2Deck, player2Hand, player2.getDiscardPile());
+                player1Deck, player1Hand, player1DiscardPile,
+                player2Deck, player2Hand, player2DiscardPile);
 
         player1Deck.validate();
         player2Deck.validate();
@@ -72,26 +74,84 @@ public class Board {
         return new Game(aPlayer, anotherPlayer, specialZone);
     }
 
-    public Round getRound() { return game.getCurrentRound(); }
-    public Player getCurrentPlayer(){ return game.getCurrentPlayer();}
-    public Player getOpponentPlayer(){ return game.getOpponentPlayer();}
-    public Hand getCurrentPlayerHand() { return game.currentPlayerHand(); }
-    public Hand getOpponentHand(){ return game.getCurrentRound().getOpponent().getHand(); }
-    public Deck getCurrentPlayerDeck() { return game.getCurrentRound().getCurrentPlayer().getDeck(); }
-    public Deck getOpponentDeck() { return game.getCurrentRound().getOpponent().getDeck(); }
-    public DiscardPile getCurrentPlayerDiscardPile() { return game.getCurrentRound().getCurrentPlayer().getDiscardPile(); }
-    public DiscardPile getOpponentDiscardPile() { return game.getCurrentRound().getOpponent().getDiscardPile(); }
-    public CloseCombat getCurrentPlayerCloseCombat() { return game.getCurrentRound().getCurrentPlayer().getCloseCombatRow(); }
-    public CloseCombat getOpponentCloseCombat() { return game.getCurrentRound().getOpponent().getCloseCombatRow(); }
-    public Ranged getCurrentPlayerRanged() { return game.getCurrentRound().getCurrentPlayer().getRangedRow(); }
-    public Ranged getOpponentRanged() { return game.getCurrentRound().getOpponent().getRangedRow(); }
-    public Siege getCurrentPlayerSiege() { return game.getCurrentRound().getCurrentPlayer().getSiegeRow(); }
-    public Siege getOpponentSiege() { return game.getCurrentRound().getOpponent().getSiegeRow(); }
-    public SpecialZone getSpecialZone() { return specialZone; }
-    public Game getGame() { return game; }
+    public Round getRound() {
+        return game.getCurrentRound();
+    }
+
+    public Player getCurrentPlayer(){
+        return game.getCurrentPlayer();
+    }
+
+    public Player getOpponentPlayer(){
+        return game.getOpponentPlayer();
+    }
+
+    public Hand getCurrentPlayerHand() {
+        return getCurrentPlayer().getHand();
+    }
+
+    public Hand getOpponentHand(){
+        return getOpponentPlayer().getHand();
+    }
+
+    public Deck getCurrentPlayerDeck() {
+        return getCurrentPlayer().getDeck();
+    }
+
+    public Deck getOpponentDeck() {
+        return getOpponentPlayer().getDeck();
+    }
+
+    public DiscardPile getCurrentPlayerDiscardPile() {
+        return getCurrentPlayer().getDiscardPile();
+    }
+
+    public DiscardPile getOpponentDiscardPile() {
+        return getOpponentPlayer().getDiscardPile();
+    }
+
+    public CloseCombat getCurrentPlayerCloseCombat() {
+        return getCurrentPlayer().getCloseCombatRow();
+    }
+
+    public CloseCombat getOpponentCloseCombat() {
+        return getOpponentPlayer().getCloseCombatRow();
+    }
+
+    public Ranged getCurrentPlayerRanged() {
+        return getCurrentPlayer().getRangedRow();
+    }
+
+    public Ranged getOpponentRanged() {
+        return getOpponentPlayer().getRangedRow();
+    }
+
+    public Siege getCurrentPlayerSiege() {
+        return getCurrentPlayer().getSiegeRow();
+    }
+
+    public Siege getOpponentSiege() {
+        return getOpponentPlayer().getSiegeRow();
+    }
+
+    public SpecialZone getSpecialZone() {
+        return specialZone;
+    }
+
+    public Game getGame() {
+        return game;
+    }
 
     public void setPlayerNames(String player1Name, String player2Name) {
         player1.changeName(player1Name);
         player2.changeName(player2Name);
+    }
+
+    public Player getPlayer1() {
+        return player1;
+    }
+
+    public Player getPlayer2() {
+        return player2;
     }
 }
