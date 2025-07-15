@@ -103,7 +103,12 @@ public class Unit extends Card {
         return this.currentPoints == card.calculatePoints();
     }
 
-    public List<Modifier> getModifiers() {
-        return modifiers;
+    public SectionType getFirstSectionType() {
+        return sectionTypes.get(0);
+
     }
-}
+    public List<Modifier> getModifiers() {
+            return modifiers;
+        }
+    }
+
