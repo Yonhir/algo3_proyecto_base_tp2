@@ -17,4 +17,9 @@ public class Spy implements Modifier {
     public void apply(Row row) {
         hand.getNCardsFromDeck(deck, 2);
     }
+    
+    @Override
+    public String getDescription() {
+        return "Espía: Roba 2 cartas del mazo y se coloca en el lado del oponente";
+    }
 }

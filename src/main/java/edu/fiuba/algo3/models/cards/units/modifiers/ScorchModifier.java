@@ -7,4 +7,9 @@ public class ScorchModifier implements Modifier {
     public void apply(Row row) {
         // Scorch modifier - burns the strongest cards on the battlefield
     }
+    
+    @Override
+    public String getDescription() {
+        return "Quemar";
+    }
 }

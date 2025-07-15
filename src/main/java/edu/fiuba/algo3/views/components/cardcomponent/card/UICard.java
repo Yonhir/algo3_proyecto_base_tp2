@@ -3,7 +3,6 @@ package edu.fiuba.algo3.views.components.cardcomponent.card;
 import edu.fiuba.algo3.models.cards.Card;
 import edu.fiuba.algo3.views.components.cardcomponent.BaseCardComponent;
 import javafx.scene.paint.Color;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -14,24 +13,17 @@ public abstract class UICard extends BaseCardComponent {
     protected String cardName;
     protected String description;
     protected ImageView backgroundImage;
-    
-    private double dragDeltaX;
-    private double dragDeltaY;
-    private boolean isDragging = false;
-    private boolean isDraggable = false;
-    
-    private double originalX = 0;
-    private double originalY = 0;
 
-    protected  Card model;
-    
+    protected Card model;
+
     public UICard(String name, String description) {
         super();
         this.cardName = name;
         this.description = description;
-        setupDragHandlers();
         loadCardImage();
     }
+
+    public Image getBackgroundImage() { return backgroundImage.getImage(); }
 
     public Card getModelCard(){
         return model;
@@ -73,9 +65,9 @@ public abstract class UICard extends BaseCardComponent {
                 backgroundImage.setFitWidth(baseWidth);
                 backgroundImage.setFitHeight(baseHeight);
                 backgroundImage.setPreserveRatio(true);
-                
+
                 getChildren().add(backgroundImage);
-                
+
                 // Make the background rectangle transparent when image is loaded
                 if (background != null) {
                     background.setFill(javafx.scene.paint.Color.TRANSPARENT);
@@ -88,70 +80,19 @@ public abstract class UICard extends BaseCardComponent {
             System.err.println("Warning: Could not find image for card: " + cardName);
         }
     }
-    
+
     public String getDescription() {
         return description;
     }
-    
-    private void setupDragHandlers() {
-        setOnMousePressed(this::handleMousePressed);
-        setOnMouseDragged(this::handleMouseDragged);
-        setOnMouseReleased(this::handleMouseReleased);
+
+    public String getCardName() {
+        return cardName;
     }
-    
-    private void handleMousePressed(MouseEvent event) {
-        if (!isDraggable) {
-            return;
-        }
-        
-        isDragging = true;
-        
-        originalX = getTranslateX();
-        originalY = getTranslateY();
-        
-        dragDeltaX = getTranslateX() - event.getSceneX();
-        dragDeltaY = getTranslateY() - event.getSceneY();
-        
-        toFront();
-        
-        event.consume();
+
+    public UICard copy() {
+        UICard copy = createCopy();
+        return copy;
     }
-    
-    private void handleMouseDragged(MouseEvent event) {
-        if (!isDraggable || !isDragging) {
-            return;
-        }
-        
-        setTranslateX(event.getSceneX() + dragDeltaX);
-        setTranslateY(event.getSceneY() + dragDeltaY);
-        
-        event.consume();
-    }
-    
-    private void handleMouseReleased(MouseEvent event) {
-        if (!isDraggable) {
-            return;
-        }
-        
-        isDragging = false;
-        
-        setTranslateX(originalX);
-        setTranslateY(originalY);
-        
-        event.consume();
-    }
-    
-    public void resetPosition() {
-        setTranslateX(originalX);
-        setTranslateY(originalY);
-    }
-    
-    public void setDraggable(boolean draggable) {
-        this.isDraggable = draggable;
-    }
-    
-    public void updateOriginalPosition() {
-        originalX = getTranslateX();
-        originalY = getTranslateY();
-    }
+
+    protected abstract UICard createCopy();
 }

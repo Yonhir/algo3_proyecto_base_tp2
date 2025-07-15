@@ -136,4 +136,12 @@ public class TightBondTest {
         // Assert
         assertEquals(expectedPoints, finalRowPoints, "Total points should be 38 ((8*2)*2 for TightBond units) + 6 (regular unit)");
     }
+
+    @Test
+    public void testGetDescription() {
+        String expectedDescription = "Vínculo Fuerte: Multiplica los puntos por el número de cartas con el mismo nombre";
+        TightBond tightBondModifier = new TightBond();
+
+        assertEquals(expectedDescription, tightBondModifier.getDescription());
+    }
 }

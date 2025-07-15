@@ -7,4 +7,9 @@ public class Hero implements Modifier {
     public void apply(Row row) {
 
     }
+    
+    @Override
+    public String getDescription() {
+        return "Héroe: No puede ser afectado por ningún efecto";
+    }
 }

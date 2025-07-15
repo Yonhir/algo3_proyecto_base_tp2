@@ -105,6 +105,10 @@ public class Unit extends Card {
 
     public SectionType getFirstSectionType() {
         return sectionTypes.get(0);
+
+    public List<Modifier> getModifiers() {
+        return modifiers;
+
     }
 }
 

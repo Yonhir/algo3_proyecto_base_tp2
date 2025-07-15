@@ -130,5 +130,11 @@ public abstract class Row extends Observable implements Section {
         return this.cards.containsAll(cards);
     }
 
-    public int getCardCount() { return cards.size(); }
+    public int getCardCount() {
+        return cards.size();
+    }
+
+    public boolean haveSamePlayerColor(Card card) {
+        return card.haveSameColor(playerColor);
+    }
 }
