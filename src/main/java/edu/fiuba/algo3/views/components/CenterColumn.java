@@ -104,11 +104,6 @@ public class CenterColumn extends VBox {
         );
     }
 
-    public void setHandEnabled(boolean enabled) {
-        UIHandList.setDisable(!enabled);
-    }
-
-
     public List<UIRow> getUIRows() { return List.of(opponentCloseCombat,opponentRanged, opponentSiege, playerCloseCombat, playerRanged, playerSiege); }
 
     public List<UICard> getUICards() { return UIHandList.getCards(); }
