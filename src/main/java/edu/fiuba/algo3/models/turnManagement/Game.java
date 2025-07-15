@@ -42,10 +42,6 @@ public class Game {
         player2.discardAllRows();
     }
 
-    public boolean bothPlayersWonARound() {
-        return player1.getRoundsWon() == 1 && player2.getRoundsWon() == 1 && gameFinished();
-    }
-
     public Round getCurrentRound() {
         return currentRound;
     }
