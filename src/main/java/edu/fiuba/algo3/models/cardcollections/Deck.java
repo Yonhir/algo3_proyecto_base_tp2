@@ -58,6 +58,18 @@ public class Deck extends CardCollection {
         }
     }
 
+    @Override
+    public void insertCards(List<Card> cards) {
+        super.insertCards(cards);
+        setColorToCards();
+    }
+
+    @Override
+    public void addCard(Card card) {
+        super.addCard(card);
+        card.setColor(playerColor);
+    }
+    
     public void insertCardsInOrder(List<Card> cardsToInsert) {
         cards.addAll(0, cardsToInsert);
         setColorToCards();

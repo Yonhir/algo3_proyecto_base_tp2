@@ -195,4 +195,34 @@ public class DeckTest {
 
         mazo.setColor(colorRojo);
     }
+
+    @Test
+    public void testAddCardAsignaColorAutomaticamente() {
+        Deck mazo = new Deck();
+        PlayerColor colorAzul = new Blue();
+        mazo.setColor(colorAzul);
+        
+        Unit nuevaCarta = new Unit("Nueva Carta", "Descripción", 5, new CloseCombatType(), new ArrayList<>());
+        mazo.addCard(nuevaCarta);
+
+        assertEquals(colorAzul, nuevaCarta.getPlayerColor());
+    }
+
+    @Test
+    public void testInsertCardsAsignaColorAutomaticamente() {
+        Deck mazo = new Deck();
+        PlayerColor colorRojo = new Red();
+        mazo.setColor(colorRojo);
+        
+        List<Card> nuevasCartas = Arrays.asList(
+                new Unit("Carta 1", "Descripción", 5, new CloseCombatType(), new ArrayList<>()),
+                new Unit("Carta 2", "Descripción", 6, new RangedType(), new ArrayList<>())
+        );
+        
+        mazo.insertCards(nuevasCartas);
+
+        for (Card carta : nuevasCartas) {
+            assertEquals(colorRojo, carta.getPlayerColor());
+        }
+    }
 }
