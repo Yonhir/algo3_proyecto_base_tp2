@@ -110,6 +110,7 @@ public class UIUnit extends UICard {
         sectionIcon.setLayoutX(newWidth - iconSize - 10);
         sectionIcon.setLayoutY(10);
     }
+
     private void setupSectionIcon(SectionType type) {
         InputStream iconStream = SectionTypeIconMapper.getIconStream(type);
         if (iconStream == null) return;

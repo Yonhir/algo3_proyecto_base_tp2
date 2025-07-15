@@ -2,10 +2,7 @@ package edu.fiuba.algo3.views.components.cardlist;
 
 import edu.fiuba.algo3.models.Observable;
 import edu.fiuba.algo3.models.cards.Card;
-import edu.fiuba.algo3.models.cards.units.Unit;
-import edu.fiuba.algo3.models.sections.Section;
 import edu.fiuba.algo3.models.sections.rows.Row;
-import edu.fiuba.algo3.models.sections.types.CloseCombatType;
 import edu.fiuba.algo3.models.sections.types.SectionType;
 import edu.fiuba.algo3.views.components.PointsCircle;
 import edu.fiuba.algo3.views.components.cardcomponent.card.SectionTypeIconMapper;
@@ -13,7 +10,6 @@ import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import edu.fiuba.algo3.models.sections.types.SpecialType;
 import edu.fiuba.algo3.models.turnManagement.Player;
 import edu.fiuba.algo3.models.turnManagement.Round;
@@ -32,6 +28,7 @@ public abstract class UIRow extends CardList {
     private final Row modelRow;
     private PointsCircle pointsCircle;
     protected SectionType type;
+    private ImageView sectionIcon;
 
     public UIRow() {
         super();
@@ -94,15 +91,28 @@ public abstract class UIRow extends CardList {
         InputStream iconStream = SectionTypeIconMapper.getIconStream(type);
 
         Image icon = new Image(iconStream);
-        ImageView sectionIcon = new ImageView(icon);
+        sectionIcon = new ImageView(icon);
 
-        double size = 20;
+        double size = 80;
         sectionIcon.setFitHeight(size);
         sectionIcon.setFitWidth(size);
 
-        StackPane.setAlignment(sectionIcon, Pos.CENTER);
-
         getChildren().add(sectionIcon);
+    }
+
+    @Override
+    protected void layoutChildren() {
+        super.layoutChildren();
+
+        if (sectionIcon != null) {
+            double width = sectionIcon.prefWidth(-1);
+            double height = sectionIcon.prefHeight(-1);
+
+            double x = (getWidth() - width) / 2;
+            double y = (getHeight() - height) / 2;
+
+            sectionIcon.resizeRelocate(x, y, width, height);
+        }
     }
 
     public void switchOn(Card card) {
