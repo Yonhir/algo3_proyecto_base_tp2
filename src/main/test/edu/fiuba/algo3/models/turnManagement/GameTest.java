@@ -213,10 +213,10 @@ public class GameTest {
     @Test
     public void testGetCurrentPlayerRetornaElJugadorActual() {
         Player currentPlayer = game.getCurrentPlayer();
-        
+
         // El jugador actual debe ser uno de los dos jugadores del juego
         assertTrue(currentPlayer == player1 || currentPlayer == player2);
-        
+
         // El jugador actual debe coincidir con el de la ronda actual
         assertEquals(game.getCurrentRound().getCurrentPlayer(), currentPlayer);
     }
@@ -224,13 +224,13 @@ public class GameTest {
     @Test
     public void testGetOpponentPlayerRetornaElJugadorOponente() {
         Player opponentPlayer = game.getOpponentPlayer();
-        
+
         // El jugador oponente debe ser uno de los dos jugadores del juego
         assertTrue(opponentPlayer == player1 || opponentPlayer == player2);
-        
+
         // El jugador oponente debe coincidir con el de la ronda actual
         assertEquals(game.getCurrentRound().getOpponent(), opponentPlayer);
-        
+
         // El jugador actual y el oponente deben ser diferentes
         assertNotEquals(game.getCurrentPlayer(), opponentPlayer);
     }

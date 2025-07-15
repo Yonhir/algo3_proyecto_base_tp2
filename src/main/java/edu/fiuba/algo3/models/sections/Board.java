@@ -11,6 +11,7 @@ import edu.fiuba.algo3.models.sections.rows.Ranged;
 import edu.fiuba.algo3.models.sections.rows.Siege;
 import edu.fiuba.algo3.models.turnManagement.Game;
 import edu.fiuba.algo3.models.turnManagement.Player;
+import edu.fiuba.algo3.models.turnManagement.Round;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -18,11 +19,15 @@ public class Board {
     private static final String DEFAULT_PLAYER_NAME_1 = "Player 1";
     private static final String DEFAULT_PLAYER_NAME_2 = "Player 2";
 
-    private final SpecialZone specialZone;
-    private final Game game;
-    Player player1, player2;
+    private SpecialZone specialZone;
+    private Game game;
+    private Player player1, player2;
 
     public Board() {
+        initializeMatch();
+    }
+
+    private void initializeMatch() {
         player1 = new Player(DEFAULT_PLAYER_NAME_1, new Blue());
         player2 = new Player(DEFAULT_PLAYER_NAME_2, new Red());
 
@@ -63,6 +68,9 @@ public class Board {
         return new Game(aPlayer, anotherPlayer, specialZone);
     }
 
+    public Round getRound() { return game.getCurrentRound(); }
+    public Player getCurrentPlayer(){ return game.getCurrentPlayer();}
+    public Player getOpponentPlayer(){ return game.getOpponentPlayer();}
     public Hand getCurrentPlayerHand() { return game.currentPlayerHand(); }
     public Hand getOpponentHand(){ return game.getCurrentRound().getOpponent().getHand(); }
     public Deck getCurrentPlayerDeck() { return game.getCurrentRound().getCurrentPlayer().getDeck(); }

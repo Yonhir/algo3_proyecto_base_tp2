@@ -105,4 +105,11 @@ public class MedicTest {
         assertTrue(closeCombat.containsCards(List.of(unit1, medicCard)));
     }
 
+    @Test
+    public void testGetDescription() {
+        String expectedDescription = "Médico: Revive una carta de unidad del cementerio";
+        Medic medicModifier = new Medic(discardPile);
+
+        assertEquals(expectedDescription, medicModifier.getDescription());
+    }
 }

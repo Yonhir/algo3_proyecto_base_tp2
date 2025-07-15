@@ -27,8 +27,9 @@ public class UISpecial extends UICard {
             loadDataFromSpecial();
         }
     }
-    
-    public Special getModel() {
-        return (Special) model;
+
+    @Override
+    protected UICard createCopy() {
+        return new UISpecial((Special) this.model);
     }
 }

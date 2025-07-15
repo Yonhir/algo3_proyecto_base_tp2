@@ -2,6 +2,7 @@ package edu.fiuba.algo3.views.components.cardcomponent.card;
 
 import edu.fiuba.algo3.models.Observable;
 import edu.fiuba.algo3.models.cards.units.Unit;
+import edu.fiuba.algo3.models.cards.units.modifiers.Modifier;
 import edu.fiuba.algo3.views.components.PointsCircle;
 
 public class UIUnit extends UICard {
@@ -22,13 +23,23 @@ public class UIUnit extends UICard {
         setupPointsDisplay();
         subscribeToModel();
     }
-    
+
+    public String getModifiers(){
+        Unit card = (Unit) model;
+        StringBuilder modifiersString = new StringBuilder();
+        for (Modifier modifier : card.getModifiers()) {
+            modifiersString.append(modifier.getDescription()).append("\n");
+        }
+        return modifiersString.toString();
+    }
+
     private void subscribeToModel() {
         if (model != null) {
             model.addObserver(this);
         }
     }
-    
+
+
     private void setupPointsDisplay() {
         double circleRadius = Math.min(getPrefWidth(), getPrefHeight()) * CIRCLE_RADIUS_RATIO;
         
@@ -78,5 +89,10 @@ public class UIUnit extends UICard {
         double translateY = -newHeight * SCALED_TRANSLATE_Y_RATIO;
         pointsCircle.setTranslateX(translateX);
         pointsCircle.setTranslateY(translateY);
+    }
+
+    @Override
+    protected UICard createCopy() {
+        return new UIUnit((Unit) this.model);
     }
 }

@@ -32,6 +32,34 @@ public class Player {
         setColor(playerColor);
     }
 
+    public String getName(){
+        return name;
+    }
+
+    public DiscardPile getDiscardPile() {
+        return discardPile;
+    }
+
+    public Hand getHand(){
+        return hand;
+    }
+
+    public Deck getDeck() {
+        return deck;
+    }
+
+    public CloseCombat getCloseCombatRow() {
+        return closeCombat;
+    }
+
+    public Ranged getRangedRow() {
+        return ranged;
+    }
+
+    public Siege getSiegeRow() {
+        return siege;
+    }
+
     private void setColor(PlayerColor playerColor) {
         setColorToCards(playerColor);
         setColorToRows(playerColor);
@@ -45,19 +73,11 @@ public class Player {
     }
 
     private void setColorToCards(PlayerColor playerColor) {
-        deck.setColorToCards(playerColor);
+        deck.setColor(playerColor);
     }
-    
+
     private void setColorDiscardPile(PlayerColor color){
         discardPile.setColor(color);
-    }
-
-    public DiscardPile getDiscardPile() {
-        return discardPile;
-    }
-
-    public Hand getHand(){
-        return hand;
     }
 
     public int calculatePoints() {
@@ -105,27 +125,7 @@ public class Player {
         return other;
     }
 
-    public Deck getDeck() {
-        return deck;
-    }
-
-    public CloseCombat getCloseCombatRow() {
-        return closeCombat;
-    }
-
-    public Ranged getRangedRow() {
-        return ranged;
-    }
-
-    public Siege getSiegeRow() {
-        return siege;
-    }
-
     public void changeName(String newName) {
         name = newName;
-    }
-
-    public String getName() {
-        return name;
     }
 }

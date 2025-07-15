@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.views;
 
+import edu.fiuba.algo3.controllers.CardPlayingController;
 import edu.fiuba.algo3.models.sections.Board;
 import edu.fiuba.algo3.views.components.*;
 import edu.fiuba.algo3.views.components.cardcomponent.UIDeck;
@@ -8,6 +9,7 @@ import edu.fiuba.algo3.views.components.cardlist.UIHand;
 import edu.fiuba.algo3.views.components.cardlist.UIRow;
 import edu.fiuba.algo3.views.components.cardlist.UISpecialZone;
 import edu.fiuba.algo3.views.components.PassTurnButton;
+import edu.fiuba.algo3.views.components.PlayerNameScreen;
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -24,9 +26,10 @@ public class GameView extends StackPane {
     private final CenterColumn centerColumn;
     private final RightColumn rightColumn;
 
-    public GameView(Board board) {
-        setStyle("-fx-background-color: #8B4513;");
+    private final PassTurnButton passButton;
+    private PlayerNameScreen playerNameScreen;
 
+    public GameView(Board board) {
         UIHand UIHandList = new UIHand(board.getCurrentPlayerHand());
         UIRow opponentCloseCombat = new UIRow(board.getOpponentCloseCombat());
         UIRow opponentRanged = new UIRow(board.getOpponentRanged());
@@ -41,13 +44,22 @@ public class GameView extends StackPane {
         UIDiscardPile playerUIDiscardPile = new UIDiscardPile(board.getCurrentPlayerDiscardPile());
         UIDiscardPile opponentUIDiscardPile = new UIDiscardPile(board.getOpponentDiscardPile());
         PassTurnButton passButton = new PassTurnButton(board.getGame());
-        leftColumn = new LeftColumn(UISpecialZoneList);
+        leftColumn = new LeftColumn(UISpecialZoneList, board.getCurrentPlayer(), board.getOpponentPlayer());
         centerColumn = new CenterColumn(opponentCloseCombat, opponentRanged, opponentSiege,
                 playerCloseCombat, playerRanged, playerSiege, UIHandList);
         rightColumn = new RightColumn(playerUIDeck, opponentUIDeck, playerUIDiscardPile, opponentUIDiscardPile, passButton);
 
+        new CardPlayingController(leftColumn, centerColumn, rightColumn, board.getRound());
+        String currentPlayerName = board.getCurrentPlayer().getName();
+        playerNameScreen = new PlayerNameScreen(currentPlayerName);
+
         // Initialize the layout
         initializeLayout();
+    }
+
+    private void showPlayerNameScreen() {
+        getChildren().add(playerNameScreen);
+        StackPane.setAlignment(playerNameScreen, Pos.CENTER);
     }
 
     private void initializeLayout() {
@@ -67,6 +79,8 @@ public class GameView extends StackPane {
         gameBoardLayout.prefHeightProperty().bind(heightProperty());
 
         getChildren().add(gameBoardLayout);
+
+        showPlayerNameScreen();
     }
 
     public void showExitConfirmation() {

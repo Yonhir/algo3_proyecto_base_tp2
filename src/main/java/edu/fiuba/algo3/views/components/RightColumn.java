@@ -6,23 +6,25 @@ import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
 
 public class RightColumn extends VBox {
-    private static final double SPACER_HEIGHT_RATIO = 0.4;
+    private static final double SPACER_HEIGHT_RATIO = 0.8;
     
     private final UIDeck playerUIDeck, opponentUIDeck;
     private final UIDiscardPile playerUIDiscardPile, opponentUIDiscardPile;
-    
+    private CardInfoView cardViewer;
+    private PassTurnButton passButton;
+
     public RightColumn(UIDeck playerUIDeck, UIDeck opponentUIDeck,
-                       UIDiscardPile playerUIDiscardPile, UIDiscardPile opponentUIDiscardPile,
-                       PassTurnButton passTurnButton) {
+                       UIDiscardPile playerUIDiscardPile, UIDiscardPile opponentUIDiscardPile, PassTurnButton passButton) {
         super();
         this.playerUIDeck = playerUIDeck;
         this.opponentUIDeck = opponentUIDeck;
         this.playerUIDiscardPile = playerUIDiscardPile;
         this.opponentUIDiscardPile = opponentUIDiscardPile;
-        setupRightColumn(passTurnButton);
+        this.passButton = passButton;
+        setupRightColumn();
     }
     
-    private void setupRightColumn(PassTurnButton passTurnButton) {
+    private void setupRightColumn() {
         setAlignment(javafx.geometry.Pos.TOP_CENTER);
         setStyle("-fx-background-color: #BC8F8F; -fx-border-color: #8B4513; -fx-border-width: 3px;");
         
@@ -35,15 +37,15 @@ public class RightColumn extends VBox {
         playerCardsContainer.setAlignment(javafx.geometry.Pos.CENTER);
         playerCardsContainer.setStyle("-fx-background-color: #D2B48C; -fx-border-color: #A0522D; -fx-border-width: 1px;");
         playerCardsContainer.getChildren().addAll(playerUIDeck, playerUIDiscardPile);
-        
-        javafx.scene.layout.Region opponentSpacer = new javafx.scene.layout.Region();
-        opponentSpacer.prefHeightProperty().bind(heightProperty().multiply(SPACER_HEIGHT_RATIO));
-        
-        javafx.scene.layout.Region playerSpacer = new javafx.scene.layout.Region();
-        playerSpacer.prefHeightProperty().bind(heightProperty().multiply(SPACER_HEIGHT_RATIO));
-        
+
+        cardViewer = new CardInfoView();
+        cardViewer.prefHeightProperty().bind(heightProperty().multiply(SPACER_HEIGHT_RATIO));
+
         VBox.setVgrow(opponentCardsContainer, javafx.scene.layout.Priority.ALWAYS);
         VBox.setVgrow(playerCardsContainer, javafx.scene.layout.Priority.ALWAYS);
-        getChildren().addAll(opponentCardsContainer, opponentSpacer, passTurnButton, playerSpacer, playerCardsContainer);
+        VBox.setVgrow(cardViewer, javafx.scene.layout.Priority.ALWAYS);
+        getChildren().addAll(opponentCardsContainer, cardViewer, passButton, playerCardsContainer);
     }
-} 
+
+    public CardInfoView getCardViewer() { return cardViewer;}
+}
