@@ -184,7 +184,7 @@ public class DeckTest {
         mazo.setColor(colorAzul);
 
         for (Card carta : cartas) {
-            assertEquals(colorAzul, carta.getPlayerColor());
+            assertTrue(carta.haveSameColor(colorAzul));
         }
     }
 
@@ -205,7 +205,7 @@ public class DeckTest {
         Unit nuevaCarta = new Unit("Nueva Carta", "Descripción", 5, new CloseCombatType(), new ArrayList<>());
         mazo.addCard(nuevaCarta);
 
-        assertEquals(colorAzul, nuevaCarta.getPlayerColor());
+        assertTrue(nuevaCarta.haveSameColor(colorAzul));
     }
 
     @Test
@@ -222,7 +222,7 @@ public class DeckTest {
         mazo.insertCards(nuevasCartas);
 
         for (Card carta : nuevasCartas) {
-            assertEquals(colorRojo, carta.getPlayerColor());
+            assertTrue(carta.haveSameColor(colorRojo));
         }
     }
 }

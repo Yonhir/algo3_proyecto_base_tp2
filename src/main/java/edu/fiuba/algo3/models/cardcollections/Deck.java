@@ -53,6 +53,9 @@ public class Deck extends CardCollection {
     }
     
     private void setColorToCards() {
+        if (playerColor == null) {
+            return;
+        }
         for (Card card : cards) {
             card.setColor(playerColor);
         }
