@@ -16,6 +16,7 @@ public abstract class CardCollection extends Observable {
 
     public void addCard(Card card) {
         this.cards.add(card);
+        notifyObservers();
     }
 
     public void insertCards(List<Card> cards) {

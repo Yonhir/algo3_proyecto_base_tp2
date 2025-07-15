@@ -46,10 +46,6 @@ public class Game {
         return currentRound;
     }
 
-    public Hand currentPlayerHand() {
-        return this.getCurrentRound().getCurrentPlayer().getHand();
-    }
-
     public Player getCurrentPlayer() {
         return this.getCurrentRound().getCurrentPlayer();
     }

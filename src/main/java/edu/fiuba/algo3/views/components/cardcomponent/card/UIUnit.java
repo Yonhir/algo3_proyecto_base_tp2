@@ -53,7 +53,6 @@ public class UIUnit extends UICard {
         }
     }
 
-
     private void setupPointsDisplay() {
         double circleRadius = Math.min(getPrefWidth(), getPrefHeight()) * CIRCLE_RADIUS_RATIO;
         
