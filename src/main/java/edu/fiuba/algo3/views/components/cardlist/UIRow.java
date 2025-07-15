@@ -97,7 +97,7 @@ public abstract class UIRow extends CardList {
         sectionIcon.setFitHeight(size);
         sectionIcon.setFitWidth(size);
 
-        getChildren().add(sectionIcon);
+        getChildren().add(0, sectionIcon);
     }
 
     @Override
