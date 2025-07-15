@@ -6,7 +6,7 @@ import edu.fiuba.algo3.models.sections.SpecialZone;
 public class Game {
     private final Player player1;
     private final Player player2;
-    private SpecialZone specialZone;
+    private final SpecialZone specialZone;
     private Round currentRound;
 
     public Game(Player player1, Player player2, SpecialZone specialZone) {
@@ -55,10 +55,11 @@ public class Game {
         return this.getCurrentRound().getCurrentPlayer().getHand();
     }
 
-    public Player getCurrentPlayer(){
+    public Player getCurrentPlayer() {
         return this.getCurrentRound().getCurrentPlayer();
     }
-    public Player getOpponentPlayer(){
+
+    public Player getOpponentPlayer() {
         return this.getCurrentRound().getOpponent();
     }
 }

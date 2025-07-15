@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.views.components;
 
 import edu.fiuba.algo3.views.components.cardcomponent.card.UICard;
-import edu.fiuba.algo3.views.components.cardlist.CardList;
 import edu.fiuba.algo3.views.components.cardlist.UIHand;
 import edu.fiuba.algo3.views.components.cardlist.UIRow;
 import javafx.scene.layout.VBox;

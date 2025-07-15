@@ -1,28 +1,22 @@
 package edu.fiuba.algo3.controllers;
 
-import edu.fiuba.algo3.views.NameInputView;
-import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Pane;
-import javafx.util.Duration;
 
-public class StartGameHandler implements EventHandler<ActionEvent> {
+public class StartGameButtonHandler implements EventHandler<ActionEvent> {
 
     private final TextField player1Field;
     private final TextField player2Field;
     private final Label errorLabel;
-    private final Pane layout;
-    private final NameInputView.OnStartGame callback;
+    private final AppController appController;
 
-    public StartGameHandler(TextField player1Field, TextField player2Field, Label errorLabel, Pane layout, NameInputView.OnStartGame callback) {
+    public StartGameButtonHandler(TextField player1Field, TextField player2Field, Label errorLabel, AppController appController) {
         this.player1Field = player1Field;
         this.player2Field = player2Field;
         this.errorLabel = errorLabel;
-        this.layout = layout;
-        this.callback = callback;
+        this.appController = appController;
     }
 
     @Override
@@ -37,10 +31,6 @@ public class StartGameHandler implements EventHandler<ActionEvent> {
 
         errorLabel.setText("");
 
-        FadeTransition fade = new FadeTransition(Duration.millis(1000), layout);
-        fade.setFromValue(1.0);
-        fade.setToValue(0.0);
-        fade.setOnFinished(e -> callback.start(nombre1, nombre2));
-        fade.play();
+        appController.startGameWithNames(nombre1, nombre2);
     }
 }
