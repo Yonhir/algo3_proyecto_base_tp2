@@ -69,14 +69,16 @@ public abstract class CardList extends Pane implements Observer {
         updateOptimalPositioning();
     }
 
-    public List<UICard> getCards() { return cards; }
-    
+    public List<UICard> getCards() {
+        return cards;
+    }
+
     protected void setModel(Observable model) {
         this.model = model;
         subscribeToModel();
         loadCardsFromModel();
     }
-    
+
     protected void subscribeToModel() {
         if (model != null) {
             model.addObserver(this);

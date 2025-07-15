@@ -11,8 +11,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import edu.fiuba.algo3.models.sections.types.SpecialType;
-import edu.fiuba.algo3.models.turnManagement.Player;
-import edu.fiuba.algo3.models.turnManagement.Round;
 import edu.fiuba.algo3.views.components.cardcomponent.card.UICard;
 
 import java.io.InputStream;
@@ -121,11 +119,6 @@ public abstract class UIRow extends CardList {
             applyHoverStyle();
             switchedOn = true;
         }
-
-        if(card.haveSectionType(new SpecialType())){
-            applyHoverStyle();
-            switchedOn = true;
-        }
     }
 
     public void switchOff() {
@@ -134,22 +127,8 @@ public abstract class UIRow extends CardList {
             switchedOn = false;
         }
     }
-
-    public void playCard(UICard card, Round currentRound, UISpecialZone specialZone) {
-        if (switchedOn) {
-            Card cardToPlay = card.getModelCard();
-
-            if (cardToPlay.haveSectionType(new SpecialType())) {
-                specialZone.playCard(card, currentRound);
-            }else{
-                Row row = (Row) model;
-                Player currentPlayer = currentRound.getCurrentPlayer();
-                currentPlayer.playCard(cardToPlay, row, currentRound);
-                addCard(card);
-                update(model);
-            }
-
-            update(currentRound.getCurrentPlayer().getHand());
-        }
+    
+    public Object getModel() {
+        return model;
     }
 }
