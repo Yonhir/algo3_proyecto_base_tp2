@@ -94,4 +94,12 @@ public class Board {
         player1.changeName(player1Name);
         player2.changeName(player2Name);
     }
+
+    public Player getPlayer1() {
+        return player1;
+    }
+
+    public Player getPlayer2() {
+        return player2;
+    }
 }

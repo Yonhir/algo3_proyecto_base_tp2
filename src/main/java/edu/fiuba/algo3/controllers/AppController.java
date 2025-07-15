@@ -5,8 +5,10 @@ import edu.fiuba.algo3.models.Observer;
 import edu.fiuba.algo3.models.sections.Board;
 import edu.fiuba.algo3.models.turnManagement.Round;
 import edu.fiuba.algo3.views.GameView;
+import edu.fiuba.algo3.views.GameWinnerView;
 import edu.fiuba.algo3.views.NameInputView;
 import edu.fiuba.algo3.views.PlayerPreparationView;
+import edu.fiuba.algo3.models.turnManagement.Player;
 import javafx.animation.FadeTransition;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -60,12 +62,32 @@ public class AppController implements Observer {
     }
 
     public void loadGameView() {
+        // Check if game is finished before loading GameView
+        if (board.getGame().gameFinished()) {
+            loadGameWinnerView();
+            return;
+        }
+
         GameView gameView = new GameView(board);
         transitionToView(gameView);
         stage.setOnCloseRequest(closeEvent -> {
             closeEvent.consume();
             gameView.showExitConfirmation();
         });
+    }
+
+    private void loadGameWinnerView() {
+        Player winner = board.getGame().gameWinner();
+        Player player1 = board.getPlayer1();
+        Player player2 = board.getPlayer2();
+        
+        GameWinnerView winnerView = new GameWinnerView(winner, player1, player2, this);
+        transitionToView(winnerView);
+    }
+
+    public void restartGame() {
+        board.restartGame();
+        loadNameInputView();
     }
 
     public void transitionToView(Node newView) {
