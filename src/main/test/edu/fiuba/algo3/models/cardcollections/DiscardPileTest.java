@@ -86,20 +86,29 @@ public class DiscardPileTest {
     @Test
     void testAddCardToDiscardPile() {
         discardPile1.addCard(unit1);
-        assertEquals(unit1, discardPile1.getLastCard(), "Last card should be the one just added");
+        assertEquals(unit1, discardPile1.deleteLastCard(), "Last card should be the one just added");
     }
 
     @Test
     void testAddMultipleCardsToDiscardPile() {
         discardPile1.addCard(unit1);
         discardPile1.addCard(unit2);
-        assertEquals(unit2, discardPile1.getLastCard(), "Last card should be the most recently added");
+        assertEquals(unit2, discardPile1.deleteLastCard(), "Last card should be the most recently added");
     }
 
     @Test
     void testGetLastCardFromEmptyDiscardPile() {
-        assertThrows(IllegalStateException.class, () -> discardPile1.getLastCard(),
+        assertThrows(IllegalStateException.class, () -> discardPile1.deleteLastCard(),
             "Getting last card from empty discard pile should throw exception");
+    }
+    @Test
+    void testTheLastCardFromTheDiscardPileIsCorrectlyObtained(){
+        discardPile1.addCard(unit1);
+        assertEquals(discardPile1.getLastCard(), unit1);
+    }
+    @Test
+    void testNotCannotRevealACardIfTheDiscardPileIsEmpty(){
+        assertThrows(IllegalStateException.class, () -> discardPile1.getLastCard());
     }
 
     @Test
@@ -112,7 +121,7 @@ public class DiscardPileTest {
         discardPile1.addCard(unit1);
 
         // Get the card back from discard pile
-        Unit discardedUnit = (Unit) discardPile1.getLastCard();
+        Unit discardedUnit = (Unit) discardPile1.deleteLastCard();
         assertEquals(5, discardedUnit.calculatePoints(), "Unit points should be reset to base value");
     }
 
