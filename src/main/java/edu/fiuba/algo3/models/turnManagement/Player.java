@@ -20,6 +20,46 @@ public class Player {
     private final Siege siege;
     private int roundsWon = 0;
 
+    public Player(String name, PlayerColor playerColor) {
+        this.name = name;
+        this.discardPile = new DiscardPile();
+        hand = new Hand();
+        this.deck = new Deck();
+        this.closeCombat = new CloseCombat(this.discardPile);
+        this.ranged = new Ranged(this.discardPile);
+        this.siege = new Siege(this.discardPile);
+
+        setColor(playerColor);
+    }
+
+    public String getName(){
+        return name;
+    }
+
+    public DiscardPile getDiscardPile() {
+        return discardPile;
+    }
+
+    public Hand getHand(){
+        return hand;
+    }
+
+    public Deck getDeck() {
+        return deck;
+    }
+
+    public CloseCombat getCloseCombatRow() {
+        return closeCombat;
+    }
+
+    public Ranged getRangedRow() {
+        return ranged;
+    }
+
+    public Siege getSiegeRow() {
+        return siege;
+    }
+
     private void setColor(PlayerColor playerColor) {
         setColorToCards(playerColor);
         setColorToRows(playerColor);
@@ -35,29 +75,9 @@ public class Player {
     private void setColorToCards(PlayerColor playerColor) {
         deck.setColorToCards(playerColor);
     }
-    
+
     private void setColorDiscardPile(PlayerColor color){
         discardPile.setColor(color);
-    }
-
-    public Player(String name, PlayerColor playerColor) {
-        this.name = name;
-        this.discardPile = new DiscardPile();
-        hand = new Hand();
-        this.deck = new Deck();
-        this.closeCombat = new CloseCombat(this.discardPile);
-        this.ranged = new Ranged(this.discardPile);
-        this.siege = new Siege(this.discardPile);
-
-        setColor(playerColor);
-    }
-
-    public DiscardPile getDiscardPile() {
-        return discardPile;
-    }
-
-    public Hand getHand(){
-        return hand;
     }
 
     public int calculatePoints() {
@@ -103,21 +123,5 @@ public class Player {
             return this;
         }
         return other;
-    }
-
-    public Deck getDeck() {
-        return deck;
-    }
-
-    public CloseCombat getCloseCombatRow() {
-        return closeCombat;
-    }
-
-    public Ranged getRangedRow() {
-        return ranged;
-    }
-
-    public Siege getSiegeRow() {
-        return siege;
     }
 }

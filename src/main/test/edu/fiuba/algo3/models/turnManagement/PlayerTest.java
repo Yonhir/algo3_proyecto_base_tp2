@@ -122,6 +122,16 @@ public class PlayerTest {
         round = new Round(player, opponent);
     }
 
+   @Test
+   public void testSeRegistranCorrectamenteLosNombresDeCadaPlayer(){
+        String nombreJugadorEperado = "Gabriel";
+        String nombreOponenteEperado = "Juan";
+
+        assertEquals(player.getName(), nombreJugadorEperado);
+       assertEquals(opponent.getName(), nombreOponenteEperado);
+
+   }
+
     @Test
     public void testLaCartaJugadaYaNoSeEncuentraEnLaManoDelJugador() {
         int expectedCards = 9;
@@ -288,5 +298,14 @@ public class PlayerTest {
         player.playCard(weather, specialZone, round);
 
         assertEquals(1, siegeCard.calculatePoints());
+    }
+
+    @Test
+    public void testObtenerNombresDeLosJugadores() {
+        String expectedName = "Gabriel";
+        String expectedNameOpponent = "Juan";
+
+        assertEquals(expectedName, player.getName());
+        assertEquals(expectedNameOpponent, opponent.getName());
     }
 }

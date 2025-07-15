@@ -1,8 +1,11 @@
 package edu.fiuba.algo3.models.sections;
 
 import edu.fiuba.algo3.models.cardcollections.Hand;
+import edu.fiuba.algo3.models.turnManagement.Player;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BoardTest {
 
@@ -18,6 +21,9 @@ public class BoardTest {
     @Test
     public void testBoardInicializaTodosLosComponentesCorrectamente() {
         Board board = new Board("Jugador 1", "Jugador 2");
+
+        Assertions.assertNotNull(board.getCurrentPlayer());
+        Assertions.assertNotNull(board.getOpponentPlayer());
 
         Assertions.assertNotNull(board.getCurrentPlayerHand());
         Assertions.assertNotNull(board.getOpponentHand());
@@ -41,4 +47,20 @@ public class BoardTest {
 
         Assertions.assertNotNull(board.getGame());
     }
+
+    @Test
+    public void testRestartGameReiniciaElJuegoCorrectamente() {
+        Board board = new Board("Jugador 1", "Jugador 2");
+
+        Hand manoInicial = board.getCurrentPlayerHand();
+        Player jugadorInicial = board.getCurrentPlayer();
+
+        board.restartGame();
+
+        Assertions.assertNotSame(manoInicial, board.getCurrentPlayerHand());
+        Assertions.assertNotSame(jugadorInicial, board.getCurrentPlayer());
+    }
+
+
+
 }
