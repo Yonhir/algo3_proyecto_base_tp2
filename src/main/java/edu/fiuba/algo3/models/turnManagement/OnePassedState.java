@@ -9,7 +9,7 @@ public class OnePassedState implements RoundState {
 
     @Override
     public void playCard(Round round) {
-        round.swapPlayers();
+
     }
 
     @Override
