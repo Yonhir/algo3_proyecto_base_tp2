@@ -106,6 +106,10 @@ public class DiscardPileTest {
         discardPile1.addCard(unit1);
         assertEquals(discardPile1.getLastCard(), unit1);
     }
+    @Test
+    void testNotCannotRevealACardIfTheDiscardPileIsEmpty(){
+        assertThrows(IllegalStateException.class, () -> discardPile1.getLastCard());
+    }
 
     @Test
     void testUnitPointsResetWhenAddedToDiscardPile() {
