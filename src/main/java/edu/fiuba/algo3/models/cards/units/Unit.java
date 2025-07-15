@@ -103,7 +103,7 @@ public class Unit extends Card {
         return this.currentPoints == card.calculatePoints();
     }
 
-    public SectionType getSectionType() {
+    public SectionType getFirstSectionType() {
         return sectionTypes.get(0);
     }
 }

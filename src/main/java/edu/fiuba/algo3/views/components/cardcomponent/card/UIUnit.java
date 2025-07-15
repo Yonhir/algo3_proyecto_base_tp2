@@ -33,7 +33,7 @@ public class UIUnit extends UICard {
         this.model = unit;
         this.points = unit.calculatePoints();
         setupPointsDisplay();
-        setupSectionIcon(unit.getSectionType());
+        setupSectionIcon(unit.getFirstSectionType());
         subscribeToModel();
     }
     

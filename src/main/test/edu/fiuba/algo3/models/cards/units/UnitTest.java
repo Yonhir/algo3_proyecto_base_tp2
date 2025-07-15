@@ -107,6 +107,6 @@ public class UnitTest {
         CloseCombatType closeCombat = new CloseCombatType();
         Unit unidad = new Unit("Arco", "Unidad de prueba", 5, List.of(ranged, closeCombat), List.of());
 
-        assertEquals(ranged, unidad.getSectionType());
+        assertEquals(ranged, unidad.getFirstSectionType());
     }
 }
