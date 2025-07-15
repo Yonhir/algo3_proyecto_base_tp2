@@ -1,8 +1,8 @@
 package edu.fiuba.algo3.models.json.cards.specials;
 
+import edu.fiuba.algo3.models.cards.specials.Scorch;
 import edu.fiuba.algo3.models.cards.specials.Special;
 import edu.fiuba.algo3.models.cards.specials.MoraleBoost;
-import edu.fiuba.algo3.models.cards.specials.ScorchCard;
 import edu.fiuba.algo3.models.json.cards.CardJsonConverter;
 import edu.fiuba.algo3.models.json.cards.specials.weathers.WeatherJsonConverter;
 import edu.fiuba.algo3.models.sections.types.CloseCombatType;
@@ -51,7 +51,7 @@ public class SpecialJsonConverter extends CardJsonConverter {
     private Special createSpecial(String name, String description, String type, JSONObject jsonSpecial) {
         switch (type) {
             case "Tierra arrasada":
-                return new ScorchCard(name, description);
+                return new Scorch(name, description, List.of(new SpecialType()));
             case "Morale boost":
                 return new MoraleBoost(name, description, List.of(new CloseCombatType(), new RangedType(), new SiegeType()));
             case "Clima":
