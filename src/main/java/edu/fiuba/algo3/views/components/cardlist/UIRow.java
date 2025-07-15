@@ -23,7 +23,6 @@ public class UIRow extends CardList {
         super(false);
         this.points = 0;
         modelRow = null;
-        //subscribeToModel();
     }
 
     public UIRow(Row modelRow) {
