@@ -123,6 +123,9 @@ public class Player {
 
     public Player chooseWinnerAgainst(Player other) {
         if (this.hasWonGame()) {
+            if (other.hasWonGame()) {
+                return null;
+            }
             return this;
         }
         return other;

@@ -27,9 +27,17 @@ public class GameWinnerView extends StackPane {
         Label title = new Label("¡Fin del Juego!");
         title.setStyle("-fx-font-size: 48px; -fx-text-fill: #4B2E0F; -fx-font-weight: bold;");
 
-        // Winner announcement
-        Label winnerLabel = new Label("¡" + winner.getName() + " ha ganado!");
-        winnerLabel.setStyle("-fx-font-size: 36px; -fx-text-fill: #D4AF37; -fx-font-weight: bold;");
+        // Winner announcement or draw
+        Label resultLabel;
+        if (winner == null) {
+            // Draw scenario - both players have 2 rounds won
+            resultLabel = new Label("¡Empate!");
+            resultLabel.setStyle("-fx-font-size: 36px; -fx-text-fill: #D4AF37; -fx-font-weight: bold;");
+        } else {
+            // Winner scenario
+            resultLabel = new Label("¡" + winner.getName() + " ha ganado!");
+            resultLabel.setStyle("-fx-font-size: 36px; -fx-text-fill: #D4AF37; -fx-font-weight: bold;");
+        }
 
         // Final score
         VBox scoreBox = new VBox(10);
@@ -61,7 +69,7 @@ public class GameWinnerView extends StackPane {
 
         buttonBox.getChildren().addAll(restartButton, exitButton);
 
-        layout.getChildren().addAll(title, winnerLabel, scoreBox, buttonBox);
+        layout.getChildren().addAll(title, resultLabel, scoreBox, buttonBox);
         getChildren().add(layout);
     }
 } 
