@@ -26,7 +26,14 @@ public class DiscardPile extends CardCollection {
         }
     }
 
-    public Card getLastCard() {
+    public Card getLastCard(){
+        if (cards.isEmpty()) {
+            throw new IllegalStateException("Cannot get last card from empty discard pile");
+        }
+        int lastCard = (cards.size() - 1);
+        return cards.get(lastCard);
+    }
+    public Card deleteLastCard() {
         if (cards.isEmpty()) {
             throw new IllegalStateException("Cannot get last card from empty discard pile");
         }
