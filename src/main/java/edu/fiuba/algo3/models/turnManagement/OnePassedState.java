@@ -1,18 +1,9 @@
 package edu.fiuba.algo3.models.turnManagement;
 
 public class OnePassedState implements RoundState {
-    private final Player passedPlayer;
-
-    public OnePassedState(Player passedPlayer) {
-        this.passedPlayer = passedPlayer;
-    }
 
     @Override
     public void playCard(Round round) {
-        Player current = round.getCurrentPlayer();
-        if (current.equals(passedPlayer)) {
-            throw new IllegalStateException("Ya pasaste, no puedes jugar más cartas en esta ronda.");
-        }
     }
 
     @Override

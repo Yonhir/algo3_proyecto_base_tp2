@@ -2,7 +2,6 @@ package edu.fiuba.algo3.views;
 
 import edu.fiuba.algo3.controllers.CardPlayingController;
 import edu.fiuba.algo3.models.sections.Board;
-import edu.fiuba.algo3.models.turnManagement.OnePassedState;
 import edu.fiuba.algo3.views.components.*;
 import edu.fiuba.algo3.views.components.cardcomponent.UIDeck;
 import edu.fiuba.algo3.views.components.cardcomponent.UIDiscardPile;
@@ -50,7 +49,6 @@ public class GameView extends StackPane {
         rightColumn = new RightColumn(playerUIDeck, opponentUIDeck, playerUIDiscardPile, opponentUIDiscardPile, passButton);
 
         new CardPlayingController(leftColumn, centerColumn, rightColumn, board.getRound());
-        board.getRound().addObserver(event -> updateView(board));
         String currentPlayerName = board.getCurrentPlayer().getName();
         playerNameScreen = new PlayerNameScreen(currentPlayerName);
 
@@ -83,17 +81,6 @@ public class GameView extends StackPane {
 
         showPlayerNameScreen();
     }
-    private void updateView(Board board) {
-        boolean isMyTurn = board.getCurrentPlayer().equals(board.getRound().getCurrentPlayer());
-        boolean hasPassed = board.getRound().getState() instanceof OnePassedState &&
-                board.getRound().getCurrentPlayer().equals(board.getOpponentPlayer());
-
-        boolean canPlay = isMyTurn && !hasPassed;
-
-        centerColumn.setHandEnabled(canPlay);
-        rightColumn.setPassButtonEnabled(canPlay);
-    }
-
 
     public void showExitConfirmation() {
         ExitConfirmationDialog.show(this);
