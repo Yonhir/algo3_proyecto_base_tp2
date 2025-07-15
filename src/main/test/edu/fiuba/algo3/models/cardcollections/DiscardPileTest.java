@@ -101,6 +101,11 @@ public class DiscardPileTest {
         assertThrows(IllegalStateException.class, () -> discardPile1.deleteLastCard(),
             "Getting last card from empty discard pile should throw exception");
     }
+    @Test
+    void testTheLastCardFromTheDiscardPileIsCorrectlyObtained(){
+        discardPile1.addCard(unit1);
+        assertEquals(discardPile1.getLastCard(), unit1);
+    }
 
     @Test
     void testUnitPointsResetWhenAddedToDiscardPile() {
