@@ -103,14 +103,14 @@ public class UnitTest {
     }
 
     @Test
-
     public void testGetSectionTypeDevuelveElPrimerSectionType() {
         RangedType ranged = new RangedType();
         CloseCombatType closeCombat = new CloseCombatType();
         Unit unidad = new Unit("Arco", "Unidad de prueba", 5, List.of(ranged, closeCombat), List.of());
 
         assertEquals(ranged, unidad.getFirstSectionType());
-      
+    }
+
     @Test
     public void testGetModifiersRetornaLaListaDeModificadores() {
         MoraleBoostModifier modificador1 = new MoraleBoostModifier();
