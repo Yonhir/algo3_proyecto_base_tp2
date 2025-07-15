@@ -27,6 +27,10 @@ public class Board {
         initializeMatch();
     }
 
+    public void restartGame() {
+        initializeMatch();
+    }
+
     private void initializeMatch() {
         player1 = new Player(DEFAULT_PLAYER_NAME_1, new Blue());
         player2 = new Player(DEFAULT_PLAYER_NAME_2, new Red());

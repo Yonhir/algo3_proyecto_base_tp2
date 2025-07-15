@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.views.components.cardlist;
 
 import edu.fiuba.algo3.models.cards.Card;
-import edu.fiuba.algo3.models.sections.SpecialZone;
 import edu.fiuba.algo3.models.sections.rows.Row;
 import edu.fiuba.algo3.models.sections.types.SpecialType;
 import edu.fiuba.algo3.models.turnManagement.Player;

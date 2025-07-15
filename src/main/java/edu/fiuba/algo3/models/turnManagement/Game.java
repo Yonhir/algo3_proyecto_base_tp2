@@ -6,7 +6,7 @@ import edu.fiuba.algo3.models.sections.SpecialZone;
 public class Game {
     private final Player player1;
     private final Player player2;
-    private SpecialZone specialZone;
+    private final SpecialZone specialZone;
     private Round currentRound;
 
     public Game(Player player1, Player player2, SpecialZone specialZone) {

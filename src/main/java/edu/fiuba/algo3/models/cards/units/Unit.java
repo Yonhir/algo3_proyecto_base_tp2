@@ -15,7 +15,7 @@ import java.util.List;
 public class Unit extends Card {
     private final int basePoints;
     private int currentPoints;
-    private List<Modifier> modifiers;
+    private final List<Modifier> modifiers;
     private boolean hasHeroModifier;
 
     public Unit(String name, String description, int points, List<SectionType> sectionTypes, List<Modifier> modifiers) {

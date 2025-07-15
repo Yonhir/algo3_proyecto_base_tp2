@@ -3,8 +3,6 @@ package edu.fiuba.algo3.models.cards.units.modifiers;
 import edu.fiuba.algo3.models.colors.*;
 import edu.fiuba.algo3.models.turnManagement.Player;
 import edu.fiuba.algo3.models.turnManagement.Round;
-import edu.fiuba.algo3.models.cardcollections.Deck;
-import edu.fiuba.algo3.models.cardcollections.DiscardPile;
 import edu.fiuba.algo3.models.cards.units.Unit;
 import edu.fiuba.algo3.models.colors.Blue;
 import edu.fiuba.algo3.models.sections.rows.CloseCombat;

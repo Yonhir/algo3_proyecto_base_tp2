@@ -26,7 +26,6 @@ public class GameView extends StackPane {
     private final CenterColumn centerColumn;
     private final RightColumn rightColumn;
 
-    private final PassTurnButton passButton;
     private PlayerNameScreen playerNameScreen;
 
     public GameView(Board board) {

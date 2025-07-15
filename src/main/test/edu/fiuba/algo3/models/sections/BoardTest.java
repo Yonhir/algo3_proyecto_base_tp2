@@ -5,8 +5,6 @@ import edu.fiuba.algo3.models.turnManagement.Player;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public class BoardTest {
 
     @Test
@@ -50,7 +48,7 @@ public class BoardTest {
 
     @Test
     public void testRestartGameReiniciaElJuegoCorrectamente() {
-        Board board = new Board("Jugador 1", "Jugador 2");
+        Board board = new Board();
 
         Hand manoInicial = board.getCurrentPlayerHand();
         Player jugadorInicial = board.getCurrentPlayer();
