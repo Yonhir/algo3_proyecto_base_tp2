@@ -26,8 +26,7 @@ public class Game {
     }
 
     public boolean gameFinished() {
-        int totalRoundsPlayed = player1.getRoundsWon() + player2.getRoundsWon();
-        return player1.hasWonGame() || player2.hasWonGame() || totalRoundsPlayed == 2;
+        return player1.hasWonGame() || player2.hasWonGame();
     }
 
     public Player gameWinner() {

@@ -67,14 +67,6 @@ public class RoundTest {
     }
 
     @Test
-    public void testCurrentPlayerDoesNotSwitchIfOpponentHasPassed() {
-        round.passTurn(game);
-        Player current = round.getCurrentPlayer();
-        round.passTurn(game);
-        assertSame(current, round.getCurrentPlayer());
-    }
-
-    @Test
     public void testRoundEndsWhenBothPlayersPass() {
         round.passTurn(game);
         round.passTurn(game);
@@ -125,15 +117,6 @@ public class RoundTest {
         verify(p2, never()).winRound();
     }
 
-    @Test
-    public void testPlayerSwitchesIfOpponentHasNotPassed() {
-        Round round = new Round(player1, player2);
-        Player first = round.getCurrentPlayer();
-
-        round.playerPlayedCard();
-
-        assertNotSame(first, round.getCurrentPlayer());
-    }
 
     @Test
     public void testRondaCompletaConGanador() {
@@ -185,5 +168,14 @@ public class RoundTest {
         assertEquals(1, player1.getRoundsWon());
         assertEquals(0, player2.getRoundsWon());
     }
+
+    @Test
+    public void testJugadorQuePasoNoVuelveAJugarLuegoDeQueElOtroJuega() {
+        round.passTurn(game);
+        Player jugadorQueNoPaso = round.getCurrentPlayer();
+        round.playerPlayedCard();
+        assertEquals(jugadorQueNoPaso, round.getCurrentPlayer());
+    }
+
 }
 
