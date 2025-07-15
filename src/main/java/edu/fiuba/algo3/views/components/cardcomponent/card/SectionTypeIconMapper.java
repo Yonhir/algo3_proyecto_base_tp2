@@ -31,4 +31,3 @@ public class SectionTypeIconMapper {
         return SectionTypeIconMapper.class.getResourceAsStream(path);
     }
 }
-

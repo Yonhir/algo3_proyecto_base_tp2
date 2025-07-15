@@ -6,9 +6,7 @@ import edu.fiuba.algo3.models.sections.Board;
 import edu.fiuba.algo3.views.components.*;
 import edu.fiuba.algo3.views.components.cardcomponent.UIDeck;
 import edu.fiuba.algo3.views.components.cardcomponent.UIDiscardPile;
-import edu.fiuba.algo3.views.components.cardlist.UIHand;
-import edu.fiuba.algo3.views.components.cardlist.UIRow;
-import edu.fiuba.algo3.views.components.cardlist.UISpecialZone;
+import edu.fiuba.algo3.views.components.cardlist.*;
 import edu.fiuba.algo3.views.components.PassTurnButton;
 import edu.fiuba.algo3.views.components.PlayerNameScreen;
 import javafx.geometry.Pos;
@@ -33,12 +31,12 @@ public class GameView extends StackPane {
 
     public GameView(Board board) {
         UIHand UIHandList = new UIHand(board.getCurrentPlayerHand());
-        UIRow opponentCloseCombat = new UIRow(board.getOpponentCloseCombat());
-        UIRow opponentRanged = new UIRow(board.getOpponentRanged());
-        UIRow opponentSiege = new UIRow(board.getOpponentSiege());
-        UIRow playerCloseCombat = new UIRow(board.getCurrentPlayerCloseCombat());
-        UIRow playerRanged = new UIRow(board.getCurrentPlayerRanged());
-        UIRow playerSiege = new UIRow(board.getCurrentPlayerSiege());
+        UIRow opponentCloseCombat = new UICloseCombat(board.getOpponentCloseCombat());
+        UIRow opponentRanged = new UIRanged(board.getOpponentRanged());
+        UIRow opponentSiege = new UISiege(board.getOpponentSiege());
+        UIRow playerCloseCombat = new UICloseCombat(board.getCurrentPlayerCloseCombat());
+        UIRow playerRanged = new UIRanged(board.getCurrentPlayerRanged());
+        UIRow playerSiege = new UISiege(board.getCurrentPlayerSiege());
 
         UISpecialZone UISpecialZoneList = new UISpecialZone(board.getSpecialZone());
         UIDeck playerUIDeck = new UIDeck(board.getCurrentPlayerDeck());
