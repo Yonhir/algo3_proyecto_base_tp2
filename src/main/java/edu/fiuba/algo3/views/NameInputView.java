@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.views.components;
+package edu.fiuba.algo3.views;
 
 
 import edu.fiuba.algo3.controllers.StartGameHandler;
@@ -8,7 +8,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 
 public class NameInputView {
 
@@ -16,7 +15,7 @@ public class NameInputView {
         void start(String nombreJugador1, String nombreJugador2);
     }
 
-    public Scene createScene(Stage stage, OnStartGame callback) {
+    public Scene createScene(OnStartGame callback) {
         VBox layout = new VBox(20);
         layout.setPadding(new Insets(50));
         layout.setAlignment(Pos.CENTER);

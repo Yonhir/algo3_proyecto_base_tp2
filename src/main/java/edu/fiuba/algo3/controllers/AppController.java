@@ -3,6 +3,7 @@ package edu.fiuba.algo3.controllers;
 import edu.fiuba.algo3.models.sections.Board;
 import edu.fiuba.algo3.views.GameView;
 import edu.fiuba.algo3.views.PlayerPreparationView;
+import edu.fiuba.algo3.views.components.PlayerNameScreen;
 import javafx.stage.Stage;
 
 public class AppController {

@@ -299,4 +299,13 @@ public class PlayerTest {
 
         assertEquals(1, siegeCard.calculatePoints());
     }
+
+    @Test
+    public void testObtenerNombresDeLosJugadores() {
+        String expectedName = "Gabriel";
+        String expectedNameOpponent = "Juan";
+
+        assertEquals(expectedName, player.getName());
+        assertEquals(expectedNameOpponent, opponent.getName());
+    }
 }

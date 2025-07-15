@@ -210,7 +210,12 @@ public class GameTest {
         assertEquals(0, player2.getRoundsWon());
     }
 
+    @Test
+    public void testSePuedeObtenerElJugadorActual() {
+        Player currentPlayer = game.getCurrentPlayer();
 
+        assertEquals(player1, currentPlayer);
+    }
 
 
 }
