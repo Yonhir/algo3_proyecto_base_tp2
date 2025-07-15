@@ -77,4 +77,35 @@ public class BoardTest {
 
         Assertions.assertTrue(nombresCambiados);
     }
+
+    @Test
+    public void testGetPlayer1RetornaElPrimerJugador() {
+        Board board = new Board();
+
+        Player player1 = board.getPlayer1();
+
+        Assertions.assertNotNull(player1);
+        Assertions.assertEquals("Player 1", player1.getName());
+    }
+
+    @Test
+    public void testGetPlayer2RetornaElSegundoJugador() {
+        Board board = new Board();
+
+        Player player2 = board.getPlayer2();
+
+        Assertions.assertNotNull(player2);
+        Assertions.assertEquals("Player 2", player2.getName());
+    }
+
+    @Test
+    public void testGetPlayer1YGetPlayer2RetornanJugadoresDiferentes() {
+        Board board = new Board();
+
+        Player player1 = board.getPlayer1();
+        Player player2 = board.getPlayer2();
+
+        Assertions.assertNotSame(player1, player2);
+        Assertions.assertNotEquals(player1.getName(), player2.getName());
+    }
 }

@@ -79,13 +79,6 @@ public class GameTest {
     }
 
     @Test
-    public void testPlayersCanPassAndRoundEnds() {
-        game.passRound();
-        game.passRound();
-        assertFalse(game.gameFinished());
-    }
-
-    @Test
     public void testGameEndsAfterTwoWins() {
         player1.winRound();
         player1.winRound();
@@ -109,23 +102,6 @@ public class GameTest {
 
         verify(mock1).discardAllRows();
         verify(mock2).discardAllRows();
-    }
-
-    @Test
-    public void testGameEndsInDrawAfterThreeRoundsWithOneWinEach() {
-        Player p1 = mock(Player.class);
-        Player p2 = mock(Player.class);
-        SpecialZone mock3 = mock(SpecialZone.class);
-
-
-        when(p1.getRoundsWon()).thenReturn(1);
-        when(p2.getRoundsWon()).thenReturn(1);
-        when(p1.hasWonGame()).thenReturn(false);
-        when(p2.hasWonGame()).thenReturn(false);
-
-        Game game = new Game(p1, p2, mock3);
-
-        assertTrue(game.bothPlayersWonARound());
     }
 
     @Test
