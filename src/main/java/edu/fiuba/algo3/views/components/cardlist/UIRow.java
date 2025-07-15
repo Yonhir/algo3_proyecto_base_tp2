@@ -3,14 +3,21 @@ package edu.fiuba.algo3.views.components.cardlist;
 import edu.fiuba.algo3.models.Observable;
 import edu.fiuba.algo3.models.cards.Card;
 import edu.fiuba.algo3.models.cards.units.Unit;
+import edu.fiuba.algo3.models.sections.Section;
 import edu.fiuba.algo3.models.sections.rows.Row;
+import edu.fiuba.algo3.models.sections.types.CloseCombatType;
+import edu.fiuba.algo3.models.sections.types.SectionType;
 import edu.fiuba.algo3.views.components.PointsCircle;
 import javafx.geometry.Pos;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 
+import java.io.InputStream;
 import java.util.List;
 
-public class UIRow extends CardList {
+public abstract class UIRow extends CardList {
 
     private static final double INITIAL_TRANSLATE_X = -25;
     private static final double INITIAL_TRANSLATE_Y = 30;
@@ -18,6 +25,7 @@ public class UIRow extends CardList {
     private int points;
     private final Row modelRow;
     private PointsCircle pointsCircle;
+    protected SectionType type;
 
     public UIRow() {
         super(false);
@@ -32,6 +40,8 @@ public class UIRow extends CardList {
         this.points = modelRow.calculatePoints();
         showPoints();
         subscribeToModel();
+        setType();
+        showIcon();
     }
 
     public void showPoints() {
@@ -69,5 +79,22 @@ public class UIRow extends CardList {
             loadCardsFromModel();
             loadPoints();
         }
+    }
+
+    abstract protected void setType();
+
+    public void showIcon() {
+        InputStream iconStream = SectionTypeIconMapper.getIconStream(type);
+
+        Image icon = new Image(iconStream);
+        ImageView sectionIcon = new ImageView(icon);
+
+        double size = 20;
+        sectionIcon.setFitHeight(size);
+        sectionIcon.setFitWidth(size);
+
+        StackPane.setAlignment(sectionIcon, Pos.CENTER);
+
+        getChildren().add(sectionIcon);
     }
 }
