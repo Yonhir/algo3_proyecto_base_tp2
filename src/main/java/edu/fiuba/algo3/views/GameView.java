@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.views;
 
 import edu.fiuba.algo3.controllers.RowHandler;
+import edu.fiuba.algo3.controllers.SpecialZoneHandler;
 import edu.fiuba.algo3.models.sections.Board;
 import edu.fiuba.algo3.views.components.*;
 import edu.fiuba.algo3.views.components.cardcomponent.UIDeck;
@@ -62,11 +63,15 @@ public class GameView extends StackPane {
         // Set up UIHand with CardInfoView
         UIHandList.setCardInfoView(cardViewer);
         
-        // Set up CardInfoView with rows for row switching
+        // Set up CardInfoView with rows and special zone for highlighting
         cardViewer.setRows(allRows);
+        cardViewer.setSpecialZone(UISpecialZoneList);
         
         // Create RowHandler instances for each row and set up event handlers
         setupRowHandlers(allRows, UIHandList, board.getRound());
+        
+        // Create SpecialZoneHandler and set up event handler
+        setupSpecialZoneHandler(UISpecialZoneList, UIHandList, board.getRound());
         
         String currentPlayerName = board.getCurrentPlayer().getName();
         playerNameScreen = new PlayerNameScreen(currentPlayerName);
@@ -80,6 +85,11 @@ public class GameView extends StackPane {
             RowHandler rowHandler = new RowHandler(row, hand, currentRound);
             row.setOnMouseClicked(rowHandler);
         }
+    }
+    
+    private void setupSpecialZoneHandler(UISpecialZone specialZone, UIHand hand, edu.fiuba.algo3.models.turnManagement.Round currentRound) {
+        SpecialZoneHandler specialZoneHandler = new SpecialZoneHandler(specialZone, hand, currentRound);
+        specialZone.setOnMouseClicked(specialZoneHandler);
     }
 
     private void showPlayerNameScreen() {

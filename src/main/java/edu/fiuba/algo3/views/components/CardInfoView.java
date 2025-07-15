@@ -1,14 +1,13 @@
 package edu.fiuba.algo3.views.components;
 
-import edu.fiuba.algo3.controllers.ButtonCloseDescription;
 import edu.fiuba.algo3.views.components.cardcomponent.card.UICard;
 import edu.fiuba.algo3.views.components.cardcomponent.card.UIUnit;
 import edu.fiuba.algo3.views.components.cardlist.UIRow;
+import edu.fiuba.algo3.views.components.cardlist.UISpecialZone;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -19,75 +18,21 @@ public class CardInfoView extends StackPane {
 
     private final BooleanProperty isCardInfoVisible = new SimpleBooleanProperty(false);
     private List<UIRow> rows;
+    private UISpecialZone specialZone;
 
     public CardInfoView() {
-        createCancelButton();
     }
 
     public void setRows(List<UIRow> rows) {
         this.rows = rows;
     }
-
-    private void createCancelButton(){
-        Button cancelButton = new Button("Cancel");
-
-        cancelButton.visibleProperty().bind(isCardInfoVisible);
-        cancelButton.managedProperty().bind(isCardInfoVisible);
-
-        cancelButton.setStyle(
-                "-fx-background-color: linear-gradient(to bottom, #d32f2f, #b71c1c); " +
-                "-fx-text-fill: white; " +
-                "-fx-font-family: 'Segoe UI', Arial, sans-serif; " +
-                "-fx-font-size: 14px; " +
-                "-fx-font-weight: bold; " +
-                "-fx-padding: 10px 20px; " +
-                "-fx-border-radius: 6px; " +
-                "-fx-background-radius: 6px; " +
-                "-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 3, 0, 0, 2); " +
-                "-fx-cursor: hand;"
-        );
-        
-        // Hover effect
-        cancelButton.setOnMouseEntered(e -> 
-            cancelButton.setStyle(
-                "-fx-background-color: linear-gradient(to bottom, #f44336, #d32f2f); " +
-                "-fx-text-fill: white; " +
-                "-fx-font-family: 'Segoe UI', Arial, sans-serif; " +
-                "-fx-font-size: 14px; " +
-                "-fx-font-weight: bold; " +
-                "-fx-padding: 10px 20px; " +
-                "-fx-border-radius: 6px; " +
-                "-fx-background-radius: 6px; " +
-                "-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 4, 0, 0, 3); " +
-                "-fx-cursor: hand;"
-            )
-        );
-        
-        cancelButton.setOnMouseExited(e -> 
-            cancelButton.setStyle(
-                "-fx-background-color: linear-gradient(to bottom, #d32f2f, #b71c1c); " +
-                "-fx-text-fill: white; " +
-                "-fx-font-family: 'Segoe UI', Arial, sans-serif; " +
-                "-fx-font-size: 14px; " +
-                "-fx-font-weight: bold; " +
-                "-fx-padding: 10px 20px; " +
-                "-fx-border-radius: 6px; " +
-                "-fx-background-radius: 6px; " +
-                "-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 3, 0, 0, 2); " +
-                "-fx-cursor: hand;"
-            )
-        );
-
-        cancelButton.toFront();
-
-        getChildren().add(cancelButton);
-        StackPane.setAlignment(cancelButton, Pos.BOTTOM_RIGHT);
-        StackPane.setMargin(cancelButton, new Insets(15, 15, 15, 0));
-        cancelButton.setOnAction(new ButtonCloseDescription(isCardInfoVisible, this));
+    
+    public void setSpecialZone(UISpecialZone specialZone) {
+        this.specialZone = specialZone;
     }
     
     public void showInfoCard(UICard card) {
-        getChildren().removeIf(child -> !(child instanceof Button));
+        getChildren().clear();
         
         VBox infoBox = new VBox(15);
         infoBox.setAlignment(Pos.TOP_CENTER);
@@ -182,9 +127,12 @@ public class CardInfoView extends StackPane {
 
         isCardInfoVisible.set(true);
         
-        // Switch on rows when showing card info
+        // Switch on rows and special zone when showing card info
         if (rows != null) {
             switchOnRows(card);
+        }
+        if (specialZone != null) {
+            switchOnSpecialZone(card);
         }
     }
     
@@ -196,12 +144,25 @@ public class CardInfoView extends StackPane {
             row.switchOn(card.getModelCard());
         }
     }
+    
+    private void switchOnSpecialZone(UICard card) {
+        // Switch off special zone first if there was a previous selection
+        switchOffSpecialZone();
+        
+        specialZone.switchOn(card.getModelCard());
+    }
 
     private void switchOffRows() {
         if (rows != null) {
             for (UIRow row : rows) {
                 row.switchOff();
             }
+        }
+    }
+    
+    private void switchOffSpecialZone() {
+        if (specialZone != null) {
+            specialZone.switchOff();
         }
     }
 }

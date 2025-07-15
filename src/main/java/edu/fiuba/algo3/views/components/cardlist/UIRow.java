@@ -27,11 +27,6 @@ public class UIRow extends CardList {
             applyHoverStyle();
             switchedOn = true;
         }
-
-        if(card.haveSectionType(new SpecialType())){
-            applyHoverStyle();
-            switchedOn = true;
-        }
     }
 
     public void switchOff() {
