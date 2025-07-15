@@ -3,6 +3,7 @@ package edu.fiuba.algo3.views.components;
 import edu.fiuba.algo3.controllers.ButtonCloseDescription;
 import edu.fiuba.algo3.views.components.cardcomponent.card.UICard;
 import edu.fiuba.algo3.views.components.cardcomponent.card.UIUnit;
+import edu.fiuba.algo3.views.components.cardlist.UIRow;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Insets;
@@ -13,9 +14,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
+import java.util.List;
+
 public class CardInfoView extends StackPane {
 
     private BooleanProperty isCardInfoVisible;
+    private ButtonCloseDescription buttonCloseDescription;
 
     private void createCancelButton(){
         Button cancelButton = new Button("Cancel");
@@ -72,7 +76,8 @@ public class CardInfoView extends StackPane {
         getChildren().add(cancelButton);
         StackPane.setAlignment(cancelButton, Pos.BOTTOM_RIGHT);
         StackPane.setMargin(cancelButton, new Insets(15, 15, 15, 0));
-        cancelButton.setOnAction(new ButtonCloseDescription(isCardInfoVisible, this));
+        buttonCloseDescription = new ButtonCloseDescription(isCardInfoVisible, this);
+        cancelButton.setOnAction(buttonCloseDescription);
     }
     
     public void showInfoCard(UICard card) {
@@ -175,5 +180,9 @@ public class CardInfoView extends StackPane {
     public void setBooleanProperty(BooleanProperty cardSelected) {
         isCardInfoVisible = cardSelected;
         createCancelButton();
+    }
+
+    public void setRowsToButtonCloseDescription(List<UIRow> rows){
+        buttonCloseDescription.setRows(rows);
     }
 }
