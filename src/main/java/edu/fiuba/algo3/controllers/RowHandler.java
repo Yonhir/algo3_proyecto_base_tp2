@@ -45,6 +45,7 @@ public class RowHandler implements EventHandler<MouseEvent> {
     private void switchOffRows() {
         for (UIRow row : rows) {
             row.switchOff();
+            row.update(row.getModel());
         }
     }
 

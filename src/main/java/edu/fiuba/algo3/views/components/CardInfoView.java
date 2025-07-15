@@ -15,12 +15,7 @@ import javafx.scene.layout.VBox;
 
 public class CardInfoView extends StackPane {
 
-    private final BooleanProperty isCardInfoVisible = new SimpleBooleanProperty(false);
-
-    public CardInfoView() {
-        createCancelButton();
-        // createInfoBox();
-    }
+    private BooleanProperty isCardInfoVisible;
 
     private void createCancelButton(){
         Button cancelButton = new Button("Cancel");
@@ -175,5 +170,10 @@ public class CardInfoView extends StackPane {
         getChildren().add(infoBox);
 
         isCardInfoVisible.set(true);
+    }
+
+    public void setBooleanProperty(BooleanProperty cardSelected) {
+        isCardInfoVisible = cardSelected;
+        createCancelButton();
     }
 }

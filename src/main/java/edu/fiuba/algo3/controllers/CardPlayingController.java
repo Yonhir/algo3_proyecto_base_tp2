@@ -18,6 +18,7 @@ public class CardPlayingController {
 
     public CardPlayingController(LeftColumn leftColumn, CenterColumn centerColumn, RightColumn rightColumn, Round currentRound) {
         BooleanProperty cardSelected = new SimpleBooleanProperty(false);
+        rightColumn.getCardViewer().setBooleanProperty(cardSelected);
         handleCard = new CardHandler(centerColumn.getUIRows(), rightColumn.getCardViewer(), centerColumn.getUIHand(), cardSelected);
         handleRows = new RowHandler(centerColumn.getUIRows(), leftColumn.getUISpecialZone(), centerColumn.getUIHand(), currentRound, cardSelected);
         setupHandlerCards(centerColumn.getUICards());

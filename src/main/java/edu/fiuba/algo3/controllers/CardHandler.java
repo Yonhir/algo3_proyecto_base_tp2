@@ -49,13 +49,13 @@ public class CardHandler implements EventHandler<MouseEvent> {
     }
 
     private void clickOnCard(UICard card) {
-        switchOnRows(card);
         showInfo(card);
     }
 
     private void showInfo(UICard card) {
         cardSelected.set(true);
         hand.setSelectedCard(card);
+        switchOnRows(card);
         cardInfoView.showInfoCard(card);
     }
 

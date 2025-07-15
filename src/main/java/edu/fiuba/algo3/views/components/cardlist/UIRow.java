@@ -18,6 +18,8 @@ public class UIRow extends CardList {
         setModel(modelRow);
     }
 
+    public Row getModel() { return (Row) model; }
+
     @Override
     protected List<Card> getCardsFromModel() {
         return ((Row) model).getCards();
@@ -53,7 +55,6 @@ public class UIRow extends CardList {
                 Row row = (Row) model;
                 Player currentPlayer = currentRound.getCurrentPlayer();
                 currentPlayer.playCard(cardToPlay, row, currentRound);
-                addCard(card);
                 update(model);
             }
 

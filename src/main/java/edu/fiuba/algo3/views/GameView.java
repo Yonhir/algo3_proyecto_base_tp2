@@ -50,6 +50,7 @@ public class GameView extends StackPane {
 
         new CardPlayingController(leftColumn, centerColumn, rightColumn, board.getRound());
         String currentPlayerName = board.getCurrentPlayer().getName();
+
         playerNameScreen = new PlayerNameScreen(currentPlayerName);
 
         // Initialize the layout
