@@ -122,6 +122,16 @@ public class PlayerTest {
         round = new Round(player, opponent);
     }
 
+   @Test
+   public void testSeRegistranCorrectamenteLosNombresDeCadaPlayer(){
+        String nombreJugadorEperado = "Gabriel";
+        String nombreOponenteEperado = "Juan";
+
+        assertEquals(player.getName(), nombreJugadorEperado);
+       assertEquals(opponent.getName(), nombreOponenteEperado);
+
+   }
+
     @Test
     public void testLaCartaJugadaYaNoSeEncuentraEnLaManoDelJugador() {
         int expectedCards = 9;

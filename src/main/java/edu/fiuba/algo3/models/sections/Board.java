@@ -17,10 +17,22 @@ import edu.fiuba.algo3.models.turnManagement.Round;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Board {
-    private final SpecialZone specialZone;
-    private final Game game;
+    private SpecialZone specialZone;
+    private Game game;
+    private String nombreJugador1;
+    private String nombreJugador2;
 
     public Board(String nombreJugador1, String nombreJugador2) {
+        this.nombreJugador1 = nombreJugador1;
+        this.nombreJugador2 = nombreJugador2;
+        initializeMatch();
+    }
+
+    public void restartGame() {
+        initializeMatch();
+    }
+
+    private void initializeMatch() {
         Player player1 = new Player(nombreJugador1, new Blue());
         Player player2 = new Player(nombreJugador2, new Red());
 
@@ -61,7 +73,8 @@ public class Board {
         return new Game(aPlayer, anotherPlayer, specialZone);
     }
 
-    public Player getCurrentPlayer() { return  game.getCurrentPlayer(); }
+    public Player getCurrentPlayer(){ return game.getCurrentPlayer();}
+    public Player getOpponentPlayer(){ return game.getOpponentPlayer();}
     public Hand getCurrentPlayerHand() { return game.currentPlayerHand(); }
     public Hand getOpponentHand(){ return game.getCurrentRound().getOpponent().getHand(); }
     public Deck getCurrentPlayerDeck() { return game.getCurrentRound().getCurrentPlayer().getDeck(); }

@@ -52,6 +52,9 @@ public class Player {
         setColor(playerColor);
     }
 
+    public String getName(){
+        return name;
+    }
     public DiscardPile getDiscardPile() {
         return discardPile;
     }
