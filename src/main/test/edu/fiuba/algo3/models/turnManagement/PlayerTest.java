@@ -301,11 +301,20 @@ public class PlayerTest {
     }
 
     @Test
-    public void testObtenerNombresDeLosJugadores() {
-        String expectedName = "Gabriel";
-        String expectedNameOpponent = "Juan";
+    public void testElJugadorPuedeCambiarSuNombreCorrectamente() {
+        String nuevoNombre = "NuevoNombre";
 
-        assertEquals(expectedName, player.getName());
-        assertEquals(expectedNameOpponent, opponent.getName());
+        player.changeName(nuevoNombre);
+
+        assertEquals(nuevoNombre, player.getName());
+    }
+
+    @Test
+    public void testElJugadorObtieneSuNombreCorrectamente() {
+        String nombreEsperado = "Gabriel";
+
+        String nombreActual = player.getName();
+
+        assertEquals(nombreEsperado, nombreActual);
     }
 }
