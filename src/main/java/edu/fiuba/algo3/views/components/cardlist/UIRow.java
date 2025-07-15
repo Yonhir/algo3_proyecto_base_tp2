@@ -12,7 +12,7 @@ import java.util.List;
 
 public class UIRow extends CardList {
 
-    private static final double INITIAL_TRANSLATE_X = -15;
+    private static final double INITIAL_TRANSLATE_X = -25;
     private static final double INITIAL_TRANSLATE_Y = 30;
 
     private int points;
