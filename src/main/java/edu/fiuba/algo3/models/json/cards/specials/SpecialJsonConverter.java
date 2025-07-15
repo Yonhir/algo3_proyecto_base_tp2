@@ -5,6 +5,9 @@ import edu.fiuba.algo3.models.cards.specials.MoraleBoost;
 import edu.fiuba.algo3.models.cards.specials.ScorchCard;
 import edu.fiuba.algo3.models.json.cards.CardJsonConverter;
 import edu.fiuba.algo3.models.json.cards.specials.weathers.WeatherJsonConverter;
+import edu.fiuba.algo3.models.sections.types.CloseCombatType;
+import edu.fiuba.algo3.models.sections.types.RangedType;
+import edu.fiuba.algo3.models.sections.types.SiegeType;
 import edu.fiuba.algo3.models.sections.types.SpecialType;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -50,7 +53,7 @@ public class SpecialJsonConverter extends CardJsonConverter {
             case "Tierra arrasada":
                 return new ScorchCard(name, description);
             case "Morale boost":
-                return new MoraleBoost(name, description, List.of(new SpecialType()));
+                return new MoraleBoost(name, description, List.of(new CloseCombatType(), new RangedType(), new SiegeType()));
             case "Clima":
                 return weatherConverter.createWeatherCard(name, description, jsonSpecial);
             default:

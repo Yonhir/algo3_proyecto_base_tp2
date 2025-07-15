@@ -7,27 +7,25 @@ import edu.fiuba.algo3.models.sections.rows.Row;
 import edu.fiuba.algo3.views.components.PointsCircle;
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
+import edu.fiuba.algo3.models.sections.types.SpecialType;
+import edu.fiuba.algo3.models.turnManagement.Player;
+import edu.fiuba.algo3.models.turnManagement.Round;
+import edu.fiuba.algo3.views.components.cardcomponent.card.UICard;
 
 import java.util.List;
 
 public class UIRow extends CardList {
-
     private static final double INITIAL_TRANSLATE_X = -25;
     private static final double INITIAL_TRANSLATE_Y = 30;
 
     private int points;
     private final Row modelRow;
     private PointsCircle pointsCircle;
-
-    public UIRow() {
-        super(false);
-        this.points = 0;
-        modelRow = null;
-    }
+    private boolean switchedOn;
 
     public UIRow(Row modelRow) {
-        super(false);
-        this.modelRow = modelRow;
+        super();
+        switchedOn = false;
         setModel(modelRow);
         this.points = modelRow.calculatePoints();
         showPoints();
@@ -63,11 +61,48 @@ public class UIRow extends CardList {
         return ((Row) model).getCards();
     }
 
+
     @Override
     public void update(Observable observable) {
         if (isModel(observable)) {
             loadCardsFromModel();
             loadPoints();
+
+    public void switchOn(Card card) {
+        Row row = (Row) model;
+        if(row.haveSameSectionType(card) && row.haveSamePlayerColor(card)) {
+            applyHoverStyle();
+            switchedOn = true;
+        }
+
+        if(card.haveSectionType(new SpecialType())){
+            applyHoverStyle();
+            switchedOn = true;
+        }
+    }
+
+    public void switchOff() {
+        if (switchedOn) {
+            applyDefaultStyle();
+            switchedOn = false;
+        }
+    }
+
+    public void playCard(UICard card, Round currentRound, UISpecialZone specialZone) {
+        if (switchedOn) {
+            Card cardToPlay = card.getModelCard();
+
+            if (cardToPlay.haveSectionType(new SpecialType())) {
+                specialZone.playCard(card, currentRound);
+            }else{
+                Row row = (Row) model;
+                Player currentPlayer = currentRound.getCurrentPlayer();
+                currentPlayer.playCard(cardToPlay, row, currentRound);
+                addCard(card);
+                update(model);
+            }
+
+            update(currentRound.getCurrentPlayer().getHand());
         }
     }
 }

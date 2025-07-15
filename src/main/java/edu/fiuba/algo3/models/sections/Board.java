@@ -4,7 +4,6 @@ import edu.fiuba.algo3.models.cardcollections.Deck;
 import edu.fiuba.algo3.models.cardcollections.DiscardPile;
 import edu.fiuba.algo3.models.cardcollections.Hand;
 import edu.fiuba.algo3.models.colors.Blue;
-import edu.fiuba.algo3.models.colors.PlayerColor;
 import edu.fiuba.algo3.models.colors.Red;
 import edu.fiuba.algo3.models.json.GameLoader;
 import edu.fiuba.algo3.models.sections.rows.CloseCombat;
@@ -17,14 +16,14 @@ import edu.fiuba.algo3.models.turnManagement.Round;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Board {
+    private static final String DEFAULT_PLAYER_NAME_1 = "Player 1";
+    private static final String DEFAULT_PLAYER_NAME_2 = "Player 2";
+
     private SpecialZone specialZone;
     private Game game;
-    private String nombreJugador1;
-    private String nombreJugador2;
+    private Player player1, player2;
 
-    public Board(String nombreJugador1, String nombreJugador2) {
-        this.nombreJugador1 = nombreJugador1;
-        this.nombreJugador2 = nombreJugador2;
+    public Board() {
         initializeMatch();
     }
 
@@ -33,8 +32,8 @@ public class Board {
     }
 
     private void initializeMatch() {
-        Player player1 = new Player(nombreJugador1, new Blue());
-        Player player2 = new Player(nombreJugador2, new Red());
+        player1 = new Player(DEFAULT_PLAYER_NAME_1, new Blue());
+        player2 = new Player(DEFAULT_PLAYER_NAME_2, new Red());
 
         Hand player1Hand = player1.getHand();
         Hand player2Hand = player2.getHand();
@@ -73,6 +72,7 @@ public class Board {
         return new Game(aPlayer, anotherPlayer, specialZone);
     }
 
+    public Round getRound() { return game.getCurrentRound(); }
     public Player getCurrentPlayer(){ return game.getCurrentPlayer();}
     public Player getOpponentPlayer(){ return game.getOpponentPlayer();}
     public Hand getCurrentPlayerHand() { return game.currentPlayerHand(); }
@@ -89,4 +89,17 @@ public class Board {
     public Siege getOpponentSiege() { return game.getCurrentRound().getOpponent().getSiegeRow(); }
     public SpecialZone getSpecialZone() { return specialZone; }
     public Game getGame() { return game; }
+
+    public void setPlayerNames(String player1Name, String player2Name) {
+        player1.changeName(player1Name);
+        player2.changeName(player2Name);
+    }
+
+    public Player getPlayer1() {
+        return player1;
+    }
+
+    public Player getPlayer2() {
+        return player2;
+    }
 }

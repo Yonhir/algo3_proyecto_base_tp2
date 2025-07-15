@@ -5,24 +5,20 @@ import edu.fiuba.algo3.models.cardcollections.DiscardPile;
 import edu.fiuba.algo3.models.cardcollections.Hand;
 import edu.fiuba.algo3.views.components.DiscardCardDialog;
 import javafx.event.EventHandler;
-import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
-
 import javafx.event.ActionEvent;
+import javafx.scene.Node;
+import javafx.scene.layout.StackPane;
 
 public class ButtonContinueForPreparationHandler implements EventHandler<ActionEvent> {
 
-    private final Stage stage;
     private final String playerName;
     private final Hand hand;
     private final DiscardPile discardPile;
     private final Deck deck;
     private final Runnable onContinue;
 
-    public ButtonContinueForPreparationHandler(Stage stage, String playerName, Hand hand,
+    public ButtonContinueForPreparationHandler(String playerName, Hand hand,
                                     DiscardPile discardPile, Deck deck, Runnable onContinue) {
-        this.stage = stage;
         this.playerName = playerName;
         this.hand = hand;
         this.discardPile = discardPile;
@@ -32,12 +28,14 @@ public class ButtonContinueForPreparationHandler implements EventHandler<ActionE
 
     @Override
     public void handle(ActionEvent event) {
-        StackPane dialogPane = new StackPane();
-        dialogPane.setStyle("-fx-background-color: #C19A6B; -fx-border-color: #8B4513; -fx-border-width: 5px;");
-        Scene scene = new Scene(dialogPane, 1000, 700);
-        stage.setScene(scene);
-        stage.setFullScreen(true);
-        DiscardCardDialog.show(dialogPane, hand, playerName, discardPile, deck, onContinue);
+        // Get the current node (the preparation view)
+        Node currentView = ((javafx.scene.control.Button) event.getSource()).getScene().getRoot();
+        
+        // Cast to StackPane since we know the root is a StackPane
+        StackPane rootPane = (StackPane) currentView;
+        
+        // Show the discard dialog on the current view
+        DiscardCardDialog.show(rootPane, hand, playerName, discardPile, deck, onContinue);
     }
 }
 

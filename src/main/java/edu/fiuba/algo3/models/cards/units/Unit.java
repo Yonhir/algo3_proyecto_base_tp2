@@ -15,7 +15,7 @@ import java.util.List;
 public class Unit extends Card {
     private final int basePoints;
     private int currentPoints;
-    private List<Modifier> modifiers;
+    private final List<Modifier> modifiers;
     private boolean hasHeroModifier;
 
     public Unit(String name, String description, int points, List<SectionType> sectionTypes, List<Modifier> modifiers) {
@@ -102,4 +102,13 @@ public class Unit extends Card {
     public boolean samePointsAs(Unit card) {
         return this.currentPoints == card.calculatePoints();
     }
-}
+
+    public SectionType getFirstSectionType() {
+        return sectionTypes.get(0);
+
+    }
+    public List<Modifier> getModifiers() {
+            return modifiers;
+        }
+    }
+

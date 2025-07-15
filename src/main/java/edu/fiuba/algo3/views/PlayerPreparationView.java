@@ -6,7 +6,6 @@ import edu.fiuba.algo3.models.cardcollections.DiscardPile;
 import edu.fiuba.algo3.views.components.DiscardCardDialog;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
@@ -15,9 +14,19 @@ import javafx.stage.Stage;
 import edu.fiuba.algo3.models.cardcollections.Hand;
 
 
-public class PlayerPreparationView {
-    public static void show(
-            Stage stage,
+public class PlayerPreparationView extends StackPane {
+    
+    public PlayerPreparationView(
+            String playerName,
+            Hand hand,
+            DiscardPile discardPile,
+            Deck deck,
+            Runnable onContinue
+    ) {
+        initializeLayout(playerName, hand, discardPile, deck, onContinue);
+    }
+
+    private void initializeLayout(
             String playerName,
             Hand hand,
             DiscardPile discardPile,
@@ -34,10 +43,35 @@ public class PlayerPreparationView {
 
         Button continueButton = new Button("Continuar");
         continueButton.setStyle("-fx-font-size: 24px; -fx-background-color: #27AE60; -fx-text-fill: white;-fx-font-weight: bold;");
-        continueButton.setOnAction(new ButtonContinueForPreparationHandler(stage, playerName, hand, discardPile, deck, onContinue));
+        continueButton.setOnAction(new ButtonContinueForPreparationHandler(playerName, hand, discardPile, deck, onContinue));
 
         screenPreparation.getChildren().addAll(labelTurn, continueButton);
-        stage.setScene(new Scene(screenPreparation, 1000, 700));
+        
+        getChildren().add(screenPreparation);
+    }
+
+    // Backward compatibility method
+    public static StackPane createPreparationView(
+            String playerName,
+            Hand hand,
+            DiscardPile discardPile,
+            Deck deck,
+            Runnable onContinue
+    ) {
+        return new PlayerPreparationView(playerName, hand, discardPile, deck, onContinue);
+    }
+
+    // Keep the old method for backward compatibility
+    public static void show(
+            Stage stage,
+            String playerName,
+            Hand hand,
+            DiscardPile discardPile,
+            Deck deck,
+            Runnable onContinue
+    ) {
+        PlayerPreparationView preparationView = new PlayerPreparationView(playerName, hand, discardPile, deck, onContinue);
+        stage.setScene(new javafx.scene.Scene(preparationView, 1000, 700));
         stage.setFullScreen(true);
     }
 }

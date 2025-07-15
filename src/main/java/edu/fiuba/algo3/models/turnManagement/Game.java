@@ -6,7 +6,7 @@ import edu.fiuba.algo3.models.sections.SpecialZone;
 public class Game {
     private final Player player1;
     private final Player player2;
-    private SpecialZone specialZone;
+    private final SpecialZone specialZone;
     private Round currentRound;
 
     public Game(Player player1, Player player2, SpecialZone specialZone) {
@@ -26,8 +26,7 @@ public class Game {
     }
 
     public boolean gameFinished() {
-        int totalRoundsPlayed = player1.getRoundsWon() + player2.getRoundsWon();
-        return player1.hasWonGame() || player2.hasWonGame() || totalRoundsPlayed == 2;
+        return player1.hasWonGame() || player2.hasWonGame();
     }
 
     public Player gameWinner() {
@@ -43,10 +42,6 @@ public class Game {
         player2.discardAllRows();
     }
 
-    public boolean bothPlayersWonARound() {
-        return player1.getRoundsWon() == 1 && player2.getRoundsWon() == 1 && gameFinished();
-    }
-
     public Round getCurrentRound() {
         return currentRound;
     }
@@ -55,10 +50,11 @@ public class Game {
         return this.getCurrentRound().getCurrentPlayer().getHand();
     }
 
-    public Player getCurrentPlayer(){
+    public Player getCurrentPlayer() {
         return this.getCurrentRound().getCurrentPlayer();
     }
-    public Player getOpponentPlayer(){
+
+    public Player getOpponentPlayer() {
         return this.getCurrentRound().getOpponent();
     }
 }

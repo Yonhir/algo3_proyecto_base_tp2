@@ -1,8 +1,11 @@
 package edu.fiuba.algo3.views.components;
 
+import edu.fiuba.algo3.views.components.cardcomponent.card.UICard;
 import edu.fiuba.algo3.views.components.cardlist.UIHand;
 import edu.fiuba.algo3.views.components.cardlist.UIRow;
 import javafx.scene.layout.VBox;
+
+import java.util.List;
 
 public class CenterColumn extends VBox {
     // Layout constants
@@ -100,4 +103,15 @@ public class CenterColumn extends VBox {
             handContainer
         );
     }
-} 
+
+    public void setHandEnabled(boolean enabled) {
+        UIHandList.setDisable(!enabled);
+    }
+
+
+    public List<UIRow> getUIRows() { return List.of(opponentCloseCombat,opponentRanged, opponentSiege, playerCloseCombat, playerRanged, playerSiege); }
+
+    public List<UICard> getUICards() { return UIHandList.getCards(); }
+
+    public UIHand getUIHand() { return UIHandList; }
+}

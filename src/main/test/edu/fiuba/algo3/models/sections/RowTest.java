@@ -206,4 +206,22 @@ public class RowTest {
 
         assertEquals(esperadas, obtenidas);
     }
+
+    @Test
+    public void testHaveSamePlayerColorRetornaTrueCuandoLaCartaTieneElMismoColor() {
+        Unit unidad = new Unit("unidad", "descripción", 5, new CloseCombatType(), List.of());
+        unidad.setColor(new Blue());
+        closeCombat.setColor(new Blue());
+
+        assertTrue(closeCombat.haveSamePlayerColor(unidad));
+    }
+
+    @Test
+    public void testHaveSamePlayerColorRetornaFalseCuandoLaCartaTieneColorDiferente() {
+        Unit unidad = new Unit("unidad", "descripción", 5, new CloseCombatType(), List.of());
+        unidad.setColor(new Red());
+        ranged.setColor(new Blue());
+
+        assertFalse(ranged.haveSamePlayerColor(unidad));
+    }
 }

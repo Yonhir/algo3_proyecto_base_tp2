@@ -20,4 +20,9 @@ public class Medic implements Modifier{
         catch (NotUnitCardError e){
         }
     }
+    
+    @Override
+    public String getDescription() {
+        return "Médico: Revive una carta de unidad del cementerio";
+    }
 }
