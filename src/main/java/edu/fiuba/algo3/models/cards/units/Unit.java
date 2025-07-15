@@ -102,4 +102,9 @@ public class Unit extends Card {
     public boolean samePointsAs(Unit card) {
         return this.currentPoints == card.calculatePoints();
     }
+
+    public SectionType getSectionType() {
+        return sectionTypes.get(0);
+    }
 }
+

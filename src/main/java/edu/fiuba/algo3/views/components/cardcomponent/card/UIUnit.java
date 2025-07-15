@@ -2,7 +2,18 @@ package edu.fiuba.algo3.views.components.cardcomponent.card;
 
 import edu.fiuba.algo3.models.Observable;
 import edu.fiuba.algo3.models.cards.units.Unit;
+import edu.fiuba.algo3.models.sections.types.SectionType;
 import edu.fiuba.algo3.views.components.PointsCircle;
+
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
+import javafx.scene.layout.StackPane;
+
+import java.io.InputStream;
+
+
 
 public class UIUnit extends UICard {
     // Circle positioning constants
@@ -11,6 +22,8 @@ public class UIUnit extends UICard {
     private static final double INITIAL_TRANSLATE_Y = -45;
     private static final double SCALED_TRANSLATE_X_RATIO = 0.3;
     private static final double SCALED_TRANSLATE_Y_RATIO = 0.35;
+    private static final double ICON_SIZE_RATIO = 0.30;
+    private ImageView sectionIcon;
     
     private PointsCircle pointsCircle;
     private int points;
@@ -20,6 +33,7 @@ public class UIUnit extends UICard {
         this.model = unit;
         this.points = unit.calculatePoints();
         setupPointsDisplay();
+        setupSectionIcon(unit.getSectionType());
         subscribeToModel();
     }
     
@@ -78,5 +92,29 @@ public class UIUnit extends UICard {
         double translateY = -newHeight * SCALED_TRANSLATE_Y_RATIO;
         pointsCircle.setTranslateX(translateX);
         pointsCircle.setTranslateY(translateY);
+
+        double iconSize = Math.min(newWidth, newHeight) * ICON_SIZE_RATIO;
+        sectionIcon.setFitWidth(iconSize);
+        sectionIcon.setFitHeight(iconSize);
+        sectionIcon.setLayoutX(newWidth - iconSize - 10);
+        sectionIcon.setLayoutY(10);
     }
+    private void setupSectionIcon(SectionType type) {
+        InputStream iconStream = SectionTypeIconMapper.getIconStream(type);
+        if (iconStream == null) return;
+
+        Image icon = new Image(iconStream);
+        sectionIcon = new ImageView(icon);
+
+        double iconSize = Math.min(getPrefWidth(), getPrefHeight()) * ICON_SIZE_RATIO;
+        sectionIcon.setFitWidth(iconSize);
+        sectionIcon.setFitHeight(iconSize);
+
+        StackPane.setAlignment(sectionIcon, Pos.TOP_RIGHT);
+        StackPane.setMargin(sectionIcon, new Insets(5, 5, 0, 0));
+
+        getChildren().add(sectionIcon);
+    }
+
 }
+
